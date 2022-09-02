@@ -5,3 +5,4 @@
 - https://opendata.guru/govdata/get/govdata-sparql-countdatasets.php
 - https://opendata.guru/govdata/get/govdata-sparql-countdistributiondatasets.php
 - https://opendata.guru/govdata/get/govdata-ckan.php
+- https://opendata.guru/govdata/get/govdata-dcatapde.php

@@ -2,3 +2,4 @@
 
 - https://opendata.guru/govdata/get/govdata-startpage.php
 - https://opendata.guru/govdata/get/govdata-datapage.php
+- https://opendata.guru/govdata/get/govdata-sparql-countdatasets.php

@@ -1,7 +1,7 @@
 <?php
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET');
-    header("Access-Control-Allow-Headers: X-Requested-With");
+    header('Access-Control-Allow-Headers: X-Requested-With');
 
     $html = file_get_contents('https://www.govdata.de/web/guest/daten');
 

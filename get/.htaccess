@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^(.+)\.svg$ $1.svg.php [L]

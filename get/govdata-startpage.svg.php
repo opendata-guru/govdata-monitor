@@ -9,11 +9,9 @@
 
 	$top = 'GovData hat';
 	$bottom = 'Datensätze';
-	$image = '
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="156"
-   height="180">
+	$image = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+	viewBox="0 0 156 180">
   <g id="g10" transform="matrix(1.25,0,0,-1.25,0,180)" style="line-height:1.25;font-family:Arial;fill:#ffffff">
     <path id="path3176" style="fill:#40a000" d="M 62.4,72 0,108 l 0,0 62.4,36 c 0,0 0.02874,-71.999977 0,-72 z" />
     <path id="path3178" style="fill:#44aa00" d="m 62.399973,72 62.399997,36 0,0 -62.399997,36 c -0.300945,0 -0.298879,-71.999977 0,-72 z" />
@@ -32,9 +30,7 @@
 	  ${bottom}
     </text>
   </g>
-</svg>
-
-';
+</svg>';
 
 	if ($count >= 1000) {
 		$count = substr_replace($count, '.', strlen($count) - 3, 0);
@@ -43,5 +39,7 @@
 	$output = str_replace('${top}', $top, $image);
 	$output = str_replace('${count}', $count, $output);
 	$output = str_replace('${bottom}', $bottom, $output);
+
+	header('Content-Type: image/svg+xml');
 	echo $output;
 ?>

@@ -61,5 +61,5 @@
 	$output = str_replace('${bottom}', $bottom, $output);
 
 	header('Content-Type: image/svg+xml');
-	echo $output;
+  echo $output;
 ?>

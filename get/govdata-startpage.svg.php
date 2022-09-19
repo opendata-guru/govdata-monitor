@@ -61,5 +61,6 @@
 	$output = str_replace('${bottom}', $bottom, $output);
 
 	header('Content-Type: image/svg+xml');
+	header('Cache-Control: max-age=43200');
 	echo $output;
 ?>

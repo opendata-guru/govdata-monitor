@@ -7,7 +7,7 @@
 	$count = ob_get_contents();
 	ob_end_clean();
 
-	$top = 'CKAN hat';
+	$top = 'CKAN zählt';
 	$bottom = 'Datensätze';
 	$image = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <svg

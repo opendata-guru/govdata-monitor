@@ -15,3 +15,15 @@
 
 Get a list of all contributors and some more meta data:
 https://opendata.guru/govdata/get/ckan-organizations.php
+
+## Ideas
+
+### Organisations
+
+- start with GovData (or data.europe.eu ?)
+- get a list of all organisations (data providers)
+  - the CKAN endpoint for organisations count the datasets
+  - classify the data provider per hand (other portal, municipal unit, museum, ...)
+  - go to the origial portal / website and count the datasets (if possible)
+    - get a list of all organisations ...
+    - check for recursion!!!

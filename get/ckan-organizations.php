@@ -28,12 +28,18 @@
 		global $mapping, $uriDomain;
 
 		$obj['contributor'] = '';
+		$obj['type'] = '';
+		$obj['link'] = '';
 
 		foreach($mapping as $line) {
 			if ($line[0] == $obj['uri']) {
 				$obj['contributor'] = $line[2];
+				$obj['type'] = $line[3];
+				$obj['link'] = $line[4];
 			} else if ($line[0] == ($uriDomain . '|' . $obj['name'])) {
 				$obj['contributor'] = $line[2];
+				$obj['type'] = $line[3];
+				$obj['link'] = $line[4];
 			}
 		}
 

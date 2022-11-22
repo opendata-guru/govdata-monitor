@@ -16,6 +16,10 @@
 Get a list of all contributors and some more meta data:
 https://opendata.guru/govdata/get/ckan-organizations.php
 
+And service endpoints:
+
+- https://opendata.guru/govdata/service/get-and-store-ckan-organizations.php
+
 ## Ideas
 
 ### Organisations

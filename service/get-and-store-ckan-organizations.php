@@ -4,6 +4,25 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
+	$filePath = '../assets/organizations.temp.json';
+
+	function getWorkingData() {
+		global $filePath;
+
+		$data = json_decode(file_get_contents($filePath));
+
+		if (is_null($data)) {
+			$data = array();
+		}
+		return $data;
+	}
+
+	function setWorkingData($data) {
+		global $filePath;
+
+		file_put_contents($filePath, json_encode($data));
+	}
+
 	function getCKANData() {
 		$uri = '../get/ckan-organizations.php';
 
@@ -22,20 +41,18 @@
 			'created' => '',
 			'packages' => '',
 			'contributor' => '',
-			'type' => 'start',
+			'type' => 'root',
 			'link' => 'https://ckan.govdata.de/api/3/action/organization_list',
 		);
 
 		return $data;
 	}
 
-	function getWorkingData() {
-		$workingFile = '../assets/organizationa.temp.json';
-		$data = json_decode(file_get_contents($workingFile));
+	function getNextData($data) {
+/*		$data[] = array(
+			'id' => 'next',
+		);*/
 
-		if (is_null($data)) {
-			$data = getStartData();
-		}
 		return $data;
 	}
 
@@ -43,8 +60,12 @@
 //	var_dump($data);
 
 	$data = getWorkingData();
-	var_dump($data);
+	if (empty($data)) {
+		$data = getStartData();
+	} else {
+		$data = getNextData($data);
+	}
+	setWorkingData($data);
 
-$data = 'hello world';
-	echo json_encode($data);
+	var_dump($data);
 ?>

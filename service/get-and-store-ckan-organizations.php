@@ -48,16 +48,43 @@
 		return $data;
 	}
 
-	function getNextData($data) {
-/*		$data[] = array(
-			'id' => 'next',
-		);*/
+	function getLinkData($data, $link) {
+		$processData = getCKANData($link);
+
+		foreach($processData as $newOrga) {
+			$found = false;
+			foreach($data as $existingOrga) {
+				if ($newOrga->id == $existingOrga->id) {
+					$found = true;
+					break;
+				}
+			}
+
+			if ($found == false) {
+				$data[] = $newOrga;
+			}
+		}
 
 		return $data;
 	}
 
-//	$data = getCKANData();
-//	var_dump($data);
+	function getNextData($data) {
+		foreach ($data as &$organization) {
+			$link = $organization->link;
+			$linkTimestamp = $organization->linkTimestamp;
+
+			if (!empty($link) && is_null($linkTimestamp)) {
+				$now = microtime(true);
+				$data = getLinkData($data, $link);
+				$organization->linkDuration = round(microtime(true) - $now, 3);
+				$organization->linkTimestamp = date("Y-m-d H:i:s");
+
+				return $data;
+			}
+		}
+
+		return $data;
+	}
 
 	$data = getWorkingData();
 	if (empty($data)) {

@@ -4,10 +4,13 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	$filePath = '../assets/organizations.temp.json';
+	$filePath = '../assets/data-' . date('Y') . '/' . date('Y-m-d') . '-organizations.json';
 
 	function getWorkingData() {
 		global $filePath;
+
+		$dir = dirname($filePath);
+		mkdir($dir, 0777, true);
 
 		$data = json_decode(file_get_contents($filePath));
 
@@ -23,8 +26,22 @@
 		file_put_contents($filePath, json_encode($data));
 	}
 
-	function getCKANData() {
-		$uri = '../get/ckan-organizations.php';
+	function getCKANData($link) {
+		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
+		var_dump($uri);
+		$uri = dirname(dirname($uri));
+		$uri .= '/get/ckan-organizations.php?link=' . urlencode($link);
+		var_dump($uri);
+
+		ob_start();
+		include $uri;
+		var_dump(json_decode(ob_get_clean()));
+
+//		$uri = '../get/ckan-organizations.php';
+		$uri = '../get/ckan-organizations.php?link=' . urlencode($link);
+		var_dump($uri);
+
+		$_GET['link']=$link;
 
 		ob_start();
 		include $uri;
@@ -50,6 +67,7 @@
 
 	function getLinkData($data, $link) {
 		$processData = getCKANData($link);
+		var_dump($processData);
 
 		foreach($processData as $newOrga) {
 			$found = false;
@@ -76,8 +94,8 @@
 			if (!empty($link) && is_null($linkTimestamp)) {
 				$now = microtime(true);
 				$data = getLinkData($data, $link);
-				$organization->linkDuration = round(microtime(true) - $now, 3);
-				$organization->linkTimestamp = date("Y-m-d H:i:s");
+//				$organization->linkDuration = round(microtime(true) - $now, 3);
+//				$organization->linkTimestamp = date('Y-m-d H:i:s');
 
 				return $data;
 			}
@@ -87,12 +105,20 @@
 	}
 
 	$data = getWorkingData();
+	$dataHash = md5(serialize($data));
+
 	if (empty($data)) {
 		$data = getStartData();
 	} else {
 		$data = getNextData($data);
 	}
-	setWorkingData($data);
 
-	var_dump($data);
+	if ($dataHash == md5(serialize($data))) {
+		echo 'No updates';
+		var_dump($data);
+	} else {
+		setWorkingData($data);
+
+		var_dump($data);
+	}
 ?>

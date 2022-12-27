@@ -102,6 +102,13 @@
 		return $data;
 	}
 
+	function sortArray($a, $b) {
+		if ($a->packages == $b->packages) {
+			return 0;
+		}
+		return ($a->packages > $b->packages) ? -1 : 1;
+	}
+
 	$data = getWorkingData();
 	$dataHash = md5(serialize($data));
 
@@ -110,6 +117,7 @@
 	} else {
 		$data = getNextData($data);
 	}
+	usort($data, 'sortArray');
 
 	if ($dataHash == md5(serialize($data))) {
 		echo 'No updates';

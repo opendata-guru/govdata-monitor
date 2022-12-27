@@ -26,26 +26,24 @@
 		file_put_contents($filePath, json_encode($data));
 	}
 
+	function curl($url) {
+		$curl = curl_init($url);
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+		$ret = curl_exec($curl);
+		curl_close($curl);
+
+		return $ret;
+	}
+
 	function getCKANData($link) {
 		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
-		var_dump($uri);
 		$uri = dirname(dirname($uri));
 		$uri .= '/get/ckan-organizations.php?link=' . urlencode($link);
-		var_dump($uri);
 
-		ob_start();
-		include $uri;
-		var_dump(json_decode(ob_get_clean()));
-
-//		$uri = '../get/ckan-organizations.php';
-		$uri = '../get/ckan-organizations.php?link=' . urlencode($link);
-		var_dump($uri);
-
-		$_GET['link']=$link;
-
-		ob_start();
-		include $uri;
-		return json_decode(ob_get_clean());
+		$data = curl($uri);
+		return json_decode($data);
 	}
 
 	function getStartData() {
@@ -94,8 +92,8 @@
 			if (!empty($link) && is_null($linkTimestamp)) {
 				$now = microtime(true);
 				$data = getLinkData($data, $link);
-//				$organization->linkDuration = round(microtime(true) - $now, 3);
-//				$organization->linkTimestamp = date('Y-m-d H:i:s');
+				$organization->linkDuration = round(microtime(true) - $now, 3);
+				$organization->linkTimestamp = date('Y-m-d H:i:s');
 
 				return $data;
 			}
@@ -115,7 +113,6 @@
 
 	if ($dataHash == md5(serialize($data))) {
 		echo 'No updates';
-		var_dump($data);
 	} else {
 		setWorkingData($data);
 

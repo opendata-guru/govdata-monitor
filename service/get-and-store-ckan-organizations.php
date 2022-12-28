@@ -65,7 +65,6 @@
 
 	function getLinkData($data, $link) {
 		$processData = getCKANData($link);
-		var_dump($processData);
 
 		foreach($processData as $newOrga) {
 			$found = false;
@@ -104,7 +103,10 @@
 
 	function sortArray($a, $b) {
 		if ($a->packages == $b->packages) {
-			return 0;
+			if ($a->title == $b->title) {
+				return 0;
+			}
+			return ($a->title < $b->title) ? -1 : 1;
 		}
 		return ($a->packages > $b->packages) ? -1 : 1;
 	}
@@ -120,10 +122,10 @@
 	usort($data, 'sortArray');
 
 	if ($dataHash == md5(serialize($data))) {
-		echo 'No updates';
+		echo json_encode(array('result' => 'done'));
 	} else {
 		setWorkingData($data);
 
-		var_dump($data);
+		echo json_encode(array('result' => 'in progress'));
 	}
 ?>

@@ -4,14 +4,6 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	function str_ends_with_($haystack, $needle) {
-		$length = strlen($needle);
-		if (!$length) {
-			return true;
-		}
-		return substr($haystack, -$length) === $needle;
-	}
-
 	$orgaListSuffix = '/api/3/action/organization_list';
 	$orgaShowSuffix = '/api/3/action/organization_show?id=';
 

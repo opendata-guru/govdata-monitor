@@ -27,8 +27,10 @@
 	}
 
 	if (call('get-and-store-ckan-organizations.php')) {
-		echo json_encode(array('result' => 'done'));
-		return;
+		if (call('get-and-store-ckan-dataset-counts.php')) {
+			echo json_encode(array('result' => 'done'));
+			return;
+		}
 	}
 
 	echo json_encode(array('result' => 'in progress'));

@@ -1,7 +1,7 @@
-id,title,uri,type,link
-http://dcat-ap.de/def/contributors/schleswigHolstein,Schleswig-Holstein,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,state,https://opendata.schleswig-holstein.de/api/3/action/organization_list
-offenedaten.aachen.de|gemeinde-roetgen,Roetgen,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340024024,municipality,
-offenedaten.aachen.de|gemeinde-heerlen,Heerlen,https://www.heerlen.nl,municipality,
-offenedaten.aachen.de|gemeinde-simmerath,Simmerath,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340028028,municipality,
-opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,AWSH - Abfallwirtschaft Südholstein GmbH,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,dumping,
-opendata.schleswig-holstein.de|amt-suederbrarup,Amt Süderbrarup,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010595974,collectiveMunicipality,
+id,title,uri,type,wikidata,link
+http://dcat-ap.de/def/contributors/schleswigHolstein,Schleswig-Holstein,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,state,Q1194,https://opendata.schleswig-holstein.de/api/3/action/organization_list
+offenedaten.aachen.de|gemeinde-roetgen,Roetgen,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340024024,municipality,Q200743,
+offenedaten.aachen.de|gemeinde-heerlen,Heerlen,https://www.heerlen.nl,municipality,Q9799,
+offenedaten.aachen.de|gemeinde-simmerath,Simmerath,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340028028,municipality,Q200836,
+opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,AWSH - Abfallwirtschaft Südholstein GmbH,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,dumping,,
+opendata.schleswig-holstein.de|amt-suederbrarup,Amt Süderbrarup,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010595974,collectiveMunicipality,Q316729,

@@ -57,6 +57,7 @@
 			'packages' => '',
 			'contributor' => '',
 			'type' => 'root',
+			'wikidata' => 'Q59273239',
 			'link' => 'https://ckan.govdata.de/api/3/action/organization_list',
 		);
 

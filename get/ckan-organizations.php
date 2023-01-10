@@ -41,17 +41,20 @@
 
 		$obj['contributor'] = '';
 		$obj['type'] = '';
+		$obj['wikidata'] = '';
 		$obj['link'] = '';
 
 		foreach($mapping as $line) {
 			if ($line[0] == $obj['uri']) {
 				$obj['contributor'] = $line[2];
 				$obj['type'] = $line[3];
-				$obj['link'] = $line[4];
+				$obj['wikidata'] = $line[4];
+				$obj['link'] = $line[5];
 			} else if ($line[0] == ($uriDomain . '|' . $obj['name'])) {
 				$obj['contributor'] = $line[2];
 				$obj['type'] = $line[3];
-				$obj['link'] = $line[4];
+				$obj['wikidata'] = $line[4];
+				$obj['link'] = $line[5];
 			}
 		}
 
@@ -76,30 +79,4 @@
 	}
 
 	echo json_encode($data);
-
-/*	id: "c6f6f6ba-93ab-40ed-8dcf-62d1b678260f"
-	name: "auswaertiges-amt"
-	title: "Auswärtiges Amt"
-	display_name: "Auswärtiges Amt"
-	created: "2020-06-11T10:43:29.894113"
-	package_count: 7
-	approval_status: "approved"
-	description: ""
-	image_display_url: ""
-	image_url: ""
-	is_organization: true
-	num_followers: 0
-	state: "active"
-	type: "organization"
-	extras: {
-		{
-			group_id: "c6f6f6ba-93ab-40ed-8dcf-62d1b678260f"
-			id: "a479c82c-b3bd-48ed-9cd6-4c4a11e39571"
-			key: "contributorID"
-			state: "active"
-			value: "["http://dcat-ap.de/def/contributors/auswaertigesAmt"]"
-		}
-	}
-	tags: array(0)
-	groups: array(0) */
 ?>

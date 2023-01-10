@@ -46,11 +46,13 @@
 
 		foreach($mapping as $line) {
 			if ($line[0] == $obj['uri']) {
+				$obj['title'] = $line[1];
 				$obj['contributor'] = $line[2];
 				$obj['type'] = $line[3];
 				$obj['wikidata'] = $line[4];
 				$obj['link'] = $line[5];
 			} else if ($line[0] == ($uriDomain . '|' . $obj['name'])) {
+				$obj['title'] = $line[1];
 				$obj['contributor'] = $line[2];
 				$obj['type'] = $line[3];
 				$obj['wikidata'] = $line[4];

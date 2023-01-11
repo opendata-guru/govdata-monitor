@@ -6,4 +6,6 @@ offenedaten.aachen.de|gemeinde-simmerath,Simmerath,https://registry.gdi-de.org/i
 opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,AWSH - Abfallwirtschaft Südholstein GmbH,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,dumping,,
 opendata.schleswig-holstein.de|amt-suederbrarup,Amt Süderbrarup,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010595974,collectiveMunicipality,Q316729,
 opendata.schleswig-holstein.de|statistikamt-nord,Statistikamt Nord,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,statisticaloffice,Q15130249,
-http://dcat-ap.de/def/contributors/transparenzportalHamburg,Hamburg,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/02,state,Q59273672,https://suche.transparenz.hamburg.de/api/3/action/organization_list
+http://dcat-ap.de/def/contributors/transparenzportalHamburg,Hamburg,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/02,state,Q1055,https://suche.transparenz.hamburg.de/api/3/action/organization_list
+http://dcat-ap.de/def/contributors/landBrandenburg,Brandenburg,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/12,state,Q1208,
+http://dcat-ap.de/def/contributors/openNRW,Nordrhein-Westfalen,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/05,state,Q1198,https://ckan.open.nrw.de/api/3/action/organization_list

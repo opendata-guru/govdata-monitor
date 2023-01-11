@@ -64,16 +64,6 @@
 		return $data;
 	}
 
-	function sortArray($a, $b) {
-		if ($a->packages == $b->packages) {
-			if ($a->title == $b->title) {
-				return 0;
-			}
-			return ($a->title < $b->title) ? -1 : 1;
-		}
-		return ($a->packages > $b->packages) ? -1 : 1;
-	}
-
 	$data = getWorkingData();
 	$dataHash = md5(serialize($data));
 
@@ -84,7 +74,9 @@
 	} else {
 		$data = getNextData($data);
 	}
-	usort($data, 'sortArray');
+
+	// do not sort (a second time)
+	//usort($data, 'sortArray');
 
 	if ($dataHash == md5(serialize($data))) {
 		echo json_encode(array('result' => 'done'));

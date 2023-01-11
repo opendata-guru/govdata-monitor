@@ -55,6 +55,8 @@
 			'title' => 'GovData',
 			'created' => '',
 			'packages' => '',
+			'packagesInId' => '',
+			'packagesInPortal' => '',
 			'contributor' => '',
 			'type' => 'root',
 			'wikidata' => 'Q59273239',
@@ -64,11 +66,14 @@
 		return $data;
 	}
 
-	function getLinkData($data, $link) {
+	function getLinkData($data, $link, $portalId, $portalTitle) {
 		$processData = getCKANData($link);
 
 		foreach($processData as $newOrga) {
+			$newOrga->packagesInId = $portalId;
+			$newOrga->packagesInPortal = $portalTitle;
 			$found = false;
+
 			foreach($data as $existingOrga) {
 				if ($newOrga->id == $existingOrga->id) {
 					$found = true;
@@ -91,7 +96,7 @@
 
 			if (!empty($link) && is_null($linkTimestamp)) {
 				$now = microtime(true);
-				$data = getLinkData($data, $link);
+				$data = getLinkData($data, $link, $organization->id, $organization->title);
 				$organization->linkDuration = round(microtime(true) - $now, 3);
 				$organization->linkTimestamp = date('Y-m-d H:i:s');
 
@@ -105,7 +110,10 @@
 	function sortArray($a, $b) {
 		if ($a->packages == $b->packages) {
 			if ($a->title == $b->title) {
-				return 0;
+				if ($a->id == $b->id) {
+					return 0;
+				}
+				return ($a->id < $b->id) ? -1 : 1;
 			}
 			return ($a->title < $b->title) ? -1 : 1;
 		}

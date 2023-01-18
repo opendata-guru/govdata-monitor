@@ -14,6 +14,9 @@
 
 ## More endpoints
 
+A monitoring dashboard:
+https://opendata.guru/govdata/index.html
+
 Get a list of all contributors and some more meta data:
 https://opendata.guru/govdata/get/ckan-organizations.php
 

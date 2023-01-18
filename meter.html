@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="assets/icon-48x48.png" />
+
+	<title>GovData Monitor</title>
+
+	<link href="assets/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<style>
+		.honey-image {
+			height: 9rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+		        	<span class="align-middle">GovData Monitor</span>
+		        </a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Pages
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="index.html">
+							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+			            </a>
+					</li>
+
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="meter.html">
+							<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Meter</span>
+			            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="catalogs.html">
+							<i class="align-middle" data-feather="grid"></i> <span class="align-middle">Catalogs</span>
+			            </a>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+					<i class="hamburger align-self-center"></i>
+		        </a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3"><strong>Open Data</strong> Meter</h1>
+
+					<div class="row">
+						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0">GovData Portal</h5>
+								</div>
+								<div class="card-body px-4">
+									<div style="height:9rem;">
+										<img src="https://opendata.guru/govdata/get/govdata-startpage.svg" class="honey-image">
+										<img src="https://opendata.guru/govdata/get/govdata-datapage.svg" class="honey-image">
+										<img src="https://opendata.guru/govdata/get/govdata-dcatapde.svg" class="honey-image">
+										<img src="https://opendata.guru/govdata/get/govdata-ckan.svg" class="honey-image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">GovData #1</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Info box on start page
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">GovData #2</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Data counter on data page
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">DCAT-AP.de</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Total items count of pagination info in DCAT-AP.de endpoint
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">CKAN</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Length of the dataset list on CKAN package_list endpoint
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0">GovData Triplestore</h5>
+								</div>
+								<div class="card-body px-4">
+									<div style="height:9rem;">
+										<img src="https://opendata.guru/govdata/get/govdata-sparql-countdistributiondatasets.svg" class="honey-image">
+										<img src="https://opendata.guru/govdata/get/govdata-sparql-countdatasets.svg" class="honey-image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">SPARQL distributions</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Result of the SPARQL query 'distributions'
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">SPARQL dataset</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Result of the SPARQL query 'dataset'
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0">European OpenData Portal</h5>
+								</div>
+								<div class="card-body px-4">
+									<div style="height:9rem;">
+										<img src="https://opendata.guru/govdata/get/eudata-datapage.svg" class="honey-image">
+										<img src="https://opendata.guru/govdata/get/eudata-statistics.svg" class="honey-image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">Datasets</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Data counter for GovData on EU data portal
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">Last Month</h5>
+										</div>
+									</div>
+									<div class="mb-0">
+										<span class="text-muted">
+											Data counter for GovData on the EU data portal statistic page (updated monthly)
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							Made by Thomas Tursics
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="https://www.tursics.de/imprint" target="_blank">Imprint</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="assets/app.js"></script>
+</body>
+
+</html>

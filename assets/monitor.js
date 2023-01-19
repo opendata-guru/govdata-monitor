@@ -14,20 +14,21 @@ function monitorGetCatalogTableRow(data) {
     var str = '';
     var id = data.name ? data.name : '';
     var packageId = data.packagesInId ? data.packagesInId : '';
+    var link = data.datasetCount ? ' <button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + id + '\')">Look into</button>' : '';
 
     if (packageId !== monitor.displayCatalogId) {
         return '';
     }
 
 //    str += '<td>' + (data.type ? data.type : '') + '</td>';
-    str += '<td><span title="' + id + '">' + (data.title ? data.title : '') + '</span></td>';
+    str += '<td><span title="' + id + '">' + (data.title ? data.title : '') + link + '</span></td>';
 //    str += '<td>' + (data.link ? data.link : '') + '</td>';
 
     str += '<td class="text-end">' + formatNumber(data.packages ? data.packages : 0) + '</td>';
 //    str += '<td><span title="' + packageId + '">' + (data.packagesInPortal ? data.packagesInPortal : '') + '</span></td>';
     str += '<td class="text-end"><span class="badge bg-info">' + formatNumber(data.datasetCount ? data.datasetCount : '') + '</span></td>';
 
-    return '<tr id="' + id + '">' + str + '</tr>';
+    return '<tr>' + str + '</tr>';
 }
 
 function monitorUpdateCatalogTable() {
@@ -58,9 +59,33 @@ function monitorSetDate(date) {
 function monitorSetCatalog(catalogId) {
     monitor.displayCatalogId = catalogId;
 
+    window.scrollTo(0, 0);
+
+    var data = monitor.data[monitor.displayDate];
     var text = '';
-    text += '<span class="text-muted">Show catalog</span>';
-    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + monitor.displayCatalogId + ' </span>';
+    var strCatalog = monitor.displayCatalogId;
+    var strParent = '';
+    var strParentId = '';
+
+    if (data) {
+        data.forEach((row) => {
+            if (row.id === monitor.displayCatalogId) {
+                strCatalog = row.title;
+                strParent = row.packagesInPortal;
+                strParentId = row.packagesInId;
+            }
+        });
+    }
+
+    text += '<span class="text-muted">Showing catalog</span>';
+    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strCatalog + ' </span>';
+
+    if (strParentId !== '') {
+        text += '<br>';
+        text += '<span class="text-muted">Show parent catalog</span>';
+        text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strParent + ' </span>';
+        text += '<button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + strParentId + '\')">Look into</button>';
+    }
 
     document.getElementById('display-catalog').innerHTML = text;
 
@@ -105,6 +130,7 @@ function monitorProcessNextData(data) {
     monitor.data[monitor.nextDate] = data;
 
     monitorSetDate(monitor.nextDate);
+    monitorSetCatalog('govdata.de'); // <-  this is a hack
     monitorShowNextDateDone();
 }
 

@@ -12,7 +12,8 @@ function monitorGetCatalogTableRow(data) {
     }
 
     var str = '';
-    var id = data.name ? data.name : '';
+//    var name = data.name ? data.name : '';
+    var id = data.id ? data.id : '';
     var packageId = data.packagesInId ? data.packagesInId : '';
     var link = data.datasetCount ? ' <button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + id + '\')">Look into</button>' : '';
 
@@ -77,12 +78,12 @@ function monitorSetCatalog(catalogId) {
         });
     }
 
-    text += '<span class="text-muted">Showing catalog</span>';
+    text += '<span class="text-muted">Show catalog</span>';
     text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strCatalog + ' </span>';
 
     if (strParentId !== '') {
         text += '<br>';
-        text += '<span class="text-muted">Show parent catalog</span>';
+        text += '<span class="text-muted">Parent catalog:</span>';
         text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strParent + ' </span>';
         text += '<button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + strParentId + '\')">Look into</button>';
     }
@@ -121,11 +122,11 @@ function monitorShowNextDateDone() {
 }
 
 function monitorProcessNextData(data) {
-    data.forEach(item => {
+/*    data.forEach(item => {
         if (item.id === monitor.displayCatalogId) {
             console.log(item);
         }
-    });
+    }); */
 
     monitor.data[monitor.nextDate] = data;
 

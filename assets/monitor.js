@@ -6,12 +6,36 @@ var monitor = {
     nextUri: '',
 };
 
+function monitorGetCatalogTableRow(data) {
+    function formatNumber(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    var str = '';
+    var id = data.name ? data.name : '';
+    var packageId = data.packagesInId ? data.packagesInId : '';
+
+    if (packageId !== monitor.displayCatalogId) {
+        return '';
+    }
+
+//    str += '<td>' + (data.type ? data.type : '') + '</td>';
+    str += '<td><span title="' + id + '">' + (data.title ? data.title : '') + '</span></td>';
+//    str += '<td>' + (data.link ? data.link : '') + '</td>';
+
+    str += '<td class="text-end">' + formatNumber(data.packages ? data.packages : 0) + '</td>';
+//    str += '<td><span title="' + packageId + '">' + (data.packagesInPortal ? data.packagesInPortal : '') + '</span></td>';
+    str += '<td class="text-end"><span class="badge bg-info">' + formatNumber(data.datasetCount ? data.datasetCount : '') + '</span></td>';
+
+    return '<tr id="' + id + '">' + str + '</tr>';
+}
+
 function monitorUpdateCatalogTable() {
     var data = monitor.data[monitor.displayDate];
     var table = '';
 
     if (data) {
-        console.log(data);
+        data.forEach((row) => table += monitorGetCatalogTableRow(row));
     } else {
         table += '<tr><td>No data available</td></tr>';
     }
@@ -77,6 +101,9 @@ function monitorProcessNextData(data) {
             console.log(item);
         }
     });
+
+    monitor.data[monitor.nextDate] = data;
+
     monitorSetDate(monitor.nextDate);
     monitorShowNextDateDone();
 }

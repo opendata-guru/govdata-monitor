@@ -1,4 +1,6 @@
 var monitor = {
+    chartHistory: null,
+    chartHistoryDays: 14,
     chartPie: null,
     data: [],
     displayCatalogId: '',
@@ -31,6 +33,95 @@ function monitorGetCatalogTableRow(data) {
     str += '<td class="text-end"><span class="badge bg-info">' + formatNumber(data.datasetCount ? data.datasetCount : '') + '</span></td>';
 
     return '<tr>' + str + '</tr>';
+}
+
+function monitorGetDatasetCountByDate(dateString) {
+    var data = monitor.data[dateString];
+    var count = 0;
+
+    if (data) {
+        data.forEach((row) => {
+            if (row.id === monitor.displayCatalogId) {
+                count = row.datasetCount;
+            }
+        });
+    }
+
+    return count;
+}
+
+function monitorUpdateCatalogLineChart() {
+    var ctx = document.getElementById('dataset-history').getContext('2d');
+    var stepSize = 25000;
+    var labels = [];
+    var data = [];
+    var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+    gradient.addColorStop(0, 'rgba(215, 227, 244, 1)');
+    gradient.addColorStop(1, 'rgba(215, 227, 244, 0)');
+
+    var date = new Date(Date(monitor.displayDate));
+    for (d = 0; d < monitor.chartHistoryDays; ++d) {
+        labels.unshift(date.toISOString().split('T')[0]);
+        data.unshift(monitorGetDatasetCountByDate(date.toISOString().split('T')[0]));
+
+        date.setDate(date.getDate() - 1);
+    }
+
+    var historyData = {
+        labels: labels,
+        datasets: [{
+            label: 'Datasets',
+            fill: true,
+            backgroundColor: gradient,
+            borderColor: window.theme.primary,
+            data: data
+        }]
+    };
+
+    if (monitor.chartHistory !== null) {
+        monitor.chartHistory.data = historyData;
+        monitor.chartHistory.update();
+    } else {
+        monitor.chartHistory = new Chart(document.getElementById('dataset-history'), {
+            type: 'line',
+            data: historyData,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    intersect: false
+                },
+                hover: {
+                    intersect: true
+                },
+                plugins: {
+                    filler: {
+                        propagate: false
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        reverse: true,
+                        gridLines: {
+                            color: 'transparent'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            stepSize: stepSize
+                        },
+                        display: true,
+                        borderDash: [3, 3],
+                        gridLines: {
+                            color: 'transparent'
+                        }
+                    }]
+                }
+            }
+        });
+    }
 }
 
 function monitorUpdateCatalogPieChart() {
@@ -106,6 +197,7 @@ function monitorUpdateCatalogTable() {
     document.getElementById('supplier-table').innerHTML = table;
 
     monitorUpdateCatalogPieChart();
+    monitorUpdateCatalogLineChart();
 }
 
 function monitorSetDate(date) {
@@ -195,9 +287,22 @@ function monitorProcessNextData(data) {
 
     monitor.data[monitor.nextDate] = data;
 
-    monitorSetDate(monitor.nextDate);
-    monitorSetCatalog('govdata.de'); // <-  this is a hack
-    monitorShowNextDateDone();
+    if (Object.keys(monitor.data).length === 1) {
+        monitorSetDate(monitor.nextDate);
+        monitorSetCatalog('govdata.de'); // <-  this is a hack
+    }
+    if (Object.keys(monitor.data).length < monitor.chartHistoryDays) {
+        var date = new Date(monitor.nextDate);
+        date.setDate(date.getDate() - 1);
+
+        monitorSetNextDate(date); 
+
+        monitorShowNextDate();
+        monitorLoadNextDate();
+    } else {
+        monitorShowNextDateDone();
+        monitorUpdateCatalogLineChart();
+    }
 }
 
 function monitorLoadNextDate() {
@@ -214,7 +319,6 @@ function monitorLoadNextDate() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-//    monitorSetNextDate(new Date(Date.now() - 5 * 24 * 60 * 60 * 1000));
     monitorSetNextDate(new Date(Date.now()));
     monitorSetCatalog('govdata.de');
 

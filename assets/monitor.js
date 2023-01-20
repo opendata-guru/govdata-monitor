@@ -1,4 +1,5 @@
 var monitor = {
+    chartPie: null,
     data: [],
     displayCatalogId: '',
     displayDate: '',
@@ -32,6 +33,66 @@ function monitorGetCatalogTableRow(data) {
     return '<tr>' + str + '</tr>';
 }
 
+function monitorUpdateCatalogPieChart() {
+    var data = monitor.data[monitor.displayDate];
+    var labels = [];
+    var counts = [];
+    var slices = 8;
+
+    if (data) {
+        data.forEach((row) => {
+            if (row.packagesInId === monitor.displayCatalogId) {
+                if (labels.length < slices) {
+                    labels.push(row.title);
+                    counts.push(row.packages);
+                } else if (labels.length === slices) {
+                    labels.push('other');
+                    counts.push(row.packages);
+                } else {
+                    counts[slices] += row.packages;
+                }
+            }
+        });
+    }
+
+    var pieData = {
+        labels: labels,
+        datasets: [{
+            data: counts,
+            backgroundColor: [
+                '#e6261f',
+                '#eb7532',
+                '#f7d038',
+                '#a3e048',
+                '#49da9a',
+                '#34bbe6',
+                '#4355db',
+                '#d23be7',
+                window.theme.secondary
+            ],
+            borderWidth: 5
+        }]
+    };
+
+    if (monitor.chartPie !== null) {
+        monitor.chartPie.data = pieData;
+        monitor.chartPie.update();
+    } else {
+        monitor.chartPie = new Chart(document.getElementById('supplier-pie'), {
+            type: 'pie',
+            data: pieData,
+            options: {
+                responsive: !window.MSInputMethodContext,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 10
+            }
+        });
+    }
+}
+
 function monitorUpdateCatalogTable() {
     var data = monitor.data[monitor.displayDate];
     var table = '';
@@ -43,6 +104,8 @@ function monitorUpdateCatalogTable() {
     }
 
     document.getElementById('supplier-table').innerHTML = table;
+
+    monitorUpdateCatalogPieChart();
 }
 
 function monitorSetDate(date) {

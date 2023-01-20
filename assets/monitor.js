@@ -130,6 +130,7 @@ function monitorSetCatalog(catalogId) {
     var strCatalog = monitor.displayCatalogId;
     var strParent = '';
     var strParentId = '';
+    var strDatasetCount = '';
 
     if (data) {
         data.forEach((row) => {
@@ -137,12 +138,13 @@ function monitorSetCatalog(catalogId) {
                 strCatalog = row.title;
                 strParent = row.packagesInPortal;
                 strParentId = row.packagesInId;
+                strDatasetCount = row.datasetCount;
             }
         });
     }
 
     text += '<span class="text-muted">Show catalog</span>';
-    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strCatalog + ' </span>';
+    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strCatalog + ' <span class="ms-2 badge bg-danger">' + strDatasetCount + ' datasets</span></span>';
 
     if (strParentId !== '') {
         text += '<br>';

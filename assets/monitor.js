@@ -1,6 +1,6 @@
 var monitor = {
     chartHistory: null,
-    chartHistoryDays: 14,
+    chartHistoryDays: 30,
     chartPie: null,
     data: [],
     displayCatalogId: '',
@@ -37,7 +37,7 @@ function monitorGetCatalogTableRow(data) {
 
 function monitorGetDatasetCountByDate(dateString) {
     var data = monitor.data[dateString];
-    var count = 0;
+    var count = undefined;
 
     if (data) {
         data.forEach((row) => {
@@ -50,7 +50,7 @@ function monitorGetDatasetCountByDate(dateString) {
     return count;
 }
 
-function monitorUpdateCatalogLineChart() {
+function monitorUpdateCatalogHistoryChart() {
     var ctx = document.getElementById('dataset-history').getContext('2d');
     var stepSize = 25000;
     var labels = [];
@@ -197,7 +197,7 @@ function monitorUpdateCatalogTable() {
     document.getElementById('supplier-table').innerHTML = table;
 
     monitorUpdateCatalogPieChart();
-    monitorUpdateCatalogLineChart();
+    monitorUpdateCatalogHistoryChart();
 }
 
 function monitorSetDate(date) {
@@ -291,18 +291,14 @@ function monitorProcessNextData(data) {
         monitorSetDate(monitor.nextDate);
         monitorSetCatalog('govdata.de'); // <-  this is a hack
     }
-    if (Object.keys(monitor.data).length < monitor.chartHistoryDays) {
-        var date = new Date(monitor.nextDate);
-        date.setDate(date.getDate() - 1);
 
-        monitorSetNextDate(date); 
+    var date = new Date(monitor.nextDate);
+    date.setDate(date.getDate() - 1);
 
-        monitorShowNextDate();
-        monitorLoadNextDate();
-    } else {
-        monitorShowNextDateDone();
-        monitorUpdateCatalogLineChart();
-    }
+    monitorSetNextDate(date); 
+
+    monitorShowNextDate();
+    monitorLoadNextDate();
 }
 
 function monitorLoadNextDate() {
@@ -312,6 +308,9 @@ function monitorLoadNextDate() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             monitorProcessNextData(JSON.parse(this.responseText));
+        } else if (this.readyState == 4) {
+            monitorShowNextDateDone();
+            monitorUpdateCatalogHistoryChart();
         }
     }
 

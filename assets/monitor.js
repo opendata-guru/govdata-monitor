@@ -212,40 +212,58 @@ function monitorSetDate(date) {
     monitorUpdateCatalogTable();
 }
 
+function monitorGetCatalogById(id) {
+    var data = monitor.data[monitor.displayDate];
+    var obj = undefined; 
+
+    if (data && id) {
+        data.forEach((row) => {
+            if (row.id === id) {
+                obj = row;
+            }
+        });
+    }
+
+    return obj;
+}
+
 function monitorSetCatalog(catalogId) {
     monitor.displayCatalogId = catalogId;
 
     window.scrollTo(0, 0);
 
-    var data = monitor.data[monitor.displayDate];
     var text = '';
+    var catalog = monitorGetCatalogById(monitor.displayCatalogId);
     var strCatalog = monitor.displayCatalogId;
-    var strParent = '';
-    var strParentId = '';
     var strDatasetCount = '';
 
-    if (data) {
-        data.forEach((row) => {
-            if (row.id === monitor.displayCatalogId) {
-                strCatalog = row.title;
-                strParent = row.packagesInPortal;
-                strParentId = row.packagesInId;
-                strDatasetCount = row.datasetCount;
-            }
-        });
+    if (catalog) {
+        strCatalog = catalog.title;
+        strDatasetCount = catalog.datasetCount;
     }
 
-    text += '<span class="text-muted">Show catalog</span>';
-    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strCatalog + ' <span class="ms-2 badge bg-danger">' + strDatasetCount + ' datasets</span></span>';
-
-    if (strParentId !== '') {
-        text += '<br>';
-        text += '<span class="text-muted">Parent catalog:</span>';
-        text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strParent + ' </span>';
-        text += '<button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + strParentId + '\')">Look into</button>';
-    }
+    text += '<span class="text-muted">' + strCatalog + ' has</span>';
+    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strDatasetCount + ' datasets</span>';
 
     document.getElementById('display-catalog').innerHTML = text;
+
+    function getBreadcrumb(id) {
+        var breadcrumb = '';
+        var catalog = monitorGetCatalogById(id);
+
+        if (catalog) {
+            breadcrumb += getBreadcrumb(catalog.packagesInId);
+            if (id === monitor.displayCatalogId) {
+                breadcrumb += ' &gt; ' + catalog.title;
+            } else {
+                breadcrumb += ' &gt; <a class="text-primary" onclick="monitorSetCatalog(\'' + id + '\')">' + catalog.title + '</a>';
+            }
+        }
+
+        return breadcrumb;
+    }
+
+    document.getElementById('breadcrumb').innerHTML = getBreadcrumb(monitor.displayCatalogId);
 
     monitorUpdateCatalogTable();
 }

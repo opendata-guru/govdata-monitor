@@ -3,6 +3,8 @@ var monitor = {
     chartHistoryDays: 30,
     chartPie: null,
     data: [],
+    datepicker: null,
+    datepickerSelection: [],
     displayCatalogId: '',
     displayDate: '',
     nextDate: '',
@@ -13,25 +15,35 @@ function monitorFormatNumber(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
-function monitorGetCatalogTableRow(data) {
-
+function monitorGetCatalogTableRow(arrayData, id) {
+    var showBadge = arrayData.length === 1;
     var str = '';
-//    var name = data.name ? data.name : '';
-    var id = data.id ? data.id : '';
-    var packageId = data.packagesInId ? data.packagesInId : '';
-    var link = data.datasetCount ? ' <button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + id + '\')">Look into</button>' : '';
+    var title = '';
+    var link = '';
+    var assertion = '';
 
-    if (packageId !== monitor.displayCatalogId) {
-        return '';
-    }
+    arrayData.forEach(processData => {
+        var data = processData.filter(item => item.id === id);
+        if (data.length > 0) {
+            title = data[0].title ? data[0].title : title;
+            link = data[0].datasetCount ? ' <button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + id + '\')">Look into</button>' : link;
 
-//    str += '<td>' + (data.type ? data.type : '') + '</td>';
-    str += '<td><span title="' + id + '">' + (data.title ? data.title : '') + link + '</span></td>';
-//    str += '<td>' + (data.link ? data.link : '') + '</td>';
+            str += '<td class="text-end">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
+            if (showBadge) {
+                str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data[0].datasetCount ? data[0].datasetCount : '') + '</span></td>';
+            }
+            if (data.length > 1) {
+                assertion += '<span class="badge bg-danger">' + data.length + '</span>';
+            }
+        } else {
+            str += '<td class="text-end">-</td>';
+            if (showBadge) {
+                str += '<td class="text-end"></td>';
+            }
+        }
+    });
 
-    str += '<td class="text-end">' + monitorFormatNumber(data.packages ? data.packages : 0) + '</td>';
-//    str += '<td><span title="' + packageId + '">' + (data.packagesInPortal ? data.packagesInPortal : '') + '</span></td>';
-    str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data.datasetCount ? data.datasetCount : '') + '</span></td>';
+    str = '<td><span title="' + id + '">' + title + link + assertion + '</span></td>' + str;
 
     return '<tr>' + str + '</tr>';
 }
@@ -186,15 +198,37 @@ function monitorUpdateCatalogPieChart() {
 }
 
 function monitorUpdateCatalogTable() {
-    var data = monitor.data[monitor.displayDate];
+    var arrayData = [];
+    var arrayIds = [];
+    var header = '';
     var table = '';
 
-    if (data) {
-        data.forEach((row) => table += monitorGetCatalogTableRow(row));
+    header += '<th>Data Supplier</th>';
+    for (d = 0; d < monitor.datepickerSelection.length; ++d) {
+        arrayData.push(monitor.data[monitor.datepickerSelection[d]]);
+        header += '<th>' + monitor.datepickerSelection[d] + '</th>';
+
+        arrayData[arrayData.length - 1].forEach((row) => {
+            var packageId = row.packagesInId ? row.packagesInId : '';
+            if (packageId === monitor.displayCatalogId) {
+                if (arrayIds.indexOf(row.id) < 0) {
+                    arrayIds.push(row.id);
+                }
+            }
+        });
+    }
+    if (arrayData.length === 1) {
+        header += '<th>In source portal</th>';
+    }
+    header = '<tr>' + header + '</tr>';
+
+    if (arrayIds.length > 0) {
+        arrayIds.forEach((id) => table += monitorGetCatalogTableRow(arrayData, id));
     } else {
         table += '<tr><td>No data available</td></tr>';
     }
 
+    document.getElementById('supplier-table-header').innerHTML = header;
     document.getElementById('supplier-table').innerHTML = table;
 
     monitorUpdateCatalogPieChart();
@@ -210,6 +244,7 @@ function monitorSetDate(date) {
 
     document.getElementById('display-date').innerHTML = text;
 
+    monitorUpdateCalendar();
     monitorUpdateCatalogTable();
 }
 
@@ -267,6 +302,7 @@ function monitorSetCatalog(catalogId) {
 
     document.getElementById('breadcrumb').innerHTML = getBreadcrumb(monitor.displayCatalogId);
 
+    monitorUpdateCalendar();
     monitorUpdateCatalogTable();
 }
 
@@ -326,11 +362,47 @@ function monitorLoadNextDate() {
             monitorProcessNextData(JSON.parse(this.responseText));
         } else if (this.readyState == 4) {
             monitorShowNextDateDone();
+            monitorUpdateCalendar();
             monitorUpdateCatalogHistoryChart();
         }
     }
 
     xhr.send();
+}
+
+function initCalendar() {
+    var maxDate = new Date(Date.now());
+
+    monitor.datepicker = document.getElementById('table-datepicker').flatpickr({
+        conjunction: '|',
+        defaultDate: [],
+        dateFormat: "Y-m-d",
+        inline: true,
+        maxDate: maxDate,
+        mode: 'multiple',
+        nextArrow: '<span title="Next month">&raquo;</span>',
+        prevArrow: '<span title="Previous month">&laquo;</span>',
+
+        enable: [function(date){
+            var dateString = date.toISOString().split('T')[0];
+            return monitor.data[dateString] !== undefined;
+        }],
+    });
+    monitor.datepicker.config.onChange.push(function(selectedDates, dateStr, instance) {
+        var dateArray = dateStr.split('|');
+        dateArray.sort();
+        monitor.datepickerSelection = dateStr.length === 0 ? [] : dateArray;
+
+        monitorUpdateCatalogTable();
+    });
+}
+
+function monitorUpdateCalendar() {
+    if (monitor.datepicker === null) {
+        return;
+    }
+
+    monitor.datepicker.setDate(monitor.displayDate, true);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -339,4 +411,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     monitorShowNextDate();
     monitorLoadNextDate();
+
+    initCalendar();
 });

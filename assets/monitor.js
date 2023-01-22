@@ -9,10 +9,11 @@ var monitor = {
     nextUri: '',
 };
 
+function monitorFormatNumber(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 function monitorGetCatalogTableRow(data) {
-    function formatNumber(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    }
 
     var str = '';
 //    var name = data.name ? data.name : '';
@@ -28,9 +29,9 @@ function monitorGetCatalogTableRow(data) {
     str += '<td><span title="' + id + '">' + (data.title ? data.title : '') + link + '</span></td>';
 //    str += '<td>' + (data.link ? data.link : '') + '</td>';
 
-    str += '<td class="text-end">' + formatNumber(data.packages ? data.packages : 0) + '</td>';
+    str += '<td class="text-end">' + monitorFormatNumber(data.packages ? data.packages : 0) + '</td>';
 //    str += '<td><span title="' + packageId + '">' + (data.packagesInPortal ? data.packagesInPortal : '') + '</span></td>';
-    str += '<td class="text-end"><span class="badge bg-info">' + formatNumber(data.datasetCount ? data.datasetCount : '') + '</span></td>';
+    str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data.datasetCount ? data.datasetCount : '') + '</span></td>';
 
     return '<tr>' + str + '</tr>';
 }
@@ -242,10 +243,11 @@ function monitorSetCatalog(catalogId) {
         strDatasetCount = catalog.datasetCount;
     }
 
-    text += '<span class="text-muted">' + strCatalog + ' has</span>';
-    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + strDatasetCount + ' datasets</span>';
-
+    text += strCatalog + ' have ' + '<strong>' + monitorFormatNumber(strDatasetCount) + '</strong> datasets';
     document.getElementById('display-catalog').innerHTML = text;
+
+    text = strCatalog + ' History';
+    document.getElementById('history-title').innerHTML = text;
 
     function getBreadcrumb(id) {
         var breadcrumb = '';
@@ -278,22 +280,18 @@ function monitorSetNextDate(date) {
 
 function monitorShowNextDate() {
     var text = '';
-    text += '<span class="text-muted">Load data from</span>';
-    text += '<span class="text-warning"> <i class="mdi mdi-arrow-bottom-right"></i> ' + monitor.nextDate + ' </span>';
+    text += '<span class="text-secondary">Loading data ... </span>';
+    text += '<span class="text-info"> <i class="mdi mdi-arrow-bottom-right"></i> ' + monitor.nextDate + ' </span>';
 
     document.getElementById('loading-description').innerHTML = text;
-    document.getElementById('loading-icon-progress').style.display = 'block';
-    document.getElementById('loading-icon-done').style.display = 'none';
+
+    document.getElementsByClassName('card-breadcrumb-and-catalog-title')[0].style.display = 'none';
+    document.getElementsByClassName('card-loading')[0].style.display = 'block';
 }
 
 function monitorShowNextDateDone() {
-    var text = '';
-    text += '<span class="text-muted">Loading data </span>';
-    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> done </span>';
-
-    document.getElementById('loading-description').innerHTML = text;
-    document.getElementById('loading-icon-progress').style.display = 'none';
-    document.getElementById('loading-icon-done').style.display = 'block';
+    document.getElementsByClassName('card-loading')[0].style.display = 'none';
+    document.getElementsByClassName('card-breadcrumb-and-catalog-title')[0].style.display = 'block';
 }
 
 function monitorProcessNextData(data) {

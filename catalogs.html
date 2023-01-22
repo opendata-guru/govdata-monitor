@@ -45,7 +45,7 @@
 
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="catalogs.html">
-							<i class="align-middle" data-feather="grid"></i> <span class="align-middle">Catalogs</span>
+							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Catalogs</span>
 			            </a>
 					</li>
 
@@ -73,58 +73,47 @@
 					<div class="row">
 						<div class="col-12">
 
-							<div class="card">
+							<div class="card card-breadcrumb-and-catalog-title" style="display: none;">
 								<div class="card-body">
 									<div class="text-secondary">
 										<i class="text-secondary align-top me-1" data-feather="home"></i>
-										<span id="breadcrumb"></span>
+										<span class="me-4" id="breadcrumb"></span>
+										<span class="float-end text-secondary" id="display-catalog">&nbsp;</span>
 									</div>
 								</div>
 							</div>
-
-						</div>
-						<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-6">
 
 							<div class="card card-loading">
 								<div class="card-body">
-									<div class="row">
-										<div class="col mt-0">
-											<h5 class="card-title">Loading</h5>
-										</div>
-
-										<div class="col-auto">
-											<div class="stat text-primary">
-												<i class="align-middle" data-feather="rotate-cw" id="loading-icon-progress" style="display: none"></i>
-												<i class="align-middle" data-feather="check" id="loading-icon-done" style="display: none"></i>
-											</div>
-										</div>
+									<div class="text-secondary">
+										<i class="text-secondary align-top me-1 rotate" data-feather="loader"></i>
+										<span id="loading-description"></span>
 									</div>
-									<div class="mb-0" id="loading-description">&nbsp;</div>
 								</div>
 							</div>
 
 						</div>
-						<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-6">
+					</div>
 
-							<div class="card card-selected-catalog">
-								<div class="card-body">
-									<div class="row">
-										<div class="col mt-0">
-											<h5 class="card-title">Catalog</h5>
-										</div>
+					<div class="row">
+						<div class="col-12">
 
-										<div class="col-auto">
-											<div class="stat text-primary">
-												<i class="align-middle" data-feather="package"></i>
-											</div>
-										</div>
+							<div class="card card-dataset-history flex-fill w-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0" id="history-title">30 Days History</h5>
+								</div>
+								<div class="card-body py-3">
+									<div class="chart chart-sm">
+										<canvas id="dataset-history"></canvas>
 									</div>
-									<div class="mb-0" id="display-catalog">&nbsp;</div>
 								</div>
 							</div>
 
 						</div>
-						<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-6">
+					</div>
+
+					<div class="row">
+						<div class="col-6">
 
 							<div class="card card-selected-date">
 								<div class="card-body">
@@ -142,31 +131,8 @@
 									<div class="mb-0" id="display-date">&nbsp;</div>
 								</div>
 							</div>
-						</div>
-					</div>
 
-					<div class="row">
-						<div class="col-12">
-
-							<div class="card card-dataset-history flex-fill w-100">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">30 Days History</h5>
-								</div>
-								<div class="card-body py-3">
-									<div class="chart chart-sm">
-										<canvas id="dataset-history"></canvas>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-6">
-
-							<div class="card flex-fill">
+							<div class="card flex-fill d-none">
 								<div class="card-header">
 
 									<h5 class="card-title mb-0">Calendar</h5>

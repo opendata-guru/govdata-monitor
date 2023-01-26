@@ -21,25 +21,34 @@ function monitorGetCatalogTableRow(arrayData, id) {
     var title = '';
     var link = '';
     var assertion = '';
+    var lastCount = undefined;
 
     arrayData.forEach(processData => {
         var data = processData.filter(item => item.id === id);
         if (data.length > 0) {
+            var currentCount = parseInt(data[0].packages ? data[0].packages : 0, 10);
+            var addClass = '';
             title = data[0].title ? data[0].title : title;
             link = data[0].datasetCount ? ' <button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + id + '\')">Look into</button>' : link;
 
-            str += '<td class="text-end">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
+            if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {
+                addClass = ' bg-warning';
+            }
+            str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
+
             if (showBadge) {
                 str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data[0].datasetCount ? data[0].datasetCount : '') + '</span></td>';
             }
             if (data.length > 1) {
                 assertion += '<span class="badge bg-danger">' + data.length + '</span>';
             }
+            lastCount = currentCount;
         } else {
             str += '<td class="text-end">-</td>';
             if (showBadge) {
                 str += '<td class="text-end"></td>';
             }
+            lastCount = 0;
         }
     });
 

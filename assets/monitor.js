@@ -9,6 +9,7 @@ var monitor = {
     displayDate: '',
     nextDate: '',
     nextUri: '',
+    showAllPortals: false,
 };
 
 function monitorFormatNumber(x) {
@@ -219,7 +220,7 @@ function monitorUpdateCatalogTable() {
 
         arrayData[arrayData.length - 1].forEach((row) => {
             var packageId = row.packagesInId ? row.packagesInId : '';
-            if (packageId === monitor.displayCatalogId) {
+            if (monitor.showAllPortals || (packageId === monitor.displayCatalogId)) {
                 if (arrayIds.indexOf(row.id) < 0) {
                     arrayIds.push(row.id);
                 }
@@ -404,6 +405,13 @@ function initCalendar() {
 
         monitorUpdateCatalogTable();
     });
+}
+
+function onShowAllPortals() {
+    var cb = document.getElementById('checkbox-show-all-portals');
+    monitor.showAllPortals = cb.checked;
+
+    monitorUpdateCatalogTable();
 }
 
 function monitorUpdateCalendar() {

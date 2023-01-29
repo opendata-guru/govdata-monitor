@@ -14,7 +14,7 @@
 	}
 
 	if ($orgaListSuffix != substr($paramLink, -strlen($orgaListSuffix))) {
-		echo 'Parameter "link" must end wirh "' . $orgaListSuffix . '"';
+		echo 'Parameter "link" must end with "' . $orgaListSuffix . '"';
 		exit;
 	}
 

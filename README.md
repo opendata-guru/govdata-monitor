@@ -18,7 +18,11 @@ A monitoring dashboard:
 https://opendata.guru/govdata/index.html
 
 Get a list of all contributors and some more meta data:
-https://opendata.guru/govdata/get/ckan-organizations.php
+
+- https://opendata.guru/govdata/get/ckan-organizations.php
+- https://opendata.guru/govdata/get/ckan-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
+- https://opendata.guru/govdata/get/ckan-groups.php
+- https://opendata.guru/govdata/get/ckan-groups.php?link=https://offenedaten.kdvz-frechen.de/api/3/action/group_list
 
 And service endpoints:
 
@@ -39,3 +43,70 @@ And service endpoints:
   - go to the origial portal / website and count the datasets (if possible)
     - get a list of all organisations ...
     - check for recursion!!!
+
+### SPARQL
+
+Go to open data portal SPARQL query page:
+
+- learn SPARQL https://data.europa.eu/de/about/sparql
+- https://data.europa.eu/data/sparql?locale=en
+  - endpoint ```https://data.europa.eu/sparql```
+
+Run some queries:
+
+**List 10 datasets**
+
+```
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX odp:  <http://data.europa.eu/euodp/ontologies/ec-odp#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT * WHERE { ?d a dcat:Dataset } LIMIT 10
+```
+
+**Get a list of all catalogues on data.europa.eu**
+
+```
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?parentCatalog ?catalog ?title ?spatial ?typePublisher ?homepage ?email
+WHERE {?catalog ?p ?o.
+FILTER (?o=<http://www.w3.org/ns/dcat#Catalog>)
+OPTIONAL {?catalog <http://purl.org/dc/terms/title> ?title}
+OPTIONAL {?parentCatalog <http://purl.org/dc/terms/hasPart> ?catalog}
+OPTIONAL {?catalog <http://purl.org/dc/terms/spatial> ?spatial.}
+OPTIONAL {?catalog <http://purl.org/dc/terms/publisher> ?publisher.
+OPTIONAL {?publisher <http://xmlns.com/foaf/0.1/homepage> ?homepage.}
+OPTIONAL {?publisher <http://xmlns.com/foaf/0.1/mbox> ?email.}
+OPTIONAL {?publisher <http://purl.org/dc/terms/type> ?typePublisher.}
+}
+}
+ORDER BY DESC (?spatial)
+```
+
+**Publishers by catalogue**
+
+```
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX odp: <http://data.europa.eu/euodp/ontologies/ec-odp#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT DISTINCT ?publisher ?publisherName ?publisherLabel
+WHERE {
+<http://data.europa.eu/88u/catalogue/govdata> a dcat:Catalog;
+dcat:dataset ?datatsetURI.
+?datatsetURI dct:publisher ?publisher.
+OPTIONAL {?publisher foaf:name ?publisherName}
+OPTIONAL {?publisher skos:prefLabel ?publisherLabel}
+}
+LIMIT 25
+```

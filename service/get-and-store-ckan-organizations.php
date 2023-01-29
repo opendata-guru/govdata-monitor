@@ -40,7 +40,13 @@
 	function getCKANData($link) {
 		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
 		$uri = dirname(dirname($uri));
-		$uri .= '/get/ckan-organizations.php?link=' . urlencode($link);
+
+		$groupEndpoint = '/group_list';
+		if (substr($link, -strlen($groupEndpoint)) === $groupEndpoint) {
+			$uri .= '/get/ckan-groups.php?link=' . urlencode($link);
+		} else {
+			$uri .= '/get/ckan-organizations.php?link=' . urlencode($link);
+		}
 
 		$data = curl($uri);
 		return json_decode($data);

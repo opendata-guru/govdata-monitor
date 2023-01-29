@@ -5,7 +5,8 @@
 	header('Content-Type: application/json; charset=utf-8');
 
 	$orgaListSuffix = '/api/3/action/organization_list';
-	$orgaShowSuffix = '/api/3/action/package_search?rows=1&start=0';
+	$groupListSuffix = '/api/3/action/group_list';
+	$packageShowSuffix = '/api/3/action/package_search?rows=1&start=0';
 
 	$paramLink = htmlspecialchars($_GET['link']);
 	if ($paramLink == '') {
@@ -13,13 +14,18 @@
 		exit;
 	}
 
-	if ($orgaListSuffix != substr($paramLink, -strlen($orgaListSuffix))) {
+	if (($orgaListSuffix != substr($paramLink, -strlen($orgaListSuffix))) && ($groupListSuffix != substr($paramLink, -strlen($groupListSuffix)))) {
 		echo 'Parameter "link" must end wirh "' . $orgaListSuffix . '"';
 		exit;
 	}
 
 	$uriCKAN = substr($paramLink, 0, -strlen($orgaListSuffix));
 
-	$json = json_decode(file_get_contents($uriCKAN . $orgaShowSuffix));
-	echo $json->result->count;
+	$json = json_decode(file_get_contents($uriCKAN . $packageShowSuffix));
+
+	if ($json) {
+		echo $json->result->count;
+	} else {
+		echo 'null';
+	}
 ?>

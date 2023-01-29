@@ -23,6 +23,8 @@ Get a list of all contributors and some more meta data:
 - https://opendata.guru/govdata/get/ckan-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/ckan-groups.php
 - https://opendata.guru/govdata/get/ckan-groups.php?link=https://offenedaten.kdvz-frechen.de/api/3/action/group_list
+- https://opendata.guru/govdata/get/ckan-count-datasets.php
+- https://opendata.guru/govdata/get/ckan-count-datasets.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 
 And service endpoints:
 

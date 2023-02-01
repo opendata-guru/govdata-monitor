@@ -94,7 +94,7 @@
 			'name' => $groupID,
 			'title' => $title,
 			'created' => '',
-			'packages' => $packageCount,
+			'packages' => intval($packageCount),
 			'uri' => ''
 		);
 	}

@@ -34,7 +34,7 @@
 		$html = explode(' ', $html);
 		$packageCount = $html[count($html) - 2];
 
-		return $packageCount;
+		return intval($packageCount);
 	}
 
 	if ($orgaListSuffix == substr($paramLink, -strlen($orgaListSuffix))) {

@@ -76,7 +76,7 @@
 			'title' => $json->result->title,
 			'created' => $json->result->created,
 			'packages' => $json->result->package_count,
-			'uri' => $uris[0]
+			'uri' => (!is_null($uris) && is_array($uris)) ? $uris[0] : ''
 		));
 	}
 

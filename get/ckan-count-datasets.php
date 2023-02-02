@@ -7,6 +7,7 @@
 	$orgaListSuffix = '/api/3/action/organization_list';
 	$groupListSuffix = '/api/3/action/group_list';
 	$packageShowSuffix = '/api/3/action/package_search?rows=1&start=0';
+	$packageShowAllSuffix = '/api/3/action/package_search';
 	$countWebsiteSuffix = '/search';
 
 	$paramLink = htmlspecialchars($_GET['link']);
@@ -48,6 +49,12 @@
 	if ($json) {
 		echo $json->result->count;
 	} else {
-		echo scrapeWebsite($uriCKAN);
+		$json = json_decode(file_get_contents($uriCKAN . $packageShowAllSuffix));
+
+		if ($json) {
+			echo $json->result->count;
+		} else {
+			echo scrapeWebsite($uriCKAN);
+		}
 	}
 ?>

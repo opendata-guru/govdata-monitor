@@ -23,7 +23,6 @@ function monitorGetCatalogTableRow(arrayData, id) {
     var showBadge = arrayData.length === 1;
     var str = '';
     var title = '';
-    var link = '';
     var assertion = '';
     var lastCount = undefined;
 
@@ -33,7 +32,10 @@ function monitorGetCatalogTableRow(arrayData, id) {
             var currentCount = parseInt(data[0].packages ? data[0].packages : 0, 10);
             var addClass = '';
             title = data[0].title ? data[0].title : title;
-            link = data[0].datasetCount ? ' <button class="btn btn-secondary btn-sm ms-2" onclick="monitorSetCatalog(\'' + id + '\')">Look into</button>' : link;
+
+            if (data[0].datasetCountDuration) {
+                title = '<a href="#" onclick="monitorSetCatalog(\'' + id + '\')">' + title + '</a>';
+            }
 
             if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {
                 addClass = ' bg-warning';
@@ -56,7 +58,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
         }
     });
 
-    str = '<td><span title="' + id + '">' + title + link + assertion + '</span></td>' + str;
+    str = '<td><span title="' + id + '">' + title + assertion + '</span></td>' + str;
 
     return '<tr>' + str + '</tr>';
 }

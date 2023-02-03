@@ -46,7 +46,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
                 title = '<a href="#" onclick="monitorSetCatalog(\'' + id + '\')">' + title + '</a>';
             }
             if (data[0].packagesInId != monitor.displayCatalogId) {
-                title += ' <span class="badge bg-secondary" disabled>' + getParentTitle(processData, data[0]) + '</span>';
+                title += ' <span class="small text-info"> &larr; ' + getParentTitle(processData, data[0]) + '</span>';
             }
 
             if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {
@@ -249,6 +249,7 @@ function monitorUpdateCatalogTable() {
     var arrayData = [];
     var arrayIds = [];
     var header = '';
+    var footer = '';
     var table = '';
 
     header += '<th>Data Supplier</th>';
@@ -267,15 +268,20 @@ function monitorUpdateCatalogTable() {
     if (arrayData.length === 1) {
         header += '<th>In source portal</th>';
     }
-    header = '<tr>' + header + '</tr>';
 
     if (arrayIds.length > 0) {
         arrayIds.forEach((id) => table += monitorGetCatalogTableRow(arrayData, id));
+        footer += '<th>' + arrayIds.length + ' data suppliers</th>';
     } else {
         table += '<tr><td>No data available</td></tr>';
+        footer += '<th></th>';
     }
 
+    header = '<tr>' + header + '</tr>';
+    footer = '<tr>' + footer + '</tr>';
+
     document.getElementById('supplier-table-header').innerHTML = header;
+    document.getElementById('supplier-table-footer').innerHTML = footer;
     document.getElementById('supplier-table').innerHTML = table;
 
     monitorUpdateCatalogPieChart();

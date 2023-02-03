@@ -12,3 +12,8 @@ http://dcat-ap.de/def/contributors/openNRW,Nordrhein-Westfalen,https://registry.
 ckan.open.nrw.de|offenesdatenportal,Niederrhein,https://www.krzn.de,regionalNetwork,,https://www.offenesdatenportal.de/api/3/action/organization_list
 ckan.open.nrw.de|rhein-erft-rur,Rhein-Erft-Rur,https://kdvz-frechen.de,regionalNetwork,Q6292,https://offenedaten.kdvz-frechen.de/api/3/action/group_list
 ckan.open.nrw.de|rvr,Regionalverband Ruhr,https://opendata.ruhr/,regionalNetwork,Q49849,https://opendata.ruhr/api/3/action/organization_list
+www.offenesdatenportal.de|moers,Moers,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/051700024024,municipality,Q3132,
+opendata.ruhr|moers,Moers,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/051700024024,municipality,Q3132,
+ckan.open.nrw.de|aachen,Aachen (Portal),https://offenedaten.aachen.de/,portal,Q97145394,https://offenedaten.aachen.de/api/3/action/organization_list
+offenedaten.aachen.de|stadt-aachen,Aachen,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340002002,municipality,Q1017,
+offenedaten.aachen.de|stadteregion-aachen,Städteregion Aachen,https://www.staedteregion-aachen.de,regionalNetwork,Q6272,

@@ -9,7 +9,7 @@ var monitor = {
     displayDate: '',
     nextDate: '',
     nextUri: '',
-    showAllPortals: false,
+    showFlatPortals: false,
 };
 
 function monitorFormatNumber(x) {
@@ -20,6 +20,15 @@ function monitorFormatNumber(x) {
 }
 
 function monitorGetCatalogTableRow(arrayData, id) {
+    function getParentTitle(data, item) {
+        var itemParent = data.filter(dataItem => dataItem.id === item.packagesInId);
+        if (itemParent.length > 0) {
+            return itemParent[0].title;
+        }
+
+        return item.packagesInId;
+    }
+
     var showBadge = arrayData.length === 1;
     var str = '';
     var title = '';
@@ -36,6 +45,9 @@ function monitorGetCatalogTableRow(arrayData, id) {
             if (data[0].datasetCountDuration) {
                 title = '<a href="#" onclick="monitorSetCatalog(\'' + id + '\')">' + title + '</a>';
             }
+            if (data[0].packagesInId != monitor.displayCatalogId) {
+                title += ' <span class="badge bg-secondary" disabled>' + getParentTitle(processData, data[0]) + '</span>';
+            }
 
             if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {
                 addClass = ' bg-warning';
@@ -43,7 +55,11 @@ function monitorGetCatalogTableRow(arrayData, id) {
             str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
 
             if (showBadge) {
-                str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data[0].datasetCount ? data[0].datasetCount : '') + '</span></td>';
+                if (data[0].datasetCount) {
+                    str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data[0].datasetCount) + '</span></td>';
+                } else {
+                    str += '<td></td>';
+                }
             }
             if (data.length > 1) {
                 assertion += '<span class="badge bg-danger">' + data.length + '</span>';
@@ -52,7 +68,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
         } else {
             str += '<td class="text-end">-</td>';
             if (showBadge) {
-                str += '<td class="text-end"></td>';
+                str += '<td></td>';
             }
             lastCount = 0;
         }
@@ -213,6 +229,23 @@ function monitorUpdateCatalogPieChart() {
 }
 
 function monitorUpdateCatalogTable() {
+    function isParent(packageId, date) {
+        if (packageId === monitor.displayCatalogId) {
+            return true;
+        }
+        if (monitor.showFlatPortals) {
+            var found = false;
+            monitor.data[date].filter(item => item.id === packageId).forEach((row) => {
+                if (row.packagesInId) {
+                    found |= isParent(row.packagesInId, date);
+                }
+            });
+            return found;
+        }
+
+        return false;
+    }
+
     var arrayData = [];
     var arrayIds = [];
     var header = '';
@@ -224,8 +257,7 @@ function monitorUpdateCatalogTable() {
         header += '<th>' + monitor.datepickerSelection[d] + '</th>';
 
         arrayData[arrayData.length - 1].forEach((row) => {
-            var packageId = row.packagesInId ? row.packagesInId : '';
-            if (monitor.showAllPortals || (packageId === monitor.displayCatalogId)) {
+            if (isParent(row.packagesInId ? row.packagesInId : '', monitor.datepickerSelection[d])) {
                 if (arrayIds.indexOf(row.id) < 0) {
                     arrayIds.push(row.id);
                 }
@@ -412,9 +444,9 @@ function initCalendar() {
     });
 }
 
-function onShowAllPortals() {
-    var cb = document.getElementById('checkbox-show-all-portals');
-    monitor.showAllPortals = cb.checked;
+function onShowFlatPortals() {
+    var cb = document.getElementById('checkbox-show-flat-portals');
+    monitor.showFlatPortals = cb.checked;
 
     monitorUpdateCatalogTable();
 }

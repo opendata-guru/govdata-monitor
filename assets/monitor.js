@@ -20,13 +20,17 @@ function monitorFormatNumber(x) {
 }
 
 function monitorGetCatalogTableRow(arrayData, id) {
-    function getParentTitle(data, item) {
+    function getParentPath(data, item) {
         var itemParent = data.filter(dataItem => dataItem.id === item.packagesInId);
         if (itemParent.length > 0) {
-            return itemParent[0].title;
+            var parent = '';
+            if (itemParent[0].packagesInId != monitor.displayCatalogId) {
+                parent = getParentPath(data, itemParent[0]);
+            }
+            return ' &larr; ' + itemParent[0].title + parent;
         }
 
-        return item.packagesInId;
+        return ' &larr; ' + item.packagesInId;
     }
 
     var showBadge = arrayData.length === 1;
@@ -46,7 +50,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
                 title = '<a href="#" onclick="monitorSetCatalog(\'' + id + '\')">' + title + '</a>';
             }
             if (data[0].packagesInId != monitor.displayCatalogId) {
-                title += ' <span class="small text-info"> &larr; ' + getParentTitle(processData, data[0]) + '</span>';
+                title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
             }
 
             if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {

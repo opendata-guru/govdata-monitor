@@ -26,7 +26,30 @@
 
 	$mappingFile = 'contributor-uri-map.csv';
 	$mappingList = explode("\n", file_get_contents($mappingFile));
+	$mappingHeader = explode(',', $mappingList[0]);
+	$mappingURI = null;
+	$mappingLink = null;
+	$mappingType = null;
+	$mappingTitle = null;
+	$mappingWikidata = null;
+	$mappingContributor = null;
 	$mapping = [];
+
+	for ($m = 0; $m < count($mappingHeader); ++$m) {
+		if ($mappingHeader[$m] === 'id') {
+			$mappingURI = $m;
+		} else if ($mappingHeader[$m] === 'title') {
+			$mappingTitle = $m;
+		} else if ($mappingHeader[$m] === 'uri') {
+			$mappingContributor = $m;
+		} else if ($mappingHeader[$m] === 'type') {
+			$mappingType = $m;
+		} else if ($mappingHeader[$m] === 'wikidata') {
+			$mappingWikidata = $m;
+		} else if ($mappingHeader[$m] === 'link') {
+			$mappingLink = $m;
+		}
+	}
 
 	array_shift($mappingList);
 	foreach($mappingList as $line) {
@@ -38,7 +61,7 @@
 	$data = [];
 
 	function semanticContributor($obj) {
-		global $mapping, $uriDomain;
+		global $mapping, $uriDomain, $mappingURI, $mappingLink, $mappingType, $mappingTitle, $mappingWikidata, $mappingContributor;
 
 		$obj['contributor'] = '';
 		$obj['type'] = '';
@@ -46,18 +69,18 @@
 		$obj['link'] = '';
 
 		foreach($mapping as $line) {
-			if ($line[0] == $obj['uri']) {
-				$obj['title'] = $line[1];
-				$obj['contributor'] = $line[2];
-				$obj['type'] = $line[3];
-				$obj['wikidata'] = $line[4];
-				$obj['link'] = $line[5];
-			} else if ($line[0] == ($uriDomain . '|' . $obj['name'])) {
-				$obj['title'] = $line[1];
-				$obj['contributor'] = $line[2];
-				$obj['type'] = $line[3];
-				$obj['wikidata'] = $line[4];
-				$obj['link'] = $line[5];
+			if ($line[$mappingURI] == $obj['uri']) {
+				$obj['title'] = $line[$mappingTitle];
+				$obj['contributor'] = $line[$mappingContributor];
+				$obj['type'] = $line[$mappingType];
+				$obj['wikidata'] = $line[$mappingWikidata];
+				$obj['link'] = $line[$mappingLink];
+			} else if ($line[$mappingURI] == ($uriDomain . '|' . $obj['name'])) {
+				$obj['title'] = $line[$mappingTitle];
+				$obj['contributor'] = $line[$mappingContributor];
+				$obj['type'] = $line[$mappingType];
+				$obj['wikidata'] = $line[$mappingWikidata];
+				$obj['link'] = $line[$mappingLink];
 			}
 		}
 

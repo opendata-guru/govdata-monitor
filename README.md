@@ -25,6 +25,8 @@ Get a list of all contributors and some more meta data:
 - https://opendata.guru/govdata/get/ckan-groups.php?link=https://offenedaten.kdvz-frechen.de/api/3/action/group_list
 - https://opendata.guru/govdata/get/ckan-count-datasets.php
 - https://opendata.guru/govdata/get/ckan-count-datasets.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
+- https://opendata.guru/govdata/get/adler-count-datasets.php
+- https://opendata.guru/govdata/get/adler-count-datasets.php?link=https://datenadler.de
 
 And service endpoints:
 
@@ -33,6 +35,10 @@ And service endpoints:
 - https://opendata.guru/govdata/service/get-and-store-ckan-dataset-counts.php
 
 (use a cron job service like https://cron-job.org)
+
+Regionalschlüssel:
+
+- https://www.dcat-ap.de/def/politicalGeocoding/regionalKey/
 
 ## Ideas
 

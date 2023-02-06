@@ -35,6 +35,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
 
     var showBadge = arrayData.length === 1;
     var str = '';
+    var icon = '';
     var title = '';
     var assertion = '';
     var lastCount = undefined;
@@ -51,6 +52,25 @@ function monitorGetCatalogTableRow(arrayData, id) {
             }
             if (data[0].packagesInId != monitor.displayCatalogId) {
                 title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
+            }
+
+            if (data[0].type === 'state') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">S</span>';
+            } else if (data[0].type === 'municipality+state') {
+                icon = '<span class="badge bg-warning me-1" title="state">S</span>';
+                icon += '<span class="badge bg-warning me-1" title="municipality">M</span>';
+            } else if (data[0].type === 'municipality') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">M</span>';
+            } else if (data[0].type === 'collectiveMunicipality') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">CM</span>';
+            } else if (data[0].type === 'regionalNetwork') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">N</span>';
+            } else if (data[0].type === 'statisticaloffice') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">O</span>';
+            } else if (data[0].type === 'portal') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">P</span>';
+            } else if (data[0].type === 'dumping') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">D</span>';
             }
 
             if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {
@@ -78,7 +98,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
         }
     });
 
-    str = '<td><span title="' + id + '">' + title + assertion + '</span></td>' + str;
+    str = '<td><span title="' + id + '">' + icon + title + assertion + '</span></td>' + str;
 
     return '<tr>' + str + '</tr>';
 }

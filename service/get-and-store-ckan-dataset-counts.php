@@ -40,7 +40,12 @@
 	function getCKANData($link) {
 		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
 		$uri = dirname(dirname($uri));
-		$uri .= '/get/ckan-count-datasets.php?link=' . urlencode($link);
+
+		if ('https://geoportal.de' === $link) {
+			$uri .= '/get/gdide-count-datasets.php?link=' . urlencode($link);
+		} else {
+			$uri .= '/get/ckan-count-datasets.php?link=' . urlencode($link);
+		}
 
 		$data = curl($uri);
 		return json_decode($data);

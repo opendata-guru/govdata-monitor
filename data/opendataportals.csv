@@ -1,6 +1,6 @@
 title,portal_title,parent_and_id_1,parent_and_id_2,type,url,begin,nuts,ags,rs,gml,wikidata,accountable,email,twitter,facebook,hosting,technology,api,api_list_children,dcat_ap_de,last_check
 Aachen,Aachen,offenedaten.aachen.de|stadt-aachen,,municipality,https://offenedaten.aachen.de/organization/stadt-aachen,,,,053340002002,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340002002,Q1017,,,,,,,,,,2023-02-05
-Aachen (Portal),Aachen,ckan.open.nrw.de|aachen,,portal,https://offenedaten.aachen.de/,,,,,,Q97145394,,offenedaten@mail.aachen.de,https://twitter.com/opendataaachen,,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-02-05
+Aachen (Portal),Aachen,open.nrw|aachen,,portal,https://offenedaten.aachen.de/,,,,,,Q97145394,,offenedaten@mail.aachen.de,https://twitter.com/opendataaachen,,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-02-05
 ,Altenberge,,,municipality,https://www.o-sp.de/altenberge/opendata,,DEA37,05566004,055660004004,,,,,,,,,,,,2021-03-03
 ,Altenburg,,,municipality,https://www.altenburg.eu/sixcms/detail.php?id=139875,,DEG0M,16077001,160770001001,,,,,,,,Website,,,,2019-08-10
 Amt Süderbrarup,Amt Süderbrarup,opendata.schleswig-holstein.de|amt-suederbrarup,,collectiveMunicipality,https://opendata.schleswig-holstein.de/organization/amt-suederbrarup,,,,010595974,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010595974,Q316729,,,,,,,,,,2023-02-05
@@ -130,12 +130,12 @@ Moers,Moers,www.offenesdatenportal.de|moers,opendata.ruhr|moers,municipality,htt
 ,Potsdam,,,municipality,https://opendata.potsdam.de/,2018-01-11,DE404,12054000,120540000000,,,Stefanie Buchta,opendata@rathaus.potsdam.de,,,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,,,2019-07-31
 ,Puderbach,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,DEB18,07138057,071385005057,,,,,,,,,,,,2021-03-03
 ,Recklinghausen,,,municipality,https://opendata.ruhr/organization/recklinghausen,,DEA36,05562032,055620032032,,,,,,,,,,,,2021-03-04
-Regionalverband Ruhr,Regionalverband Ruhr,ckan.open.nrw.de|rvr,,regionalNetwork,https://opendata.ruhr/,,,,,,Q49849,,,,,,,,https://opendata.ruhr/api/3/action/organization_list,,2023-02-05
+Regionalverband Ruhr,Regionalverband Ruhr,open.nrw|rvr,,regionalNetwork,https://opendata.ruhr/,,,,,,Q49849,,,,,,,,https://opendata.ruhr/api/3/action/organization_list,,2023-02-05
 ,Reichenbach-Steegen,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_reichenbach_steegen,,DEB3F,07335501,073355009501,,,,,,,,,,,,2021-03-03
 ,Remagen,,,municipality,https://daten.rlp.de/organization/stadt_remagen,,DEB12,07131070,071310070070,,,,,,,,,,,,2021-03-03
 ,Remscheid,,,municipality,via Musterdatenkatalog Deutschland,,DEA18,05120000,051200000000,,,,,,,,,,,,
 ,Rheda-Wiedenbrück,,,municipality,via Musterdatenkatalog Deutschland,,DEA42,05754028,057540028028,,,,,,,,,,,,
-Rhein-Erft-Rur,Rhein-Erft-Rur,ckan.open.nrw.de|rhein-erft-rur,,regionalNetwork,https://offenedaten.kdvz-frechen.de/,,,,,,Q6292,,,,,,,,https://offenedaten.kdvz-frechen.de/api/3/action/group_list,,2023-02-05
+Rhein-Erft-Rur,Rhein-Erft-Rur,open.nrw|rhein-erft-rur,,regionalNetwork,https://offenedaten.kdvz-frechen.de/,,,,,,Q6292,,,,,,,,https://offenedaten.kdvz-frechen.de/api/3/action/group_list,,2023-02-05
 ,Rheinböllen,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_rheinboellen,,DEB1D,07140125,071405005125,,,,,,,,,,,,2021-03-03
 Roetgen,Roetgen,offenedaten.aachen.de|gemeinde-roetgen,,municipality,https://offenedaten.aachen.de/organization/gemeinde-roetgen,,,,053340024024,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340024024,Q200743,,,,,,,,,,2023-02-05
 ,Rostock,,,municipality,http://www.opendata-hro.de/,,DE803,13003000,130030000000,,,,opendata.hro@rostock.de,,,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,,https://www.opendata-hro.de/catalog.xml,2019-08-04
@@ -201,7 +201,7 @@ Hamburg,Hamburg,http://dcat-ap.de/def/contributors/transparenzportalHamburg,,mun
 ,Landkreis Diepholz,,,district,https://daten.diepholz.de/,,,,,,,,,,,,DKAN,,,,2019-07-29
 ,Landkreis Lüneburg,,,district,https://open.lklg.net/,2016-08-18,DE935,,,,,Hendrik Lampe,opendata@lklg.de,,,,CKAN,https://open.lklg.net/api/3/action/package_list,,,2019-08-04
 ,Märkischer Kreis,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
-Niederrhein,Niederrhein (Region),ckan.open.nrw.de|offenesdatenportal,,regionalNetwork,http://offenesdatenportal.de/,2015-04-16,,,,,,,info@krzn.de,,,,CKAN,https://www.offenesdatenportal.de/api/3/action/package_list,https://www.offenesdatenportal.de/api/3/action/organization_list,https://www.offenesdatenportal.de/catalog.rdf,2023-02-05
+Niederrhein,Niederrhein (Region),open.nrw|offenesdatenportal,,regionalNetwork,http://offenesdatenportal.de/,2015-04-16,,,,,,,info@krzn.de,,,,CKAN,https://www.offenesdatenportal.de/api/3/action/package_list,https://www.offenesdatenportal.de/api/3/action/organization_list,https://www.offenesdatenportal.de/catalog.rdf,2023-02-05
 ,Ortenaukreis,,,district,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,DE134,,,,,,,,,,Website,,,,2019-07-30
 ,Rhein-Kreis Neuss,,,district,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,,,Tobias Schellhorn und Jürgen Brings,digitalisierung@rhein-kreis-neuss.de,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
 ,Baustelleninformationssystem des Bundes und der Länder,,,other,https://www.bast.de/BASt_2017/DE/Fahrzeugtechnik/Fachthemen/Baustelleninformation/baustelleninformation.html,,,,,,,Dr. Lutz Rittershaus,mdm@bast.de,,,Materna Information & Communications SE,Website,,,,2019-07-29

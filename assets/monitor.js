@@ -69,6 +69,8 @@ function monitorGetCatalogTableRow(arrayData, id) {
                 icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">O</span>';
             } else if (data[0].type === 'portal') {
                 icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">P</span>';
+            } else if (data[0].type === 'geoPortal') {
+                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">G</span>';
             } else if (data[0].type === 'dumping') {
                 icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">D</span>';
             }

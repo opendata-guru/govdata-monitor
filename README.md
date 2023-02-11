@@ -27,8 +27,12 @@ Get a list of all contributors and some more meta data:
 - https://opendata.guru/govdata/get/ckan-count-datasets.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/adler-count-datasets.php
 - https://opendata.guru/govdata/get/adler-count-datasets.php?link=https://datenadler.de
+- https://opendata.guru/govdata/get/adler-organizations.php
+- https://opendata.guru/govdata/get/adler-organizations.php?link=https://datenadler.de
 - https://opendata.guru/govdata/get/gdide-count-datasets.php
 - https://opendata.guru/govdata/get/gdide-count-datasets.php?link=https://geoportal.de
+- https://opendata.guru/govdata/get/gdide-organizations.php
+- https://opendata.guru/govdata/get/gdide-organizations.php?link=https://geoportal.de
 
 And service endpoints:
 

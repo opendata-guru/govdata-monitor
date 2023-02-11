@@ -43,6 +43,8 @@
 
 		if ('https://geoportal.de' === $link) {
 			$uri .= '/get/gdide-count-datasets.php?link=' . urlencode($link);
+		} else if ('https://datenadler.de/publisher' === $link) {
+			$uri .= '/get/adler-count-datasets.php?link=' . urlencode($link);
 		} else {
 			$uri .= '/get/ckan-count-datasets.php?link=' . urlencode($link);
 		}

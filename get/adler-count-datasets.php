@@ -4,7 +4,7 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	$adlerSuffix = 'https://datenadler.de';
+	$adlerSuffix = 'https://datenadler.de/publisher';
 	$curl = 'https://flask.datenadler.de/solr_search';
 
 	$paramLink = htmlspecialchars($_GET['link']);
@@ -14,7 +14,7 @@
 	}
 
 	if ($adlerSuffix != substr($paramLink, -strlen($adlerSuffix))) {
-		echo 'Parameter "link" must end wirh "' . $adlerSuffix . '"';
+		echo 'Parameter "link" must end with "' . $adlerSuffix . '"';
 		exit;
 	}
 

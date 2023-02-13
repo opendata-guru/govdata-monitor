@@ -45,6 +45,8 @@
 
 		if ('https://geoportal.de' === $link) {
 			$uri .= '/get/gdide-organizations.php?link=' . urlencode($link);
+		} else if ('https://datenadler.de/publisher' === $link) {
+			$uri .= '/get/adler-organizations.php?link=' . urlencode($link);
 		} else if (substr($link, -strlen($groupEndpoint)) === $groupEndpoint) {
 			$uri .= '/get/ckan-groups.php?link=' . urlencode($link);
 		} else {

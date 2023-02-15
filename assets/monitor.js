@@ -55,16 +55,18 @@ function monitorGetCatalogTableRow(arrayData, id) {
             }
 
             if (data[0].type === 'state') {
-                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">S</span>';
+                icon = '<span class="badge bg-secondary me-1">Land</span>';
             } else if (data[0].type === 'municipality+state') {
-                icon = '<span class="badge bg-warning me-1" title="state">S</span>';
-                icon += '<span class="badge bg-warning me-1" title="municipality">M</span>';
+                icon = '<span class="badge bg-secondary me-1">Land</span>';
+                icon += '<span class="badge bg-secondary me-1">Stadt</span>';
             } else if (data[0].type === 'municipality') {
-                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">M</span>';
+                icon = '<span class="badge bg-secondary me-1">Stadt</span>';
+            } else if (data[0].type === 'federal') {
+                icon = '<span class="badge bg-secondary me-1">Bund</span>';
             } else if (data[0].type === 'collectiveMunicipality') {
                 icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">CM</span>';
             } else if (data[0].type === 'regionalNetwork') {
-                icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">N</span>';
+                icon = '<span class="badge bg-secondary me-1">Region</span>';
             } else if (data[0].type === 'statisticaloffice') {
                 icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">O</span>';
             } else if (data[0].type === 'portal') {

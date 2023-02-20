@@ -4,7 +4,7 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	$searchUri = 'https://www.mcloud.de/web/guest/suche';
+	$searchUri = 'https://www.mcloud.de/web/guest/suche/';
 
 	$paramLink = htmlspecialchars($_GET['link']);
 	if ($paramLink == '') {

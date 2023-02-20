@@ -6,7 +6,7 @@
 		include 'gdide-organizations.php';
 	} else if ('https://datenadler.de/publisher' === $link) {
 		include 'adler-organizations.php';
-	} else if ('https://www.mcloud.de/web/guest/suche' === $link) {
+	} else if ('https://www.mcloud.de/web/guest/suche/' === $link) {
 		include 'mcloud-organizations.php';
 	} else if (substr($link, -strlen($groupEndpoint)) === $groupEndpoint) {
 		include 'ckan-groups.php';

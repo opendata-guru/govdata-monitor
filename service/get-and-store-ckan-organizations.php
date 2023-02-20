@@ -41,17 +41,7 @@
 		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
 		$uri = dirname(dirname($uri));
 
-		$groupEndpoint = '/group_list';
-
-		if ('https://geoportal.de' === $link) {
-			$uri .= '/get/gdide-organizations.php?link=' . urlencode($link);
-		} else if ('https://datenadler.de/publisher' === $link) {
-			$uri .= '/get/adler-organizations.php?link=' . urlencode($link);
-		} else if (substr($link, -strlen($groupEndpoint)) === $groupEndpoint) {
-			$uri .= '/get/ckan-groups.php?link=' . urlencode($link);
-		} else {
-			$uri .= '/get/ckan-organizations.php?link=' . urlencode($link);
-		}
+		$uri .= '/get/list-organizations.php?link=' . urlencode($link);
 
 		$data = curl($uri);
 		return json_decode($data);

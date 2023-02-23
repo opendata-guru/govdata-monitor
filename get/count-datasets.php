@@ -7,6 +7,8 @@
 		include 'adler-count-datasets.php';
 	} else if ('https://www.mcloud.de/web/guest/suche/' === $link) {
 		include 'mcloud-count-datasets.php';
+	} else if ('https://www.opendata.sachsen.de' === $link) {
+		include 'count-datasets/sachsen-count-datasets.php';
 	} else {
 		include 'ckan-count-datasets.php';
 	}

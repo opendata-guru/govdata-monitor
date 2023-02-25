@@ -35,6 +35,7 @@ Get a list of all contributors and some more meta data:
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://offenedaten.kdvz-frechen.de/api/3/action/group_list
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://www.opendata.sachsen.de
+- for bug in NRW: https://opendata.guru/govdata/get/list-organizations/nrw-list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 
 And service endpoints:
 

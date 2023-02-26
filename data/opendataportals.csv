@@ -27,7 +27,7 @@ AWSH - Abfallwirtschaft Südholstein GmbH,AWSH - Abfallwirtschaft Südholstein G
 ,Dedenbach,,,municipality,https://daten.rlp.de/organization/og_dedenbach,,DEB12,07131016,071315004016,,,,,,,,,,,,2021-03-03
 ,Dierdorf,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_dierdorf,,DEB18,07138012,071385003012,,,,,,,,,,,,2021-03-03
 ,Dormagen,,,municipality,https://opendata.dormagen.de,2017-12-07,DEA1D,05162004,051620004004,,,,opendata@stadt-dormagen.de,,,OpenDataSoft,OpenDataSoft,https://opendata.dormagen.de/api/v2/catalog/datasets,,,2019-07-29
-,Dortmund,,,municipality,https://opendata.dortmund.de/,2018-08-23,DEA52,05913000,059130000000,,,,opendata@dortmund.de,,,,Website,,,,2019-08-11
+Dortmund,Dortmund,open.nrw|dortmund,,municipality,https://opendata.dortmund.de/,2018-08-23,,,059130000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/059130000000,Q1295,,opendata@dortmund.de,https://twitter.com/DortmundData,,,Website,,,,2023-02-26
 ,Dresden,,,municipality,https://opendata.dresden.de,,DED21,14612000,146120000000,,,,statistik@dresden.de,,,,DUVA,,,,2019-08-11
 ,Duisburg,,,municipality,https://opendata-duisburg.de/,2019-03-19,DEA12,05112000,051120000000,,,,,,,Stadt Köln,DKAN,https://opendata-duisburg.de/api/3/action/package_list,,https://opendata-duisburg.de/catalog.xml,2019-07-29
 ,Dülmen,,,municipality,https://www.o-sp.de/duelmen/opendata.php,,DEA35,05558016,055580016016,,,,,,,,,,,,2021-03-03

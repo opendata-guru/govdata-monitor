@@ -63,6 +63,8 @@ function monitorGetCatalogTableRow(arrayData, id) {
             } else if (data[0].type === 'municipality+state') {
                 icon = '<span class="badge bg-secondary me-1">Land</span>';
                 icon += '<span class="badge bg-secondary me-1">Stadt</span>';
+            } else if (data[0].type === 'stateAgency') {
+                icon = '<span class="badge bg-secondary me-1">Landesamt</span>';
             } else if (data[0].type === 'municipality') {
                 icon = '<span class="badge bg-secondary me-1">Stadt</span>';
             } else if (data[0].type === 'federal') {

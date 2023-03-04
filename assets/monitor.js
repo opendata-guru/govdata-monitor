@@ -5,8 +5,11 @@ var monitor = {
     data: [],
     datepicker: null,
     datepickerSelection: [],
+    diffThreshold: 100,
     displayCatalogId: '',
     displayDate: '',
+    hideNoDiff: false,
+    markDiff: true,
     nextDate: '',
     nextUri: '',
     showFlatPortals: false,
@@ -39,6 +42,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
     var title = '';
     var assertion = '';
     var lastCount = undefined;
+    var maxDiff = 0;
 
     arrayData.forEach(processData => {
         var data = processData.filter(item => item.id === id);
@@ -77,8 +81,12 @@ function monitorGetCatalogTableRow(arrayData, id) {
                 icon = '<span class="badge bg-warning me-1" title="' + data[0].type + '">D</span>';
             }
 
-            if (((lastCount + 99) < currentCount) || (currentCount < (lastCount - 99))) {
-                addClass = ' bg-warning';
+            if (lastCount) {
+                var diff = Math.abs(lastCount - currentCount);
+                maxDiff = Math.max(maxDiff, diff);
+                if (monitor.markDiff && (diff >= monitor.diffThreshold)) {
+                    addClass = ' bg-warning';
+                }
             }
             str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
 
@@ -101,6 +109,10 @@ function monitorGetCatalogTableRow(arrayData, id) {
             lastCount = 0;
         }
     });
+
+    if (monitor.hideNoDiff && (arrayData.length > 1) && (maxDiff < monitor.diffThreshold)) {
+        return '';
+    }
 
     str = '<td><span title="' + id + '">' + icon + title + assertion + '</span></td>' + str;
 
@@ -481,6 +493,27 @@ function initCalendar() {
 function onShowFlatPortals() {
     var cb = document.getElementById('checkbox-show-flat-portals');
     monitor.showFlatPortals = cb.checked;
+
+    monitorUpdateCatalogTable();
+}
+
+function onDiffThreshold() {
+    var ctrl = document.getElementById('checkbox-diff-threshold');
+    monitor.diffThreshold = ctrl.value;
+
+    monitorUpdateCatalogTable();
+}
+
+function onShowDiffColor() {
+    var cb = document.getElementById('checkbox-show-colored-diff');
+    monitor.markDiff = cb.checked;
+
+    monitorUpdateCatalogTable();
+}
+
+function onHideNoDiff() {
+    var cb = document.getElementById('checkbox-hide-no-diff');
+    monitor.hideNoDiff = cb.checked;
 
     monitorUpdateCatalogTable();
 }

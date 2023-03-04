@@ -128,6 +128,32 @@
 								</div>
 							</div>
 
+							<div class="card card-diff">
+								<div class="card-header">
+									<h5 class="card-title">Difference Options</h5>
+								</div>
+								<div class="card-body d-flex pt-0">
+									<div class="align-self-center w-100">
+										<label class="form-check">
+											<label for="checkbox-diff-threshold">Diff threshold:</label>
+											<input id="checkbox-diff-threshold" class="form-control" style="display: inline; width: 5rem" type="number" value="100" min="1" onchange="onDiffThreshold()">
+										</label>
+										<label class="form-check">
+											<input id="checkbox-show-colored-diff" class="form-check-input" type="checkbox" checked onclick="onShowDiffColor()">
+											<span class="form-check-label">
+												Mark differences
+											</span>
+										</label>
+										<label class="form-check">
+											<input id="checkbox-hide-no-diff" class="form-check-input" type="checkbox" value="" onclick="onHideNoDiff()">
+											<span class="form-check-label">
+												Hide equal lines
+											</span>
+										</label>
+									</div>
+								</div>
+							</div>
+
 							<div class="card card-checkboxes">
 								<div class="card-header">
 									<h5 class="card-title">Checkboxes</h5>

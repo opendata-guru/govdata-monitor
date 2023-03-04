@@ -95,6 +95,10 @@ Heerlen,Heerlen,offenedaten.aachen.de|gemeinde-heerlen,,municipality,https://www
 ,Krefeld,,,municipality,https://www.offenesdatenportal.de/organization/krefeld,2016-01-13,DEA14,05114000,051140000000,,,Florian Reykers,florian.reykers@krefeld.de,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=krefeld,,,2019-03-12
 ,Kreuzau,,,municipality,http://offenedaten.kdvz-frechen.de/group/kreuzau,2016-11-08,DEA26,05358028,053580028028,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Landau,,,municipality,https://daten.rlp.de/organization/stadt_landau,,,,,,,,,,,,,,,,2021-03-03
+Landesamt für Denkmalpflege Schleswig-Holstein,Landesamt für Denkmalpflege,opendata.schleswig-holstein.de|landesamt-fur-denkmalpflege,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesamt-fur-denkmalpflege,,,,,,Q17124210,,,,,,,,,,2023-03-04
+Landesamt für Landwirtschaft， Umwelt und ländliche Räume,Landesamt für Landwirtschaft， Umwelt und ländliche Räume (LLUR),opendata.schleswig-holstein.de|llur,,stateAgency,https://opendata.schleswig-holstein.de/organization/llur,,,,,,Q1802059,,,,,,,,,,2023-03-04
+Landesamt für soziale Dienste,Landesamt für soziale Dienste,opendata.schleswig-holstein.de|landesamt-fur-soziale-dienste,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesamt-fur-soziale-dienste,,,,,,Q1802073,,,,,,,,,,2023-03-04
+Landesmeldestelle Schleswig-Holstein,Landesmeldestelle Schleswig-Holstein,opendata.schleswig-holstein.de|landesmeldestelle,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesmeldestelle,,,,,,,,,,,,,,,,2023-03-04
 ,Langerwehe,,,municipality,http://offenedaten.kdvz-frechen.de/group/langerwehe,2016-11-08,DEA26,05358032,053580032032,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Leipzig,,,municipality,https://opendata.leipzig.de,,DED51,14713000,147130000000,,,,,,,Lecos GmbH,CKAN,https://opendata.leipzig.de/api/3/action/package_list,,,2019-08-10
 ,Lemgo,,,municipality,https://www.o-sp.de/lemgo/opendata,,DEA45,05766044,057660044044,,,,,,,,,,,,2021-03-03

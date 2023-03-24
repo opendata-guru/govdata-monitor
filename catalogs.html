@@ -64,6 +64,7 @@
 						<li class="nav-item dropdown">
 							<a  class="nav-link dropdown-toggle" href="#" id="diffDropdown" data-bs-toggle="dropdown">
 								Differences
+								<span class="indicator bg-success" style="height:.75rem;width:.75rem;right:1rem" id="diifIndicator"></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-0" aria-labelledby="diffDropdown">
 								<div class="list-group" style="padding: .5rem 1rem 0 1rem">
@@ -89,7 +90,7 @@
 								</div>
 								<div class="dropdown-divider"></div>
 								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Reset diff settings</a>
+									<a href="#" class="text-muted" onclick="onResetDiff()">Reset diff settings</a>
 								</div>
 							</div>
 						</li>

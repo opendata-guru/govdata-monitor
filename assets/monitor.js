@@ -5,10 +5,13 @@ var monitor = {
     data: [],
     datepicker: null,
     datepickerSelection: [],
+    diffThresholdDefault: 100,
     diffThreshold: 100,
     displayCatalogId: '',
     displayDate: '',
+    hideNoDiffDefault: false,
     hideNoDiff: false,
+    markDiffDefault: true,
     markDiff: true,
     nextDate: '',
     nextUri: '',
@@ -499,10 +502,61 @@ function onShowFlatPortals() {
     monitorUpdateCatalogTable();
 }
 
+function updateDiffIndicator() {
+    var ctrl = document.getElementById('diifIndicator');
+    var hidden = monitor.diffThreshold == monitor.diffThresholdDefault
+        && monitor.markDiff === monitor.markDiffDefault
+        && monitor.hideNoDiff === monitor.hideNoDiffDefault;
+
+    ctrl.style.display = hidden ? 'none' : 'block';
+}
+
+function initDiff() {
+    var params = new URLSearchParams(window.location.search);
+
+    monitor.diffThreshold = params.get('diffThreshold') || monitor.diffThresholdDefault;
+    monitor.markDiff = params.has('markDiff') ? (params.get('markDiff') === 'true') : monitor.markDiffDefault;
+    monitor.hideNoDiff = params.has('hideNoDiff') ? (params.get('hideNoDiff') === 'true') : monitor.hideNoDiffDefault;
+
+    document.getElementById('checkbox-diff-threshold').value = monitor.diffThreshold;
+    document.getElementById('checkbox-show-colored-diff').checked = monitor.markDiff;
+    document.getElementById('checkbox-hide-no-diff').checked = monitor.hideNoDiff;
+
+    updateDiffIndicator();
+}
+
+function onResetDiff() {
+    document.getElementById('checkbox-diff-threshold').value = monitor.diffThresholdDefault;
+    document.getElementById('checkbox-show-colored-diff').checked = monitor.markDiffDefault;
+    document.getElementById('checkbox-hide-no-diff').checked = monitor.hideNoDiffDefault;
+
+    monitor.diffThreshold = monitor.diffThresholdDefault;
+    monitor.markDiff = monitor.markDiffDefault;
+    monitor.hideNoDiff = monitor.hideNoDiffDefault;
+
+    var params = new URLSearchParams(window.location.search);
+    params.delete('diffThreshold');
+    params.delete('markDiff');
+    params.delete('hideNoDiff');
+    window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+    updateDiffIndicator();
+    monitorUpdateCatalogTable();
+}
+
 function onDiffThreshold() {
     var ctrl = document.getElementById('checkbox-diff-threshold');
     monitor.diffThreshold = ctrl.value;
 
+    var params = new URLSearchParams(window.location.search);
+    if (monitor.diffThreshold == monitor.diffThresholdDefault) {
+        params.delete('diffThreshold');
+    } else {
+        params.set('diffThreshold', monitor.diffThreshold);
+    }
+    window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+    updateDiffIndicator();
     monitorUpdateCatalogTable();
 }
 
@@ -510,6 +564,15 @@ function onShowDiffColor() {
     var cb = document.getElementById('checkbox-show-colored-diff');
     monitor.markDiff = cb.checked;
 
+    var params = new URLSearchParams(window.location.search);
+    if (monitor.markDiff === monitor.markDiffDefault) {
+        params.delete('markDiff');
+    } else {
+        params.set('markDiff', monitor.markDiff);
+    }
+    window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+    updateDiffIndicator();
     monitorUpdateCatalogTable();
 }
 
@@ -517,6 +580,15 @@ function onHideNoDiff() {
     var cb = document.getElementById('checkbox-hide-no-diff');
     monitor.hideNoDiff = cb.checked;
 
+    var params = new URLSearchParams(window.location.search);
+    if (monitor.hideNoDiff === monitor.hideNoDiffDefault) {
+        params.delete('hideNoDiff');
+    } else {
+        params.set('hideNoDiff', monitor.hideNoDiff);
+    }
+    window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+    updateDiffIndicator();
     monitorUpdateCatalogTable();
 }
 
@@ -529,6 +601,8 @@ function monitorUpdateCalendar() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    initDiff();
+
     monitorSetNextDate(new Date(Date.now()));
     monitorSetCatalog('govdata.de');
 

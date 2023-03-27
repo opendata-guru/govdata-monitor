@@ -6,6 +6,7 @@ var diff = (function () {
         initvalThreshold = 100,
         defaultThreshold = 100;
     var idIndicator = 'diff-indicator',
+        idMenu = 'diff-menu';
         idReset = 'diff-reset',
         idHideEqual = 'diff-hide-equal',
         idHighlight = 'diff-highlight',
@@ -28,7 +29,42 @@ var diff = (function () {
             && initvalHideEqual === defaultHideEqual;
 
         elem.style.display = hidden ? 'none' : 'block';
-        console.log(diff);
+    }
+
+    function install() {
+        var html = '';
+
+        html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
+        html += '  <label class="">';
+        html += '    <label for="' + idThreshold + '">Diff threshold:</label>';
+        html += '    <input id="' + idThreshold + '" class="form-control" style="display: inline; width: 5rem" type="number" value="100" min="1">';
+        html += '  </label>';
+        html += '</div>';
+
+        html += '<div class="dropdown-divider"></div>';
+
+        html += '<div class="list-group" style="padding: 0 1rem">';
+        html += '  <label class="form-check">';
+        html += '    <input id="' + idHighlight + '" class="form-check-input" type="checkbox" checked>';
+        html += '    <span class="form-check-label">';
+        html += '      Highlight differences';
+        html += '    </span>';
+        html += '  </label>';
+        html += '  <label class="form-check">';
+        html += '    <input id="' + idHideEqual + '" class="form-check-input" type="checkbox" value="">';
+        html += '    <span class="form-check-label">';
+        html += '      Hide equal lines';
+        html += '    </span>';
+        html += '  </label>';
+        html += '</div>';
+
+        html += '<div class="dropdown-divider"></div>';
+
+        html += '<div class="dropdown-menu-footer">';
+        html += '  <a id="' + idReset + '" href="#" class="text-muted">Reset diff settings</a>';
+        html += '</div>';
+
+        document.getElementById(idMenu).innerHTML = html;
     }
 
     function init() {
@@ -117,6 +153,7 @@ var diff = (function () {
         monitorUpdateCatalogTable();
     }
 
+    install();
     init();
 
     return {

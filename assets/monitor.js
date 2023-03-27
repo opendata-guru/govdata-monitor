@@ -3,8 +3,6 @@ var monitor = {
     chartHistoryDays: 30,
     chartPie: null,
     data: [],
-    datepicker: null,
-    datepickerSelection: [],
     displayCatalogId: '',
     displayDate: '',
     nextDate: '',
@@ -42,7 +40,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
     var maxDiff = 0;
 
     arrayData.forEach(processData => {
-        var data = processData.filter(item => item.id === id);
+        var data = processData ? processData.filter(item => item.id === id) : [];
         if (data.length > 0) {
             var currentCount = parseInt(data[0].packages ? data[0].packages : 0, 10);
             var addClass = '';
@@ -142,12 +140,12 @@ function monitorUpdateCatalogHistoryChart() {
     gradient.addColorStop(0, 'rgba(215, 227, 244, 1)');
     gradient.addColorStop(1, 'rgba(215, 227, 244, 0)');
 
-    var date = new Date(Date(monitor.displayDate));
+    var today = new Date(Date(monitor.displayDate));
     for (d = 0; d < monitor.chartHistoryDays; ++d) {
-        labels.unshift(date.toISOString().split('T')[0]);
-        data.unshift(monitorGetDatasetCountByDate(date.toISOString().split('T')[0]));
+        labels.unshift(today.toISOString().split('T')[0]);
+        data.unshift(monitorGetDatasetCountByDate(today.toISOString().split('T')[0]));
 
-        date.setDate(date.getDate() - 1);
+        today.setDate(today.getDate() - 1);
     }
 
     var historyData = {
@@ -268,15 +266,15 @@ function monitorUpdateCatalogPieChart() {
 }
 
 function monitorUpdateCatalogTable() {
-    function isParent(packageId, date) {
+    function isParent(packageId, theDate) {
         if (packageId === monitor.displayCatalogId) {
             return true;
         }
         if (monitor.showFlatPortals) {
             var found = false;
-            monitor.data[date].filter(item => item.id === packageId).forEach((row) => {
+            monitor.data[theDate].filter(item => item.id === packageId).forEach((row) => {
                 if (row.packagesInId) {
-                    found |= isParent(row.packagesInId, date);
+                    found |= isParent(row.packagesInId, theDate);
                 }
             });
             return found;
@@ -292,17 +290,19 @@ function monitorUpdateCatalogTable() {
     var table = '';
 
     header += '<th>Data Supplier</th>';
-    for (d = 0; d < monitor.datepickerSelection.length; ++d) {
-        arrayData.push(monitor.data[monitor.datepickerSelection[d]]);
-        header += '<th>' + monitor.datepickerSelection[d] + '</th>';
+    for (d = 0; d < date.selection.length; ++d) {
+        arrayData.push(monitor.data[date.selection[d]]);
+        header += '<th>' + date.selection[d] + '</th>';
 
-        arrayData[arrayData.length - 1].forEach((row) => {
-            if (isParent(row.packagesInId ? row.packagesInId : '', monitor.datepickerSelection[d])) {
-                if (arrayIds.indexOf(row.id) < 0) {
-                    arrayIds.push(row.id);
+        if (arrayData[arrayData.length - 1]) {
+            arrayData[arrayData.length - 1].forEach((row) => {
+                if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d])) {
+                    if (arrayIds.indexOf(row.id) < 0) {
+                        arrayIds.push(row.id);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
     if (arrayData.length === 1) {
         header += '<th>In source portal</th>';
@@ -327,8 +327,8 @@ function monitorUpdateCatalogTable() {
     monitorUpdateCatalogHistoryChart();
 }
 
-function monitorSetDate(date) {
-    monitor.displayDate = date;
+function monitorSetDate(displayDate) {
+    monitor.displayDate = displayDate;
 
     var text = '';
     text += '<span class="text-muted">Show date</span>';
@@ -336,7 +336,7 @@ function monitorSetDate(date) {
 
     document.getElementById('display-date').innerHTML = text;
 
-    monitorUpdateCalendar();
+    date.update();
     monitorUpdateCatalogTable();
 }
 
@@ -394,12 +394,12 @@ function monitorSetCatalog(catalogId) {
 
     document.getElementById('breadcrumb').innerHTML = getBreadcrumb(monitor.displayCatalogId);
 
-    monitorUpdateCalendar();
+    date.update();
     monitorUpdateCatalogTable();
 }
 
-function monitorSetNextDate(date) {
-    var dateString = date.toISOString().split('T')[0];
+function monitorSetNextDate(nextDate) {
+    var dateString = nextDate.toISOString().split('T')[0];
     var uri = 'https://opendata.guru/govdata/assets/data-' + dateString.split('-')[0] + '/' + dateString + '-organizations.json';
 
     monitor.nextDate = dateString;
@@ -436,10 +436,10 @@ function monitorProcessNextData(data) {
         monitorSetCatalog('govdata.de'); // <-  this is a hack
     }
 
-    var date = new Date(monitor.nextDate);
-    date.setDate(date.getDate() - 1);
+    var nextDate = new Date(monitor.nextDate);
+    nextDate.setDate(nextDate.getDate() - 1);
 
-    monitorSetNextDate(date); 
+    monitorSetNextDate(nextDate); 
 
     monitorShowNextDate();
     monitorLoadNextDate();
@@ -454,35 +454,12 @@ function monitorLoadNextDate() {
             monitorProcessNextData(JSON.parse(this.responseText));
         } else if (this.readyState == 4) {
             monitorShowNextDateDone();
-            monitorUpdateCalendar();
+            date.update();
             monitorUpdateCatalogHistoryChart();
         }
     }
 
     xhr.send();
-}
-
-function initCalendar() {
-    var maxDate = new Date(Date.now());
-
-    monitor.datepicker = document.getElementById('table-datepicker').flatpickr({
-        conjunction: '|',
-        defaultDate: [],
-        dateFormat: "Y-m-d",
-        inline: true,
-        maxDate: maxDate,
-        mode: 'multiple',
-        nextArrow: '<span title="Next month">&raquo;</span>',
-        prevArrow: '<span title="Previous month">&laquo;</span>',
-
-        enable: [function(date){
-            var dateString = date.toISOString().split('T')[0];
-            return monitor.data[dateString] !== undefined;
-        }],
-    });
-    monitor.datepicker.config.onChange.push(function(selectedDates, dateStr, instance) {
-        onDatePicker(dateStr);
-    });
 }
 
 function onShowFlatPortals() {
@@ -494,53 +471,10 @@ function onShowFlatPortals() {
 
 // ----------------------------------------------------------------------------
 
-function updateDateIndicator() {
-    var ctrl = document.getElementById('dateIndicator');
-    var hidden = true;
-
-    ctrl.style.display = hidden ? 'none' : 'block';
-}
-
-function initDate() {
-    var params = new URLSearchParams(window.location.search);
-
-    updateDateIndicator();
-}
-
-function onResetDate() {
-    var params = new URLSearchParams(window.location.search);
-    window.history.pushState({}, '', `${location.pathname}?${params}`);
-
-    updateDateIndicator();
-    monitorUpdateCatalogTable();
-}
-
-function onDatePicker(dateStr) {
-    var dateArray = dateStr.split('|');
-    dateArray.sort();
-    monitor.datepickerSelection = dateStr.length === 0 ? [] : dateArray;
-
-    monitorUpdateCatalogTable();
-}
-
-// ----------------------------------------------------------------------------
-
-function monitorUpdateCalendar() {
-    if (monitor.datepicker === null) {
-        return;
-    }
-
-    monitor.datepicker.setDate(monitor.displayDate, true);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    initDate();
-
     monitorSetNextDate(new Date(Date.now()));
     monitorSetCatalog('govdata.de');
 
     monitorShowNextDate();
     monitorLoadNextDate();
-
-    initCalendar();
 });

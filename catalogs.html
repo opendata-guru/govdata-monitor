@@ -64,18 +64,9 @@
 						<li class="nav-item dropdown">
 							<a  class="nav-link dropdown-toggle" href="#" id="dateDropdown" data-bs-toggle="dropdown">
 								<span id="dateDropdownTitle">Date</span>
-								<span class="indicator bg-success" style="height:.75rem;width:.75rem;right:1rem" id="dateIndicator"></span>
+								<span class="indicator bg-success" style="height:.75rem;width:.75rem;right:1rem" id="date-indicator"></span>
 							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-0" aria-labelledby="dateDropdown">
-								<div class="list-group" style="padding: .5rem 1rem 0 1rem">
-									<div class="chart">
-										<div id="table-datepicker"></div>
-									</div>
-								</div>
-								<div class="dropdown-divider"></div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted" onclick="onResetDate()">Reset date settings</a>
-								</div>
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-0" aria-labelledby="dateDropdown" id="date-menu">
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -229,6 +220,7 @@
 	</div>
 
 	<script src="assets/app.js"></script>
+	<script src="assets/module.date.js"></script>
 	<script src="assets/module.diff.js"></script>
 	<script src="assets/monitor.js"></script>
 </body>

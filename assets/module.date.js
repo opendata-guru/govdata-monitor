@@ -11,6 +11,8 @@ var date = (function () {
     function updateIndicator() {
         var elem = document.getElementById(idIndicator);
 
+        defaultSelection = [(new Date(Date.now())).toISOString().split('T')[0]];
+
         if (date) {
             initvalSelection = date.selection;
         }
@@ -44,7 +46,7 @@ var date = (function () {
         datepicker = document.getElementById(idDatepicker).flatpickr({
             conjunction: '|',
             defaultDate: [],
-            dateFormat: "Y-m-d",
+            dateFormat: 'Y-m-d',
             inline: true,
             maxDate: maxDate,
             mode: 'multiple',
@@ -59,65 +61,59 @@ var date = (function () {
         datepicker.config.onChange.push(function(selectedDates, dateStr, instance) {
             onChangeDatePicker(dateStr);
         });
+console.log('defaultSelection', defaultSelection);
+console.log('initvalSelection', initvalSelection);
+        datepicker.setDate(initvalSelection, false);
+console.log('defaultSelection', defaultSelection);
+console.log('initvalSelection', initvalSelection);
     }
 
     function init() {
         var params = new URLSearchParams(window.location.search);
 
-        initvalSelection = params.get(paramSelection) || defaultSelection;
-
-//        document.getElementById(idSelection).checked = initvalSelection;
+        defaultSelection = [(new Date(Date.now())).toISOString().split('T')[0]];
+        if (params.has(paramSelection)) {
+            initvalSelection = params.get(paramSelection).split(',');
+        } else {
+            initvalSelection = defaultSelection;
+        }
 
         document.getElementById(idReset).addEventListener('click', onClickReset);
-//        document.getElementById(idSelection).addEventListener('click', onClickSelection);
 
         updateIndicator();
     }
 
     function onClickReset() {
-//        document.getElementById(idSelection).value = defaultSelection;
-
-        date.selection = defaultSelection;
-
-        var params = new URLSearchParams(window.location.search);
-        params.delete(paramSelection);
-        window.history.pushState({}, '', `${location.pathname}?${params}`);
-
-        updateIndicator();
-        monitorUpdateCatalogTable();
+        datepicker.setDate(defaultSelection, true);
+        // this call onChangeDatePicker()
     }
 
     function onChangeDatePicker(dateStr) {
+console.log('->', dateStr);
         var dateArray = dateStr.split('|');
         dateArray.sort();
         date.selection = dateStr.length === 0 ? [] : dateArray;
+console.log('=>', date.selection);
+
+        var params = new URLSearchParams(window.location.search);
+        if (JSON.stringify(date.selection) === JSON.stringify(defaultSelection)) {
+            params.delete(paramSelection);
+        } else {
+            params.set(paramSelection, date.selection);
+        }
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
         monitorUpdateCatalogTable();
     }
-
-/*    function onClickHideEqual() {
-        var cb = document.getElementById(idHideEqual);
-        diff.hideEqual = cb.checked;
-    
-        var params = new URLSearchParams(window.location.search);
-        if (diff.hideEqual === defaultHideEqual) {
-            params.delete(paramHideEqual);
-        } else {
-            params.set(paramHideEqual, diff.hideEqual);
-        }
-        window.history.pushState({}, '', `${location.pathname}?${params}`);
-    
-        updateIndicator();
-        monitorUpdateCatalogTable();
-    }*/
 
     function funcUpdate() {
         if (datepicker === null) {
             return;
         }
 
-        datepicker.setDate(monitor.displayDate, true);
+//        datepicker.setDate(monitor.displayDate, true);
+        datepicker.setDate(datepicker.selectedDates, true);
     }
 
     install();

@@ -1,7 +1,8 @@
 var date = (function () {
     var initvalSelection = [],
         defaultSelection = [];
-    var datepicker = null;
+    var datepicker = null,
+        updateToDate = null;
     var idIndicator = 'date-indicator',
         idMenu = 'date-menu';
         idReset = 'date-reset',
@@ -59,13 +60,16 @@ var date = (function () {
             }],
         });
         datepicker.config.onChange.push(function(selectedDates, dateStr, instance) {
-            onChangeDatePicker(dateStr);
+            if (updateToDate) {
+                // HACK: it works but I don't know why
+                updateToDate = null;
+                if (dateStr !== '') {
+                    onChangeDatePicker(dateStr);
+                }
+            } else {
+                onChangeDatePicker(dateStr);
+            }
         });
-console.log('defaultSelection', defaultSelection);
-console.log('initvalSelection', initvalSelection);
-        datepicker.setDate(initvalSelection, false);
-console.log('defaultSelection', defaultSelection);
-console.log('initvalSelection', initvalSelection);
     }
 
     function init() {
@@ -89,11 +93,9 @@ console.log('initvalSelection', initvalSelection);
     }
 
     function onChangeDatePicker(dateStr) {
-console.log('->', dateStr);
         var dateArray = dateStr.split('|');
         dateArray.sort();
         date.selection = dateStr.length === 0 ? [] : dateArray;
-console.log('=>', date.selection);
 
         var params = new URLSearchParams(window.location.search);
         if (JSON.stringify(date.selection) === JSON.stringify(defaultSelection)) {
@@ -112,8 +114,8 @@ console.log('=>', date.selection);
             return;
         }
 
-//        datepicker.setDate(monitor.displayDate, true);
-        datepicker.setDate(datepicker.selectedDates, true);
+        updateToDate = initvalSelection;
+        datepicker.setDate(initvalSelection, true);
     }
 
     install();

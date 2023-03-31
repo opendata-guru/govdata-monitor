@@ -35,7 +35,13 @@ var date = (function () {
                 title = initvalSelection[0];
             }
         } else {
-            title = initvalSelection.length + ' Dates';
+            var lenght = initvalSelection.length;
+            var days = (new Date(defaultSelection) - new Date(initvalSelection[0])) / 24 / 60 / 60 / 1000;
+            if ((days + 1) === lenght) {
+                title = 'Last ' + initvalSelection.length + ' days';
+            } else {
+                title = initvalSelection.length + ' Dates';
+            }
         }
         document.getElementById(idTitle).innerHTML = title;
 

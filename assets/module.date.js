@@ -6,7 +6,8 @@ var date = (function () {
     var idIndicator = 'date-indicator',
         idMenu = 'date-menu';
         idReset = 'date-reset',
-        idDatepicker = 'date-picker';
+        idDatepicker = 'date-picker',
+        idTitle = 'date-title';
     var paramSelection = 'date';
 
     function updateIndicator() {
@@ -18,7 +19,25 @@ var date = (function () {
             initvalSelection = date.selection;
         }
 
-        var hidden = JSON.stringify(initvalSelection) === JSON.stringify(defaultSelection);
+        var isToday = JSON.stringify(initvalSelection) === JSON.stringify(defaultSelection);
+        var hidden = isToday;
+
+        var title = 'Date';
+        if (isToday) {
+            title = 'Today';
+        } else if (initvalSelection.length === 0) {
+            title = 'No Date';
+        } else if (initvalSelection.length === 1) {
+            var days = (new Date(defaultSelection) - new Date(initvalSelection[0])) / 24 / 60 / 60 / 1000;
+            if (days === 1) {
+                title = 'Yesterday';
+            } else {
+                title = initvalSelection[0];
+            }
+        } else {
+            title = initvalSelection.length + ' Dates';
+        }
+        document.getElementById(idTitle).innerHTML = title;
 
         elem.style.display = hidden ? 'none' : 'block';
     }
@@ -49,6 +68,9 @@ var date = (function () {
             defaultDate: [],
             dateFormat: 'Y-m-d',
             inline: true,
+            locale: {
+                firstDayOfWeek: 1
+            },
             maxDate: maxDate,
             mode: 'multiple',
             nextArrow: '<span title="Next month">&raquo;</span>',

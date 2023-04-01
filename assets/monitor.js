@@ -3,7 +3,6 @@ var monitor = {
     chartHistoryDays: 30,
     chartPie: null,
     data: [],
-    displayCatalogId: '',
     displayDate: '',
     nextDate: '',
     nextUri: '',
@@ -22,7 +21,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
         var itemParent = data.filter(dataItem => dataItem.id === item.packagesInId);
         if (itemParent.length > 0) {
             var parent = '';
-            if (itemParent[0].packagesInId != monitor.displayCatalogId) {
+            if (itemParent[0].packagesInId != catalog.id) {
                 parent = getParentPath(data, itemParent[0]);
             }
             return ' &larr; ' + itemParent[0].title + parent;
@@ -49,7 +48,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
             if (data[0].datasetCountDuration) {
                 title = '<a href="#" onclick="monitorSetCatalog(\'' + id + '\')">' + title + '</a>';
             }
-            if (data[0].packagesInId != monitor.displayCatalogId) {
+            if (data[0].packagesInId != catalog.id) {
                 title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
             }
 
@@ -122,7 +121,7 @@ function monitorGetDatasetCountByDate(dateString) {
 
     if (data) {
         data.forEach((row) => {
-            if (row.id === monitor.displayCatalogId) {
+            if (row.id === catalog.id) {
                 count = row.datasetCount;
             }
         });
@@ -213,7 +212,7 @@ function monitorUpdateCatalogPieChart() {
 
     if (data) {
         data.forEach((row) => {
-            if (row.packagesInId === monitor.displayCatalogId) {
+            if (row.packagesInId === catalog.id) {
                 if (labels.length < slices) {
                     labels.push(row.title);
                     counts.push(row.packages);
@@ -267,7 +266,7 @@ function monitorUpdateCatalogPieChart() {
 
 function monitorUpdateCatalogTable() {
     function isParent(packageId, theDate) {
-        if (packageId === monitor.displayCatalogId) {
+        if (packageId === catalog.id) {
             return true;
         }
         if (monitor.showFlatPortals) {
@@ -340,34 +339,19 @@ function monitorSetDate(displayDate) {
     monitorUpdateCatalogTable();
 }
 
-function monitorGetCatalogById(id) {
-    var data = monitor.data[monitor.displayDate];
-    var obj = undefined; 
-
-    if (data && id) {
-        data.forEach((row) => {
-            if (row.id === id) {
-                obj = row;
-            }
-        });
-    }
-
-    return obj;
-}
-
 function monitorSetCatalog(catalogId) {
-    monitor.displayCatalogId = catalogId;
+    catalog.setId(catalogId);
 
     window.scrollTo(0, 0);
 
     var text = '';
-    var catalog = monitorGetCatalogById(monitor.displayCatalogId);
-    var strCatalog = monitor.displayCatalogId;
+    var catalogObject = catalog.get();
+    var strCatalog = catalog.id;
     var strDatasetCount = '';
 
-    if (catalog) {
-        strCatalog = catalog.title;
-        strDatasetCount = catalog.datasetCount;
+    if (catalogObject) {
+        strCatalog = catalogObject.title;
+        strDatasetCount = catalogObject.datasetCount;
     }
 
     text += strCatalog + ' have ' + '<strong>' + monitorFormatNumber(strDatasetCount) + '</strong> datasets';
@@ -376,23 +360,7 @@ function monitorSetCatalog(catalogId) {
     text = strCatalog + ' History';
     document.getElementById('history-title').innerHTML = text;
 
-    function getBreadcrumb(id) {
-        var breadcrumb = '';
-        var catalog = monitorGetCatalogById(id);
-
-        if (catalog) {
-            breadcrumb += getBreadcrumb(catalog.packagesInId);
-            if (id === monitor.displayCatalogId) {
-                breadcrumb += ' &gt; ' + catalog.title;
-            } else {
-                breadcrumb += ' &gt; <a class="text-primary" onclick="monitorSetCatalog(\'' + id + '\')">' + catalog.title + '</a>';
-            }
-        }
-
-        return breadcrumb;
-    }
-
-    document.getElementById('breadcrumb').innerHTML = getBreadcrumb(monitor.displayCatalogId);
+    document.getElementById('breadcrumb').innerHTML = catalog.getBreadcrumb(catalog.id);
 
     date.update();
     monitorUpdateCatalogTable();
@@ -424,7 +392,7 @@ function monitorShowNextDateDone() {
 
 function monitorProcessNextData(data) {
 /*    data.forEach(item => {
-        if (item.id === monitor.displayCatalogId) {
+        if (item.id === catalog.id) {
             console.log(item);
         }
     }); */

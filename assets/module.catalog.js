@@ -6,12 +6,30 @@ var catalog = (function () {
         idBreadcrumb = 'breadcrumb';
     var paramId = 'catalog';
 
+    function init() {
+        var params = new URLSearchParams(window.location.search);
+
+        if (params.has(paramId)) {
+            initvalId = params.get(paramId).split(',');
+        } else {
+            initvalId = defaultId;
+        }
+    }
+
     function setId(id) {
         initvalId = id;
 
         if (catalog) {
             catalog.id = initvalId;
         }
+
+        var params = new URLSearchParams(window.location.search);
+        if (id === defaultId) {
+            params.delete(paramId);
+        } else {
+            params.set(paramId, id);
+        }
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
     }
 
     function get(id) {
@@ -68,6 +86,8 @@ var catalog = (function () {
 
         return ret;
     }
+
+    init();
 
     return {
         id: initvalId,

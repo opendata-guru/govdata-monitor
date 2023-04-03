@@ -1,9 +1,12 @@
 var catalog = (function () {
-    var initvalId = [],
-        defaultId = [];
+    var initvalId = '',
+        defaultId = 'govdata.de';
+    var idDisplayCatalog = 'display-catalog',
+        idHistoryTitle = 'history-title',
+        idBreadcrumb = 'breadcrumb';
     var paramId = 'catalog';
 
-    function funcSetId(id) {
+    function setId(id) {
         initvalId = id;
 
         if (catalog) {
@@ -11,7 +14,7 @@ var catalog = (function () {
         }
     }
 
-    function getObjectById(id) {
+    function get(id) {
         var data = monitor.data[monitor.displayDate];
         var obj = undefined; 
     
@@ -22,24 +25,44 @@ var catalog = (function () {
                 }
             });
         }
-    
+
         return obj;
     }
 
-    function funcGet() {
-        return getObjectById(catalog.id);
-    }
+    function funcSet(catalogId) {
+        setId(catalogId);
 
-    function funcGetBreadcrumb(id) {
-        var ret = '';
-        var catalogObject = getObjectById(id);
+        window.scrollTo(0, 0);
+
+        var text = '';
+        var catalogObject = get(catalogId);
+        var strCatalog = catalogId;
+        var strDatasetCount = '';
 
         if (catalogObject) {
-            ret += catalog.getBreadcrumb(catalogObject.packagesInId);
+            strCatalog = catalogObject.title;
+            strDatasetCount = catalogObject.datasetCount;
+        }
+
+        text = strCatalog + ' have ' + '<strong>' + monitorFormatNumber(strDatasetCount) + '</strong> datasets';
+        document.getElementById(idDisplayCatalog).innerHTML = text;
+        document.getElementById(idHistoryTitle).innerHTML = strCatalog + ' History';
+        document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
+
+        date.update();
+        monitorUpdateCatalogTable();
+    }
+
+    function getBreadcrumb(id) {
+        var ret = '';
+        var catalogObject = get(id);
+
+        if (catalogObject) {
+            ret += getBreadcrumb(catalogObject.packagesInId);
             if (id === catalog.id) {
                 ret += ' &gt; ' + catalogObject.title;
             } else {
-                ret += ' &gt; <a class="text-primary" onclick="monitorSetCatalog(\'' + id + '\')">' + catalogObject.title + '</a>';
+                ret += ' &gt; <a class="text-primary" onclick="catalog.set(\'' + id + '\')">' + catalogObject.title + '</a>';
             }
         }
 
@@ -48,8 +71,6 @@ var catalog = (function () {
 
     return {
         id: initvalId,
-        getBreadcrumb: funcGetBreadcrumb,
-        get: funcGet,
-        setId: funcSetId,
+        set: funcSet,
     };
 }());

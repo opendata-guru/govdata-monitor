@@ -46,7 +46,7 @@ function monitorGetCatalogTableRow(arrayData, id) {
             title = data[0].title ? data[0].title : title;
 
             if (data[0].datasetCountDuration) {
-                title = '<a href="#" onclick="monitorSetCatalog(\'' + id + '\')">' + title + '</a>';
+                title = '<a href="#" onclick="catalog.set(\'' + id + '\')">' + title + '</a>';
             }
             if (data[0].packagesInId != catalog.id) {
                 title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
@@ -339,33 +339,6 @@ function monitorSetDate(displayDate) {
     monitorUpdateCatalogTable();
 }
 
-function monitorSetCatalog(catalogId) {
-    catalog.setId(catalogId);
-
-    window.scrollTo(0, 0);
-
-    var text = '';
-    var catalogObject = catalog.get();
-    var strCatalog = catalog.id;
-    var strDatasetCount = '';
-
-    if (catalogObject) {
-        strCatalog = catalogObject.title;
-        strDatasetCount = catalogObject.datasetCount;
-    }
-
-    text += strCatalog + ' have ' + '<strong>' + monitorFormatNumber(strDatasetCount) + '</strong> datasets';
-    document.getElementById('display-catalog').innerHTML = text;
-
-    text = strCatalog + ' History';
-    document.getElementById('history-title').innerHTML = text;
-
-    document.getElementById('breadcrumb').innerHTML = catalog.getBreadcrumb(catalog.id);
-
-    date.update();
-    monitorUpdateCatalogTable();
-}
-
 function monitorSetNextDate(nextDate) {
     var dateString = nextDate.toISOString().split('T')[0];
     var uri = 'https://opendata.guru/govdata/assets/data-' + dateString.split('-')[0] + '/' + dateString + '-organizations.json';
@@ -401,7 +374,7 @@ function monitorProcessNextData(data) {
 
     if (Object.keys(monitor.data).length === 1) {
         monitorSetDate(monitor.nextDate);
-        monitorSetCatalog('govdata.de'); // <-  this is a hack
+        catalog.set('govdata.de'); // <-  this is a hack
     }
 
     var nextDate = new Date(monitor.nextDate);
@@ -441,7 +414,7 @@ function onShowFlatPortals() {
 
 document.addEventListener('DOMContentLoaded', function() {
     monitorSetNextDate(new Date(Date.now()));
-    monitorSetCatalog('govdata.de');
+    catalog.set('govdata.de');
 
     monitorShowNextDate();
     monitorLoadNextDate();

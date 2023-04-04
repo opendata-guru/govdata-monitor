@@ -374,7 +374,7 @@ function monitorProcessNextData(data) {
 
     if (Object.keys(monitor.data).length === 1) {
         monitorSetDate(monitor.nextDate);
-        catalog.set('govdata.de'); // <-  this is a hack
+        catalog.set(catalog.id); // <-  this is a hack
     }
 
     var nextDate = new Date(monitor.nextDate);
@@ -414,7 +414,6 @@ function onShowFlatPortals() {
 
 document.addEventListener('DOMContentLoaded', function() {
     monitorSetNextDate(new Date(Date.now()));
-    catalog.set('govdata.de');
 
     monitorShowNextDate();
     monitorLoadNextDate();

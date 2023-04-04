@@ -10,7 +10,7 @@ var catalog = (function () {
         var params = new URLSearchParams(window.location.search);
 
         if (params.has(paramId)) {
-            initvalId = params.get(paramId).split(',');
+            initvalId = params.get(paramId);
         } else {
             initvalId = defaultId;
         }

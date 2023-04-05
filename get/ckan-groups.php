@@ -27,6 +27,7 @@
 	$mappingFile = '../data/opendataportals.csv';
 	$mappingList = explode("\n", file_get_contents($mappingFile));
 	$mappingHeader = explode(',', $mappingList[0]);
+	$mappingGML = null;
 	$mappingURI1 = null;
 	$mappingURI2 = null;
 	$mappingLink = null;
@@ -47,6 +48,8 @@
 			$mappingContributor = $m;
 		} else if ($mappingHeader[$m] === 'type') {
 			$mappingType = $m;
+		} else if ($mappingHeader[$m] === 'gml') {
+			$mappingGML = $m;
 		} else if ($mappingHeader[$m] === 'wikidata') {
 			$mappingWikidata = $m;
 		} else if ($mappingHeader[$m] === 'api_list_children') {
@@ -64,7 +67,7 @@
 	$data = [];
 
 	function semanticContributor($obj) {
-		global $mapping, $uriDomain, $mappingURI1, $mappingURI2, $mappingLink, $mappingType, $mappingTitle, $mappingWikidata, $mappingContributor;
+		global $mapping, $uriDomain, $mappingURI1, $mappingURI2, $mappingLink, $mappingType, $mappingTitle, $mappingGML, $mappingWikidata, $mappingContributor;
 
 		$obj['contributor'] = '';
 		$obj['type'] = '';
@@ -78,6 +81,7 @@
 				$obj['title'] = $line[$mappingTitle];
 				$obj['contributor'] = $line[$mappingContributor];
 				$obj['type'] = $line[$mappingType];
+				$obj['gml'] = $line[$mappingGML];
 				$obj['wikidata'] = $line[$mappingWikidata];
 				$obj['link'] = $line[$mappingLink];
 			} else if (
@@ -87,6 +91,7 @@
 				$obj['title'] = $line[$mappingTitle];
 				$obj['contributor'] = $line[$mappingContributor];
 				$obj['type'] = $line[$mappingType];
+				$obj['gml'] = $line[$mappingGML];
 				$obj['wikidata'] = $line[$mappingWikidata];
 				$obj['link'] = $line[$mappingLink];
 			}

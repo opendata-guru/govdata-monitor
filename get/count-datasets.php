@@ -1,5 +1,6 @@
 <?php
 	$link = htmlspecialchars($_GET['link']);
+	$piveauEndpoint = '/api/hub/search/catalogues';
 
 	if ('https://geoportal.de' === $link) {
 		include 'gdide-count-datasets.php';
@@ -9,6 +10,8 @@
 		include 'mcloud-count-datasets.php';
 	} else if ('https://www.opendata.sachsen.de' === $link) {
 		include 'count-datasets/sachsen-count-datasets.php';
+	} else if (substr($link, -strlen($piveauEndpoint)) === $piveauEndpoint) {
+		include 'count-datasets/piveau-count-datasets.php';
 	} else {
 		include 'ckan-count-datasets.php';
 	}

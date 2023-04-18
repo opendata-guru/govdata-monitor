@@ -50,7 +50,7 @@
 	function getStartData() {
 		$data = array();
 
-		$data[] = array(
+		/*$data[] = array(
 			'id' => 'govdata.de',
 			'name' => 'govdata',
 			'title' => 'GovData',
@@ -62,6 +62,19 @@
 			'type' => 'root',
 			'wikidata' => 'Q59273239',
 			'link' => 'https://ckan.govdata.de/api/3/action/organization_list',
+		);*/
+		$data[] = array(
+			'id' => 'data.europa.eu',
+			'name' => 'data.europa.eu',
+			'title' => 'European data',
+			'created' => '',
+			'packages' => '',
+			'packagesInId' => '',
+			'packagesInPortal' => '',
+			'contributor' => '',
+			'type' => 'root',
+			'wikidata' => 'Q5412398',
+			'link' => 'https://data.europa.eu/api/hub/search/catalogues',
 		);
 
 		return $data;

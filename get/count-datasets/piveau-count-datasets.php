@@ -4,7 +4,8 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	$piveauSuffix = '/api/hub/search/search?filter=dataset';
+	$piveauSuffix = '/api/hub/search/catalogues';
+	$countSuffix = '/api/hub/search/search?filter=dataset';
 
 	$paramLink = htmlspecialchars($_GET['link']);
 	if ($paramLink == '') {
@@ -17,7 +18,7 @@
 		exit;
 	}
 
-	$uri = $paramLink;
+	$uri = substr($paramLink, 0, -strlen($piveauSuffix)) . $countSuffix;
 
 	$json = json_decode(file_get_contents($uri));
 

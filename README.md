@@ -25,6 +25,7 @@ Count all datasets:
 - https://opendata.guru/govdata/get/count-datasets.php?link=https://www.mcloud.de/web/guest/suche
 - https://opendata.guru/govdata/get/count-datasets.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/count-datasets.php?link=https://www.opendata.sachsen.de
+- https://opendata.guru/govdata/get/count-datasets.php?link=https://data.europa.eu/api/hub/search/catalogues
 
 Get a list of all contributors and some more meta data:
 

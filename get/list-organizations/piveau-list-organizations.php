@@ -4,7 +4,7 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	$euSuffix = '/api/hub/search/catalogues';
+	$piveauSuffix = '/api/hub/search/catalogues';
 	$catalogSuffix = '/';
 
 	$paramLink = htmlspecialchars($_GET['link']);
@@ -13,13 +13,15 @@
 		exit;
 	}
 
-	if ($euSuffix != substr($paramLink, -strlen($euSuffix))) {
-		echo 'Parameter "link" must end with "' . $euSuffix . '"';
+	if ($piveauSuffix != substr($paramLink, -strlen($piveauSuffix))) {
+		echo 'Parameter "link" must end with "' . $piveauSuffix . '"';
 		exit;
 	}
 
 	$uri = $paramLink;
 
+	$uriCKAN = substr($paramLink, 0, -strlen($piveauSuffix));
+	$uriDomain = end(explode('/',$uriCKAN));
 	$source = file_get_contents($uri);
 
 	$mappingFile = '../data/opendataportals.csv';

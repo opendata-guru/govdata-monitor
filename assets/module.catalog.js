@@ -1,6 +1,6 @@
 var catalog = (function () {
     var initvalId = '',
-        defaultId = 'govdata.de';
+        defaultId = 'govdata';
     var idDisplayCatalog = 'display-catalog',
         idHistoryTitle = 'history-title',
         idBreadcrumb = 'breadcrumb';

@@ -102,7 +102,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        monitorUpdateCatalogTable();
+        table.update();
     }
 
     function onClickHideEqual() {
@@ -118,7 +118,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     
         updateIndicator();
-        monitorUpdateCatalogTable();
+        table.update();
     }
 
     function onClickHighlight() {
@@ -134,7 +134,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     
         updateIndicator();
-        monitorUpdateCatalogTable();
+        table.update();
     }
 
     function onChangeThreshold() {
@@ -150,7 +150,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     
         updateIndicator();
-        monitorUpdateCatalogTable();
+        table.update();
     }
 
     install();

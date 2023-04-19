@@ -134,7 +134,7 @@ var date = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        monitorUpdateCatalogTable();
+        table.update();
     }
 
     function funcUpdate() {

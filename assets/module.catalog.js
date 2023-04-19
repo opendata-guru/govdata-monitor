@@ -68,7 +68,7 @@ var catalog = (function () {
         document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
 
         date.update();
-        monitorUpdateCatalogTable();
+        table.update();
     }
 
     function getBreadcrumb(id) {

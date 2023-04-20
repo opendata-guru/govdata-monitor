@@ -167,12 +167,6 @@ function monitorUpdateCatalogPieChart() {
 function monitorSetDate(displayDate) {
     monitor.displayDate = displayDate;
 
-    var text = '';
-    text += '<span class="text-muted">Show date</span>';
-    text += '<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> ' + monitor.displayDate + ' </span>';
-
-    document.getElementById('display-date').innerHTML = text;
-
     date.update();
     table.update();
 }

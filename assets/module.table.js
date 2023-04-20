@@ -1,43 +1,98 @@
 var table = (function () {
-//    var initvalId = '',
-//        defaultId = '';
+    var initvalFlatten = false,
+        defaultFlatten = false;
     var idTableBody = 'supplier-table',
         idTableHeader = 'supplier-table-header',
-        idTableFooter = 'supplier-table-footer';
-//    var paramId = '';
+        idTableFooter = 'supplier-table-footer',
+        idIndicator = 'table-indicator',
+        idMenu = 'table-menu',
+        idReset = 'table-reset',
+        idFlatten = 'checkbox-flatten';
+    var paramFlatten = 'flatten';
 
-/*    function init() {
+    function install() {
+        var html = '';
+
+        html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
+        html += '  <label class="form-check">';
+        html += '    <input id="' + idFlatten + '" class="form-check-input" value="" type="checkbox">';
+        html += '    <span class="form-check-label">';
+        html += '      Flatten all portals';
+        html += '    </span>';
+        html += '  </label>';
+        html += '</div>';
+
+        html += '<div class="dropdown-divider"></div>';
+
+        html += '<div class="dropdown-menu-footer">';
+        html += '<a id="' + idReset + '" href="#" class="text-muted">Reset table settings</a>';
+        html += '</div>';
+
+        document.getElementById(idMenu).innerHTML = html;
+    }
+
+    function updateIndicator() {
+        var elem = document.getElementById(idIndicator);
+
+/*        if (diff) {
+            initvalThreshold = diff.threshold;
+            initvalHighlight = diff.highlight;
+            initvalHideEqual = diff.hideEqual;
+        }*/
+
+        var hidden = initvalFlatten == defaultFlatten;
+
+        elem.style.display = hidden ? 'none' : 'block';
+    }
+
+    function init() {
         var params = new URLSearchParams(window.location.search);
 
-        if (params.has(paramId)) {
-            initvalId = params.get(paramId);
-        } else {
-            initvalId = defaultId;
-        }
-    }*/
+        initvalFlatten = params.has(paramFlatten) ? (params.get(paramFlatten) === 'true') : defaultFlatten;
 
-/*    function setId(id) {
-        initvalId = id;
+        document.getElementById(idFlatten).checked = initvalFlatten;
 
-        if (table) {
-            table.id = initvalId;
-        }
+        document.getElementById(idReset).addEventListener('click', onClickReset);
+        document.getElementById(idFlatten).addEventListener('click', onClickFlatten);
+
+        updateIndicator();
+    }
+
+    function onClickReset() {
+        document.getElementById(idFlatten).checked = defaultFlatten;
+
+        initvalFlatten = defaultFlatten;
 
         var params = new URLSearchParams(window.location.search);
-        if (id === defaultId) {
-            params.delete(paramId);
+        params.delete(paramFlatten);
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+        updateIndicator();
+        table.update();
+    }
+
+    function onClickFlatten() {
+        var cb = document.getElementById(idFlatten);
+        initvalFlatten = cb.checked;
+
+        var params = new URLSearchParams(window.location.search);
+        if (initvalFlatten === defaultFlatten) {
+            params.delete(paramFlatten);
         } else {
-            params.set(paramId, id);
+            params.set(paramFlatten, initvalFlatten);
         }
         window.history.pushState({}, '', `${location.pathname}?${params}`);
-    }*/
+
+        updateIndicator();
+        table.update();
+    }
 
     function isParent(packageId, dateObj) {
         if (packageId === catalog.id) {
             return true;
         }
 
-        if (monitor.showFlatPortals) {
+        if (initvalFlatten) {
             var found = false;
             monitor.data[dateObj].filter(item => item.id === packageId).forEach((row) => {
                 if (row.packagesInId) {
@@ -204,11 +259,10 @@ var table = (function () {
         monitorUpdateCatalogHistoryChart();
     }
 
-//    init();
+    install();
+    init();
 
     return {
-//        id: initvalId,
-//        set: funcSet,
         update: funcUpdate,
     };
 }());

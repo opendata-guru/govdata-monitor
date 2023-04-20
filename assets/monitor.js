@@ -6,7 +6,6 @@ var monitor = {
     displayDate: '',
     nextDate: '',
     nextUri: '',
-    showFlatPortals: false,
 };
 
 function monitorFormatNumber(x) {
@@ -240,13 +239,6 @@ function monitorLoadNextDate() {
     }
 
     xhr.send();
-}
-
-function onShowFlatPortals() {
-    var cb = document.getElementById('checkbox-show-flat-portals');
-    monitor.showFlatPortals = cb.checked;
-
-    table.update();
 }
 
 // ----------------------------------------------------------------------------

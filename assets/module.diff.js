@@ -124,7 +124,7 @@ var diff = (function () {
     function onClickHighlight() {
         var cb = document.getElementById(idHighlight);
         diff.highlight = cb.checked;
-    
+
         var params = new URLSearchParams(window.location.search);
         if (diff.highlight === defaultHighlight) {
             params.delete(paramHighlight);

@@ -18,6 +18,8 @@ var table = (function () {
 
     classMap['country'] = 'Staat';
     classMap['federal'] = 'Bund';
+    classMap['federalAgency'] = 'Bundesbehörde';
+    classMap['federalCooperation'] = 'Bund + Land';
     classMap['state'] = 'Land';
     classMap['stateAgency'] = 'Landesamt';
     classMap['regionalNetwork'] = 'Region';

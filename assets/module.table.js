@@ -1,17 +1,36 @@
 var table = (function () {
     var initvalFlatten = false,
-        defaultFlatten = false;
+        defaultFlatten = false,
+        initvalClass = 'all',
+        defaultClass = 'all',
+        classMap = [];
     var idTableBody = 'supplier-table',
         idTableHeader = 'supplier-table-header',
         idTableFooter = 'supplier-table-footer',
         idIndicator = 'table-indicator',
         idMenu = 'table-menu',
         idReset = 'table-reset',
-        idFlatten = 'checkbox-flatten';
-    var paramFlatten = 'flatten';
+        idFlatten = 'checkbox-flatten',
+        classClass = 'classes',
+        classAll = 'all';
+    var paramFlatten = 'flatten',
+        paramClass = 'class';
+
+    classMap['country'] = 'Staat';
+    classMap['federal'] = 'Bund';
+    classMap['state'] = 'Land';
+    classMap['stateAgency'] = 'Landesamt';
+    classMap['regionalNetwork'] = 'Region';
+    classMap['municipality'] = 'Stadt';
+    classMap['council'] = 'Rat';
+
+    function getCheckIcon() {
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check align-middle me-2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    }
 
     function install() {
         var html = '';
+        var style = 'line-height:1.2rem;padding:.2rem .6rem;cursor:pointer;margin-top:.2rem';
 
         html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
         html += '  <label class="form-check">';
@@ -20,6 +39,20 @@ var table = (function () {
         html += '      Flatten all portals';
         html += '    </span>';
         html += '  </label>';
+        html += '</div>';
+
+        html += '<div class="dropdown-divider"></div>';
+
+        html += '<div class="list-group" style="padding: 0 1rem">';
+        html += '  <div>';
+        html += '    Classes:';
+        html += '  </div>';
+        html += '  <div style="padding-left:1.4rem">';
+        html += '    <span class="badge me-1 ' + classAll + ' ' + classClass + '" style="' + style + '"><span></span>All</span>';
+        Object.keys(classMap).forEach(key => {
+            html += '    <span class="badge me-1 ' + classClass + ' ' + key + '" style="' + style + '"><span></span>' + classMap[key] + '</span>';
+        });
+        html += '  </div>';
         html += '</div>';
 
         html += '<div class="dropdown-divider"></div>';
@@ -33,27 +66,44 @@ var table = (function () {
 
     function updateIndicator() {
         var elem = document.getElementById(idIndicator);
+        var classes = document.getElementsByClassName(classClass);
 
-/*        if (diff) {
-            initvalThreshold = diff.threshold;
-            initvalHighlight = diff.highlight;
-            initvalHideEqual = diff.hideEqual;
-        }*/
-
-        var hidden = initvalFlatten == defaultFlatten;
+        var hidden = initvalFlatten == defaultFlatten
+            && initvalClass === defaultClass;
 
         elem.style.display = hidden ? 'none' : 'block';
+
+        for(var c = 0; c < classes.length; ++c) {
+            var item = classes[c];
+            var span = item.getElementsByTagName('span')[0];
+
+            item.classList.remove('bg-success', 'bg-secondary');
+
+            if (item.classList.contains(initvalClass)) {
+                item.classList.add('bg-success');
+                span.innerHTML = getCheckIcon();
+            } else {
+                item.classList.add('bg-secondary');
+                span.innerHTML = '';
+            }
+        }
     }
 
     function init() {
         var params = new URLSearchParams(window.location.search);
+        var classes = document.getElementsByClassName(classClass);
 
         initvalFlatten = params.has(paramFlatten) ? (params.get(paramFlatten) === 'true') : defaultFlatten;
+        initvalClass = params.get(paramClass) || defaultClass;
 
         document.getElementById(idFlatten).checked = initvalFlatten;
 
         document.getElementById(idReset).addEventListener('click', onClickReset);
         document.getElementById(idFlatten).addEventListener('click', onClickFlatten);
+        for(var c = 0; c < classes.length; ++c) {
+            var item = classes[c];
+            item.addEventListener('click', onClickClass);
+        }
 
         updateIndicator();
     }
@@ -62,9 +112,11 @@ var table = (function () {
         document.getElementById(idFlatten).checked = defaultFlatten;
 
         initvalFlatten = defaultFlatten;
+        initvalClass = defaultClass;
 
         var params = new URLSearchParams(window.location.search);
         params.delete(paramFlatten);
+        params.delete(paramClass);
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
@@ -80,6 +132,38 @@ var table = (function () {
             params.delete(paramFlatten);
         } else {
             params.set(paramFlatten, initvalFlatten);
+        }
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+        updateIndicator();
+        table.update();
+    }
+
+    function onClickClass() {
+        var classList = this.className.split(' ');
+        if (-1 !== classList.indexOf('badge')) {
+            classList.splice(classList.indexOf('badge'), 1);
+        }
+        if (-1 !== classList.indexOf('me-1')) {
+            classList.splice(classList.indexOf('me-1'), 1);
+        }
+        if (-1 !== classList.indexOf('bg-success')) {
+            classList.splice(classList.indexOf('bg-success'), 1);
+        }
+        if (-1 !== classList.indexOf('bg-secondary')) {
+            classList.splice(classList.indexOf('bg-secondary'), 1);
+        }
+        if (-1 !== classList.indexOf(classClass)) {
+            classList.splice(classList.indexOf(classClass), 1);
+        }
+
+        initvalClass = classList[0] || '';
+
+        var params = new URLSearchParams(window.location.search);
+        if (initvalClass === defaultClass) {
+            params.delete(paramClass);
+        } else {
+            params.set(paramClass, initvalClass);
         }
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
@@ -119,21 +203,21 @@ var table = (function () {
     }
 
     function getRowIcon(type) {
-        if (type === 'state') {
-            return '<span class="badge bg-secondary me-1">Land</span>';
-        } else if (type === 'municipality+state') {
+        var ret = '';
+        Object.keys(classMap).forEach(key => {
+            if (type === key) {
+                ret = '<span class="badge bg-secondary me-1">' + classMap[key] + '</span>';
+            }
+        });
+        if (ret !== '') {
+            return ret;
+        }
+
+        if (type === 'municipality+state') {
             return '<span class="badge bg-secondary me-1">Land</span>' +
                    '<span class="badge bg-secondary me-1">Stadt</span>';
-        } else if (type === 'stateAgency') {
-            return '<span class="badge bg-secondary me-1">Landesamt</span>';
-        } else if (type === 'municipality') {
-            return '<span class="badge bg-secondary me-1">Stadt</span>';
-        } else if (type === 'federal') {
-            return '<span class="badge bg-secondary me-1">Bund</span>';
         } else if (type === 'collectiveMunicipality') {
             return '<span class="badge bg-warning me-1" title="' + type + '">CM</span>';
-        } else if (type === 'regionalNetwork') {
-            return '<span class="badge bg-secondary me-1">Region</span>';
         } else if (type === 'statisticaloffice') {
             return '<span class="badge bg-warning me-1" title="' + type + '">O</span>';
         } else if (type === 'portal') {

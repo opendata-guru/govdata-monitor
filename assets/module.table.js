@@ -239,6 +239,7 @@ var table = (function () {
         var icon = '';
         var title = '';
         var name = '';
+        var type = '';
         var assertion = '';
         var lastCount = undefined;
         var maxDiff = 0;
@@ -250,6 +251,7 @@ var table = (function () {
                 var addClass = '';
                 title = data[0].title ? data[0].title : title;
                 name = data[0].name ? data[0].name : name;
+                type = data[0].type ? data[0].type : type;
 
                 if (data[0].datasetCountDuration) {
                     title = '<a href="#" onclick="catalog.set(\'' + id + '\')">' + title + '</a>';
@@ -289,6 +291,9 @@ var table = (function () {
             }
         });
 
+        if ((initvalClass !== classAll) && (initvalClass !== type)) {
+            return '';
+        }
         if (diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {
             return '';
         }

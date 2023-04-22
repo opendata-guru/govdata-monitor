@@ -266,11 +266,16 @@ var table = (function () {
 
                 icon = getRowIcon(data[0].type);
 
-                if (lastCount) {
-                    var difference = Math.abs(lastCount - currentCount);
-                    maxDiff = Math.max(maxDiff, difference);
-                    if (diff.highlight && (difference >= diff.threshold)) {
+                if (lastCount !== undefined) {
+                    if (lastCount === null) {
+                        maxDiff = diff.threshold;
                         addClass = ' bg-warning';
+                    } else {
+                        var difference = Math.abs(lastCount - currentCount);
+                        maxDiff = Math.max(maxDiff, difference);
+                        if (diff.highlight && (difference >= diff.threshold)) {
+                            addClass = ' bg-warning';
+                        }
                     }
                 }
                 str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
@@ -287,11 +292,15 @@ var table = (function () {
                 }
                 lastCount = currentCount;
             } else {
-                str += '<td class="text-end">-</td>';
+                var addClass = '';
+                if ((lastCount !== undefined) && (lastCount !== null)) {
+                    addClass = ' bg-warning';
+                }
+                str += '<td class="text-end' + addClass + '">-</td>';
                 if (showBadge) {
                     str += '<td></td>';
                 }
-                lastCount = 0;
+                lastCount = null;
             }
         });
 

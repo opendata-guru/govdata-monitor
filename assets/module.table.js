@@ -1,9 +1,9 @@
 var table = (function () {
     var initvalFlatten = false,
         defaultFlatten = false,
-        initvalClass = 'all',
-        defaultClass = 'all',
-        classMap = [];
+        initvalLayer = 'all',
+        defaultLayer = 'all',
+        layers = [];
     var idTableBody = 'supplier-table',
         idTableHeader = 'supplier-table-header',
         idTableFooter = 'supplier-table-footer',
@@ -11,20 +11,20 @@ var table = (function () {
         idMenu = 'table-menu',
         idReset = 'table-reset',
         idFlatten = 'checkbox-flatten',
-        classClass = 'classes',
-        classAll = 'all';
+        layerClass = 'layer',
+        layerAll = 'all';
     var paramFlatten = 'flatten',
-        paramClass = 'class';
+        paramLayer = 'layer';
 
-    classMap['country'] = 'Staat';
-    classMap['federal'] = 'Bund';
-    classMap['federalAgency'] = 'Bundesbehörde';
-    classMap['federalCooperation'] = 'Bund + Land';
-    classMap['state'] = 'Land';
-    classMap['stateAgency'] = 'Landesamt';
-    classMap['regionalNetwork'] = 'Region';
-    classMap['municipality'] = 'Stadt';
-    classMap['council'] = 'Rat';
+    layers['country'] = 'Staat';
+    layers['federal'] = 'Bund';
+    layers['federalAgency'] = 'Bundesbehörde';
+    layers['federalCooperation'] = 'Bund + Land';
+    layers['state'] = 'Land';
+    layers['stateAgency'] = 'Landesamt';
+    layers['regionalNetwork'] = 'Region';
+    layers['municipality'] = 'Stadt';
+    layers['council'] = 'Rat';
 
     function getCheckIcon() {
         return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check align-middle" style="margin:0 .2rem 0 -.2rem"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -47,12 +47,12 @@ var table = (function () {
 
         html += '<div class="list-group" style="padding: 0 1rem">';
         html += '  <div>';
-        html += '    Classes:';
+        html += '    Layer:';
         html += '  </div>';
         html += '  <div style="padding-left:1.4rem">';
-        html += '    <span class="badge me-1 ' + classAll + ' ' + classClass + '" style="' + style + '"><span></span>All</span>';
-        Object.keys(classMap).forEach(key => {
-            html += '    <span class="badge me-1 ' + classClass + ' ' + key + '" style="' + style + '"><span></span>' + classMap[key] + '</span>';
+        html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>All</span>';
+        Object.keys(layers).forEach(key => {
+            html += '    <span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + style + '"><span></span>' + layers[key] + '</span>';
         });
         html += '  </div>';
         html += '</div>';
@@ -68,20 +68,20 @@ var table = (function () {
 
     function updateIndicator() {
         var elem = document.getElementById(idIndicator);
-        var classes = document.getElementsByClassName(classClass);
+        var layer = document.getElementsByClassName(layerClass);
 
         var hidden = initvalFlatten == defaultFlatten
-            && initvalClass === defaultClass;
+            && initvalLayer === defaultLayer;
 
         elem.style.display = hidden ? 'none' : 'block';
 
-        for(var c = 0; c < classes.length; ++c) {
-            var item = classes[c];
+        for(var l = 0; l < layer.length; ++l) {
+            var item = layer[l];
             var span = item.getElementsByTagName('span')[0];
 
             item.classList.remove('bg-success', 'bg-secondary');
 
-            if (item.classList.contains(initvalClass)) {
+            if (item.classList.contains(initvalLayer)) {
                 item.classList.add('bg-success');
                 span.innerHTML = getCheckIcon();
             } else {
@@ -93,18 +93,18 @@ var table = (function () {
 
     function init() {
         var params = new URLSearchParams(window.location.search);
-        var classes = document.getElementsByClassName(classClass);
+        var layer = document.getElementsByClassName(layerClass);
 
         initvalFlatten = params.has(paramFlatten) ? (params.get(paramFlatten) === 'true') : defaultFlatten;
-        initvalClass = params.get(paramClass) || defaultClass;
+        initvalLayer = params.get(paramLayer) || defaultLayer;
 
         document.getElementById(idFlatten).checked = initvalFlatten;
 
         document.getElementById(idReset).addEventListener('click', onClickReset);
         document.getElementById(idFlatten).addEventListener('click', onClickFlatten);
-        for(var c = 0; c < classes.length; ++c) {
-            var item = classes[c];
-            item.addEventListener('click', onClickClass);
+        for(var l = 0; l < layer.length; ++l) {
+            var item = layer[l];
+            item.addEventListener('click', onClickLayer);
         }
 
         updateIndicator();
@@ -114,11 +114,11 @@ var table = (function () {
         document.getElementById(idFlatten).checked = defaultFlatten;
 
         initvalFlatten = defaultFlatten;
-        initvalClass = defaultClass;
+        initvalLayer = defaultLayer;
 
         var params = new URLSearchParams(window.location.search);
         params.delete(paramFlatten);
-        params.delete(paramClass);
+        params.delete(paramLayer);
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
@@ -141,7 +141,9 @@ var table = (function () {
         table.update();
     }
 
-    function onClickClass() {
+    function onClickLayer(event) {
+        event.stopPropagation();
+
         var classList = this.className.split(' ');
         if (-1 !== classList.indexOf('badge')) {
             classList.splice(classList.indexOf('badge'), 1);
@@ -155,17 +157,17 @@ var table = (function () {
         if (-1 !== classList.indexOf('bg-secondary')) {
             classList.splice(classList.indexOf('bg-secondary'), 1);
         }
-        if (-1 !== classList.indexOf(classClass)) {
-            classList.splice(classList.indexOf(classClass), 1);
+        if (-1 !== classList.indexOf(layerClass)) {
+            classList.splice(classList.indexOf(layerClass), 1);
         }
 
-        initvalClass = classList[0] || '';
+        initvalLayer = classList[0] || '';
 
         var params = new URLSearchParams(window.location.search);
-        if (initvalClass === defaultClass) {
-            params.delete(paramClass);
+        if (initvalLayer === defaultLayer) {
+            params.delete(paramLayer);
         } else {
-            params.set(paramClass, initvalClass);
+            params.set(paramLayer, initvalLayer);
         }
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
@@ -206,9 +208,9 @@ var table = (function () {
 
     function getRowIcon(type) {
         var ret = '';
-        Object.keys(classMap).forEach(key => {
+        Object.keys(layers).forEach(key => {
             if (type === key) {
-                ret = '<span class="badge bg-secondary me-1">' + classMap[key] + '</span>';
+                ret = '<span class="badge bg-secondary me-1">' + layers[key] + '</span>';
             }
         });
         if (ret !== '') {
@@ -293,7 +295,7 @@ var table = (function () {
             }
         });
 
-        if ((initvalClass !== classAll) && (initvalClass !== type)) {
+        if ((initvalLayer !== layerAll) && (initvalLayer !== type)) {
             return '';
         }
         if (diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {

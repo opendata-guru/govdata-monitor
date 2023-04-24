@@ -232,7 +232,18 @@ function monitorLoadNextDate() {
         }
     }
 
-    xhr.send();
+    var startDate = new Date(Date.now());
+    var nextDate = new Date(monitor.nextDate);
+    var diffs = startDate.getTime() - nextDate.getTime();
+    var days = Math. ceil(diffs / (1000 * 3600 * 24));
+
+    if (days <= monitor.chartHistoryDays) {
+        xhr.send();
+    } else {
+        monitorShowNextDateDone();
+        date.update();
+        monitorUpdateCatalogHistoryChart();
+    }
 }
 
 // ----------------------------------------------------------------------------

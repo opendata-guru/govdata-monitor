@@ -32,10 +32,10 @@ var catalog = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     }
 
-    function get(id) {
+    function funcGet(id) {
         var data = monitor.data[monitor.displayDate];
         var obj = undefined; 
-    
+
         if (data && id) {
             data.forEach((row) => {
                 if (row.id === id) {
@@ -47,13 +47,37 @@ var catalog = (function () {
         return obj;
     }
 
+    function funcGetSameAs(id) {
+        var catalogObject = funcGet(id);
+        var data = monitor.data[monitor.displayDate];
+        var ret = [];
+
+        if (data && id) {
+            data.forEach((row) => {
+                if (catalogObject.wikidata && (catalogObject.wikidata !== '') && (row.wikidata === catalogObject.wikidata)) {
+                    ret.push(row.id);
+                } else if (catalogObject.contributor && (catalogObject.contributor !== '') && (row.contributor === catalogObject.contributor)) {
+                    ret.push(row.id);
+                } else if (catalogObject.linkTimestamp && (catalogObject.linkTimestamp !== '') && (row.linkTimestamp === catalogObject.linkTimestamp)) {
+                    ret.push(row.id);
+                }
+            });
+        }
+
+        if (ret.length === 0) {
+            ret.push(catalogObject.id);
+        }
+
+        return ret;
+    }
+
     function funcSet(catalogId) {
         setId(catalogId);
 
         window.scrollTo(0, 0);
 
         var text = '';
-        var catalogObject = get(catalogId);
+        var catalogObject = funcGet(catalogId);
         var strCatalog = catalogId;
         var strDatasetCount = '';
 
@@ -71,12 +95,12 @@ var catalog = (function () {
         table.update();
     }
 
-    function getBreadcrumb(id) {
+    function getBreadcrumb_(id) {
         var ret = '';
-        var catalogObject = get(id);
+        var catalogObject = funcGet(id);
 
         if (catalogObject) {
-            ret += getBreadcrumb(catalogObject.packagesInId);
+            ret += getBreadcrumb_(catalogObject.packagesInId);
             if (id === catalog.id) {
                 ret += ' &gt; ' + catalogObject.title;
             } else {
@@ -87,10 +111,23 @@ var catalog = (function () {
         return ret;
     }
 
+    function getBreadcrumb(id) {
+        var ret = '';
+
+        var sameAs = funcGetSameAs(id);
+        if (sameAs.length > 0) {
+            sameAs.forEach((id_) => ret += (ret === '' ? '' : '&nbsp;&nbsp;&nbsp;and&nbsp;&nbsp;&nbsp;') + getBreadcrumb_(id_));
+        }
+
+        return ret;
+    }
+
     init();
 
     return {
         id: initvalId,
+        get: funcGet,
+        getSameAs: funcGetSameAs,
         set: funcSet,
     };
 }());

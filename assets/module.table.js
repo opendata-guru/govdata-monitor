@@ -203,7 +203,8 @@ var table = (function () {
             return ' &larr; ' + itemParent[0].title + parent;
         }
 
-        return ' &larr; ' + item.packagesInId;
+        //return ' &larr; ' + item.packagesInId;
+        return '';
     }
 
     function getRowIcon(type) {
@@ -273,7 +274,7 @@ var table = (function () {
                         addClass = ' bg-warning';
                     }
                 }
-                str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(data[0].packages ? data[0].packages : 0) + '</td>';
+                str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
 
                 if (showBadge) {
                     if (data[0].datasetCount) {
@@ -315,11 +316,62 @@ var table = (function () {
         return '<tr>' + str + '</tr>';
     }
 
+    function getSublineRow(arrayData, id, countDatasets) {
+        var str = '';
+        var title = '';
+        var name = '';
+        var type = '';
+        var lastCount = undefined;
+        var maxDiff = 0;
+
+        arrayData.forEach(processData => {
+            var data = processData ? processData.filter(item => item.id === id) : [];
+            if (data.length > 0) {
+                var currentCount = countDatasets ? parseInt(data[0].datasetCount ? data[0].datasetCount : 0, 10) : parseInt(data[0].packages ? data[0].packages : 0, 10);
+                var addClass = '';
+                title = data[0].title ? data[0].title : title;
+                name = data[0].name ? data[0].name : name;
+                type = data[0].type ? data[0].type : type;
+
+                if (!countDatasets && (data[0].packagesInId != catalog.id)) {
+                    title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
+                }
+
+                if (lastCount !== undefined) {
+                    var difference = lastCount === null ? currentCount : Math.abs(lastCount - currentCount);
+                    maxDiff = Math.max(maxDiff, difference);
+                    if (diff.highlight && (difference >= diff.threshold)) {
+                        addClass = ' bg-warning';
+                    }
+                }
+                str += '<td class="text-end text-info' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
+
+                lastCount = currentCount;
+            } else {
+                var addClass = '';
+                if ((lastCount !== undefined) && (lastCount !== null)) {
+                    var difference = lastCount;
+                    maxDiff = Math.max(maxDiff, difference);
+                    if (diff.highlight && (difference >= diff.threshold)) {
+                        addClass = ' bg-warning';
+                    }
+                }
+                str += '<td class="text-end text-info' + addClass + '">-</td>';
+                lastCount = null;
+            }
+        });
+
+        str = '<td style="border-left:.5rem solid #1cbb8c" class="text-info"><span title="' + name + '">' + title + '</span></td>' + str;
+
+        return '<tr>' + str + '</tr>';
+    }
+
     function funcUpdate() {
         var arrayData = [];
         var arrayIds = [];
         var header = '';
         var footer = '';
+        var subline = '';
         var body = '';
 
         header += '<th>Data Supplier</th>';
@@ -349,10 +401,17 @@ var table = (function () {
             footer += '<th></th>';
         }
 
+        var sameAs = catalog.getSameAs(catalog.id);
+        subline += getSublineRow(arrayData, catalog.id, true);
+        if (sameAs.length > 0) {
+            sameAs.forEach((id) => subline += getSublineRow(arrayData, id, false));
+        }
+
         header = '<tr>' + header + '</tr>';
         footer = '<tr>' + footer + '</tr>';
+        subline = '<tr>' + subline + '</tr>';
 
-        document.getElementById(idTableHeader).innerHTML = header;
+        document.getElementById(idTableHeader).innerHTML = header + subline;
         document.getElementById(idTableFooter).innerHTML = footer;
         document.getElementById(idTableBody).innerHTML = body;
 

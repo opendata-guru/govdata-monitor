@@ -175,16 +175,21 @@ var table = (function () {
         table.update();
     }
 
-    function isParent(packageId, dateObj) {
-        if (packageId === catalog.id) {
+    function isParent(packageId, dateObj, sameAs) {
+        var found = false;
+        if (sameAs.length > 0) {
+            sameAs.forEach((id) => found |= packageId === id);
+        } else if (packageId === catalog.id) {
+            found = true;
+        }
+        if (found) {
             return true;
         }
 
         if (initvalFlatten) {
-            var found = false;
             monitor.data[dateObj].filter(item => item.id === packageId).forEach((row) => {
                 if (row.packagesInId) {
-                    found |= isParent(row.packagesInId, dateObj);
+                    found |= isParent(row.packagesInId, dateObj, sameAs);
                 }
             });
             return found;
@@ -373,6 +378,7 @@ var table = (function () {
         var footer = '';
         var subline = '';
         var body = '';
+        var sameAs = catalog.getSameAs(catalog.id);
 
         header += '<th>Data Supplier</th>';
         for (d = 0; d < date.selection.length; ++d) {
@@ -381,7 +387,7 @@ var table = (function () {
     
             if (arrayData[arrayData.length - 1]) {
                 arrayData[arrayData.length - 1].forEach((row) => {
-                    if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d])) {
+                    if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d], sameAs)) {
                         if (arrayIds.indexOf(row.id) < 0) {
                             arrayIds.push(row.id);
                         }
@@ -401,7 +407,6 @@ var table = (function () {
             footer += '<th></th>';
         }
 
-        var sameAs = catalog.getSameAs(catalog.id);
         subline += getSublineRow(arrayData, catalog.id, true);
         if (sameAs.length > 0) {
             sameAs.forEach((id) => subline += getSublineRow(arrayData, id, false));

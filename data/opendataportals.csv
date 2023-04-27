@@ -7,6 +7,7 @@ Amt Süderbrarup,Amt Süderbrarup,opendata.schleswig-holstein.de|amt-suederbraru
 ,Andernach,,,municipality,https://daten.rlp.de/organization/stadt_andernach,,DEB17,07137003,071370003003,,,,,,,,,,,,2021-03-03
 ,Arnsberg,,,municipality,http://offenedaten.arnsberg.de,,DEA57,05958004,059580004004,,,Elmar Kettler,pressestelle.kettler@arnsberg.de,,,,Website,,,,2019-08-10
 ,Attendorn,,,municipality,https://www.o-sp.de/attendorn/opendata,,DEA59,05966004,059660004004,,,,,,,,,,,,2021-03-03
+Augsburg,Stadt Augsburg,http://dcat-ap.de/def/contributors/stadtAugsburg,,municipality,,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/097610000000,Q2749,,,,,,,,,,
 AWSH - Abfallwirtschaft Südholstein GmbH,AWSH - Abfallwirtschaft Südholstein GmbH,opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,,dumping,https://opendata.schleswig-holstein.de/organization/awsh-abfallwirtschaft-sudholstein-gmbh,,,,,,,,,,,,,,,,2023-02-05
 ,Bad Münstereifel,,,municipality,http://offenedaten.kdvz-frechen.de/group/bad-m%C3%BCnstereifel,2016-11-08,DEA28,05366004,053660004004,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Bedburg,,,municipality,http://offenedaten.kdvz-frechen.de/group/bedburg,2017-04-29,DEA27,05362004,053620004004,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
@@ -43,8 +44,8 @@ Dortmund,Dortmund,open.nrw|dortmund,,municipality,https://opendata.dortmund.de/,
 ,Eulenbis,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_eulenbis,,DEB3F,07335006,073355009006,,,,,,,,,,,,2021-03-03
 ,Euskirchen,,,municipality,https://www.o-sp.de/euskirchen/opendata.php,,DEA28,05366016,053660016016,,,,,,,,,,,,2021-03-03
 ,Everswinkel,,,municipality,https://www.o-sp.de/everswinkel/opendata,,DEA38,05570024,055700024024,,,,,,,,,,,,2021-03-03
-,Frankfurt am Main,,,municipality,http://offenedaten.frankfurt.de/,2014-10-15,DE712,06412000,064120000000,,,Michael Leist,offene.daten@stadt-frankfurt.de,,,,CKAN,http://offenedaten.frankfurt.de/api/3/action/package_list,,,2019-08-04
-,Freiburg im Breisgau,,,municipality,http://opendata.freiburg.de,2017-04-01,DE131,08311000,083110000000,,,Thomas Willmann,thomas.willmann@stadt.freiburg.de,http://twitter.com/freiburg,http://www.facebook.com/stadtfreiburg,badenIT GmbH,Website,https://fritz.freiburg.de/duva2ckan/files/,,,2019-11-05
+Frankfurt am Main,Stadt Frankfurt am Main,http://dcat-ap.de/def/contributors/stadtFrankfurtAmMain,,municipality,http://offenedaten.frankfurt.de/,2014-10-15,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/064120000000,Q1794,Michael Leist,offene.daten@stadt-frankfurt.de,,,,CKAN,http://offenedaten.frankfurt.de/api/3/action/package_list,,,2019-08-04
+Freiburg im Breisgau,Stadt Freiburg im Breisgau,http://dcat-ap.de/def/contributors/stadtFreiburgImBreisgau,,municipality,http://opendata.freiburg.de,2017-04-01,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/083110000000,Q2833,Thomas Willmann,thomas.willmann@stadt.freiburg.de,http://twitter.com/freiburg,http://www.facebook.com/stadtfreiburg,badenIT GmbH,Website,https://fritz.freiburg.de/duva2ckan/files/,,,2019-11-05
 ,Galenberg,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_galenberg,,DEB12,07131204,071315004204,,,,,,,,,,,,2021-03-03
 ,Geldern,,,municipality,https://www.offenesdatenportal.de/organization/stadt-geldern,,DEA1B,05154012,051540012012,,,,,,,,,,,,2021-03-03
 ,Gelsenkirchen,,,municipality,https://opendata.gelsenkirchen.de/,2017-05-23,DEA32,05513000,055130000000,,,Ulrike Karn und Manfred vom Sondern,ulrike.karn@gelsenkirchen.de,,,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,,,2019-08-10
@@ -121,16 +122,18 @@ Metropolregion Rhein-Neckar,Metropolregion Rhein-Neckar,http://dcat-ap.de/def/co
 ,Mittenwalde,,,municipality,http://stadt-mittenwalde.opendata.arcgis.com/,,DE40I,12073404,120735305404,,,,,,,,ArcGIS,,,,2019-08-11
 Moers,Moers,www.offenesdatenportal.de|moers,opendata.ruhr|moers,municipality,http://offenedaten.moers.de/,2015-08,,,051700024024,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/051700024024,Q3132,Stephan Bernoth und Thorsten Magerstedt,offenedaten@moers.de,https://twitter.com/opendatamoers,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=moers,,,2023-02-05
 ,Mönchengladbach,,,municipality,http://offenedaten.moenchengladbach.de/,2015-05-11,DEA15,05116000,051160000000,,,,offenedaten@moenchengladbach.de,https://twitter.com/OpenDataMG,,Stadt Mönchengladbach,TYPO3,,,,2019-03-24
-,München,,,municipality,http://www.opengov-muenchen.de,2014-12-19,DE212,09162000,091620000000,,,,data.opengov@muenchen.de,https://twitter.com/opendata_muc,,,CKAN,https://www.opengov-muenchen.de/api/3/action/package_list,,,2019-07-31
+München,Landeshauptstadt München,http://dcat-ap.de/def/contributors/landeshauptstadtMuenchen,,municipality,http://www.opengov-muenchen.de,2014-12-19,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/091620000000,Q1726,,data.opengov@muenchen.de,https://twitter.com/opendata_muc,,,CKAN,https://www.opengov-muenchen.de/api/3/action/package_list,,,2019-07-31
 ,Münster (Westfalen),,,municipality,https://opendata.stadt-muenster.de/,2019-09,DEA33,05515000,055150000000,,,Thomas Werner,opendata@citeq.de,,,citeq,Drupal,https://opendata.stadt-muenster.de/api/3/action/package_list,,https://opendata.stadt-muenster.de/catalog.xml,2020-06-29
 ,Neubrandenburg,,,municipality,http://www.neubrandenburg.de/opendata/,,DE80J,13071107,130710107107,,,,,,,,,,,,
 ,Neuss,,,municipality,https://ckan.www.open.nrw.de/organization/neuss,,DEA1D,05162024,051620024024,,,,,,,,,,,,2021-03-03
 ,Niederzier,,,municipality,http://offenedaten.kdvz-frechen.de/group/niederzier,,DEA26,05358048,053580048048,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Norderstedt,,,municipality,https://opendata.schleswig-holstein.de/organization/norderstedt,,DEF0D,01060063,010600063063,,,,,,,Dataport,CKAN,,,,2019-08-11
 ,Nörvenich,,,municipality,http://offenedaten.kdvz-frechen.de/group/n%C3%B6rvenich,,DEA26,05358052,053580052052,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
+Nürnberg,Stadt Nürnberg,http://dcat-ap.de/def/contributors/stadtNuernberg,,municipality,,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/095640000000,Q2090,,,,,,,,,,
 ,Obere Kyll,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_obere_kyll,,,,,,,,,,,,,,,,2021-03-03
 ,Oberhausen,,,municipality,https://opendata.ruhr/organization/oberhausen,,DE21N,09190135,091905177135,,,,,,,,,,,,2021-03-04
 ,Oelde,,,municipality,https://www.o-sp.de/oelde/opendata.php,,DEA38,05570028,055700028028,,,,,,,,,,,,2021-03-03
+Oldenburg,Stadt Oldenburg (Oldb),http://dcat-ap.de/def/contributors/stadtOldenburg,,municipality,,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/034030000000,Q2936,,,,,,,,,,
 ,Otterbach-Otterberg,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,,,,,,,,,,,,,,,2021-03-03
 ,Potsdam,,,municipality,https://opendata.potsdam.de/,2018-01-11,DE404,12054000,120540000000,,,Stefanie Buchta,opendata@rathaus.potsdam.de,,,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,,,2019-07-31
 ,Puderbach,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,DEB18,07138057,071385005057,,,,,,,,,,,,2021-03-03
@@ -143,7 +146,7 @@ Regionalverband Ruhr,Regionalverband Ruhr,open.nrw|rvr,,regionalNetwork,https://
 Rhein-Erft-Rur,Rhein-Erft-Rur,open.nrw|rhein-erft-rur,,regionalNetwork,https://offenedaten.kdvz-frechen.de/,,,,,,Q6292,,,,,,,,https://offenedaten.kdvz-frechen.de/api/3/action/group_list,,2023-02-05
 ,Rheinböllen,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_rheinboellen,,DEB1D,07140125,071405005125,,,,,,,,,,,,2021-03-03
 Roetgen,Roetgen,offenedaten.aachen.de|gemeinde-roetgen,,municipality,https://offenedaten.aachen.de/organization/gemeinde-roetgen,,,,053340024024,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340024024,Q200743,,,,,,,,,,2023-02-05
-,Rostock,,,municipality,http://www.opendata-hro.de/,,DE803,13003000,130030000000,,,,opendata.hro@rostock.de,,,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,,https://www.opendata-hro.de/catalog.xml,2019-08-04
+Rostock,OpenData.HRO,http://dcat-ap.de/def/contributors/openDataHRO,,municipality,http://www.opendata-hro.de/,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/130030000000,Q2861,,opendata.hro@rostock.de,,,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,,https://www.opendata-hro.de/catalog.xml,2019-08-04
 ,"Sankt Goar-Oberwesel ",,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_sankt_goar___oberwesel,,,,,,,,,,,,,,,,2021-03-03
 ,Schwalmtal,,,municipality,https://www.offenesdatenportal.de/organization/gemeinde-schwalmtal,,DE725,06535017,065350017017,,,,,,,,,,,,2021-03-03
 ,Schwedelbach,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_schwedelbach,,DEB3F,07335043,073355009043,,,,,,,,,,,,2021-03-03
@@ -227,7 +230,7 @@ GDI-DE,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiD
 ,OffeneDaten.de,,,other,https://offenedaten.de/,,,,,,,,info@okfn.de,,,Open Knowledge Foundation Deutschland,CKAN,https://offenedaten.de/api/3/action/package_list,,,2019-07-29
 ,OpenData-Plattform ÖPNV,,,other,https://www.opendata-oepnv.de/,,,,,,,,opendata-oepnv@vrr.de,,,Verkehrsverbund Rhein-Ruhr AöR,CKAN,https://www.opendata-oepnv.de/api/3/action/package_list,,,2019-08-11
 ,Baden-Württemberg,,,state,http://opendata.service-bw.de,2014-10-08,DE1,,,,,,,,,,,,,,
-Bayern,Bayern,http://dcat-ap.de/def/contributors/openDataBayern,,state,http://www.opendata.bayern.de/,,DE2,,09,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/09,Q980,,poststelle@stmflh.bayern.de,,,,CKAN,https://opendata.bayern.de/api/1/search/dataset?all_fields=1&q=*:*,,,2023-02-15
+Bayern,Bayern,http://dcat-ap.de/def/contributors/openDataBayern,,state,http://www.opendata.bayern.de/,,,,09,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/09,Q980,,poststelle@stmflh.bayern.de,,,,CKAN,https://opendata.bayern.de/api/1/search/dataset?all_fields=1&q=*:*,,,2023-02-15
 Brandenburg,Brandenburg,http://dcat-ap.de/def/contributors/landBrandenburg,,state,https://datenadler.de/,,,,12,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/12,Q1208,Frank Schiersner,frank.schiersner@mik.brandenburg.de,,,Inqbus scientific computing,PKAN,,https://datenadler.de/publisher,,2023-02-05
 Mecklenburg-Vorpommern,Land Mecklenburg-Vorpommern,http://dcat-ap.de/def/contributors/mecklenburgVorpommern,,state,,,,,13,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/13,Q1196,,,,,,,,,,2023-02-15
 Niedersachsen,Niedersachsen,http://dcat-ap.de/def/contributors/landNiedersachsen,,state,,,,,03,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/03,Q1197,,,,,,,,,,2023-02-06
@@ -237,3 +240,37 @@ Sachsen,Sachsen,http://dcat-ap.de/def/contributors/freistaatSachsen,,state,http:
 Schleswig-Holstein,Schleswig-Holstein,http://dcat-ap.de/def/contributors/schleswigHolstein,,state,https://opendata.schleswig-holstein.de/,,,,01,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,Q1194,,opendata@lr.landsh.de,,,Dataport,CKAN,https://opendata.schleswig-holstein.de/api/3/action/package_list,https://opendata.schleswig-holstein.de/api/3/action/organization_list,https://opendata.schleswig-holstein.de/catalog.xml,2023-02-05
 Bundesministerium für Digitales und Verkehr,mCLOUD,http://dcat-ap.de/def/contributors/mCloud,,federal,https://www.mcloud.de/,2016-05-18,,,,,Q491637,Dr. Roland Goetzke,mcloud@bmvi.bund.de,,,ITZBund,InGRID,,https://www.mcloud.de/web/guest/suche/,https://www.mcloud.de/export/datasets?page=1&pageSize=10000,2023-02-13
 Bundesministerium des Innern und Heimat,Bundesministerium des Innern und Heimat,http://dcat-ap.de/def/contributors/bundesministeriumDesInnernUndHeimat,,federal,,,,,,,Q502698,,,,,,,,,,2023-04-21
+Bundesamt für Justiz,Bundesamt für Justiz,http://dcat-ap.de/def/contributors/bundesamtFuerJustiz,,federalAgency,,,,,,,Q1005444,,,,,,,,,,
+Regionalstatistik,Regionalstatistik,http://dcat-ap.de/def/contributors/regionalstatistik,,federalAgency,,,,,,,,,,,,,,,,,
+Bundesministerium für Bildung und Forschung,Bundesministerium für Bildung und Forschung,http://dcat-ap.de/def/contributors/bundesministeriumFuerBildungUndForschung,,federal,,,,,,,Q492234,,,,,,,,,,
+Bundesministerium für Ernährung und Landwirtschaft,Bundesministerium für Ernährung und Landwirtschaft,http://dcat-ap.de/def/contributors/bundesministeriumFuerErnaehrungUndLandwirtschaft,,federal,,,,,,,Q699656,,,,,,,,,,
+Deutsches Patent- und Markenamt,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,federalAgency,,,,,,,Q314296,,,,,,,,,,
+"Bundesministerium für Familie, Senioren, Frauen und Jugend","Bundesministerium für Familie, Senioren, Frauen und Jugend",http://dcat-ap.de/def/contributors/bundesministeriumFuerFamilieSeniorenFrauenUndJugend,,federal,,,,,,,Q166020,,,,,,,,,,
+Bundesministerium für Arbeit und Soziales,Bundesministerium für Arbeit und Soziales,http://dcat-ap.de/def/contributors/bundesministeriumFuerArbeitUndSoziales,,federal,,,,,,,Q491578,,,,,,,,,,
+Bundesministerium der Finanzen,Bundesministerium der Finanzen,http://dcat-ap.de/def/contributors/bundesministeriumDerFinanzen,,federal,,,,,,,Q499118,,,,,,,,,,
+Bundesbeauftragter für den Datenschutz und die Informationsfreiheit,Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit,http://dcat-ap.de/def/contributors/derBundesbeauftragteFuerDenDatenschutzUndDieInformationsfreiheit,,federalAgency,,,,,,,Q1005821,,,,,,,,,,
+Bundesministerium für Wirtschaft und Klimaschutz,Bundesministerium für Wirtschaft und Klimaschutz,http://dcat-ap.de/def/contributors/bundesministeriumFuerWirtschaftUndKlimaschutz,,federal,,,,,,,Q488589,,,,,,,,,,
+Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,http://dcat-ap.de/def/contributors/bundesanstaltFuerArbeitsschutzUndArbeitsmedizin,,federalAgency,,,,,,,Q1005523,,,,,,,,,,
+Deutsche Nationalbibliothek,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,other,,,,,,,Q27302,,,,,,,,,,
+"Bundesinstitut für Bau-, Stadt- und Raumforschung","Bundesinstitut für Bau-, Stadt- und Raumforschung (BBSR) im Bundesamt für Bauwesen und Raumordnung (BBR)",http://dcat-ap.de/def/contributors/bundesinstitutFuerBauStadtUndRaumforschungImBundesamtFuerBauwesenundRaumordnung,,federalAgency,,,,,,,Q111431906,,,,,,,,,,
+Auswärtiges Amt,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertigesAmt,,federal,,,,,,,Q56034,,,,,,,,,,
+Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,http://dcat-ap.de/def/contributors/bundesamtFuerVerbraucherschutzUndLebensmittelsicherheit,,federalAgency,,,,,,,Q18124763,,,,,,,,,,
+Generalzolldirektion,Generalzolldirektion,http://dcat-ap.de/def/contributors/generalzolldirektion,,federalAgency,,,,,,,Q18287062,,,,,,,,,,
+Bundesanstalt für Materialforschung und -prüfung,Bundesanstalt für Materialforschung und -prüfung (BAM),http://dcat-ap.de/def/contributors/bundesanstaltFuerMaterialforschungUndPruefung,,federalAgency,,,,,,,Q1005540,,,,,,,,,,
+Robert Koch-Institut,Robert Koch-Institut,http://dcat-ap.de/def/contributors/robertKochInstitut,,federalAgency,,,,,,,Q679041,,,,,,,,,,
+Bundesministerium der Verteidigung,Bundesministerium der Verteidigung,http://dcat-ap.de/def/contributors/bundesministeriumDerVerteidigung,,federal,,,,,,,Q493353,,,,,,,,,,
+Bundesarchiv,Bundesarchiv,http://dcat-ap.de/def/contributors/bundesarchiv,,federalAgency,,,,,,,Q685753,,,,,,,,,,
+Bundesausgleichsamt,Bundesausgleichsamt,http://dcat-ap.de/def/contributors/bundesausgleichsamt,,federalAgency,,,,,,,Q1005650,,,,,,,,,,
+Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung,Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung,http://dcat-ap.de/def/contributors/bundesministeriumFuerWirtschaftlicheZusammenarbeitUndEntwicklung,,federal,,,,,,,Q684357,,,,,,,,,,
+Bundessortenamt,Bundessortenamt,http://dcat-ap.de/def/contributors/bundessortenamt,,federalAgency,,,,,,,Q1006713,,,,,,,,,,
+Bundesamt für Soziale Sicherung,Bundesversicherungsamt,http://dcat-ap.de/def/contributors/bundesversicherungsamt,,federalAgency,,,,,,,Q1009200,,,,,,,,,,
+Bundesverwaltungsamt,Bundesverwaltungsamt,http://dcat-ap.de/def/contributors/bundesverwaltungsamt,,federalAgency,,,,,,,Q1009218,,,,,,,,,,
+Bundeszentralamt für Steuern,Bundeszentralamt für Steuern,http://dcat-ap.de/def/contributors/bundeszentralamtFuerSteuern,,federalAgency,,,,,,,Q1009314,,,,,,,,,,
+Beauftragter der Bundesregierung für Kultur und Medien,Die Beauftragte der Bundesregierung für Kultur und Medien,http://dcat-ap.de/def/contributors/dieBeauftragteDerBundesregierungFuerKulturUndMedien,,federalAgency,,,,,,,Q813386,,,,,,,,,,
+Friedrich-Loeffler-Institut,Friedrich-Loeffler-Institut,http://dcat-ap.de/def/contributors/friedrichLoefflerInstitut,,federalAgency,,,,,,,Q1457808,,,,,,,,,,
+Informationstechnikzentrum Bund,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,,federalAgency,,,,,,,Q23786362,,,,,,,,,,
+Max Rubner-Institut,Max Rubner-Institut,http://dcat-ap.de/def/contributors/maxRubnerInstitut,,federalAgency,,,,,,,Q1319982,,,,,,,,,,
+Bundesamt für Wirtschaft und Ausfuhrkontrolle,Bundesamt für Wirtschaft und Ausfuhrkontrolle,http://dcat-ap.de/def/contributors/bundesamtFuerWirtschaftUndAusfuhrkontrolle,,federalAgency,,,,,,,Q1005513,,,,,,,,,,
+Stadtwerke Osnabrück,SWO Netz GmbH,http://dcat-ap.de/def/contributors/SWONetzGmbH,,other,,,,,,,Q1114682,,,,,,,,,,
+Bundesamt für Bauwesen und Raumordnung,Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesamtFuerBauwesenUndRaumordnung,,federalAgency,,,,,,,Q1005429,,,,,,,,,,
+OpenAgrar,OpenAgrar Repositorium der Forschungseinrichtungen des BMEL,http://dcat-ap.de/def/contributors/openAgrarRepositoriumDerForschungseinrichtungenDesBMEL,,federalAgency,,,,,,,,,,,,,,,,,

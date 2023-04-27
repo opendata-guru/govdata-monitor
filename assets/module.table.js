@@ -322,6 +322,7 @@ var table = (function () {
     }
 
     function getSublineRow(arrayData, id, countDatasets) {
+        var showBadge = arrayData.length === 1;
         var str = '';
         var title = '';
         var name = '';
@@ -349,7 +350,10 @@ var table = (function () {
                         addClass = ' bg-warning';
                     }
                 }
-                str += '<td class="text-end text-info' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
+                str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
+                if (showBadge) {
+                    str += '<td></td>';
+                }
 
                 lastCount = currentCount;
             } else {
@@ -361,12 +365,15 @@ var table = (function () {
                         addClass = ' bg-warning';
                     }
                 }
-                str += '<td class="text-end text-info' + addClass + '">-</td>';
+                str += '<td class="text-end' + addClass + '">-</td>';
+                if (showBadge) {
+                    str += '<td></td>';
+                }
                 lastCount = null;
             }
         });
 
-        str = '<td style="border-left:.5rem solid #1cbb8c" class="text-info"><span title="' + name + '">' + title + '</span></td>' + str;
+        str = '<td><span title="' + name + '">' + title + '</span></td>' + str;
 
         return '<tr>' + str + '</tr>';
     }
@@ -374,16 +381,19 @@ var table = (function () {
     function funcUpdate() {
         var arrayData = [];
         var arrayIds = [];
-        var header = '';
+        var firstHeader = '';
+        var secondHeader = '';
         var footer = '';
         var subline = '';
         var body = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        header += '<th>Data Supplier</th>';
+        firstHeader += '<th>Data Catalog</th>';
+        secondHeader += '<th>Data Supplier</th>';
         for (d = 0; d < date.selection.length; ++d) {
             arrayData.push(monitor.data[date.selection[d]]);
-            header += '<th>' + date.selection[d] + '</th>';
+            firstHeader += '<th>' + date.selection[d] + '</th>';
+            secondHeader += '<th></th>';
     
             if (arrayData[arrayData.length - 1]) {
                 arrayData[arrayData.length - 1].forEach((row) => {
@@ -396,7 +406,8 @@ var table = (function () {
             }
         }
         if (arrayData.length === 1) {
-            header += '<th>In source portal</th>';
+            firstHeader += '<th>In source portal</th>';
+            secondHeader += '<th></th>';
         }
 
         if (arrayIds.length > 0) {
@@ -412,11 +423,12 @@ var table = (function () {
             sameAs.forEach((id) => subline += getSublineRow(arrayData, id, false));
         }
 
-        header = '<tr>' + header + '</tr>';
-        footer = '<tr>' + footer + '</tr>';
+        firstHeader = '<tr style="border-bottom:2px solid #000">' + firstHeader + '</tr>';
+        secondHeader = '<tr style="border-top:2px solid #000;border-bottom:2px solid #000">' + secondHeader + '</tr>';
+        footer = '<tr style="border-top:2px solid #000">' + footer + '</tr>';
         subline = '<tr>' + subline + '</tr>';
 
-        document.getElementById(idTableHeader).innerHTML = header + subline;
+        document.getElementById(idTableHeader).innerHTML = firstHeader + subline + secondHeader;
         document.getElementById(idTableFooter).innerHTML = footer;
         document.getElementById(idTableBody).innerHTML = body;
 

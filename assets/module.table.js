@@ -19,7 +19,7 @@ var table = (function () {
     layers['country'] = 'Staat';
     layers['federal'] = 'Bund';
     layers['federalAgency'] = 'Bundesbehörde';
-    layers['federalCooperation'] = 'Bund + Land';
+    layers['federalCooperation'] = 'Bund + Länder';
     layers['state'] = 'Land';
     layers['stateAgency'] = 'Landesamt';
     layers['regionalNetwork'] = 'Region';
@@ -198,12 +198,12 @@ var table = (function () {
         return false;
     }
 
-    function getParentPath(data, item) {
-        var itemParent = data.filter(dataItem => dataItem.id === item.packagesInId);
+    function getParentPath(dataObj, item) {
+        var itemParent = dataObj.filter(dataItem => dataItem.id === item.packagesInId);
         if (itemParent.length > 0) {
             var parent = '';
             if (itemParent[0].packagesInId != catalog.id) {
-                parent = getParentPath(data, itemParent[0]);
+                parent = getParentPath(dataObj, itemParent[0]);
             }
             return ' &larr; ' + itemParent[0].title + parent;
         }
@@ -255,22 +255,22 @@ var table = (function () {
         var maxDiff = 0;
 
         arrayData.forEach(processData => {
-            var data = processData ? processData.filter(item => item.id === id) : [];
-            if (data.length > 0) {
-                var currentCount = parseInt(data[0].packages ? data[0].packages : 0, 10);
+            var dataObj = processData ? processData.filter(item => item.id === id) : [];
+            if (dataObj.length > 0) {
+                var currentCount = parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
                 var addClass = '';
-                title = data[0].title ? data[0].title : title;
-                name = data[0].name ? data[0].name : name;
-                type = data[0].type ? data[0].type : type;
+                title = dataObj[0].title ? dataObj[0].title : title;
+                name = dataObj[0].name ? dataObj[0].name : name;
+                type = dataObj[0].type ? dataObj[0].type : type;
 
-                if (data[0].datasetCountDuration) {
+                if (dataObj[0].datasetCountDuration) {
                     title = '<a href="#" onclick="catalog.set(\'' + id + '\')">' + title + '</a>';
                 }
-                if (data[0].packagesInId != catalog.id) {
-                    title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
+                if (dataObj[0].packagesInId != catalog.id) {
+                    title += ' <span class="small text-info">' + getParentPath(processData, dataObj[0]) + '</span>';
                 }
 
-                icon = getRowIcon(data[0].type);
+                icon = getRowIcon(dataObj[0].type);
 
                 if (lastCount !== undefined) {
                     var difference = lastCount === null ? currentCount : Math.abs(lastCount - currentCount);
@@ -282,14 +282,14 @@ var table = (function () {
                 str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
 
                 if (showBadge) {
-                    if (data[0].datasetCount) {
-                        str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(data[0].datasetCount) + '</span></td>';
+                    if (dataObj[0].datasetCount) {
+                        str += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(dataObj[0].datasetCount) + '</span></td>';
                     } else {
                         str += '<td></td>';
                     }
                 }
-                if (data.length > 1) {
-                    assertion += '<span class="badge bg-danger">' + data.length + '</span>';
+                if (dataObj.length > 1) {
+                    assertion += '<span class="badge bg-danger">' + dataObj.length + '</span>';
                 }
                 lastCount = currentCount;
             } else {
@@ -331,16 +331,16 @@ var table = (function () {
         var maxDiff = 0;
 
         arrayData.forEach(processData => {
-            var data = processData ? processData.filter(item => item.id === id) : [];
-            if (data.length > 0) {
-                var currentCount = countDatasets ? parseInt(data[0].datasetCount ? data[0].datasetCount : 0, 10) : parseInt(data[0].packages ? data[0].packages : 0, 10);
+            var dataObj = processData ? processData.filter(item => item.id === id) : [];
+            if (dataObj.length > 0) {
+                var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
                 var addClass = '';
-                title = data[0].title ? data[0].title : title;
-                name = data[0].name ? data[0].name : name;
-                type = data[0].type ? data[0].type : type;
+                title = dataObj[0].title ? dataObj[0].title : title;
+                name = dataObj[0].name ? dataObj[0].name : name;
+                type = dataObj[0].type ? dataObj[0].type : type;
 
-                if (!countDatasets && (data[0].packagesInId != catalog.id)) {
-                    title += ' <span class="small text-info">' + getParentPath(processData, data[0]) + '</span>';
+                if (!countDatasets && (dataObj[0].packagesInId != catalog.id)) {
+                    title += ' <span class="small text-info">' + getParentPath(processData, dataObj[0]) + '</span>';
                 }
 
                 if (lastCount !== undefined) {

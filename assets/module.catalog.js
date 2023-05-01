@@ -33,11 +33,11 @@ var catalog = (function () {
     }
 
     function funcGet(id) {
-        var data = monitor.data[monitor.displayDate];
+        var dataObj = monitor.data[monitor.displayDate];
         var obj = undefined; 
 
-        if (data && id) {
-            data.forEach((row) => {
+        if (dataObj && id) {
+            dataObj.forEach((row) => {
                 if (row.id === id) {
                     obj = row;
                 }
@@ -49,11 +49,11 @@ var catalog = (function () {
 
     function funcGetSameAs(id) {
         var catalogObject = funcGet(id);
-        var data = monitor.data[monitor.displayDate];
+        var dataObj = monitor.data[monitor.displayDate];
         var ret = [];
 
-        if (data && id) {
-            data.forEach((row) => {
+        if (dataObj && id) {
+            dataObj.forEach((row) => {
                 if (catalogObject.wikidata && (catalogObject.wikidata !== '') && (row.wikidata === catalogObject.wikidata)) {
                     ret.push(row.id);
                 } else if (catalogObject.contributor && (catalogObject.contributor !== '') && (row.contributor === catalogObject.contributor)) {

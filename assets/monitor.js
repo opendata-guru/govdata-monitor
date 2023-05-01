@@ -2,7 +2,6 @@ var monitor = {
     maxDays: 30,
     chartHistory: null,
     chartPie: null,
-    data: [],
     displayDate: '',
 };
 
@@ -14,7 +13,7 @@ function monitorFormatNumber(x) {
 }
 
 function monitorGetDatasetCountByDate(dateString) {
-    var dataObj = monitor.data[dateString];
+    var dataObj = data.getDate(dateString);
     var count = undefined;
 
     if (dataObj) {
@@ -103,7 +102,7 @@ function monitorUpdateCatalogHistoryChart() {
 }
 
 function monitorUpdateCatalogPieChart() {
-    var dataObj = monitor.data[monitor.displayDate];
+    var dataObj = data.get();
     var labels = [];
     var counts = [];
     var slices = 8;

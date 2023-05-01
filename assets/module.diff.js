@@ -102,7 +102,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function onClickHideEqual() {
@@ -118,7 +118,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function onClickHighlight() {
@@ -134,7 +134,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function onChangeThreshold() {
@@ -150,7 +150,7 @@ var diff = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
     
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     install();

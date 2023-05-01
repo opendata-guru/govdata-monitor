@@ -2,6 +2,7 @@ var data = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         dateToLoad = '',
         uriToLoad = '';
+    var assets = [];
     var idLoadingLabel = 'loading-description',
         classNameLoadingCard = 'card-loading',
         classNameBreadcrumbTitle = 'card-breadcrumb-and-catalog-title';
@@ -9,11 +10,27 @@ var data = (function () {
     function init() {
     }
 
+    function funcEmitFilterChanged() {
+        table.update();
+    }
+
+    function funcGet() {
+        return assets[monitor.displayDate];
+    }
+
+    function funcGetDate(dateString) {
+        return assets[dateString]
+    }
+
+    function funcHas(dateString) {
+        return assets[dateString] !== undefined;
+    }
+
     function setDate(displayDate) {
         monitor.displayDate = displayDate;
 
         date.update();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function setLoadingDate(loadingDate) {
@@ -41,9 +58,9 @@ var data = (function () {
     }
 
     function store(payload) {
-        monitor.data[dateToLoad] = payload;
+        assets[dateToLoad] = payload;
 
-        if (Object.keys(monitor.data).length === 1) {
+        if (Object.keys(assets).length === 1) {
             setDate(dateToLoad);
             catalog.set(catalog.id); // <-  this is a hack
         }
@@ -95,5 +112,9 @@ var data = (function () {
     });
 
     return {
+        emitFilterChanged: funcEmitFilterChanged,
+        get: funcGet,
+        getDate: funcGetDate,
+        has: funcHas,
     };
 }());

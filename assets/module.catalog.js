@@ -33,7 +33,7 @@ var catalog = (function () {
     }
 
     function funcGet(id) {
-        var dataObj = monitor.data[monitor.displayDate];
+        var dataObj = data.get();
         var obj = undefined; 
 
         if (dataObj && id) {
@@ -49,7 +49,7 @@ var catalog = (function () {
 
     function funcGetSameAs(id) {
         var catalogObject = funcGet(id);
-        var dataObj = monitor.data[monitor.displayDate];
+        var dataObj = data.get();
         var ret = [];
 
         if (dataObj && id) {
@@ -92,7 +92,7 @@ var catalog = (function () {
         document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
 
         date.update();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function getBreadcrumb_(id) {

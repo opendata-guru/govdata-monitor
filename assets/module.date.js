@@ -84,7 +84,7 @@ var date = (function () {
 
             enable: [function(theDate) {
                 var dateString = theDate.toISOString().split('T')[0];
-                return monitor.data[dateString] !== undefined;
+                return data.has(dateString);
             }],
         });
         datepicker.config.onChange.push(function(selectedDates, dateStr, instance) {
@@ -134,7 +134,7 @@ var date = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function funcUpdate() {

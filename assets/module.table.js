@@ -122,7 +122,7 @@ var table = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function onClickFlatten() {
@@ -138,7 +138,7 @@ var table = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
     function onClickLayer(event) {
@@ -172,10 +172,10 @@ var table = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        table.update();
+        data.emitFilterChanged();
     }
 
-    function isParent(packageId, dateObj, sameAs) {
+    function isParent(packageId, dateString, sameAs) {
         var found = false;
         if (sameAs.length > 0) {
             sameAs.forEach((id) => found |= packageId === id);
@@ -187,9 +187,9 @@ var table = (function () {
         }
 
         if (initvalFlatten) {
-            monitor.data[dateObj].filter(item => item.id === packageId).forEach((row) => {
+            data.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
                 if (row.packagesInId) {
-                    found |= isParent(row.packagesInId, dateObj, sameAs);
+                    found |= isParent(row.packagesInId, dateString, sameAs);
                 }
             });
             return found;
@@ -391,7 +391,7 @@ var table = (function () {
         firstHeader += '<th>Data Catalog</th>';
         secondHeader += '<th>Data Supplier</th>';
         for (d = 0; d < date.selection.length; ++d) {
-            arrayData.push(monitor.data[date.selection[d]]);
+            arrayData.push(data.getDate(date.selection[d]));
             firstHeader += '<th>' + date.selection[d] + '</th>';
             secondHeader += '<th></th>';
     

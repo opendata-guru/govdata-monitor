@@ -66,7 +66,7 @@
 		$data[] = array(
 			'id' => 'data.europa.eu',
 			'name' => 'data.europa.eu',
-			'title' => 'European data',
+			'title' => 'EU',
 			'created' => '',
 			'packages' => '',
 			'packagesInId' => '',

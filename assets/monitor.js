@@ -102,23 +102,21 @@ function monitorUpdateCatalogHistoryChart() {
 }
 
 function monitorUpdateCatalogPieChart() {
-    var dataObj = data.get();
     var labels = [];
     var counts = [];
     var slices = 8;
 
-    if (dataObj) {
-        dataObj.forEach((row) => {
-            if (row.packagesInId === catalog.id) {
-                if (labels.length < slices) {
-                    labels.push(row.title);
-                    counts.push(row.packages);
-                } else if (labels.length === slices) {
-                    labels.push('other');
-                    counts.push(row.packages);
-                } else {
-                    counts[slices] += row.packages;
-                }
+    if (data.view.length > 0) {
+        data.view.forEach((row) => {
+            var count = row.cols[row.cols.length - 1].count;
+            if (labels.length < slices) {
+                labels.push(row.title);
+                counts.push(count);
+            } else if (labels.length === slices) {
+                labels.push('other');
+                counts.push(count);
+            } else {
+                counts[slices] += count;
             }
         });
     }

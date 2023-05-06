@@ -2,15 +2,212 @@ var data = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         dateToLoad = '',
         uriToLoad = '';
-    var assets = [];
+    var assets = [],
+        view = [],
+        viewHeader = [],
+        layers = [];
     var idLoadingLabel = 'loading-description',
         classNameLoadingCard = 'card-loading',
         classNameBreadcrumbTitle = 'card-breadcrumb-and-catalog-title';
 
     function init() {
+        layers['country'] = 'Staat';
+        layers['federal'] = 'Bund';
+        layers['federalAgency'] = 'Bundesbehörde';
+        layers['federalCooperation'] = 'Bund + Länder';
+        layers['state'] = 'Land';
+        layers['stateAgency'] = 'Landesamt';
+        layers['regionalNetwork'] = 'Region';
+        layers['municipality'] = 'Stadt';
+        layers['council'] = 'Rat';
+    }
+
+    function isParent(packageId, dateString, sameAs) {
+        var found = false;
+        if (sameAs.length > 0) {
+            sameAs.forEach((id) => found |= packageId === id);
+        } else if (packageId === catalog.id) {
+            found = true;
+        }
+        if (found) {
+            return true;
+        }
+
+        if (table.flatten) {
+            data.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
+                if (row.packagesInId) {
+                    found |= isParent(row.packagesInId, dateString, sameAs);
+                }
+            });
+            return found;
+        }
+
+        return false;
+    }
+
+    function getParentPath(dataObj, item) {
+        var itemParent = dataObj.filter(dataItem => dataItem.id === item.packagesInId);
+        if (itemParent.length > 0) {
+            var parent = '';
+            if (itemParent[0].packagesInId != catalog.id) {
+                parent = getParentPath(dataObj, itemParent[0]);
+            }
+            return ' &larr; ' + itemParent[0].title + parent;
+        }
+
+        //return ' &larr; ' + item.packagesInId;
+        return '';
+    }
+
+    function getRowType(type) {
+        var ret = '';
+        Object.keys(layers).forEach(key => {
+            if (type === key) {
+                ret = layers[key];
+            }
+        });
+        if (ret !== '') {
+            return ret;
+        }
+
+        if (type === 'municipality+state') {
+            return 'Land + Stadt';
+        } else if (type === 'collectiveMunicipality') {
+            return 'CM';
+        } else if (type === 'statisticaloffice') {
+            return 'O';
+        } else if (type === 'portal') {
+            return 'P';
+        } else if (type === 'geoPortal') {
+            return 'G';
+        } else if (type === 'dumping') {
+            return 'D';
+        } else if (type !== '') {
+            return '?';
+        }
+
+        return '';
+    }
+
+    function analyzeRow(arrayData, id) {
+        var showBadge = arrayData.length === 1;
+        var str = '';
+        var name = '';
+        var path = '';
+        var type = '';
+        var title = '';
+        var typeStr = '';
+        var linkable = false;
+        var packages = [];
+        var datasetCount = undefined;
+        var lastCount = undefined;
+        var maxDiff = 0;
+
+        arrayData.forEach(processData => {
+            var dataObj = processData ? processData.filter(item => item.id === id) : [];
+            var highlight = false;
+
+            if (dataObj.length > 0) {
+                var obj = dataObj[0];
+                var currentCount = parseInt(obj.packages ? obj.packages : 0, 10);
+
+                title = obj.title ? obj.title : title;
+                name = obj.name ? obj.name : name;
+                type = obj.type ? obj.type : type;
+
+                typeStr = getRowType(type);
+
+                if (showBadge) {
+                    datasetCount = obj.datasetCount ? obj.datasetCount : null;
+                }
+                if (obj.datasetCountDuration) {
+                    linkable = true;
+                }
+                if (obj.packagesInId != catalog.id) {
+                    path = getParentPath(processData, obj);
+                }
+                if (lastCount !== undefined) {
+                    var difference = lastCount === null ? currentCount : Math.abs(lastCount - currentCount);
+                    maxDiff = Math.max(maxDiff, difference);
+                    highlight = diff.highlight && (difference >= diff.threshold);
+                }
+
+                lastCount = currentCount;
+            } else {
+                var highlight = false;
+
+                if (showBadge) {
+                    datasetCount = null;
+                }
+                if ((lastCount !== undefined) && (lastCount !== null)) {
+                    var difference = lastCount;
+                    maxDiff = Math.max(maxDiff, difference);
+                    highlight = diff.highlight && (difference >= diff.threshold);
+                }
+
+                lastCount = null;
+            }
+
+            packages.push({
+                count: lastCount,
+                highlight: highlight
+            });
+        });
+
+        if ((table.layer !== table.layerAll) && (table.layer !== type)) {
+            return;
+        }
+        if (diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {
+            return;
+        }
+
+        view.push({
+            cols: packages,
+            datasetCount: datasetCount,
+            linkId: linkable ? id : undefined,
+            name: name,
+            path: path,
+            title: title,
+            type: type,
+            typeDE: typeStr,
+        });
+    }
+
+    function createView() {
+        var arrayData = [],
+            rows = [];
+        var sameAs = catalog.getSameAs(catalog.id);
+
+        view = [];
+        viewHeader = [];
+
+        for (d = 0; d < date.selection.length; ++d) {
+            var selectedDate = date.selection[d];
+            viewHeader.push(selectedDate);
+            arrayData.push(data.getDate(selectedDate));
+
+            if (arrayData[d]) {
+                arrayData[d].forEach((row) => {
+                    if (isParent(row.packagesInId ? row.packagesInId : '', selectedDate, sameAs)) {
+                        if (rows.indexOf(row.id) < 0) {
+                            rows.push(row.id);
+                        }
+                    }
+                });
+            }
+        }
+
+        if (rows.length > 0) {
+            rows.forEach((id) => analyzeRow(arrayData, id));
+        }
+
+        data.view = view;
+        data.viewHeader = viewHeader;
     }
 
     function funcEmitFilterChanged() {
+        createView();
+
         table.update();
     }
 
@@ -116,5 +313,8 @@ var data = (function () {
         get: funcGet,
         getDate: funcGetDate,
         has: funcHas,
+        layers: layers,
+        view: view,
+        viewHeader: viewHeader,
     };
 }());

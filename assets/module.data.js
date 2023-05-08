@@ -18,7 +18,9 @@ var data = (function () {
         layers['state'] = 'Land';
         layers['stateAgency'] = 'Landesamt';
         layers['regionalNetwork'] = 'Region';
-        layers['municipality'] = 'Stadt';
+        layers['administrativeDistrict'] = 'Kreis/Bezirk';
+        layers['collectiveMunicipality'] = 'Amt';
+        layers['municipality'] = 'Stadt/Kommune';
         layers['council'] = 'Rat';
     }
 
@@ -72,8 +74,6 @@ var data = (function () {
 
         if (type === 'municipality+state') {
             return 'Land + Stadt';
-        } else if (type === 'collectiveMunicipality') {
-            return 'CM';
         } else if (type === 'statisticaloffice') {
             return 'O';
         } else if (type === 'portal') {

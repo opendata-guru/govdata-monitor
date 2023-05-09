@@ -16,6 +16,9 @@
 
 	<link href="assets/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+	<link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -93,47 +96,20 @@
 					</div>
 
 					<div class="row">
-						<div class="col-xxl-3">
-							<div class="card">
-								<div class="card-body">
-									col-xxl-3
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3">
-							<div class="card">
-								<div class="card-body">
-									col-xl-3
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3">
-							<div class="card">
-								<div class="card-body">
-									col-lg-3
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body">
-									col-md-3
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="card">
-								<div class="card-body">
-									col-sm-3
-								</div>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="card">
-								<div class="card-body">
-									col-3
-								</div>
-							</div>
+						<div class="col">
+
+							<div id='map' style='width: 400px; height: 300px;'></div>
+							<script>
+							var map = new maplibregl.Map({
+								center: [10.4515, 51.1656],
+								container: 'map',
+//								customAttribution: 'test',
+//								hash: true,
+								style: 'https://demotiles.maplibre.org/style.json', // stylesheet location
+								zoom: 4
+							});
+							</script>
+
 						</div>
 					</div>
 

@@ -18,10 +18,11 @@ var data = (function () {
         layers['state'] = 'Land';
         layers['stateAgency'] = 'Landesamt';
         layers['regionalNetwork'] = 'Region';
-        layers['administrativeDistrict'] = 'Kreis/Bezirk';
+        layers['district'] = 'Kreis';
+        layers['districtAgency'] = 'Kreisverwaltung';
         layers['collectiveMunicipality'] = 'Amt';
-        layers['municipality'] = 'Stadt/Kommune';
-        layers['council'] = 'Rat';
+        layers['municipality'] = 'Stadt';
+        layers['municipalityAgency'] = 'Stadtverwaltung';
     }
 
     function isParent(packageId, dateString, sameAs) {

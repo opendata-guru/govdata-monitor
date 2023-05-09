@@ -8,7 +8,7 @@ AWSH - Abfallwirtschaft Südholstein GmbH,AWSH - Abfallwirtschaft Südholstein G
 Bayern,Bayern,http://dcat-ap.de/def/contributors/openDataBayern,,state,http://www.opendata.bayern.de/,,,,09,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/09,Q980,,poststelle@stmflh.bayern.de,,,,CKAN,https://opendata.bayern.de/api/1/search/dataset?all_fields=1&q=*:*,,,2023-02-15
 Beauftragter der Bundesregierung für Kultur und Medien,Die Beauftragte der Bundesregierung für Kultur und Medien,http://dcat-ap.de/def/contributors/dieBeauftragteDerBundesregierungFuerKulturUndMedien,,federalAgency,,,,,,,Q813386,,,,,,,,,,
 Berlin,Berlin,http://dcat-ap.de/def/contributors/berlinOpenData,,municipality+state,https://daten.berlin.de,2011-09-23,,,11,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/11,Q64,Senatsverwaltung für Wirtschaft， Energie und Betriebe,opendata@berlin.de,https://twitter.com/OpenDataBerlin,,BerlinOnline Stadtportal GmbH & Co. KG,CKAN,https://datenregister.berlin.de/api/3/action/package_list,https://datenregister.berlin.de/api/3/action/organization_list,https://datenregister.berlin.de/catalog.ttl,2023-02-06
-Bezirksversammlung,ALLRIS,suche.transparenz.hamburg.de|allris,,council,,,,,,,Q854388,,,,,,CKAN,,,,2023-04-11
+Bezirksversammlung,ALLRIS,suche.transparenz.hamburg.de|allris,,municipalityAgency,,,,,,,Q854388,,,,,,CKAN,,,,2023-04-11
 Brandenburg,Brandenburg,http://dcat-ap.de/def/contributors/landBrandenburg,,state,https://datenadler.de/,,,,12,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/12,Q1208,Frank Schiersner,frank.schiersner@mik.brandenburg.de,,,Inqbus scientific computing,PKAN,,https://datenadler.de/publisher,,2023-02-05
 Bremen,Freie Hansestadt Bremen,http://dcat-ap.de/def/contributors/transparenzportalBremen,,municipality+state,http://daten.bremen.de/,,,,04,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/04,Q1209,,transparenz@finanzen.bremen.de,,,,Website,,,,2023-02-15
 Bundesamt für Bauwesen und Raumordnung,Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesamtFuerBauwesenUndRaumordnung,,federalAgency,,,,,,,Q1005429,,,,,,,,,,
@@ -51,12 +51,14 @@ Glückstadt,Glückstadt,opendata.schleswig-holstein.de|glueckstadt,,municipality
 Hamburg,Hamburg,http://dcat-ap.de/def/contributors/transparenzportalHamburg,,state,http://daten.hamburg.de/,2014-10-06,,,02,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/02,Q1055,Dominik Panić (Fachliche Leitstelle Transparenzportal),transparenzportal@bkm.hamburg.de,,,Staatsarchiv Hamburg,CKAN,http://suche.transparenz.hamburg.de/api/3/action/package_list,https://suche.transparenz.hamburg.de/api/3/action/organization_list,http://suche.transparenz.hamburg.de/catalog.xml,2023-02-05
 Hamburg,StadtHamburg,suche.transparenz.hamburg.de|stadthamburg,,municipality,,,,,,,,,,,,,CKAN,,,,2023-04-11
 Heerlen,Heerlen,offenedaten.aachen.de|gemeinde-heerlen,,municipality,https://www.heerlen.nl,,,,,,Q9799,,,,,,,,,,2023-02-05
+Herzogtum Lauenburg,Kreis Herzogtum Lauenburg,opendata.schleswig-holstein.de|kreis-herzogtum-lauenburg,,district,,,,,01053,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01053,Q3000,,,,,,,,,,2023-05-09
 Informationstechnikzentrum Bund,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,,federalAgency,,,,,,,Q23786362,,,,,,,,,,
 Kiel,Landeshauptstadt Kiel,opendata.schleswig-holstein.de|landeshauptstadt-kiel,,municipality,https://opendata.schleswig-holstein.de/organization/landeshauptstadt-kiel,,,,010020000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010020000000,Q1707,,,,,Dataport,CKAN,,,,2023-05-08
+Kreisarchiv Stormarn,Kreisarchiv Stormarn,opendata.schleswig-holstein.de|kreisarchiv-stormarn,,districtAgency,,,,,,,Q28735056,,,,,,,,,,2023-05-09
 Landesamt für Denkmalpflege Schleswig-Holstein,Landesamt für Denkmalpflege,opendata.schleswig-holstein.de|landesamt-fur-denkmalpflege,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesamt-fur-denkmalpflege,,,,,,Q17124210,,,,,,,,,,2023-03-04
 Landesamt für Landwirtschaft， Umwelt und ländliche Räume,Landesamt für Landwirtschaft， Umwelt und ländliche Räume (LLUR),opendata.schleswig-holstein.de|llur,,stateAgency,https://opendata.schleswig-holstein.de/organization/llur,,,,,,Q1802059,,,,,,,,,,2023-03-04
 Landesamt für soziale Dienste,Landesamt für soziale Dienste,opendata.schleswig-holstein.de|landesamt-fur-soziale-dienste,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesamt-fur-soziale-dienste,,,,,,Q1802073,,,,,,,,,,2023-03-04
-Landesbetrieb Geoinformation und Vermessung,HMDKLGV,suche.transparenz.hamburg.de|hmdklgv,,geoPortal,https://metaver.de/freitextsuche?rstart=0&currentSelectorPage=1&f=type:opendata;provider:hh;,,,,,,Q93384739,,,,,,,,,,2023-04-11
+Landesbetrieb Geoinformation und Vermessung,HMDKLGV,suche.transparenz.hamburg.de|hmdklgv,,stateAgency,https://metaver.de/freitextsuche?rstart=0&currentSelectorPage=1&f=type:opendata;provider:hh;,,,,,,Q93384739,,,,,,,,,,2023-04-11
 Landesmeldestelle Schleswig-Holstein,Landesmeldestelle Schleswig-Holstein,opendata.schleswig-holstein.de|landesmeldestelle,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesmeldestelle,,,,,,,,,,,,,,,,2023-03-04
 Max Rubner-Institut,Max Rubner-Institut,http://dcat-ap.de/def/contributors/maxRubnerInstitut,,federalAgency,,,,,,,Q1319982,,,,,,,,,,
 Mecklenburg-Vorpommern,Land Mecklenburg-Vorpommern,http://dcat-ap.de/def/contributors/mecklenburgVorpommern,,state,,,,,13,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/13,Q1196,,,,,,,,,,2023-02-15
@@ -66,15 +68,17 @@ München,Landeshauptstadt München,http://dcat-ap.de/def/contributors/landeshaup
 Niederrhein,Niederrhein (Region),open.nrw|offenesdatenportal,,regionalNetwork,http://offenesdatenportal.de/,2015-04-16,,,,,,,info@krzn.de,,,,CKAN,https://www.offenesdatenportal.de/api/3/action/package_list,https://www.offenesdatenportal.de/api/3/action/organization_list,https://www.offenesdatenportal.de/catalog.rdf,2023-02-05
 Niedersachsen,Niedersachsen,http://dcat-ap.de/def/contributors/landNiedersachsen,,state,,,,,03,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/03,Q1197,,,,,,,,,,2023-02-06
 Norderstedt,Norderstedt,opendata.schleswig-holstein.de|norderstedt,,municipality,https://opendata.schleswig-holstein.de/organization/norderstedt,,,,010600063063,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010600063063,,,,,,Dataport,CKAN,,,,2023-05-08
-Nordfriesland,Kreis Nordfriesland,opendata.schleswig-holstein.de|nordfriesland,,administrativeDistrict,https://opendata.schleswig-holstein.de/organization/nordfriesland,,,,01054,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01054,Q2937,,,,,,,,,,2023-05-08
+Nordfriesland,Kreis Nordfriesland,opendata.schleswig-holstein.de|nordfriesland,,district,https://opendata.schleswig-holstein.de/organization/nordfriesland,,,,01054,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01054,Q2937,,,,,,,,,,2023-05-08
 Nordrhein-Westfalen,Nordrhein-Westfalen,http://dcat-ap.de/def/contributors/openNRW,,state,https://open.nrw/,,,,05,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/05,Q1198,Dr. Björn Fleischer,kontakt@open.nrw.de,,,Landesbetrieb Information und Technik Nordrhein-Westfalen (IT.NRW),Drupal,https://ckan.www.open.nrw.de/api/3/action/package_list,https://open.nrw/api/3/action/organization_list,https://ckan.www.open.nrw.de/catalog.xml,2023-02-05
 Nürnberg,Stadt Nürnberg,http://dcat-ap.de/def/contributors/stadtNuernberg,,municipality,,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/095640000000,Q2090,,,,,,,,,,
 Oldenburg,Stadt Oldenburg (Oldb),http://dcat-ap.de/def/contributors/stadtOldenburg,,municipality,,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/034030000000,Q2936,,,,,,,,,,
 OpenAgrar,OpenAgrar Repositorium der Forschungseinrichtungen des BMEL,http://dcat-ap.de/def/contributors/openAgrarRepositoriumDerForschungseinrichtungenDesBMEL,,federalAgency,,,,,,,,,,,,,,,,,
-Pinneberg,Kreis Pinneberg,opendata.schleswig-holstein.de|kreis-pinneberg,,administrativeDistrict,https://opendata.schleswig-holstein.de/organization/kreis-pinneberg,,,,01056,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01056,Q3006,,,,,,,,,,2023-05-08
+Ostholstein,Kreis Ostholstein,opendata.schleswig-holstein.de|kreis-ostholstein,,district,,,,,01055,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01055,Q2975,,,,,,,,,,2023-05-09
+Pinneberg,Kreis Pinneberg,opendata.schleswig-holstein.de|kreis-pinneberg,,district,https://opendata.schleswig-holstein.de/organization/kreis-pinneberg,,,,01056,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01056,Q3006,,,,,,,,,,2023-05-08
+Potsdam,Landeshauptstadt Potsdam (LHP),datenadler.de|LandeshauptstadtPotsdamLHP,,municipality,https://opendata.potsdam.de/,2018-01-11,,,120540000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/120540000000,Q1711,Stefanie Buchta,opendata@rathaus.potsdam.de,,,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,,,2023-05-09
 Regionalstatistik,Regionalstatistik,http://dcat-ap.de/def/contributors/regionalstatistik,,federalAgency,,,,,,,,,,,,,,,,,
 Regionalverband Ruhr,Regionalverband Ruhr,open.nrw|rvr,,regionalNetwork,https://opendata.ruhr/,,,,,,Q49849,,,,,,,,https://opendata.ruhr/api/3/action/organization_list,,2023-02-05
-Rendsburg-Eckernförde,Kreis Rendsburg-Eckernförde,opendata.schleswig-holstein.de|rendsburg-eckernforde,,administrativeDistrict,,,,,01058,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01058,Q2967,,,,,,,,,,2023-05-08
+Rendsburg-Eckernförde,Kreis Rendsburg-Eckernförde,opendata.schleswig-holstein.de|rendsburg-eckernforde,,district,,,,,01058,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01058,Q2967,,,,,,,,,,2023-05-08
 Rhein-Erft-Rur,Rhein-Erft-Rur,open.nrw|rhein-erft-rur,,regionalNetwork,https://offenedaten.kdvz-frechen.de/,,,,,,Q6292,,,,,,,,https://offenedaten.kdvz-frechen.de/api/3/action/group_list,,2023-02-05
 Rheinland-Pfalz,Rheinland-Pfalz,http://dcat-ap.de/def/contributors/openGovernmentDataPortalRheinlandPfalz,,state,http://daten.rlp.de/,,,,07,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/07,Q1200,Aylin Akça,referat391@mdi.rlp.de,,,Landesbetrieb Daten und Information,CKAN,https://daten.rlp.de/api/3/action/package_list,https://daten.rlp.de/api/3/action/organization_list,https://daten.rlp.de/catalog.xml,2023-02-06
 Robert Koch-Institut,Robert Koch-Institut,http://dcat-ap.de/def/contributors/robertKochInstitut,,federalAgency,,,,,,,Q679041,,,,,,,,,,
@@ -82,12 +86,15 @@ Roetgen,Roetgen,offenedaten.aachen.de|gemeinde-roetgen,,municipality,https://off
 Rostock,OpenData.HRO,http://dcat-ap.de/def/contributors/openDataHRO,,municipality,http://www.opendata-hro.de/,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/130030000000,Q2861,,opendata.hro@rostock.de,,,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,,https://www.opendata-hro.de/catalog.xml,2019-08-04
 Sachsen,Sachsen,http://dcat-ap.de/def/contributors/freistaatSachsen,,state,http://www.opendata.sachsen.de/,,,,14,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/14,Q1202,,opendata@sid.sachsen.de,https://twitter.com/OpenDataSachsen,,,Website,,https://www.opendata.sachsen.de,,2023-02-06
 Sachsen-Anhalt,Land Sachsen-Anhalt,,,state,,,,,15,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/15,Q1206,,,,,,,,,,
+Schleswig-Flensburg,Kreis Schleswig-Flensburg,opendata.schleswig-holstein.de|kreis-schleswig-flensburg,,district,,,,,01059,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01059,Q2941,,,,,,,,,,2023-05-09
 Schleswig-Holstein,Schleswig-Holstein,http://dcat-ap.de/def/contributors/schleswigHolstein,,state,https://opendata.schleswig-holstein.de/,,,,01,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,Q1194,,opendata@lr.landsh.de,,,Dataport,CKAN,https://opendata.schleswig-holstein.de/api/3/action/package_list,https://opendata.schleswig-holstein.de/api/3/action/organization_list,https://opendata.schleswig-holstein.de/catalog.xml,2023-02-05
 Simmerath,Simmerath,offenedaten.aachen.de|gemeinde-simmerath,,municipality,https://offenedaten.aachen.de/organization/gemeinde-simmerath,,,,053340028028,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340028028,Q200836,,,,,,,,,,2023-02-05
 Stadtwerke Osnabrück,SWO Netz GmbH,http://dcat-ap.de/def/contributors/SWONetzGmbH,,other,,,,,,,Q1114682,,,,,,,,,,
 Statistisches Amt für Hamburg und Schleswig-Holstein,Statistikamt Nord,opendata.schleswig-holstein.de|statistikamt-nord,,statisticaloffice,https://www.statistik-nord.de/,,,,,,Q15130249,,,,,,,,,,2023-02-05
 Statistisches Bundesamt,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,,federalAgency,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,,,Q764739,,,,,,Website,,,,2023-04-21
+Stormarn,Kreis Stormarn,opendata.schleswig-holstein.de|kreis-stormarn,,district,,,,,01062,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01062,Q3003,,,,,,,,,,2023-05-09
 Städteregion Aachen,Städteregion Aachen,offenedaten.aachen.de|stadteregion-aachen,,regionalNetwork,https://www.staedteregion-aachen.de,,,,,,Q6272,,,,,,,,,,2023-02-05
+Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,010560050050,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010560050050,Q4356,,,,,,,,,,2023-05-09
 ,Altenberge,,,municipality,https://www.o-sp.de/altenberge/opendata,,DEA37,05566004,055660004004,,,,,,,,,,,,2021-03-03
 ,Altenburg,,,municipality,https://www.altenburg.eu/sixcms/detail.php?id=139875,,DEG0M,16077001,160770001001,,,,,,,,Website,,,,2019-08-10
 ,Andernach,,,municipality,https://daten.rlp.de/organization/stadt_andernach,,DEB17,07137003,071370003003,,,,,,,,,,,,2021-03-03
@@ -203,7 +210,6 @@ Städteregion Aachen,Städteregion Aachen,offenedaten.aachen.de|stadteregion-aac
 ,Oberhausen,,,municipality,https://opendata.ruhr/organization/oberhausen,,DE21N,09190135,091905177135,,,,,,,,,,,,2021-03-04
 ,Oelde,,,municipality,https://www.o-sp.de/oelde/opendata.php,,DEA38,05570028,055700028028,,,,,,,,,,,,2021-03-03
 ,Otterbach-Otterberg,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,,,,,,,,,,,,,,,2021-03-03
-,Potsdam,,,municipality,https://opendata.potsdam.de/,2018-01-11,DE404,12054000,120540000000,,,Stefanie Buchta,opendata@rathaus.potsdam.de,,,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,,,2019-07-31
 ,Puderbach,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,DEB18,07138057,071385005057,,,,,,,,,,,,2021-03-03
 ,Recklinghausen,,,municipality,https://opendata.ruhr/organization/recklinghausen,,DEA36,05562032,055620032032,,,,,,,,,,,,2021-03-04
 ,Reichenbach-Steegen,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_reichenbach_steegen,,DEB3F,07335501,073355009501,,,,,,,,,,,,2021-03-03
@@ -246,26 +252,26 @@ Städteregion Aachen,Städteregion Aachen,offenedaten.aachen.de|stadteregion-aac
 ,Wittlich,,,municipality,https://daten.rlp.de/organization/stadt_wittlich,,DEB22,07231134,072310134134,,,,,,,,,,,,2021-03-03
 ,Wörth,,,municipality,https://daten.rlp.de/organization/stadt_woerth,,DE21A,09177144,091775121144,,,,,,,,,,,,2021-03-03
 ,Wuppertal,,,municipality,http://www.offenedaten-wuppertal.de/,2016-09-05,DEA1A,05124000,051240000000,,,Dietmar Szlagowski,offenedaten@stadt.wuppertal.de,https://twitter.com/OpenData_Wtal,,Stadt Köln,DKAN,https://www.offenedaten-wuppertal.de/api/3/action/package_list,,https://www.offenedaten-wuppertal.de/catalog.xml,2019-11-11
-,Hochsauerlandkreis,,,administrativeDistrict,http://www.hochsauerlandkreis.de/buergerservice/bauen_wohnen_kataster/geo_service/OpenData/,,,,,,,,,,,,Website,,,,2019-08-11
-,Kreis Bautzen,,,administrativeDistrict,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
-,Kreis Euskirchen,,,administrativeDistrict,http://offenedaten.kdvz-frechen.de/group/kreis-euskirchen,2016-11-08,DEA28,,,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Kreis Greiz,,,administrativeDistrict,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
-,Kreis Gütersloh,,,administrativeDistrict,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
-,Kreis Kleve,,,administrativeDistrict,https://www.offenesdatenportal.de/organization/kreis-kleve,,DEA1B,,,,,,,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=kreis-kleve,,,2019-03-12
-,Kreis Minden-Lübbecke,,,administrativeDistrict,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
-,Kreis Ostholstein,,,administrativeDistrict,https://opendata.schleswig-holstein.de/organization/kreis-ostholstein,,,,,,,,,,,,,,,,2021-03-04
-,Kreis Recklinghausen,,,administrativeDistrict,https://geoserver4.kreis-re.de/geonetwork/,,,,,,,,,,,,GeoNetwork,,,,
-,Kreis Soest,,,administrativeDistrict,https://www.kreis-soest.de/gis/start/opendata/opendata.php,,,,,,,,,,,,Website,,,,2019-08-11
-,Kreis Steinfurt,,,administrativeDistrict,https://gis-kreis-steinfurt.opendata.arcgis.com/,2019-06-01,,,,,,Stefan Albers,gdm@kreis-steinfurt.de,,,,ArcGIS,,,,2021-03-04
-,Kreis Unna,,,administrativeDistrict,https://opendata.ruhr/organization/kreis-unna,,,,,,,,,,,,,,,,2021-03-04
-,Kreis Viersen,,,administrativeDistrict,https://www.offenesdatenportal.de/organization/kreis-viersen,2017-01-01,DEA1E,05166,,,,Michael Stein,michael.stein@kreis-viersen.de,https://twitter.com/kreisviersen,https://www.facebook.com/KreisViersen/,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=kreis-viersen,,,2019-10-26
-,Kreis Wesel,,,administrativeDistrict,https://www.offenesdatenportal.de/organization/kreis-wesel,,,,,,,Patrick Erhart,patrick.erhart@kreis-wesel.de,,,,,,,,2021-03-03
-,Landkreis Cham,,,administrativeDistrict,https://data-lra-cha.opendata.arcgis.com/,,,,,,,,gis@lra.landkreis-cham.de,,,,ArcGIS,,,,2021-03-04
-,Landkreis Diepholz,,,administrativeDistrict,https://daten.diepholz.de/,,,,,,,,,,,,DKAN,,,,2019-07-29
-,Landkreis Lüneburg,,,administrativeDistrict,https://open.lklg.net/,2016-08-18,DE935,,,,,Hendrik Lampe,opendata@lklg.de,,,,CKAN,https://open.lklg.net/api/3/action/package_list,,,2019-08-04
-,Märkischer Kreis,,,administrativeDistrict,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
-,Ortenaukreis,,,administrativeDistrict,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,DE134,,,,,,,,,,Website,,,,2019-07-30
-,Rhein-Kreis Neuss,,,administrativeDistrict,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,,,Tobias Schellhorn und Jürgen Brings,digitalisierung@rhein-kreis-neuss.de,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
+,Hochsauerlandkreis,,,district,http://www.hochsauerlandkreis.de/buergerservice/bauen_wohnen_kataster/geo_service/OpenData/,,,,,,,,,,,,Website,,,,2019-08-11
+,Kreis Bautzen,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
+,Kreis Euskirchen,,,district,http://offenedaten.kdvz-frechen.de/group/kreis-euskirchen,2016-11-08,DEA28,,,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
+,Kreis Greiz,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
+,Kreis Gütersloh,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
+,Kreis Kleve,,,district,https://www.offenesdatenportal.de/organization/kreis-kleve,,DEA1B,,,,,,,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=kreis-kleve,,,2019-03-12
+,Kreis Minden-Lübbecke,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
+,Kreis Ostholstein,,,district,https://opendata.schleswig-holstein.de/organization/kreis-ostholstein,,,,,,,,,,,,,,,,2021-03-04
+,Kreis Recklinghausen,,,district,https://geoserver4.kreis-re.de/geonetwork/,,,,,,,,,,,,GeoNetwork,,,,
+,Kreis Soest,,,district,https://www.kreis-soest.de/gis/start/opendata/opendata.php,,,,,,,,,,,,Website,,,,2019-08-11
+,Kreis Steinfurt,,,district,https://gis-kreis-steinfurt.opendata.arcgis.com/,2019-06-01,,,,,,Stefan Albers,gdm@kreis-steinfurt.de,,,,ArcGIS,,,,2021-03-04
+,Kreis Unna,,,district,https://opendata.ruhr/organization/kreis-unna,,,,,,,,,,,,,,,,2021-03-04
+,Kreis Viersen,,,district,https://www.offenesdatenportal.de/organization/kreis-viersen,2017-01-01,DEA1E,05166,,,,Michael Stein,michael.stein@kreis-viersen.de,https://twitter.com/kreisviersen,https://www.facebook.com/KreisViersen/,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=kreis-viersen,,,2019-10-26
+,Kreis Wesel,,,district,https://www.offenesdatenportal.de/organization/kreis-wesel,,,,,,,Patrick Erhart,patrick.erhart@kreis-wesel.de,,,,,,,,2021-03-03
+,Landkreis Cham,,,district,https://data-lra-cha.opendata.arcgis.com/,,,,,,,,gis@lra.landkreis-cham.de,,,,ArcGIS,,,,2021-03-04
+,Landkreis Diepholz,,,district,https://daten.diepholz.de/,,,,,,,,,,,,DKAN,,,,2019-07-29
+,Landkreis Lüneburg,,,district,https://open.lklg.net/,2016-08-18,DE935,,,,,Hendrik Lampe,opendata@lklg.de,,,,CKAN,https://open.lklg.net/api/3/action/package_list,,,2019-08-04
+,Märkischer Kreis,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
+,Ortenaukreis,,,district,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,DE134,,,,,,,,,,Website,,,,2019-07-30
+,Rhein-Kreis Neuss,,,district,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,,,Tobias Schellhorn und Jürgen Brings,digitalisierung@rhein-kreis-neuss.de,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
 ,Baustelleninformationssystem des Bundes und der Länder,,,other,https://www.bast.de/BASt_2017/DE/Fahrzeugtechnik/Fachthemen/Baustelleninformation/baustelleninformation.html,,,,,,,Dr. Lutz Rittershaus,mdm@bast.de,,,Materna Information & Communications SE,Website,,,,2019-07-29
 ,Bundesamt für Kartographie und Geodäsie,,,other,http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=0&gdz_user_id=0,,,,,,,,,,,Bundesamt für Kartographie und Geodäsie,Website,,,,2019-03-09
 ,Bundesamt für Seeschifffahrt und Hydrographie,,,other,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,,,,,,,,,,,,,2019-07-29

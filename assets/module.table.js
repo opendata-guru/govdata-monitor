@@ -201,14 +201,13 @@ var table = (function () {
     function getParentPath(dataObj, item) {
         var itemParent = dataObj.filter(dataItem => dataItem.id === item.packagesInId);
         if (itemParent.length > 0) {
-            var parent = '';
+/*            var parent = '';
             if (itemParent[0].packagesInId != catalog.id) {
                 parent = getParentPath(dataObj, itemParent[0]);
-            }
-            return ' &larr; ' + itemParent[0].title + parent;
+            }*/
+            return ' (datasets in ' + itemParent[0].title + ' portal)';
         }
 
-        //return ' &larr; ' + item.packagesInId;
         return '';
     }
 
@@ -253,10 +252,15 @@ var table = (function () {
         var type = '';
         var lastCount = undefined;
         var maxDiff = 0;
+        var ignoreRow = false;
 
         arrayData.forEach(processData => {
             var dataObj = processData ? processData.filter(item => item.id === id) : [];
             if (dataObj.length > 0) {
+                if ((dataObj[0].type === 'root') && !countDatasets) {
+                    ignoreRow = true;
+                }
+
                 var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
                 var addClass = '';
                 title = dataObj[0].title ? dataObj[0].title : title;
@@ -264,7 +268,7 @@ var table = (function () {
                 type = dataObj[0].type ? dataObj[0].type : type;
 
                 if (!countDatasets && (dataObj[0].packagesInId != catalog.id)) {
-                    title += ' <span class="small text-info">' + getParentPath(processData, dataObj[0]) + '</span>';
+                    title += ' <span class="small">' + getParentPath(processData, dataObj[0]) + '</span>';
                 }
 
                 if (lastCount !== undefined) {
@@ -296,6 +300,10 @@ var table = (function () {
                 lastCount = null;
             }
         });
+
+        if (ignoreRow) {
+            return '';
+        }
 
         str = '<td><span title="' + name + '">' + title + '</span></td>' + str;
 

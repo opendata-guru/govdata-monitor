@@ -21,7 +21,9 @@ var table = (function () {
 
     function install() {
         var html = '';
-        var style = 'line-height:1.2rem;padding:.2rem .6rem;cursor:pointer;margin-top:.2rem';
+        var style = 'line-height:1.2rem;padding:.2rem .6rem;cursor:pointer;margin-top:.2rem;';
+        var styleLeft = style + 'margin-right:0 !important;border-top-right-radius:0;border-bottom-right-radius:0;border-right:1px dashed #fff;';
+        var styleRight = style + 'border-top-left-radius:0;border-bottom-left-radius:0;';
 
         html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
         html += '  <label class="form-check">';
@@ -41,7 +43,11 @@ var table = (function () {
         html += '  <div style="padding-left:1.4rem">';
         html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>All</span>';
         Object.keys(data.layers).forEach(key => {
-            html += '    <span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + style + '"><span></span>' + data.layers[key] + '</span>';
+            var isLeft = -1 !== ['federal','state','district','municipality'].indexOf(key);
+            var isRight = -1 !== ['federalAgency','stateAgency','districtAgency','municipalityAgency'].indexOf(key);
+
+            html += isLeft ? '<br>' : '';
+            html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
         });
         html += '  </div>';
         html += '</div>';

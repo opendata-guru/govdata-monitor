@@ -155,7 +155,7 @@ var data = (function () {
             });
         });
 
-        if ((table.layer !== table.layerAll) && (table.layer !== type)) {
+        if ((table.layer !== table.layerAll) && (-1 === type.split('+').indexOf(table.layer))) {
             return;
         }
         if (diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {

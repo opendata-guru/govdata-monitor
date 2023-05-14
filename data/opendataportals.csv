@@ -1,6 +1,8 @@
 title,portal_title,parent_and_id_1,parent_and_id_2,type,url,begin,nuts,ags,rs,gml,wikidata,accountable,email,twitter,facebook,hosting,technology,api,api_list_children,dcat_ap_de,last_check
 Aachen,Aachen,offenedaten.aachen.de|stadt-aachen,,municipality,https://offenedaten.aachen.de/organization/stadt-aachen,,,,053340002002,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340002002,Q1017,,,,,,,,,,2023-02-05
 Aachen (Portal),Aachen,open.nrw|aachen,,portal,https://offenedaten.aachen.de/,,,,,,Q97145394,,offenedaten@mail.aachen.de,https://twitter.com/opendataaachen,,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-02-05
+Altenahr,Verbandsgemeinde Altenahr,daten.rlp.de|verbandsgemeinde_altenahr,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_altenahr,,,,071315002,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071315002,Q559976,,info@altenahr.de,,,,,,,,2023-05-14
+Altenkirchen-Flammersfeld,Verbandsgemeinde Altenkirchen,daten.rlp.de|verbandsgemeinde_altenkirchen,,collectiveMunicipality,,,,,071325010,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071325010,Q56245020,,,,,,,,,,2023-05-14
 Amt Süderbrarup,Amt Süderbrarup,opendata.schleswig-holstein.de|amt-suederbrarup,,collectiveMunicipality,https://opendata.schleswig-holstein.de/organization/amt-suederbrarup,,,,010595974,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010595974,Q316729,,,,,,,,,,2023-02-05
 Augsburg,Stadt Augsburg,http://dcat-ap.de/def/contributors/stadtAugsburg,,municipality,,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/097610000000,Q2749,,,,,,,,,,
 Auswärtiges Amt,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertigesAmt,,federal,,,,,,,Q56034,,,,,,,,,,
@@ -8,6 +10,7 @@ AWSH - Abfallwirtschaft Südholstein GmbH,AWSH - Abfallwirtschaft Südholstein G
 Bayern,Bayern,http://dcat-ap.de/def/contributors/openDataBayern,,state,http://www.opendata.bayern.de/,,,,09,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/09,Q980,,poststelle@stmflh.bayern.de,,,,CKAN,https://opendata.bayern.de/api/1/search/dataset?all_fields=1&q=*:*,,,2023-02-15
 Beauftragter der Bundesregierung für Kultur und Medien,Die Beauftragte der Bundesregierung für Kultur und Medien,http://dcat-ap.de/def/contributors/dieBeauftragteDerBundesregierungFuerKulturUndMedien,,federalAgency,,,,,,,Q813386,,,,,,,,,,
 Berlin,Berlin,http://dcat-ap.de/def/contributors/berlinOpenData,,municipality+state,https://daten.berlin.de,2011-09-23,,,11,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/11,Q64,Senatsverwaltung für Wirtschaft， Energie und Betriebe,opendata@berlin.de,https://twitter.com/OpenDataBerlin,,BerlinOnline Stadtportal GmbH & Co. KG,CKAN,https://datenregister.berlin.de/api/3/action/package_list,https://datenregister.berlin.de/api/3/action/organization_list,https://datenregister.berlin.de/catalog.ttl,2023-02-06
+Bernkastel-Kues,Verbandsgemeinde Bernkastel Kues,daten.rlp.de|verbandsgemeinde_bernkastel_kues,,collectiveMunicipality,,,,,072315001,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/072315001,Q643228,,,,,,,,,,2023-05-14
 Bezirksversammlung,ALLRIS,suche.transparenz.hamburg.de|allris,,municipalityAgency,,,,,,,Q854388,,,,,,CKAN,,,,2023-04-11
 Bonn,Bonn,open.nrw|bonn,,municipality,http://opendata.bonn.de/,2014-05-28,,,053140000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053140000000,Q586,Sven Hense,opendata@bonn.de,https://twitter.com/opendatabonn,,Stadt Köln,DKAN,https://opendata.bonn.de/api/3/action/package_list,,,2023-05-14
 Brandenburg,Brandenburg,http://dcat-ap.de/def/contributors/landBrandenburg,,state,https://datenadler.de/,,,,12,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/12,Q1208,Frank Schiersner,frank.schiersner@mik.brandenburg.de,,,Inqbus scientific computing,PKAN,,https://datenadler.de/publisher,,2023-02-05
@@ -36,6 +39,7 @@ Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung,Bundesmini
 Bundessortenamt,Bundessortenamt,http://dcat-ap.de/def/contributors/bundessortenamt,,federalAgency,,,,,,,Q1006713,,,,,,,,,,
 Bundesverwaltungsamt,Bundesverwaltungsamt,http://dcat-ap.de/def/contributors/bundesverwaltungsamt,,federalAgency,,,,,,,Q1009218,,,,,,,,,,
 Bundeszentralamt für Steuern,Bundeszentralamt für Steuern,http://dcat-ap.de/def/contributors/bundeszentralamtFuerSteuern,,federalAgency,,,,,,,Q1009314,,,,,,,,,,
+Cochem,Verbandsgemeinde Cochem,daten.rlp.de|verbandsgemeinde_cochem,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_cochem,,,,071355001,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071355001,Q511057,,,,,,,,,,2023-05-14
 Deutsche Nationalbibliothek,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,other,,,,,,,Q27302,,,,,,,,,,
 Deutsche Rentenversicherung Bund,Deutsche Rentenversicherung Bund,,,federalCooperation,,,,,,,Q1203782,,,,,,,,,,
 Deutsches Patent- und Markenamt,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,federalAgency,,,,,,,Q314296,,,,,,,,,,
@@ -51,12 +55,14 @@ GDI-DE,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiD
 Generalzolldirektion,Generalzolldirektion,http://dcat-ap.de/def/contributors/generalzolldirektion,,federalAgency,,,,,,,Q18287062,,,,,,,,,,
 Geoportal Ruhr,Geoportal Ruhr,opendata.ruhr|geoportal-ruhr,,regionalNetwork,,,,,,,,,,,,,,,,,2023-05-14
 GEOportal.NRW,Geoportal,open.nrw|geoportal,,stateAgency,,,,,,,,,,,,,,,,,2023-05-14
+Gerolstein,Verbandsgemeinde Gerolstein,daten.rlp.de|verbandsgemeinde_gerolstein^,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_gerolstein,,,,072335006,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/072335006,Q52404118,,,,,,,,,,2023-05-14
 Glückstadt,Glückstadt,opendata.schleswig-holstein.de|glueckstadt,,municipality,https://opendata.schleswig-holstein.de/organization/glueckstadt,,,,010610029029,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010610029029,Q377277,,,,,,,,,,2023-05-08
 Hamburg,Hamburg,http://dcat-ap.de/def/contributors/transparenzportalHamburg,,state,http://daten.hamburg.de/,2014-10-06,,,02,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/02,Q1055,Dominik Panić (Fachliche Leitstelle Transparenzportal),transparenzportal@bkm.hamburg.de,,,Staatsarchiv Hamburg,CKAN,http://suche.transparenz.hamburg.de/api/3/action/package_list,https://suche.transparenz.hamburg.de/api/3/action/organization_list,http://suche.transparenz.hamburg.de/catalog.xml,2023-02-05
 Hamburg,StadtHamburg,suche.transparenz.hamburg.de|stadthamburg,,municipality,,,,,,,,,,,,,CKAN,,,,2023-04-11
 Heerlen,Heerlen,offenedaten.aachen.de|gemeinde-heerlen,,municipality,https://www.heerlen.nl,,,,,,Q9799,,,,,,,,,,2023-02-05
 Herzogtum Lauenburg,Kreis Herzogtum Lauenburg,opendata.schleswig-holstein.de|kreis-herzogtum-lauenburg,,district,,,,,01053,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01053,Q3000,,,,,,,,,,2023-05-09
 Informationstechnikzentrum Bund,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,,federalAgency,,,,,,,Q23786362,,,,,,,,,,
+Jockgrim,Verbandsgemeinde Jockgrim,daten.rlp.de|verbandsgemeinde_jockgrim,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_jockgrim,,,,073345003,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/073345003,Q516953,,,,,,,,,,2023-05-14
 Kiel,Landeshauptstadt Kiel,opendata.schleswig-holstein.de|landeshauptstadt-kiel,,municipality,https://opendata.schleswig-holstein.de/organization/landeshauptstadt-kiel,,,,010020000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010020000000,Q1707,,,,,Dataport,CKAN,,,,2023-05-08
 Kleve,Kreis Kleve,www.offenesdatenportal.de|kreis-kleve,,district,https://www.offenesdatenportal.de/organization/kreis-kleve,,,,05154,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/05154,Q6246,,,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=kreis-kleve,,,2023-05-14
 Kreisarchiv Stormarn,Kreisarchiv Stormarn,opendata.schleswig-holstein.de|kreisarchiv-stormarn,,districtAgency,,,,,,,Q28735056,,,,,,,,,,2023-05-09
@@ -64,6 +70,7 @@ Köln,Köln,open.nrw|koeln,,municipality,http://offenedaten-koeln.de/,2012,,,053
 Landesamt für Denkmalpflege Schleswig-Holstein,Landesamt für Denkmalpflege,opendata.schleswig-holstein.de|landesamt-fur-denkmalpflege,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesamt-fur-denkmalpflege,,,,,,Q17124210,,,,,,,,,,2023-03-04
 Landesamt für Landwirtschaft， Umwelt und ländliche Räume,Landesamt für Landwirtschaft， Umwelt und ländliche Räume (LLUR),opendata.schleswig-holstein.de|llur,,stateAgency,https://opendata.schleswig-holstein.de/organization/llur,,,,,,Q1802059,,,,,,,,,,2023-03-04
 Landesamt für soziale Dienste,Landesamt für soziale Dienste,opendata.schleswig-holstein.de|landesamt-fur-soziale-dienste,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesamt-fur-soziale-dienste,,,,,,Q1802073,,,,,,,,,,2023-03-04
+Landesamt für Vermessung und Geobasisinformation Rheinland-Pfalz,Landesamt für Vermessung und Geobasisinformationen,daten.rlp.de|landesamt_fuer_vermessung_und_geobasisinformationen,,stateAgency,,,,,,,Q1802069,,,,,,,,,,2023-05-14
 Landesbetrieb Geoinformation und Vermessung,HMDKLGV,suche.transparenz.hamburg.de|hmdklgv,,stateAgency,https://metaver.de/freitextsuche?rstart=0&currentSelectorPage=1&f=type:opendata;provider:hh;,,,,,,Q93384739,,,,,,,,,,2023-04-11
 Landesmeldestelle Schleswig-Holstein,Landesmeldestelle Schleswig-Holstein,opendata.schleswig-holstein.de|landesmeldestelle,,stateAgency,https://opendata.schleswig-holstein.de/organization/landesmeldestelle,,,,,,,,,,,,,,,,2023-03-04
 Max Rubner-Institut,Max Rubner-Institut,http://dcat-ap.de/def/contributors/maxRubnerInstitut,,federalAgency,,,,,,,Q1319982,,,,,,,,,,
@@ -99,9 +106,13 @@ Stadtwerke Osnabrück,SWO Netz GmbH,http://dcat-ap.de/def/contributors/SWONetzGm
 Statistisches Amt für Hamburg und Schleswig-Holstein,Statistikamt Nord,opendata.schleswig-holstein.de|statistikamt-nord,,stateAgency,https://www.statistik-nord.de/,,,,,,Q15130249,,,,,,,,,,2023-02-05
 Statistisches Bundesamt,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,,federalAgency,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,,,Q764739,,,,,,Website,,,,2023-04-21
 Statistisches Landesamt,Landesdatenbank NRW,open.nrw|landesdatenbank_nrw,,stateAgency,,,,,,,,,,,,,,,,,2023-05-14
+Statistisches Landesamt Rheinland-Pfalz,Statistisches Landesamt Rheinland-Pfalz,daten.rlp.de|stala___rlp,,stateAgency,,,,,,,Q2333954,,,,,,,,,,2023-05-14
 Stormarn,Kreis Stormarn,opendata.schleswig-holstein.de|kreis-stormarn,,district,,,,,01062,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01062,Q3003,,,,,,,,,,2023-05-09
 Städteregion Aachen,Städteregion Aachen,offenedaten.aachen.de|stadteregion-aachen,,regionalNetwork,https://www.staedteregion-aachen.de,,,,,,Q6272,,,,,,,,,,2023-02-05
+Trier,Stadt Trier,daten.rlp.de|stadt_trier,,municipality,https://daten.rlp.de/organization/stadt_trier,,,,072110000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/072110000000,Q3138,,,,,,,,,,2023-05-14
+Vordereifel,Verbandsgemeinde Vordereifel,daten.rlp.de|verbandsgemeinde_vordereifel,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_vordereifel,,,,071375003,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071375003,Q481543,,,,,,,,,,2023-05-14
 Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,010560050050,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010560050050,Q4356,,,,,,,,,,2023-05-09
+Weißenthurm,Verbandsgemeinde Weißenthurm,daten.rlp.de|verbandsgemeinde_weissenthurm,,collectiveMunicipality,,,,,071375008,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071375008,Q519426,,,,,,,,,,2023-05-14
 ,Altenberge,,,municipality,https://www.o-sp.de/altenberge/opendata,,DEA37,05566004,055660004004,,,,,,,,,,,,2021-03-03
 ,Altenburg,,,municipality,https://www.altenburg.eu/sixcms/detail.php?id=139875,,DEG0M,16077001,160770001001,,,,,,,,Website,,,,2019-08-10
 ,Andernach,,,municipality,https://daten.rlp.de/organization/stadt_andernach,,DEB17,07137003,071370003003,,,,,,,,,,,,2021-03-03
@@ -121,16 +132,15 @@ Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,0105600
 ,Brühl (Rheinland),,,municipality,http://offenedaten.kdvz-frechen.de/group/br%C3%BChl,2016-11-08,,,,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Burgbrohl,,,municipality,https://daten.rlp.de/organization/og_burgbrohl,,DEB12,07131202,071315004202,,,,,,,,,,,,2021-03-03
 ,Chemnitz,,,municipality,http://portal-chemnitz.opendata.arcgis.com/,2017-03-07,DED41,14511000,145110000000,,,,,,,Amt für Informationsverarbeitung,ArcGIS,,,,2019-08-10
-,Cochem,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_cochem,,DEB1C,07135020,071355001020,,,,,,,,,,,,2021-03-03
 ,Dedenbach,,,municipality,https://daten.rlp.de/organization/og_dedenbach,,DEB12,07131016,071315004016,,,,,,,,,,,,2021-03-03
-,Dierdorf,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_dierdorf,,DEB18,07138012,071385003012,,,,,,,,,,,,2021-03-03
+,Dierdorf,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_dierdorf,,DEB18,07138012,071385003012,,,,,,,,,,,,2021-03-03
 ,Dormagen,,,municipality,https://opendata.dormagen.de,2017-12-07,DEA1D,05162004,051620004004,,,,opendata@stadt-dormagen.de,,,OpenDataSoft,OpenDataSoft,https://opendata.dormagen.de/api/v2/catalog/datasets,,,2019-07-29
 ,Dresden,,,municipality,https://opendata.dresden.de,,DED21,14612000,146120000000,,,,statistik@dresden.de,,,,DUVA,,,,2019-08-11
 ,Duisburg,,,municipality,https://opendata-duisburg.de/,2019-03-19,DEA12,05112000,051120000000,,,,,,,Stadt Köln,DKAN,https://opendata-duisburg.de/api/3/action/package_list,,https://opendata-duisburg.de/catalog.xml,2019-07-29
 ,Dülmen,,,municipality,https://www.o-sp.de/duelmen/opendata.php,,DEA35,05558016,055580016016,,,,,,,,,,,,2021-03-03
-,Eich,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_eich,,DEB3B,07331018,073315002018,,,,,,,,,,,,2021-03-03
+,Eich,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_eich,,DEB3B,07331018,073315002018,,,,,,,,,,,,2021-03-03
 ,Elsdorf (Rheinland),,,municipality,http://offenedaten.kdvz-frechen.de/group/elsdorf,2016-11-08,,,,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Emmelshausen,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_emmelshausen,,DEB1D,07140036,071405002036,,,,,,,,,,,,2021-03-03
+,Emmelshausen,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_emmelshausen,,DEB1D,07140036,071405002036,,,,,,,,,,,,2021-03-03
 ,Emsdetten,,,municipality,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,DEA37,05566008,055660008008,,,,,,,,,,,,2021-03-03
 ,Ennigerloh,,,municipality,https://www.o-sp.de/ennigerloh/opendata.php,,DEA38,05570020,055700020020,,,,,,,,,,,,2021-03-03
 ,Erftstadt,,,municipality,https://www.o-sp.de/erftstadt/opendata.php,,DEA27,05362020,053620020020,,,,,,,,,,,,2021-03-03
@@ -142,7 +152,6 @@ Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,0105600
 ,Galenberg,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_galenberg,,DEB12,07131204,071315004204,,,,,,,,,,,,2021-03-03
 ,Geldern,,,municipality,https://www.offenesdatenportal.de/organization/stadt-geldern,,DEA1B,05154012,051540012012,,,,,,,,,,,,2021-03-03
 ,Gelsenkirchen,,,municipality,https://opendata.gelsenkirchen.de/,2017-05-23,DEA32,05513000,055130000000,,,Ulrike Karn und Manfred vom Sondern,ulrike.karn@gelsenkirchen.de,,,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,,,2019-08-10
-,Gerolstein,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_gerolstein,,DEB24,07233026,072335002026,,,,,,,,,,,,2021-03-03
 ,Glees,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_glees,,DEB12,07131205,071315004205,,,,,,,,,,,,2021-03-03
 ,Goch,,,municipality,https://www.offenesdatenportal.de/organization/stadt-goch,,DEA1B,05154016,051540016016,,,Torsten Matenaers,pressestelle@goch.de,,,,,,,,2021-03-03
 ,Grafschaft,,,municipality,https://daten.rlp.de/organization/gemeinde_grafschaft,,DEB12,07131090,071310090090,,,,,,,,,,,,2021-03-03
@@ -151,7 +160,7 @@ Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,0105600
 ,Haan,,,municipality,via Musterdatenkatalog Deutschland,,DEA1C,05158008,051580008008,,,,,,,,,,,,
 ,Hagen,,,municipality,https://opendata.ruhr/organization/hagen,,DEA53,05914000,059140000000,,,,,,,,,,,,2021-03-04
 ,Halle (Saale),,,municipality,http://opendata.halle.de,,DEE02,15002000,150020000000,,,,opendata@halle.de,,,,Website,,,,2019-08-10
-,Hamm,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_hamm,,DEB23,07232046,072325008046,,,,,,,,,,,,2021-03-03
+,Hamm,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_hamm,,DEB23,07232046,072325008046,,,,,,,,,,,,2021-03-03
 ,Harsewinkel,,,municipality,https://www.o-sp.de/harsewinkel/opendata.php,,DEA42,05754016,057540016016,,,,,,,,,,,,2021-03-03
 ,Hattingen,,,municipality,https://www.o-sp.de/hattingen/opendata.php,,DEA56,05954016,059540016016,,,,,,,,,,,,2021-03-03
 ,Heilbronn,,,municipality,https://opendata.heilbronn.de,2020-12-20,DE117,08121000,081210000000,,,Thomas Laue,opendata@heilbronn.de,,,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,,https://opendata.heilbronn.de/catalog.xml,2021-05-13
@@ -167,17 +176,16 @@ Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,0105600
 ,Ingolstadt,,,municipality,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,DE211,09161000,091610000000,,,,,,,,,,,,2021-03-04
 ,Iserlohn,,,municipality,via Musterdatenkatalog Deutschland,,DEA58,05962024,059620024024,,,,,,,,,,,,
 ,Jena,,,municipality,https://opendata.jena.de/,2016-12-20,DEG03,16053000,160530000000,,,,info@jena.de,,,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,,,2019-08-10
-,Jockgrim,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_jockgrim,,DEB3E,07334012,073345003012,,,,,,,,,,,,2021-03-03
 ,Jüchen,,,municipality,https://www.o-sp.de/juechen/opendata.php,,DEA1D,05162012,051620012012,,,,,,,,,,,,2021-03-03
 ,Jülich,,,municipality,http://offenedaten.kdvz-frechen.de/group/j%C3%BClich,2016-11-08,DEA26,05358024,053580024024,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Kaarst,,,municipality,https://www.o-sp.de/kaarst/opendata,,DEA1D,05162016,051620016016,,,,,,,,,,,,2021-03-03
 ,Kall,,,municipality,http://offenedaten.kdvz-frechen.de/group/kall,2016-11-08,DEA28,05366024,053660024024,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Kamen,,,municipality,https://www.o-sp.de/kamen/opendata,,DEA5C,05978020,059780020020,,,,,,,,,,,,2021-03-03
 ,Karlsruhe,,,municipality,https://transparenz.karlsruhe.de/,2016-07-14,DE122,08212000,082120000000,,,Sven Klenert,transparenz@karlsruhe.de,,,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,,,2019-11-12
-,Kastellaun,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_kastellaun,,DEB1D,07140064,071405003064,,,,,,,,,,,,2021-03-03
+,Kastellaun,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_kastellaun,,DEB1D,07140064,071405003064,,,,,,,,,,,,2021-03-03
 ,Kempenich,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_kempenich,,DEB12,07131502,071315004502,,,,,,,,,,,,2021-03-03
 ,Kerpen,,,municipality,http://offenedaten.kdvz-frechen.de/group/kerpen,2016-11-08,DEA27,05362032,053620032032,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Kirchberg,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_kirchberg,,DED45,14524130,145245111130,,,,,,,,,,,,2021-03-03
+,Kirchberg,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_kirchberg,,DED45,14524130,145245111130,,,,,,,,,,,,2021-03-03
 ,Kleve,,,municipality,https://www.offenesdatenportal.de/organization/stadt-kleve,,DEA1B,05154036,051540036036,,,,,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=stadt-kleve,,,2019-03-12
 ,Kollweiler,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_kollweiler,,DEB3F,07335019,073355009019,,,,,,,,,,,,2021-03-03
 ,Königsfeld,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_koenigsfeld,,DED43,14522280,145225126280,,,,,,,,,,,,2021-03-03
@@ -199,7 +207,7 @@ Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,0105600
 ,Mayen,,,municipality,https://daten.rlp.de/organization/stadt_mayen,,DEB17,07137068,071370068068,,,,,,,,,,,,2021-03-03
 ,Meerbusch,,,municipality,https://opendata.meerbusch.de/,2017-02-11,DEA1D,05162022,051620022022,,,,opendata@meerbusch.de,https://twitter.com/OpenMeerbusch,,Viderum,CKAN,https://opendata.meerbusch.de/api/3/action/package_list,,,2019-03-24
 ,Meiningen,,,municipality,via Musterdatenkatalog Deutschland,,DEG0B,16066042,160665050042,,,,,,,,,,,,
-,Meisenheim,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_meisenheim,,DEB14,07133065,071335005065,,,,,,,,,,,,2021-03-03
+,Meisenheim,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_meisenheim,,DEB14,07133065,071335005065,,,,,,,,,,,,2021-03-03
 ,Menden,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
 ,Merzenich,,,municipality,http://offenedaten.kdvz-frechen.de/group/merzenich,2016-11-08,DEA26,05358040,053580040040,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Minden,,,municipality,"https://www.minden.de/stadt_minden/de/B%C3%BCrger,%20Service,%20Politik/Offene%20Daten/Datens%C3%A4tze/",,DEB23,07232082,072325005082,,,,,,,,,,,,2021-03-04
@@ -210,41 +218,38 @@ Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,0105600
 ,Neuss,,,municipality,https://ckan.www.open.nrw.de/organization/neuss,,DEA1D,05162024,051620024024,,,,,,,,,,,,2021-03-03
 ,Niederzier,,,municipality,http://offenedaten.kdvz-frechen.de/group/niederzier,,DEA26,05358048,053580048048,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Nörvenich,,,municipality,http://offenedaten.kdvz-frechen.de/group/n%C3%B6rvenich,,DEA26,05358052,053580052052,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Obere Kyll,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_obere_kyll,,,,,,,,,,,,,,,,2021-03-03
+,Obere Kyll,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_obere_kyll,,,,,,,,,,,,,,,,2021-03-03
 ,Oberhausen,,,municipality,https://opendata.ruhr/organization/oberhausen,,DE21N,09190135,091905177135,,,,,,,,,,,,2021-03-04
 ,Oelde,,,municipality,https://www.o-sp.de/oelde/opendata.php,,DEA38,05570028,055700028028,,,,,,,,,,,,2021-03-03
-,Otterbach-Otterberg,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,,,,,,,,,,,,,,,2021-03-03
-,Puderbach,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,DEB18,07138057,071385005057,,,,,,,,,,,,2021-03-03
+,Otterbach-Otterberg,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,,,,,,,,,,,,,,,2021-03-03
+,Puderbach,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,DEB18,07138057,071385005057,,,,,,,,,,,,2021-03-03
 ,Recklinghausen,,,municipality,https://opendata.ruhr/organization/recklinghausen,,DEA36,05562032,055620032032,,,,,,,,,,,,2021-03-04
 ,Reichenbach-Steegen,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_reichenbach_steegen,,DEB3F,07335501,073355009501,,,,,,,,,,,,2021-03-03
 ,Remagen,,,municipality,https://daten.rlp.de/organization/stadt_remagen,,DEB12,07131070,071310070070,,,,,,,,,,,,2021-03-03
 ,Remscheid,,,municipality,via Musterdatenkatalog Deutschland,,DEA18,05120000,051200000000,,,,,,,,,,,,
 ,Rheda-Wiedenbrück,,,municipality,via Musterdatenkatalog Deutschland,,DEA42,05754028,057540028028,,,,,,,,,,,,
-,Rheinböllen,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_rheinboellen,,DEB1D,07140125,071405005125,,,,,,,,,,,,2021-03-03
-,Sankt Goar-Oberwesel,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_sankt_goar___oberwesel,,,,,,,,,,,,,,,,2021-03-03
+,Rheinböllen,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_rheinboellen,,DEB1D,07140125,071405005125,,,,,,,,,,,,2021-03-03
+,Sankt Goar-Oberwesel,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_sankt_goar___oberwesel,,,,,,,,,,,,,,,,2021-03-03
 ,Schwalmtal,,,municipality,https://www.offenesdatenportal.de/organization/gemeinde-schwalmtal,,DE725,06535017,065350017017,,,,,,,,,,,,2021-03-03
 ,Schwedelbach,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_schwedelbach,,DEB3F,07335043,073355009043,,,,,,,,,,,,2021-03-03
-,Selters,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_selters,,,,,,,,,,,,,,,,2021-03-03
+,Selters,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_selters,,,,,,,,,,,,,,,,2021-03-03
 ,Siegburg,,,municipality,http://offenedaten.kdvz-frechen.de/group/siegburg,,DEA2C,05382060,053820060060,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Siegen,,,municipality,via Musterdatenkatalog Deutschland,,DEA5A,05970040,059700040040,,,,,,,,,,,,
-,Simmern,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_simmern,,DEB1B,07143071,071435004071,,,,,,,,,,,,2021-03-03
+,Simmern,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_simmern,,DEB1B,07143071,071435004071,,,,,,,,,,,,2021-03-03
 ,Stadt Mülheim an der Ruhr,,,municipality,http://open.muelheim-ruhr.de,2014-12-19,DEA16,05117000,051170000000,,,,,https://twitter.com/Muelheim_Ruhr,https://www.facebook.com/MuelheimRuhr,Stadt Mülheim an der Ruhr,DKAN,https://geo.muelheim-ruhr.de/api/3/action/package_list,,,2019-11-07
 ,Stolberg,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,
 ,Stuttgart,,,municipality,via Musterdatenkatalog Deutschland,,DE111,08111000,081110000000,,,,,,,,,,,,
 ,Südlohn,,,municipality,via Musterdatenkatalog Deutschland,,DEA34,05554060,055540060060,,,,,,,,,,,,
 ,Sulingen,,,municipality,via Musterdatenkatalog Deutschland,,DE922,03251040,032510040040,,,,,,,,,,,,
-,Thalfang am Erbeskopf,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_thalfang_am_erbeskopf,,,,,,,,,,,,,,,,2021-03-03
+,Thalfang am Erbeskopf,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_thalfang_am_erbeskopf,,,,,,,,,,,,,,,,2021-03-03
 ,Titz,,,municipality,http://offenedaten.kdvz-frechen.de/group/titz,2016-11-08,DEA26,05358056,053580056056,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Traben-Trabach,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_traben_trabach,,,,,,,,,,,,,,,,2021-03-03
-,Trier,,,municipality,https://daten.rlp.de/organization/stadt_trier,,DEB21,07211000,072110000000,,,,,,,,,,,,2021-03-03
+,Traben-Trabach,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_traben_trabach,,,,,,,,,,,,,,,,2021-03-03
 ,Troisdorf,,,municipality,via Musterdatenkatalog Deutschland,,DEA2C,05382068,053820068068,,,,,,,,,,,,
 ,Uder,,,municipality,via Musterdatenkatalog Deutschland,,DEG06,16061097,160615012097,,,,,,,,,,,,
 ,Ulm,,,municipality,http://daten.ulm.de/,,DE144,08421000,084210000000,,,,,,,Wilken Rechenzentrum GmbH,Website,,,,2019-07-30
-,Verbandsgemeinde Altenahr,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_altenahr,,,,,,,,info@altenahr.de,,,,,,,,2021-03-03
-,Verbandsgemeinde Sankt Goar-Oberwesel,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_sankt_goar___oberwesel,,,,,,,,,,,,,,,,2021-03-03
+,Verbandsgemeinde Sankt Goar-Oberwesel,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_sankt_goar___oberwesel,,,,,,,,,,,,,,,,2021-03-03
 ,Vettweiß,,,municipality,http://offenedaten.kdvz-frechen.de/group/vettwei%C3%9F,2016-11-08,DEA26,05358060,053580060060,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Viersen,,,municipality,https://www.offenesdatenportal.de/organization/stadt-viersen,,DEA1E,05166032,051660032032,,,,,,,,,,,,2021-03-03
-,Vordereifel,,,municipality,https://daten.rlp.de/organization/verbandsgemeinde_vordereifel,,,,,,,,,,,,,,,,2021-03-03
 ,Vreden,,,municipality,via Musterdatenkatalog Deutschland,,DEA34,05554068,055540068068,,,,,,,,,,,,
 ,Wachtendonk,,,municipality,https://www.offenesdatenportal.de/organization/gemeinde-wachtendonk,,DEA1B,05154060,051540060060,,,,,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=gemeinde-wachtendonk,,,2019-03-12
 ,Waltrop,,,municipality,https://www.o-sp.de/waltrop/opendata,,DEA36,05562036,055620036036,,,,,,,,,,,,2021-03-03

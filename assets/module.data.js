@@ -20,7 +20,7 @@ var data = (function () {
         layers['regionalNetwork'] = 'Region';
         layers['district'] = 'Kreis';
         layers['districtAgency'] = 'Kreisverwaltung';
-        layers['collectiveMunicipality'] = 'Amt';
+        layers['collectiveMunicipality'] = 'Amt / Verbandsgemeinde';
         layers['municipality'] = 'Stadt';
         layers['municipalityAgency'] = 'Stadtverwaltung';
     }

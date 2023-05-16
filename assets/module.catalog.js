@@ -64,7 +64,7 @@ var catalog = (function () {
             });
         }
 
-        if (ret.length === 0) {
+        if (catalogObject && (ret.length === 0)) {
             ret.push(catalogObject.id);
         }
 

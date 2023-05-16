@@ -37,7 +37,9 @@ var data = (function () {
         }
 
         if (table.flatten) {
-            data.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
+            var sameAsPackageId = catalog.getSameAs(packageId);
+
+            data.getDate(dateString).filter(item => -1 !== sameAsPackageId.indexOf(item.id)).forEach((row) => {
                 if (row.packagesInId) {
                     found |= isParent(row.packagesInId, dateString, sameAs);
                 }

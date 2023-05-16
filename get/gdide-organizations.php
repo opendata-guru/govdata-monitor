@@ -19,6 +19,7 @@
 	}
 
 	$uri = $gdideSuffix . '/es/metadata_all/_search';
+	$uriDomain = end(explode('/',$gdideSuffix));
 
 	function postRequest($url, $payload) {
 		$headers = [

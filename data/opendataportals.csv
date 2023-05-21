@@ -41,7 +41,7 @@ Bundesverwaltungsamt,Bundesverwaltungsamt,http://dcat-ap.de/def/contributors/bun
 Bundeszentralamt für Steuern,Bundeszentralamt für Steuern,http://dcat-ap.de/def/contributors/bundeszentralamtFuerSteuern,,federalAgency,,,,,,,Q1009314,,,,,,,,,,
 Cochem,Verbandsgemeinde Cochem,daten.rlp.de|verbandsgemeinde_cochem,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_cochem,,,,071355001,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071355001,Q511057,,,,,,,,,,2023-05-14
 Deutsche Nationalbibliothek,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,other,,,,,,,Q27302,,,,,,,,,,
-Deutsche Rentenversicherung Bund,Deutsche Rentenversicherung Bund,,,federalCooperation,,,,,,,Q1203782,,,,,,,,,,
+Deutsche Rentenversicherung Bund,Deutsche Rentenversicherung Bund,http://dcat-ap.de/def/contributors/deutscheRentenversicherungBund,,federalCooperation,,,,,,,Q1203782,,,,,,,,,,2023-05-21
 Deutsches Patent- und Markenamt,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,federalAgency,,,,,,,Q314296,,,,,,,,,,
 Deutschland,govdata - Datenportal für Deutschland,data.europa.eu|govdata,,country,https://www.govdata.de/,2016-01-17,,,,,Q59273239,Thomas Tursics,info@govdata.de,https://twitter.com/govdata_de,https://www.facebook.com/govdata.de/,SEITENBAU GmbH,CKAN+Liferay,https://ckan.govdata.de/api/3/action/package_list,https://ckan.govdata.de/api/3/action/organization_list,https://ckan.govdata.de/catalog.rdf,2023-04-18
 Dortmund,Dortmund,open.nrw|dortmund,,municipality,https://opendata.dortmund.de/,2018-08-23,,,059130000000,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/059130000000,Q1295,,opendata@dortmund.de,https://twitter.com/DortmundData,,,Website,,,,2023-02-26
@@ -50,7 +50,7 @@ Elmshorn,Stadt Elmshorn,opendata.schleswig-holstein.de|elmshorn,,municipality,,,
 Frankfurt am Main,Stadt Frankfurt am Main,http://dcat-ap.de/def/contributors/stadtFrankfurtAmMain,,municipality,http://offenedaten.frankfurt.de/,2014-10-15,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/064120000000,Q1794,Michael Leist,offene.daten@stadt-frankfurt.de,,,,CKAN,http://offenedaten.frankfurt.de/api/3/action/package_list,,,2019-08-04
 Freiburg im Breisgau,Stadt Freiburg im Breisgau,http://dcat-ap.de/def/contributors/stadtFreiburgImBreisgau,,municipality,http://opendata.freiburg.de,2017-04-01,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/083110000000,Q2833,Thomas Willmann,thomas.willmann@stadt.freiburg.de,http://twitter.com/freiburg,http://www.facebook.com/stadtfreiburg,badenIT GmbH,Website,https://fritz.freiburg.de/duva2ckan/files/,,,2019-11-05
 Friedrich-Loeffler-Institut,Friedrich-Loeffler-Institut,http://dcat-ap.de/def/contributors/friedrichLoefflerInstitut,,federalAgency,,,,,,,Q1457808,,,,,,,,,,
-Föderale IT-Kooperation,FITKO (Föderale IT-Kooperation),,,federalCooperation,,,,,,,Q104760828,,,,,,,,,,
+Föderale IT-Kooperation,FITKO (Föderale IT-Kooperation),http://dcat-ap.de/def/contributors/fitko,,federalCooperation,,,,,,,Q104760828,,,,,,,,,,2023-05-21
 GDI-DE,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,federalCooperation,https://www.gdi-de.org/,,,,,,Q1502855,,,,,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
 Generalzolldirektion,Generalzolldirektion,http://dcat-ap.de/def/contributors/generalzolldirektion,,federalAgency,,,,,,,Q18287062,,,,,,,,,,
 Geoportal Ruhr,Geoportal Ruhr,opendata.ruhr|geoportal-ruhr,,regionalNetwork,,,,,,,,,,,,,,,,,2023-05-14
@@ -100,7 +100,7 @@ Robert Koch-Institut,Robert Koch-Institut,http://dcat-ap.de/def/contributors/rob
 Roetgen,Roetgen,offenedaten.aachen.de|gemeinde-roetgen,,municipality,https://offenedaten.aachen.de/organization/gemeinde-roetgen,,,,053340024024,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340024024,Q200743,,,,,,,,,,2023-02-05
 Rostock,OpenData.HRO,http://dcat-ap.de/def/contributors/openDataHRO,,municipality,http://www.opendata-hro.de/,,,,,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/130030000000,Q2861,,opendata.hro@rostock.de,,,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,,https://www.opendata-hro.de/catalog.xml,2019-08-04
 Sachsen,Sachsen,http://dcat-ap.de/def/contributors/freistaatSachsen,,state,http://www.opendata.sachsen.de/,,,,14,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/14,Q1202,,opendata@sid.sachsen.de,https://twitter.com/OpenDataSachsen,,,Website,,https://www.opendata.sachsen.de,,2023-02-06
-Sachsen-Anhalt,Land Sachsen-Anhalt,,,state,,,,,15,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/15,Q1206,,,,,,,,,,
+Sachsen-Anhalt,Land Sachsen-Anhalt,http://dcat-ap.de/def/contributors/landSachsenAnhalt,,state,,,,,15,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/15,Q1206,,,,,,,,,,2023-05-21
 Schleswig-Flensburg,Kreis Schleswig-Flensburg,opendata.schleswig-holstein.de|kreis-schleswig-flensburg,,district,,,,,01059,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01059,Q2941,,,,,,,,,,2023-05-09
 Schleswig-Holstein,Schleswig-Holstein,http://dcat-ap.de/def/contributors/schleswigHolstein,,state,https://opendata.schleswig-holstein.de/,,,,01,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/01,Q1194,,opendata@lr.landsh.de,,,Dataport,CKAN,https://opendata.schleswig-holstein.de/api/3/action/package_list,https://opendata.schleswig-holstein.de/api/3/action/organization_list,https://opendata.schleswig-holstein.de/catalog.xml,2023-02-05
 Simmerath,Simmerath,offenedaten.aachen.de|gemeinde-simmerath,,municipality,https://offenedaten.aachen.de/organization/gemeinde-simmerath,,,,053340028028,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340028028,Q200836,,,,,,,,,,2023-02-05
@@ -115,13 +115,14 @@ Trier,Stadt Trier,daten.rlp.de|stadt_trier,,municipality,https://daten.rlp.de/or
 Vordereifel,Verbandsgemeinde Vordereifel,daten.rlp.de|verbandsgemeinde_vordereifel,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_vordereifel,,,,071375003,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071375003,Q481543,,,,,,,,,,2023-05-14
 Wedel,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,municipality,,,,,010560050050,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/010560050050,Q4356,,,,,,,,,,2023-05-09
 Weißenthurm,Verbandsgemeinde Weißenthurm,daten.rlp.de|verbandsgemeinde_weissenthurm,,collectiveMunicipality,,,,,071375008,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071375008,Q519426,,,,,,,,,,2023-05-14
-,Altenberge,,,municipality,https://www.o-sp.de/altenberge/opendata,,DEA37,05566004,055660004004,,,,,,,,,,,,2021-03-03
+Altenberge,Gemeinde Altenberge,geoportal.de|GemeindeAltenberge,,municipality,https://www.o-sp.de/altenberge/opendata,,,,055660004004,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/055660004004,Q181809,,,,,,,,,,2023-05-21
 ,Altenburg,,,municipality,https://www.altenburg.eu/sixcms/detail.php?id=139875,,DEG0M,16077001,160770001001,,,,,,,,Website,,,,2019-08-10
-,Andernach,,,municipality,https://daten.rlp.de/organization/stadt_andernach,,DEB17,07137003,071370003003,,,,,,,,,,,,2021-03-03
-,Arnsberg,,,municipality,http://offenedaten.arnsberg.de,,DEA57,05958004,059580004004,,,Elmar Kettler,pressestelle.kettler@arnsberg.de,,,,Website,,,,2019-08-10
-,Attendorn,,,municipality,https://www.o-sp.de/attendorn/opendata,,DEA59,05966004,059660004004,,,,,,,,,,,,2021-03-03
-,Bad Münstereifel,,,municipality,http://offenedaten.kdvz-frechen.de/group/bad-m%C3%BCnstereifel,2016-11-08,DEA28,05366004,053660004004,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Bedburg,,,municipality,http://offenedaten.kdvz-frechen.de/group/bedburg,2017-04-29,DEA27,05362004,053620004004,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
+Andernach,Stadt Andernach,daten.rlp.de|stadt_andernach,,municipality,https://daten.rlp.de/organization/stadt_andernach,,,,071370003003,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/071370003003,Q490058,,,,,,,,,,2023-05-21
+Arnsberg,Stadt Arnsberg,geoportal.de|StadtArnsberg,,municipality,http://offenedaten.arnsberg.de,,,,059580004004,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/059580004004,Q3912,Elmar Kettler,pressestelle.kettler@arnsberg.de,,,,Website,,,,2023-05-21
+Attendorn,Hansestadt Attendorn,geoportal.de|HansestadtAttendorn,,municipality,https://www.o-sp.de/attendorn/opendata,,,,059660004004,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/059660004004,Q10887,,,,,,,,,,2023-05-21
+Bad Münstereifel,Bad Münstereifel,offenedaten.kdvz-frechen.de|bad-münstereifel,,municipality,http://offenedaten.kdvz-frechen.de/group/bad-m%C3%BCnstereifel,2016-11-08,,,053660004004,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053660004004,Q241450,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2023-05-21
+Bedburg,Bedburg,offenedaten.kdvz-frechen.de|bedburg,,municipality,http://offenedaten.kdvz-frechen.de/group/bedburg,2017-04-29,,,053620004004,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053620004004,Q245292,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2023-05-21
+Bedburg-Hau,Gemeinde Bedburg-Hau,geoportal.de|GemeindeBedburgHau,,municipality,,,,,051540004004,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/051540004004,Q243433,,,,,,,,,,2023-05-21
 ,Bergheim,,,municipality,http://offenedaten.kdvz-frechen.de/group/bergheim,2016-11-08,DE21I,09185118,091855154118,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
 ,Bergkamen,,,municipality,https://www.o-sp.de/bergkamen/opendata,,DEA5C,05978004,059780004004,,,,,,,,,,,,2021-03-03
 ,Bielefeld,,,municipality,https://open-data.bielefeld.de/,,DEA41,05711000,057110000000,,,,opendata@bielefeld.de,,,Stadt Köln,DKAN,https://open-data.bielefeld.de/api/3/action/package_list,,,2019-08-10
@@ -156,6 +157,8 @@ Weißenthurm,Verbandsgemeinde Weißenthurm,daten.rlp.de|verbandsgemeinde_weissen
 ,Gelsenkirchen,,,municipality,https://opendata.gelsenkirchen.de/,2017-05-23,DEA32,05513000,055130000000,,,Ulrike Karn und Manfred vom Sondern,ulrike.karn@gelsenkirchen.de,,,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,,,2019-08-10
 ,Glees,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_glees,,DEB12,07131205,071315004205,,,,,,,,,,,,2021-03-03
 ,Goch,,,municipality,https://www.offenesdatenportal.de/organization/stadt-goch,,DEA1B,05154016,051540016016,,,Torsten Matenaers,pressestelle@goch.de,,,,,,,,2021-03-03
+GovData - Sonstige,Sonstige,http://dcat-ap.de/def/contributors/govData,,portal,,,,,,,,,,,,,,,,,2023-05-21
+Open Data Bund,Open Data Bund,http://dcat-ap.de/def/contributors/openDataBund,,portal,,,,,,,,,,,,,,,,,2023-05-21
 ,Grafschaft,,,municipality,https://daten.rlp.de/organization/gemeinde_grafschaft,,DEB12,07131090,071310090090,,,,,,,,,,,,2021-03-03
 ,Grevenbroich,,,municipality,https://www.o-sp.de/grevenbroich/opendata.php,,DEA1D,05162008,051620008008,,,,,,,,,,,,2021-03-03
 ,Gronau,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,,

@@ -6,6 +6,7 @@
 	$mappingURI1 = null;
 	$mappingURI2 = null;
 	$mappingURI3 = null;
+	$mappingURI4 = null;
 	$mappingLink = null;
 	$mappingType = null;
 	$mappingTitle = null;
@@ -20,6 +21,8 @@
 			$mappingURI2 = $m;
 		} else if ($mappingHeader[$m] === 'parent_and_id_3') {
 			$mappingURI3 = $m;
+		} else if ($mappingHeader[$m] === 'parent_and_id_4') {
+			$mappingURI4 = $m;
 		} else if ($mappingHeader[$m] === 'title') {
 			$mappingTitle = $m;
 		} else if ($mappingHeader[$m] === 'url') {
@@ -42,8 +45,8 @@
 		}
 	}
 
-	function semanticContributor($obj) {
-		global $mapping, $uriDomain, $mappingURI1, $mappingURI2, $mappingURI3, $mappingLink, $mappingType, $mappingTitle, $mappingGML, $mappingWikidata, $mappingContributor;
+	function semanticContributor($uriDomain, $obj) {
+		global $mapping, $mappingURI1, $mappingURI2, $mappingURI3, $mappingURI4, $mappingLink, $mappingType, $mappingTitle, $mappingGML, $mappingWikidata, $mappingContributor;
 
 		$obj['contributor'] = '';
 		$obj['type'] = '';
@@ -54,6 +57,7 @@
 			if (   (($line[$mappingURI1] !== '') && ($line[$mappingURI1] == $obj['uri']))
 				|| (($line[$mappingURI2] !== '') && ($line[$mappingURI2] == $obj['uri']))
 				|| ($line[$mappingURI3] && ($line[$mappingURI3] !== '') && ($line[$mappingURI3] == $obj['uri']))
+				|| ($line[$mappingURI4] && ($line[$mappingURI4] !== '') && ($line[$mappingURI4] == $obj['uri']))
 			) {
 				$obj['title'] = $line[$mappingTitle];
 				$obj['contributor'] = $line[$mappingContributor];
@@ -65,6 +69,7 @@
 				   (($line[$mappingURI1] !== '') && ($line[$mappingURI1] == ($uriDomain . '|' . $obj['name'])))
 				|| (($line[$mappingURI2] !== '') && ($line[$mappingURI2] == ($uriDomain . '|' . $obj['name'])))
 				|| ($line[$mappingURI3] && ($line[$mappingURI3] !== '') && ($line[$mappingURI3] == ($uriDomain . '|' . $obj['name'])))
+				|| ($line[$mappingURI4] && ($line[$mappingURI4] !== '') && ($line[$mappingURI4] == ($uriDomain . '|' . $obj['name'])))
 			) {
 				$obj['title'] = $line[$mappingTitle];
 				$obj['contributor'] = $line[$mappingContributor];

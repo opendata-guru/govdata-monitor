@@ -7,6 +7,7 @@
 	include('_semantic.php');
 
 	$nrwSuffix = 'https://ckan.open.nrw.de/api/3/action/organization_list';
+	$newNrwSuffix = 'https://open.nrw';
 
 	$paramLink = htmlspecialchars($_GET['link']);
 	if ($paramLink == '') {
@@ -19,7 +20,8 @@
 		exit;
 	}
 
-	$uri = 'https://open.nrw/suche?volltext=';
+	$uri = $newNrwSuffix . '/suche?volltext=';
+	$uriDomain = end(explode('/', $newNrwSuffix));
 
 	$source = file_get_contents($uri);
 
@@ -47,7 +49,7 @@
 		$html = explode('>', $html)[1];
 		$count = trim(explode('<', $html)[0]);
 
-		$data[] = semanticContributor(array(
+		$data[] = semanticContributor($uriDomain, array(
 			'id' => $name,
 			'name' => $name,
 			'title' => $title,

@@ -40,6 +40,8 @@
 			}
 		}
 
+		sleep(1);
+
 		$duration = round(microtime(true) - $now, 3);
 		++$count;
 	} while($repeatArtery && ($duration < $repeatSeconds));

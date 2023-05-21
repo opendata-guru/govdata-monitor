@@ -1,5 +1,8 @@
 <?php
-    header('Access-Control-Allow-Origin: *');
+	$repeatArtery = true;
+	$repeatSeconds = 80;
+
+	header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET');
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
@@ -26,12 +29,20 @@
 		return $json->result == 'done';
 	}
 
-	if (call('get-and-store-ckan-organizations.php')) {
-		if (call('get-and-store-ckan-dataset-counts.php')) {
-			echo json_encode(array('result' => 'done'));
-			return;
-		}
-	}
+	$now = microtime(true);
+	$count = 0;
 
-	echo json_encode(array('result' => 'in progress'));
+	do {
+		if (call('get-and-store-ckan-organizations.php')) {
+			if (call('get-and-store-ckan-dataset-counts.php')) {
+				echo json_encode(array('result' => 'done'));
+				return;
+			}
+		}
+
+		$duration = round(microtime(true) - $now, 3);
+		++$count;
+	} while($repeatArtery && ($duration < $repeatSeconds));
+
+	echo json_encode(array('result' => 'in progress (' . $count . ' actions in ' . $duration . ' seconds)'));
 ?>

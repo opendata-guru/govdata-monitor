@@ -1,6 +1,6 @@
 var monitor = {
     maxDays: 30,
-    chartHistory: null,
+    chartLine: null,
     chartPie: null,
     displayDate: '',
 };
@@ -15,14 +15,18 @@ function monitorFormatNumber(x) {
     return x;
 }
 
-function monitorGetDatasetCountByDate(dateString) {
+function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
     var dataObj = data.getDate(dateString);
     var count = undefined;
 
     if (dataObj) {
         dataObj.forEach((row) => {
-            if (row.id === catalog.id) {
-                count = row.datasetCount;
+            if (row.id === catalogId) {
+                if ((row.type === 'root') && !countDatasets) {
+                    return;
+                }
+
+                count = countDatasets ? row.datasetCount : row.packages;
             }
         });
     }
@@ -34,35 +38,85 @@ function monitorUpdateCatalogHistoryChart() {
     var ctx = document.getElementById('dataset-history').getContext('2d');
     var stepSize = 25000;
     var labels = [];
-    var dataObj = [];
-    var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-    gradient.addColorStop(0, 'rgba(215, 227, 244, 1)');
-    gradient.addColorStop(1, 'rgba(215, 227, 244, 0)');
+    var dataCollection = [];
+    var titles = [];
+    var gradient = [];
+    var gradientBase = [];
 
+    gradientBase.push('#34bbe6'); // blue
+    gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
+    gradient[gradient.length - 1].addColorStop(0, 'rgba(52, 187, 230, 1)');
+    gradient[gradient.length - 1].addColorStop(1, 'rgba(52, 187, 230, 0)');
+
+    gradientBase.push('#eb7532'); // orange
+    gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
+    gradient[gradient.length - 1].addColorStop(0, 'rgba(235, 117, 50, 1)');
+    gradient[gradient.length - 1].addColorStop(1, 'rgba(235, 117, 50, 0)');
+
+    gradientBase.push('#f7d038'); // yellow
+    gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
+    gradient[gradient.length - 1].addColorStop(0, 'rgba(247, 208, 56, 1)');
+    gradient[gradient.length - 1].addColorStop(1, 'rgba(247, 208, 56, 0)');
+
+    var sameAs = catalog.getSameAs(catalog.id);
     var today = new Date(Date(monitor.displayDate));
+    var dataObj = data.get();
+
+    var title = 'Datasets';
+    dataObj.filter(item => item.id === catalog.id).forEach((row) => {
+        title += ' in ' + row.title;
+    });
+
+    dataCollection.push([]);
+    titles.push(title);
+    if (sameAs.length > 0) {
+        sameAs.forEach((id) => {
+            title = 'Datasets';
+            dataObj.filter(item => item.id === id).forEach((row) => {
+                title += ' of ' + row.title + ' in ' + row.packagesInPortal;
+            });
+        
+            dataCollection.push([]);
+            titles.push(title);
+        });
+    }
+
     for (d = 0; d < monitor.maxDays; ++d) {
         labels.unshift(today.toISOString().split('T')[0]);
-        dataObj.unshift(monitorGetDatasetCountByDate(today.toISOString().split('T')[0]));
+        dataCollection[0].unshift(monitorGetDatasetCountByDate(catalog.id, today.toISOString().split('T')[0], true));
+
+        if (sameAs.length > 0) {
+            var s = 1;
+            sameAs.forEach((same) => {
+                dataCollection[s].unshift(monitorGetDatasetCountByDate(same, today.toISOString().split('T')[0], false));
+                ++s;
+            });
+        }
 
         today.setDate(today.getDate() - 1);
     }
 
+    var datasets = [];
+    for (var c = 0; c < dataCollection.length; ++c) {
+        datasets.push({
+            label: titles[c],
+            fill: c === 0,
+            backgroundColor: gradient[c],
+            borderColor: gradientBase[c],
+            data: dataCollection[c]
+        });
+    }
+
     var historyData = {
         labels: labels,
-        datasets: [{
-            label: 'Datasets',
-            fill: true,
-            backgroundColor: gradient,
-            borderColor: window.theme.primary,
-            data: dataObj
-        }]
+        datasets: datasets,
     };
 
-    if (monitor.chartHistory !== null) {
-        monitor.chartHistory.data = historyData;
-        monitor.chartHistory.update();
+    if (monitor.chartLine !== null) {
+        monitor.chartLine.data = historyData;
+        monitor.chartLine.update();
     } else {
-        monitor.chartHistory = new Chart(document.getElementById('dataset-history'), {
+        monitor.chartLine = new Chart(document.getElementById('dataset-history'), {
             type: 'line',
             data: historyData,
             options: {

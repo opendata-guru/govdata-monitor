@@ -20,47 +20,34 @@
 
 <body>
 	<div class="wrapper">
-		<nav id="sidebar" class="sidebar js-sidebar">
-			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-		        	<span class="align-middle">GovData Monitor</span>
-		        </a>
-
-				<ul class="sidebar-nav">
-					<li class="sidebar-header">
-						Pages
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="index.html">
-							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-			            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="meter.html">
-							<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Meter</span>
-			            </a>
-					</li>
-
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="catalogs.html">
-							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Catalogs</span>
-			            </a>
-					</li>
-
-				</ul>
-			</div>
-		</nav>
-
 		<div class="main">
-			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<a class="sidebar-toggle js-sidebar-toggle">
-					<i class="hamburger align-self-center"></i>
-		        </a>
-
+			<nav class="navbar navbar-expand navbar-light navbar-bg d-block border-bottom border-1 border-info">
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav">
+						<li class="nav-item pt-1 pe-2 fs-4 border-end border-1 border-secondary border-opacity-50 d-none d-sm-block">
+							GovData Monitor
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">
+								<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="meter.html">
+								<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Meter</span>
+							</a>
+						</li>
+						<li class="nav-item border-bottom border-4 border-info">
+							<a class="nav-link" href="catalogs.html">
+								<i class="align-middle" data-feather="package"></i> <span class="align-middle">Catalogs</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav">
+						<li class="nav-item d-none d-sm-block" style="width:9.5rem;">
+						</li>
 						<li class="nav-item dropdown">
 							<a  class="nav-link dropdown-toggle" href="#" id="dateDropdown" data-bs-toggle="dropdown">
 								<span id="date-title">Date</span>
@@ -89,15 +76,13 @@
 				</div>
 			</nav>
 
-			<main class="content">
+			<main class="content p-0">
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-3"><strong>Catalogs</strong></h1>
-
-					<div class="row">
+					<div class="row border-bottom border-1 border-info">
 						<div class="col-12">
 
-							<div class="card card-breadcrumb-and-catalog-title" style="display: none;">
+							<div class="card card-breadcrumb-and-catalog-title mb-0" style="display: none;">
 								<div class="card-body">
 									<div class="text-secondary">
 										<i class="text-secondary align-top me-1" data-feather="home"></i>
@@ -107,7 +92,7 @@
 								</div>
 							</div>
 
-							<div class="card card-loading">
+							<div class="card card-loading mb-0">
 								<div class="card-body">
 									<div class="text-secondary">
 										<i class="text-secondary align-top me-1 rotate" data-feather="loader"></i>

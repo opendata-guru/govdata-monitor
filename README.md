@@ -39,6 +39,12 @@ Get a list of all contributors and some more meta data:
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://data.europa.eu/api/hub/search/catalogues
 - for bug in NRW: https://opendata.guru/govdata/get/list-organizations/nrw-list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 
+Get system status information:
+
+- https://opendata.guru/govdata/get/system-status.php
+- https://opendata.guru/govdata/get/system-status.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
+- https://opendata.guru/govdata/get/system-status.php?link=https://data.europa.eu/api/hub/search/catalogues
+
 And service endpoints:
 
 - https://opendata.guru/govdata/service/artery.php

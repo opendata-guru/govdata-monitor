@@ -3,9 +3,9 @@ var diff = (function () {
         defaultHideEqual = false,
         initvalHighlight = true,
         defaultHighlight = true,
-        initvalThreshold = 100,
-        defaultThreshold = 100;
-    var idIndicator = 'diff-indicator',
+        initvalThreshold = 10,
+        defaultThreshold = 10;
+    var idElement = 'diffDropdown',
         idMenu = 'diff-menu';
         idReset = 'diff-reset',
         idHideEqual = 'diff-hide-equal',
@@ -16,7 +16,7 @@ var diff = (function () {
         paramThreshold = 'diffThreshold';
 
     function updateIndicator() {
-        var elem = document.getElementById(idIndicator);
+        var elem = document.getElementById(idElement);
 
         if (diff) {
             initvalThreshold = diff.threshold;
@@ -28,7 +28,7 @@ var diff = (function () {
             && initvalHighlight === defaultHighlight
             && initvalHideEqual === defaultHideEqual;
 
-        elem.style.display = hidden ? 'none' : 'block';
+        elem.style.background = hidden ? 'inherit' : 'repeating-linear-gradient(-55deg,#17a2b860 0,#17a2b860 .1rem,#fff .1rem,#fff .4rem)';
     }
 
     function install() {
@@ -60,7 +60,7 @@ var diff = (function () {
 
         html += '<div class="dropdown-divider"></div>';
 
-        html += '<div class="dropdown-menu-footer">';
+        html += '<div class="dropdown-menu-footer pt-0">';
         html += '  <a id="' + idReset + '" href="#" class="text-muted">Reset diff settings</a>';
         html += '</div>';
 
@@ -78,12 +78,17 @@ var diff = (function () {
         document.getElementById(idHighlight).checked = initvalHighlight;
         document.getElementById(idThreshold).value = initvalThreshold;
 
+        document.querySelector('[aria-labelledby="' + idElement + '"]').addEventListener('click', onStopPropagation);
         document.getElementById(idReset).addEventListener('click', onClickReset);
         document.getElementById(idHideEqual).addEventListener('click', onClickHideEqual);
         document.getElementById(idHighlight).addEventListener('click', onClickHighlight);
         document.getElementById(idThreshold).addEventListener('change', onChangeThreshold);
 
         updateIndicator();
+    }
+
+    function onStopPropagation(event) {
+        event.stopPropagation();
     }
 
     function onClickReset() {

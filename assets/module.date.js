@@ -3,7 +3,7 @@ var date = (function () {
         defaultSelection = [];
     var datepicker = null,
         updateToDate = null;
-    var idIndicator = 'date-indicator',
+    var idElement = 'dateDropdown',
         idMenu = 'date-menu',
         idReset = 'date-reset',
         idDatepicker = 'date-picker',
@@ -11,7 +11,7 @@ var date = (function () {
     var paramSelection = 'date';
 
     function updateIndicator() {
-        var elem = document.getElementById(idIndicator);
+        var elem = document.getElementById(idElement);
 
         defaultSelection = [(new Date(Date.now())).toISOString().split('T')[0]];
 
@@ -45,7 +45,7 @@ var date = (function () {
         }
         document.getElementById(idTitle).innerHTML = title;
 
-        elem.style.display = hidden ? 'none' : 'block';
+        elem.style.background = hidden ? 'inherit' : 'repeating-linear-gradient(-55deg,#17a2b860 0,#17a2b860 .1rem,#fff .1rem,#fff .4rem)';
     }
 
     function install() {
@@ -59,7 +59,7 @@ var date = (function () {
 
         html += '<div class="dropdown-divider"></div>';
 
-        html += '<div class="dropdown-menu-footer">';
+        html += '<div class="dropdown-menu-footer pt-0">';
         html += '<a id="' + idReset + '" href="#" class="text-muted">Reset date settings</a>';
         html += '</div>';
 
@@ -110,9 +110,14 @@ var date = (function () {
             initvalSelection = defaultSelection;
         }
 
+        document.querySelector('[aria-labelledby="' + idElement + '"]').addEventListener('click', onStopPropagation);
         document.getElementById(idReset).addEventListener('click', onClickReset);
 
         updateIndicator();
+    }
+
+    function onStopPropagation(event) {
+        event.stopPropagation();
     }
 
     function onClickReset() {

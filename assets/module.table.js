@@ -6,7 +6,7 @@ var table = (function () {
     var idTableBody = 'supplier-table',
         idTableHeader = 'supplier-table-header',
         idTableFooter = 'supplier-table-footer',
-        idIndicator = 'table-indicator',
+        idElement = 'tableDropdown',
         idMenu = 'table-menu',
         idReset = 'table-reset',
         idFlatten = 'checkbox-flatten',
@@ -54,7 +54,7 @@ var table = (function () {
 
         html += '<div class="dropdown-divider"></div>';
 
-        html += '<div class="dropdown-menu-footer">';
+        html += '<div class="dropdown-menu-footer pt-0">';
         html += '<a id="' + idReset + '" href="#" class="text-muted">Reset table settings</a>';
         html += '</div>';
 
@@ -62,7 +62,7 @@ var table = (function () {
     }
 
     function updateIndicator() {
-        var elem = document.getElementById(idIndicator);
+        var elem = document.getElementById(idElement);
         var layer = document.getElementsByClassName(layerClass);
 
         if (table) {
@@ -73,7 +73,7 @@ var table = (function () {
         var hidden = initvalFlatten == defaultFlatten
             && initvalLayer === defaultLayer;
 
-        elem.style.display = hidden ? 'none' : 'block';
+            elem.style.background = hidden ? 'inherit' : 'repeating-linear-gradient(-55deg,#17a2b860 0,#17a2b860 .1rem,#fff .1rem,#fff .4rem)';
 
         for(var l = 0; l < layer.length; ++l) {
             var item = layer[l];
@@ -100,6 +100,7 @@ var table = (function () {
 
         document.getElementById(idFlatten).checked = initvalFlatten;
 
+        document.querySelector('[aria-labelledby="' + idElement + '"]').addEventListener('click', onStopPropagation);
         document.getElementById(idReset).addEventListener('click', onClickReset);
         document.getElementById(idFlatten).addEventListener('click', onClickFlatten);
         for(var l = 0; l < layer.length; ++l) {
@@ -108,6 +109,10 @@ var table = (function () {
         }
 
         updateIndicator();
+    }
+
+    function onStopPropagation(event) {
+        event.stopPropagation();
     }
 
     function onClickReset() {
@@ -141,9 +146,7 @@ var table = (function () {
         data.emitFilterChanged();
     }
 
-    function onClickLayer(event) {
-        event.stopPropagation();
-
+    function onClickLayer() {
         var classList = this.className.split(' ');
         if (-1 !== classList.indexOf('badge')) {
             classList.splice(classList.indexOf('badge'), 1);

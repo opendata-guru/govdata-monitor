@@ -50,6 +50,7 @@ And service endpoints:
 - https://opendata.guru/govdata/service/artery.php
 - https://opendata.guru/govdata/service/get-and-store-ckan-organizations.php
 - https://opendata.guru/govdata/service/get-and-store-ckan-dataset-counts.php
+- https://opendata.guru/govdata/service/get-and-store-systems.php
 
 (use a cron job service like https://cron-job.org)
 

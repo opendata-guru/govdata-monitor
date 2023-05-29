@@ -84,4 +84,26 @@
 
 		return $obj;
 	}
+
+	function semanticGetAllPortals() {
+		global $mapping, $mappingLink, $mappingType, $mappingTitle, $mappingGML, $mappingWikidata, $mappingContributor;
+
+		$ret = [];
+
+		foreach($mapping as $line) {
+			if ($line[$mappingLink] && ($line[$mappingLink] !== '')) {
+				$obj = [];
+				$obj['title'] = $line[$mappingTitle];
+				$obj['contributor'] = $line[$mappingContributor];
+				$obj['type'] = $line[$mappingType];
+				$obj['gml'] = $line[$mappingGML];
+				$obj['wikidata'] = $line[$mappingWikidata];
+				$obj['link'] = $line[$mappingLink];
+
+				$ret[] = $obj;
+			}
+		}
+
+		return $ret;
+	}
 ?>

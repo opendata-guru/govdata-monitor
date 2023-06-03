@@ -2,6 +2,8 @@ var data = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         dateToLoad = '',
         uriToLoad = '';
+    var eventListenerStartLoading = [],
+        eventListenerEndLoading = [];
     var assets = [],
         view = [],
         viewHeader = [],
@@ -23,6 +25,22 @@ var data = (function () {
         layers['collectiveMunicipality'] = 'Amt / Verbandsgemeinde';
         layers['municipality'] = 'Stadt';
         layers['municipalityAgency'] = 'Stadtverwaltung';
+    }
+
+    function funcAddEventListenerStartLoading(func) {
+        eventListenerStartLoading.push(func);
+    }
+
+    function funcAddEventListenerEndLoading(func) {
+        eventListenerEndLoading.push(func);
+    }
+
+    function dispatchEventStartLoading() {
+        eventListenerStartLoading.forEach(func => func());
+    }
+
+    function dispatchEventEndLoading() {
+        eventListenerEndLoading.forEach(func => func());
     }
 
     function isParent(packageId, dateString, sameAs) {
@@ -241,22 +259,6 @@ var data = (function () {
         uriToLoad = uri;
     }
 
-    function showDate() {
-        var text = '';
-        text += '<span class="text-secondary">Loading data ... </span>';
-        text += '<span class="text-info"> <i class="mdi mdi-arrow-bottom-right"></i> ' + dateToLoad + ' </span>';
-
-        document.getElementById(idLoadingLabel).innerHTML = text;
-
-        document.getElementsByClassName(classNameBreadcrumbTitle)[0].style.display = 'none';
-        document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'block';
-    }
-
-    function showDateDone() {
-        document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'none';
-        document.getElementsByClassName(classNameBreadcrumbTitle)[0].style.display = 'block';
-    }
-
     function store(payload) {
         assets[dateToLoad] = payload;
 
@@ -270,7 +272,7 @@ var data = (function () {
 
         setLoadingDate(current); 
 
-        showDate();
+        dispatchEventStartLoading(dateToLoad);
         load();
     }
 
@@ -282,7 +284,8 @@ var data = (function () {
             if (this.readyState == 4 && this.status == 200) {
                 store(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                showDateDone();
+                dispatchEventEndLoading();
+
                 date.update();
                 monitorUpdateCatalogHistoryChart();
             }
@@ -296,27 +299,31 @@ var data = (function () {
         if (days <= monitor.maxDays) {
             xhr.send();
         } else {
-            showDateDone();
+            dispatchEventEndLoading();
+
             date.update();
             monitorUpdateCatalogHistoryChart();
         }
     }
 
-    init();
-
-    document.addEventListener('DOMContentLoaded', function() {
+    function funcLoadData() {
         setLoadingDate(new Date(Date.now()));
-        showDate();
+        dispatchEventStartLoading(dateToLoad);
 
         load();
-    });
+    }
+
+    init();
 
     return {
+        addEventListenerStartLoading: funcAddEventListenerStartLoading,
+        addEventListenerEndLoading: funcAddEventListenerEndLoading,
         emitFilterChanged: funcEmitFilterChanged,
         get: funcGet,
         getDate: funcGetDate,
         has: funcHas,
         layers: layers,
+        loadData: funcLoadData,
         view: view,
         viewHeader: viewHeader,
     };

@@ -60,6 +60,9 @@ Regionalschlüssel:
 
 ## Ideas
 
+- https://codeberg.org/opengovtech/ars-tool/src/branch/main
+- https://www.opengovtech.de/ars/
+
 ### Organisations
 
 - start with GovData (or data.europe.eu ?)

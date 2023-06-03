@@ -2,12 +2,27 @@ var system = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         dateToLoad = '',
         uriToLoad = '';
+    var eventListenerStartLoading = [],
+        eventListenerEndLoading = [];
     var assets = [];
-    var idLoadingLabel = 'loading-description',
-        classNameLoadingCard = 'card-loading',
-        classNameBreadcrumbTitle = 'card-breadcrumb-and-catalog-title';
 
     function init() {
+    }
+
+    function funcAddEventListenerStartLoading(func) {
+        eventListenerStartLoading.push(func);
+    }
+
+    function funcAddEventListenerEndLoading(func) {
+        eventListenerEndLoading.push(func);
+    }
+
+    function dispatchEventStartLoading() {
+        eventListenerStartLoading.forEach((func) => func());
+    }
+
+    function dispatchEventEndLoading() {
+        eventListenerEndLoading.forEach((func) => func());
     }
 
     function setLoadingDate(loadingDate) {
@@ -18,26 +33,10 @@ var system = (function () {
         uriToLoad = uri;
     }
 
-    function showDate() {
-        var text = '';
-        text += '<span class="text-secondary">Loading data ... </span>';
-        text += '<span class="text-info"> <i class="mdi mdi-arrow-bottom-right"></i> ' + dateToLoad + ' </span>';
-
-        document.getElementById(idLoadingLabel).innerHTML = text;
-
-        document.getElementsByClassName(classNameBreadcrumbTitle)[0].style.display = 'none';
-        document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'block';
-    }
-
-    function showDateDone() {
-        document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'none';
-        document.getElementsByClassName(classNameBreadcrumbTitle)[0].style.display = 'block';
-    }
-
     function store(payload) {
         assets = payload;
 
-        showDateDone();
+        dispatchEventEndLoading();
     }
 
     function load() {
@@ -48,22 +47,26 @@ var system = (function () {
             if (this.readyState == 4 && this.status == 200) {
                 store(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                showDateDone();
+                dispatchEventEndLoading();
             }
         }
 
         xhr.send();
     }
 
-    init();
-
-    document.addEventListener('DOMContentLoaded', function() {
+    function funcLoadData() {
         setLoadingDate(new Date(Date.now()));
-        showDate();
+
+        dispatchEventStartLoading();
 
         load();
-    });
+    }
+
+    init();
 
     return {
+        addEventListenerStartLoading: funcAddEventListenerStartLoading,
+        addEventListenerEndLoading: funcAddEventListenerEndLoading,
+        loadData: funcLoadData,
     };
 }());

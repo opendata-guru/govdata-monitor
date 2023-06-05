@@ -373,6 +373,7 @@ var table = (function () {
 
         monitorUpdateCatalogPieChart();
         monitorUpdateCatalogHistoryChart();
+        system.update();
     }
 
     install();

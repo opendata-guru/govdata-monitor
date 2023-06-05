@@ -8,9 +8,6 @@ var data = (function () {
         view = [],
         viewHeader = [],
         layers = [];
-    var idLoadingLabel = 'loading-description',
-        classNameLoadingCard = 'card-loading',
-        classNameBreadcrumbTitle = 'card-breadcrumb-and-catalog-title';
 
     function init() {
         layers['country'] = 'Staat';

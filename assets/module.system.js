@@ -4,7 +4,10 @@ var system = (function () {
         systemId = null;
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
-    var idSystemBody = 'system-body';
+    var idSystemBody = 'system-body',
+        idImage1 = 'image-1',
+        idImage2 = 'image-2',
+        idImage3 = 'image-3';
     var assets = [];
 
     function init() {
@@ -54,6 +57,55 @@ var system = (function () {
         xhr.send();
     }
 
+    function loadSPARQL(qid) {
+        var endpointUrl = 'https://query.wikidata.org/sparql';
+        var sparqlQuery = 'SELECT ' +
+            '?item ' +
+            '(SAMPLE(?photo1) as ?photo1) ' +
+            '(SAMPLE(?photo2) as ?photo2) ' +
+            '(SAMPLE(?photo3) as ?photo3) ' +
+            '' +
+            'WHERE {' +
+            '  BIND(wd:' + qid + ' as ?item)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P18 ?photo1. }' +
+            '  BIND(IF( BOUND( ?photo1), ?photo1, "") AS ?photo1)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P18 ?photo2. FILTER ( ?photo1 != ?photo2) }' +
+            '  BIND(IF( BOUND( ?photo2), ?photo2, "") AS ?photo2)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P18 ?photo3. FILTER ( ?photo1 != ?photo3) FILTER ( ?photo2 != ?photo3) }' +
+            '  BIND(IF( BOUND( ?photo3), ?photo3, "") AS ?photo3)' +
+            '}' +
+            'GROUP BY ?item';
+
+        var uri = endpointUrl + '?query=' + encodeURIComponent(sparqlQuery);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uri, true);
+
+        xhr.setRequestHeader('Accept', 'application/sparql-results+json');
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(this.responseText);
+                var values = res.results.bindings[0];
+                var photo1 = values.photo1.value;
+                var photo2 = values.photo2.value;
+                var photo3 = values.photo3.value;
+
+                document.getElementById(idImage1).src = photo1;
+                document.getElementById(idImage2).src = photo2;
+                document.getElementById(idImage3).src = photo3;
+            } else if (this.readyState == 4) {
+                document.getElementById(idImage1).src = '';
+                document.getElementById(idImage2).src = '';
+                document.getElementById(idImage3).src = '';
+}
+        }
+
+        xhr.send();
+    }
+
     function funcLoadData() {
         setLoadingDate(new Date(Date.now()));
 
@@ -88,6 +140,10 @@ var system = (function () {
         return '<div class="font-monospace"><span class="fw-bold">' + key + ':</span> <a href="' + link + '" target="_blank">' + value + '</a></div>';
     }
 
+    function formatImage(number) {
+        return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:6rem">';
+    }
+
     function funcUpdate() {
         if (systemId === catalog.id) {
             return;
@@ -110,6 +166,13 @@ var system = (function () {
                     body += formatScroll('Extensions', JSON.stringify(sys.server.extensions));
                 }
             }
+            body += '<div class="font-monospace"><span class="fw-bold">Images:</span>';
+            body += formatImage(1);
+            body += formatImage(2);
+            body += formatImage(3);
+            body += '</div>';
+
+            loadSPARQL(sys.wikidata);
         }
 
         document.getElementById(idSystemBody).innerHTML = body;

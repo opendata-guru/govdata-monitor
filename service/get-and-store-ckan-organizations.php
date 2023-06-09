@@ -73,7 +73,7 @@
 			'packagesInPortal' => '',
 			'contributor' => '',
 			'type' => 'root',
-			'wikidata' => 'Q5412398',
+			'wikidata' => 'Q458',
 			'link' => 'https://data.europa.eu/api/hub/search/catalogues',
 		);
 

@@ -65,6 +65,9 @@ var system = (function () {
             '(SAMPLE(?photo1) as ?photo1) ' +
             '(SAMPLE(?photo2) as ?photo2) ' +
             '(SAMPLE(?photo3) as ?photo3) ' +
+            '(SAMPLE(?logo) as ?logo) ' +
+            '(SAMPLE(?map) as ?map) ' +
+            '(SAMPLE(?flag) as ?flag) ' +
             '' +
             'WHERE {' +
             '  BIND(wd:' + qid + ' as ?item)' +
@@ -77,6 +80,15 @@ var system = (function () {
             '' +
             '  OPTIONAL { ?item wdt:P18 ?photo3. FILTER ( ?photo1 != ?photo3) FILTER ( ?photo2 != ?photo3) }' +
             '  BIND(IF( BOUND( ?photo3), ?photo3, "") AS ?photo3)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P154 ?logo. }' +
+            '  BIND(IF( BOUND( ?logo), ?logo, "") AS ?logo)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P242 ?map. }' +
+            '  BIND(IF( BOUND( ?map), ?map, "") AS ?map)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
+            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
             '}' +
             'GROUP BY ?item';
 
@@ -90,18 +102,24 @@ var system = (function () {
             if (this.readyState == 4 && this.status == 200) {
                 var res = JSON.parse(this.responseText);
                 var values = res.results.bindings[0];
-                var photo1 = values.photo1.value;
-                var photo2 = values.photo2.value;
-                var photo3 = values.photo3.value;
+                var photos = [];
 
-                document.getElementById(idImage1).src = photo1;
-                document.getElementById(idImage2).src = photo2;
-                document.getElementById(idImage3).src = photo3;
+                photos.push(values.photo1.value);
+                photos.push(values.photo2.value);
+                photos.push(values.photo3.value);
+                photos.push(values.logo.value);
+                photos.push(values.map.value);
+                photos.push(values.flag.value);
+                photos = photos.filter(n => n);
+
+                document.getElementById(idImage1).src = photos.length > 0 ? photos[0] : '';
+                document.getElementById(idImage2).src = photos.length > 1 ? photos[1] : '';
+                document.getElementById(idImage3).src = photos.length > 2 ? photos[2] : '';
             } else if (this.readyState == 4) {
                 document.getElementById(idImage1).src = '';
                 document.getElementById(idImage2).src = '';
                 document.getElementById(idImage3).src = '';
-}
+            }
         }
 
         xhr.send();
@@ -145,6 +163,10 @@ var system = (function () {
         return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:8rem">';
     }
 
+    function formatButton(key, link) {
+        return '<div class=""><a href="' + link + '" style="text-align:center;display:inline-block;" target="_blank"><span style="display:block;width:3rem;height:3rem;border-radius:3rem;line-height:3rem;text-align:center;margin:auto;" class="bg-secondary text-white">' + key.substring(0, 1) + '</span>' + key + '</a></div>';
+    }
+
     function funcUpdate() {
         if (systemId === catalog.id) {
             return;
@@ -156,14 +178,18 @@ var system = (function () {
         var body = '';
         var images = '';
         var title = sys ? sys.title : catalogObj.title;
+        var wikidata = sys ? sys.wikidata : catalogObj.wikidata;
         var type = data.getTypeString(sys ? sys.type : catalogObj.type);
 
         body += '<h1 class="fw-light fs-3">' + title + '</h1>';
         body += '<div>' + type + '</div>';
         body += '<div class="mb-2"></div>';
 
+        if (wikidata) {
+            body += formatButton('Wikidata', 'https://www.wikidata.org/wiki/' + wikidata);
+        }
+
         if (sys) {
-            body += formatLink('Wikidata', sys.wikidata, 'https://www.wikidata.org/wiki/' + sys.wikidata);
             if (sys.server) {
                 body += format('System', sys.server.system + ', version ' + sys.server.version);
                 body += formatLink('API', sys.server.url, sys.server.url);

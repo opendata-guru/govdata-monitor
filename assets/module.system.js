@@ -5,6 +5,7 @@ var system = (function () {
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var idSystemBody = 'system-body',
+        idSystemImage = 'system-image',
         idImage1 = 'image-1',
         idImage2 = 'image-2',
         idImage3 = 'image-3';
@@ -141,7 +142,7 @@ var system = (function () {
     }
 
     function formatImage(number) {
-        return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:6rem">';
+        return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:8rem">';
     }
 
     function funcUpdate() {
@@ -150,12 +151,18 @@ var system = (function () {
         }
         systemId = catalog.id;
 
+        var catalogObj = catalog.get(systemId);
         var sys = getSystem(systemId);
         var body = '';
+        var images = '';
+        var title = sys ? sys.title : catalogObj.title;
+        var type = data.getTypeString(sys ? sys.type : catalogObj.type);
+
+        body += '<h1 class="fw-light fs-3">' + title + '</h1>';
+        body += '<div>' + type + '</div>';
+        body += '<div class="mb-2"></div>';
 
         if (sys) {
-            body += format('Title', sys.title);
-            body += format('Type', sys.type);
             body += formatLink('Wikidata', sys.wikidata, 'https://www.wikidata.org/wiki/' + sys.wikidata);
             if (sys.server) {
                 body += format('System', sys.server.system + ', version ' + sys.server.version);
@@ -166,15 +173,15 @@ var system = (function () {
                     body += formatScroll('Extensions', JSON.stringify(sys.server.extensions));
                 }
             }
-            body += '<div class="font-monospace"><span class="fw-bold">Images:</span>';
-            body += formatImage(1);
-            body += formatImage(2);
-            body += formatImage(3);
-            body += '</div>';
+
+            images += formatImage(1);
+            images += formatImage(2);
+            images += formatImage(3);
 
             loadSPARQL(sys.wikidata);
         }
 
+        document.getElementById(idSystemImage).innerHTML = images;
         document.getElementById(idSystemBody).innerHTML = body;
     }
 

@@ -79,7 +79,7 @@ var data = (function () {
         return '';
     }
 
-    function getRowType(type) {
+    function funcGetTypeString(type) {
         var ret = '';
         Object.keys(layers).forEach(key => {
             if (type === key) {
@@ -133,7 +133,7 @@ var data = (function () {
                 name = obj.name ? obj.name : name;
                 type = obj.type ? obj.type : type;
 
-                typeStr = getRowType(type);
+                typeStr = funcGetTypeString(type);
 
                 if (showBadge) {
                     datasetCount = obj.datasetCount ? obj.datasetCount : null;
@@ -318,6 +318,7 @@ var data = (function () {
         emitFilterChanged: funcEmitFilterChanged,
         get: funcGet,
         getDate: funcGetDate,
+        getTypeString: funcGetTypeString,
         has: funcHas,
         layers: layers,
         loadData: funcLoadData,

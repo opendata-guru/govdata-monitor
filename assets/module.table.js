@@ -247,7 +247,7 @@ var table = (function () {
         return '<tr><td><span title="' + row.name + '">' + icon + title + '</span></td>' + cols + '</tr>';
     }
 
-    function getSublineRow(arrayData, id, countDatasets) {
+    function getSublineRow(arrayData, id, countDatasets, lastSuffix) {
         var showBadge = arrayData.length === 1;
         var str = '';
         var name = '';
@@ -255,6 +255,7 @@ var table = (function () {
         var type = '';
         var lastCount = undefined;
         var maxDiff = 0;
+        var diffRow = '';
         var ignoreRow = false;
         var packagesInId = '';
 
@@ -314,13 +315,21 @@ var table = (function () {
         }
 
         var suffix = '';
+        var diffSuffix = '';
         if (countDatasets) {
             suffix = '?cat=' + id;
+            diffSuffix = '&cat2=' + id;
         } else {
             suffix = '?cat=' + name + '&in=' + packagesInId;
+            diffSuffix = '&cat2=' + name + '&in2=' + packagesInId;
         }
 
-        str = '<td>' + title + ' <a href="datasets.html' + suffix + '" class="bg-success text-white p-1">Show datasets</a></td>' + str;
+        if (lastSuffix.value !== '') {
+            diffRow = '<a href="datasets.html' + lastSuffix.value + diffSuffix + '" class="bg-success text-white p-1 ms-1">Diff above</a>';
+        }
+        str = '<td>' + title + ' <a href="datasets.html' + suffix + '" class="bg-success text-white p-1">Show datasets</a>' + diffRow + '</td>' + str;
+
+        lastSuffix.value = suffix;
 
         return '<tr>' + str + '</tr>';
     }
@@ -369,9 +378,10 @@ var table = (function () {
             footer += '<th></th>';
         }
 
-        subline += getSublineRow(arrayData, catalog.id, true);
+        var suffix = { value: '' };
+        subline += getSublineRow(arrayData, catalog.id, true, suffix);
         if (sameAs.length > 0) {
-            sameAs.forEach((id) => subline += getSublineRow(arrayData, id, false));
+            sameAs.forEach((id) => subline += getSublineRow(arrayData, id, false, suffix));
         }
 
         firstHeader = '<tr style="border-bottom:2px solid #000">' + firstHeader + '</tr>';

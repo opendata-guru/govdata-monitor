@@ -17,12 +17,6 @@ if (params.has('in')) {
 	page.catalog = '';
 }
 
-// sample:
-// cat=8196e75f-c45e-4281-ac8f-1803c4e1f3be&in=govdata
-// cat=8196e75f-c45e-4281-ac8f-1803c4e1f3be
-// cat=1580d777-f7b0-4a07-a162-d6f3eb0b02f9&in=ec74990f-c51f-4378-845d-132b1f75a550
-// cat=6b4e3e04-a8a1-4d73-99c7-6b3fb96d3ba1&in=ab7713f4-008d-4932-bd81-192a108da8a3
-
 // ----------------------------------------------------------------------------
 
 const getCommonResponseData = (dataset) => {
@@ -249,17 +243,14 @@ var ckanV2 = class CKANAdapterV2{
 		  // + `&sort=${ searchParams.sort }`
 		  + `&rows=${limit}`
 		  + `&start=${pageNum - 1}`
-/*		  + '&facet.field=["tags", "groups"]'*/;
+		  + '&facet.field=["tags", "groups"]';
 
-		console.log(page.catalog);
-		console.log(page.catalogParent);
 		if (page.catalog) {
 //			params = 'portal=' + page.catalog + '&' + params;
 //			params = 'fq=portal:' + page.catalog + '&' + params;
 			params = 'fq=organization:' + page.catalog + '&' + params;
 //			params = 'organization=' + page.catalog + '&' + params;
 		}
-		console.log(`${this.baseUrl}package_search?${params}`);
 
 	return new Promise((resolve, reject) => {
       const endpoint = 'package_search';
@@ -329,9 +320,9 @@ if (page.catalogParent === 'govdata') {
 } else if (page.catalogParent === 'ab7713f4-008d-4932-bd81-192a108da8a3') {
 	page.service = ckanV2;
 	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://opendata.ruhr/api/3/action/';
-} else if (page.catalogParent === 'govdata') {
+} else if (page.catalogParent === '23e91bf6-9968-4a0f-bafe-6bad1a0f5be8') {
 	page.service = ckanV2;
-	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://ckan.govdata.de/api/3/action/';
+	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://www.offenesdatenportal.de/api/3/action/';
 } else {
 	page.service = ckanV2;
 //	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde';
@@ -379,6 +370,19 @@ var CONFIG_APP_TITLE = "GovData Monitor Portal",
     CONFIG_APP_ROUTER_ROUTE_1_PATH = "/datasets.html",
     CONFIG_APP_ROUTER_ROUTE_1_COMPONENT = "Datasets",
     CONFIG_APP_ROUTER_ROUTE_1_REQUIRES_AUTH = !1;
+
+CONFIG_APP_LANGUAGES = {
+  'en': {
+    'message': {
+      'datasetFacets': {
+        'facets': {
+          'groups': 'Groups',
+          'tags': 'Tags'
+        }
+      }
+    }
+  }
+};
 
 // ----------------------------------------------------------------------------
 

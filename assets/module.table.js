@@ -250,6 +250,7 @@ var table = (function () {
     function getSublineRow(arrayData, id, countDatasets) {
         var showBadge = arrayData.length === 1;
         var str = '';
+        var name = '';
         var title = '';
         var type = '';
         var lastCount = undefined;
@@ -270,6 +271,7 @@ var table = (function () {
                 var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
                 var addClass = '';
                 title = dataObj[0].title ? dataObj[0].title : title;
+                name = dataObj[0].name ? dataObj[0].name : name;
                 type = dataObj[0].type ? dataObj[0].type : type;
                 packagesInId = dataObj[0].packagesInId ? dataObj[0].packagesInId : packagesInId;
 
@@ -315,7 +317,7 @@ var table = (function () {
         if (countDatasets) {
             suffix = '?cat=' + id;
         } else {
-            suffix = '?cat=' + id + '&in=' + packagesInId;
+            suffix = '?cat=' + name + '&in=' + packagesInId;
         }
 
         str = '<td>' + title + ' <a href="datasets.html' + suffix + '" class="bg-success text-white p-1">Show datasets</a></td>' + str;

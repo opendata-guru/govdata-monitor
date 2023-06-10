@@ -67,7 +67,7 @@ var system = (function () {
             '(SAMPLE(?photo3) as ?photo3) ' +
             '(SAMPLE(?logo) as ?logo) ' +
             '(SAMPLE(?map) as ?map) ' +
-            '(SAMPLE(?flag) as ?flag) ' +
+            '(SAMPLE(?coat) as ?coat) ' +
             '' +
             'WHERE {' +
             '  BIND(wd:' + qid + ' as ?item)' +
@@ -87,8 +87,8 @@ var system = (function () {
             '  OPTIONAL { ?item wdt:P242 ?map. }' +
             '  BIND(IF( BOUND( ?map), ?map, "") AS ?map)' +
             '' +
-            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
-            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
+            '  OPTIONAL { ?item wdt:P94 ?coat. }' +
+            '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
             '}' +
             'GROUP BY ?item';
 
@@ -109,7 +109,7 @@ var system = (function () {
                 photos.push(values.photo3.value);
                 photos.push(values.logo.value);
                 photos.push(values.map.value);
-                photos.push(values.flag.value);
+                photos.push(values.coat.value);
                 photos = photos.filter(n => n);
 
                 document.getElementById(idImage1).src = photos.length > 0 ? photos[0] : '';
@@ -189,22 +189,22 @@ var system = (function () {
             body += formatButton('Wikidata', 'https://www.wikidata.org/wiki/' + wikidata);
         }
 
-        if (sys) {
-            if (sys.server) {
-                body += format('System', sys.server.system + ', version ' + sys.server.version);
-                body += formatLink('API', sys.server.url, sys.server.url);
-                if (sys.server.extensions.length > 0) {
-                    body += formatScroll('Extensions', sys.server.extensions.join(', '));
-                } else {
-                    body += formatScroll('Extensions', JSON.stringify(sys.server.extensions));
-                }
+        if (sys && sys.server) {
+            body += format('System', sys.server.system + ', version ' + sys.server.version);
+            body += formatLink('API', sys.server.url, sys.server.url);
+            if (sys.server.extensions.length > 0) {
+                body += formatScroll('Extensions', sys.server.extensions.join(', '));
+            } else {
+                body += formatScroll('Extensions', JSON.stringify(sys.server.extensions));
             }
+        }
 
+        if (wikidata) {
             images += formatImage(1);
             images += formatImage(2);
             images += formatImage(3);
 
-            loadSPARQL(sys.wikidata);
+            loadSPARQL(wikidata);
         }
 
         document.getElementById(idSystemImage).innerHTML = images;

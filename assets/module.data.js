@@ -115,7 +115,6 @@ var data = (function () {
         var type = '';
         var title = '';
         var typeStr = '';
-        var linkable = false;
         var packages = [];
         var datasetCount = undefined;
         var lastCount = undefined;
@@ -137,9 +136,6 @@ var data = (function () {
 
                 if (showBadge) {
                     datasetCount = obj.datasetCount ? obj.datasetCount : null;
-                }
-                if (obj.datasetCountDuration) {
-                    linkable = true;
                 }
                 if (obj.packagesInId != catalog.id) {
                     path = getParentPath(processData, obj);
@@ -182,7 +178,7 @@ var data = (function () {
         view.push({
             cols: packages,
             datasetCount: datasetCount,
-            linkId: linkable ? id : undefined,
+            linkId: id,
             name: name,
             path: path,
             title: title,

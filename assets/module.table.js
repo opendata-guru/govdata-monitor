@@ -263,6 +263,9 @@ var table = (function () {
                 if ((dataObj[0].type === 'root') && !countDatasets) {
                     ignoreRow = true;
                 }
+                if (countDatasets && (undefined === dataObj[0].datasetCount)) {
+                    ignoreRow = true;
+                }
 
                 var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
                 var addClass = '';
@@ -308,7 +311,6 @@ var table = (function () {
             return '';
         }
 
-        var params = new URLSearchParams(window.location.search);
         var suffix = '';
         if (countDatasets) {
             suffix = '?cat=' + id;

@@ -1,20 +1,53 @@
 var page = {
-	catalog: '',
-	catalogParent: '',
-    dataURI: 'https://data.europa.eu/api/hub/search/',
-	service: 'piveau',
+	catalog: {},
+	catalogLeft: {},
+	catalogRight: {},
 };
 
-var params = new URLSearchParams(window.location.search);
+// ----------------------------------------------------------------------------
 
-if (params.has('cat')) {
-	page.catalog = params.get('cat');
-}
-if (params.has('in')) {
-	page.catalogParent = params.get('in');
-} else {
-	page.catalogParent = page.catalog;
-	page.catalog = '';
+function getServiceInformation(keyCatalog, keyParent) {
+	var params = new URLSearchParams(window.location.search);
+	var ret = {
+		catalog: '',
+		catalogParent: '',
+		dataURI: 'https://data.europa.eu/api/hub/search/',
+		service: 'piveau'
+	};
+
+	if (params.has(keyCatalog)) {
+		ret.catalog = params.get(keyCatalog);
+	}
+	if (params.has(keyParent)) {
+		ret.catalogParent = params.get(keyParent);
+	} else {
+		ret.catalogParent = ret.catalog;
+		ret.catalog = '';
+	}
+
+	if (ret.catalogParent === 'govdata') {
+		ret.service = ckanV2;
+		ret.dataURI = 'https://www.govdata.de/ckan/api/action/';
+	} else if (ret.catalogParent === 'ec74990f-c51f-4378-845d-132b1f75a550') {
+		ret.service = ckanV2;
+		ret.dataURI = 'https://opendata.guru/proxy/cors?url=https://open.nrw/api/3/action/';
+	} else if (ret.catalogParent === 'ab7713f4-008d-4932-bd81-192a108da8a3') {
+		ret.service = ckanV2;
+		ret.dataURI = 'https://opendata.guru/proxy/cors?url=https://opendata.ruhr/api/3/action/';
+	} else if (ret.catalogParent === '23e91bf6-9968-4a0f-bafe-6bad1a0f5be8') {
+		ret.service = ckanV2;
+		ret.dataURI = 'https://opendata.guru/proxy/cors?url=https://www.offenesdatenportal.de/api/3/action/';
+	} else {
+		ret.service = ckanV2;
+	//	ret.dataURI = 'https://opendata.guru/proxy/cors?url=https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde';
+		ret.dataURI = 'https://opendata.guru/proxy/cors?url=https://www.mcloud.de/export/datasets';
+
+	//	ret.service = MobilithekDistributions;
+	//	ret.dataURI = 'https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde?ret=0&size=10';
+	//	ret.dataURI = 'https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde';
+	}
+
+	return ret;
 }
 
 // ----------------------------------------------------------------------------
@@ -245,11 +278,11 @@ var ckanV2 = class CKANAdapterV2{
 		  + `&start=${pageNum - 1}`
 		  + '&facet.field=["tags", "groups"]';
 
-		if (page.catalog) {
-//			params = 'portal=' + page.catalog + '&' + params;
-//			params = 'fq=portal:' + page.catalog + '&' + params;
-			params = 'fq=organization:' + page.catalog + '&' + params;
-//			params = 'organization=' + page.catalog + '&' + params;
+		if (page.catalog.catalog) {
+//			params = 'portal=' + page.catalog.catalog + '&' + params;
+//			params = 'fq=portal:' + page.catalog.catalog + '&' + params;
+			params = 'fq=organization:' + page.catalog.catalog + '&' + params;
+//			params = 'organization=' + page.catalog.catalog + '&' + params;
 		}
 
 	return new Promise((resolve, reject) => {
@@ -311,33 +344,36 @@ var ckanV2 = class CKANAdapterV2{
 
 // ----------------------------------------------------------------------------
 
-if (page.catalogParent === 'govdata') {
-	page.service = ckanV2;
-	page.dataURI = 'https://www.govdata.de/ckan/api/action/';
-} else if (page.catalogParent === 'ec74990f-c51f-4378-845d-132b1f75a550') {
-	page.service = ckanV2;
-	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://open.nrw/api/3/action/';
-} else if (page.catalogParent === 'ab7713f4-008d-4932-bd81-192a108da8a3') {
-	page.service = ckanV2;
-	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://opendata.ruhr/api/3/action/';
-} else if (page.catalogParent === '23e91bf6-9968-4a0f-bafe-6bad1a0f5be8') {
-	page.service = ckanV2;
-	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://www.offenesdatenportal.de/api/3/action/';
-} else {
-	page.service = ckanV2;
-//	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde';
-	page.dataURI = 'https://opendata.guru/proxy/cors?url=https://www.mcloud.de/export/datasets';
+var diffService = class DiffAdapter {
+	constructor(baseUrl) {
+		this.left = new page.catalogLeft.service(page.catalogLeft.dataURI);
+		this.right = new page.catalogRight.service(page.catalogRight.dataURI);
+	}
 
-//	page.service = MobilithekDistributions;
-//	page.dataURI = 'https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde?page=0&size=10';
-//	page.dataURI = 'https://mobilithek.info/mobilithek/api/v1.0/export/datasets/dcatapde';
+	getSingle(id) {
+		return this.left.getSingle(id);
+	}
+
+	get(q, facets, limit, pageNum = 0 /* , sort = 'relevance+asc, last_modified+asc, name+asc', facetOperator = "AND", facetGroupOperator = "AND", geoBounds */) {
+		return this.left.get(q, facets, limit, pageNum);
+	}
+};
+
+// ----------------------------------------------------------------------------
+
+page.catalog = getServiceInformation('cat', 'in');
+page.catalogLeft = getServiceInformation('cat', 'in');
+page.catalogRight = getServiceInformation('cat2', 'in2');
+
+if (page.catalogRight.catalog !== '') {
+	page.catalog.service = diffService;
 }
 
 // ----------------------------------------------------------------------------
 
 var CONFIG_APP_TITLE = "GovData Monitor Portal",
-    CONFIG_APP_DATA_URL = page.dataURI,
-    CONFIG_APP_DATA_SERVICE = page.service,
+    CONFIG_APP_DATA_URL = page.catalog.dataURI,
+    CONFIG_APP_DATA_SERVICE = page.catalog.service,
     CONFIG_APP_DATA_CACHE_BUSTING = !0,
     CONFIG_APP_GAZETTEER_URL = "https://data.europa.eu/api/hub/search/gazetteer/",
     CONFIG_APP_UPLOAD_URL = "https://www.europeandataportal.eu/data/api/",

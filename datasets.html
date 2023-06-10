@@ -16,6 +16,17 @@
 
 	<link href="assets/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<link rel=stylesheet type=text/css href=https://unpkg.com/peacock-user-ui@latest/dist/css/app.loadinganimation.css>
+	<script defer=defer src=https://unpkg.com/peacock-user-ui@latest/dist/js/vendors.js></script>
+	<script defer=defer src=https://unpkg.com/peacock-user-ui@latest/dist/js/app.js></script>
+	<link href=https://unpkg.com/peacock-user-ui@latest/dist/css/vendors.css rel=stylesheet>
+	<link href=https://unpkg.com/peacock-user-ui@latest/dist/css/app.css rel=stylesheet>
+	<style>
+		#app header, #app footer {
+			display: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -57,13 +68,14 @@
 				</div>
 			</nav>
 
-			<main class="content p-0">
+			<main class="content p-0 pt-4">
 				<div class="container-fluid p-0">
 
 					<div class="row">
 						<div class="col">
 
-							<div id='map' style='width: 400px; height: 300px;'></div>
+							<link rel=stylesheet type=text/css href=https://unpkg.com/peacock-user-ui@latest/dist/css/custom.css>
+							<div id=app><app><div class=spinner-container id=good><div class=spinner></div></div></app></div>
 
 						</div>
 					</div>
@@ -92,7 +104,43 @@
 
 	<script src="assets/app.js"></script>
 	<script>
-	</script>
+		var CONFIG_APP_TITLE = "GovData Monitor Portal",
+			CONFIG_APP_DATA_URL = "https://data.europa.eu/api/hub/search/",
+			CONFIG_APP_DATA_SERVICE = "piveau",
+			CONFIG_APP_DATA_CACHE_BUSTING = !0,
+			CONFIG_APP_GAZETTEER_URL = "https://data.europa.eu/api/hub/search/gazetteer/",
+			CONFIG_APP_UPLOAD_URL = "https://www.europeandataportal.eu/data/api/",
+			CONFIG_APP_MATOMO_URL = "",
+			CONFIG_APP_LOCALE = "en",
+			CONFIG_APP_LOCALE_FALLBACK = "en",
+			CONFIG_APP_LANGUAGES = {},
+			CONFIG_APP_LOAD_LANGUAGE_1 = "",
+			CONFIG_APP_LOAD_LANGUAGE_URL_1 = "",
+			CONFIG_APP_AUTH_ENABLE = !1,
+			CONFIG_APP_AUTH_SERVICE = "keycloak",
+			CONFIG_APP_ENABLE_DATASET_CATEGORIES = !1,
+			CONFIG_APP_ENABLE_DATASET_SIMILARDATASETS = !1,
+			CONFIG_APP_ENABLE_DATASET_FEEDBACK = !1,
+			CONFIG_APP_ENABLE_FILTER_GAZETTEER = !1,
+			CONFIG_APP_ENABLE_FILTER_OPERATOR = !1,
+			CONFIG_APP_ENABLE_FAVORITES = !1,
+			CONFIG_APP_ENABLE_DARK_MODE = !1,
+			CONFIG_APP_HEADER_CUSTOM_HTML = "",
+			CONFIG_APP_FOOTER_CUSTOM_HTML = "",
+			CONFIG_APP_DATASET_DISTRIBUTION_CUSTOM_HTML = "",
+			CONFIG_APP_DATASET_INFO_CUSTOM_HTML = "",
+
+			CONFIG_APP_ROUTER_BASE = '/govdata/',
+			CONFIG_APP_ROUTER_LIB_BASE = 'https://unpkg.com/peacock-user-ui@latest/dist/',
+			CONFIG_APP_ROUTER_REDIRECT_ROOT_TO = "Datasets",
+			CONFIG_APP_ROUTER_MODE = "history",
+
+			CONFIG_APP_ROUTER_ROUTE_1_NAME = "foo",
+			CONFIG_APP_ROUTER_ROUTE_1_PATH = "/datasets.html",
+			CONFIG_APP_ROUTER_ROUTE_1_COMPONENT = "Datasets",
+			CONFIG_APP_ROUTER_ROUTE_1_REQUIRES_AUTH = !1;
+		</script>
+
 </body>
 
 </html>

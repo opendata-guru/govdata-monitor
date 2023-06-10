@@ -251,11 +251,11 @@ var table = (function () {
         var showBadge = arrayData.length === 1;
         var str = '';
         var title = '';
-        var name = '';
         var type = '';
         var lastCount = undefined;
         var maxDiff = 0;
         var ignoreRow = false;
+        var packagesInId = '';
 
         arrayData.forEach(processData => {
             var dataObj = processData ? processData.filter(item => item.id === id) : [];
@@ -267,8 +267,8 @@ var table = (function () {
                 var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
                 var addClass = '';
                 title = dataObj[0].title ? dataObj[0].title : title;
-                name = dataObj[0].name ? dataObj[0].name : name;
                 type = dataObj[0].type ? dataObj[0].type : type;
+                packagesInId = dataObj[0].packagesInId ? dataObj[0].packagesInId : packagesInId;
 
                 if (!countDatasets && (dataObj[0].packagesInId != catalog.id)) {
                     title += ' <span class="small">' + getParentPath(processData, dataObj[0]) + '</span>';
@@ -308,7 +308,15 @@ var table = (function () {
             return '';
         }
 
-        str = '<td><span title="' + name + '">' + title + '</span></td>' + str;
+        var params = new URLSearchParams(window.location.search);
+        var suffix = '';
+        if (countDatasets) {
+            suffix = '?catalog=' + id;
+        } else {
+            suffix = '?catalog=' + id + '&in=' + packagesInId;
+        }
+
+        str = '<td>' + title + ' <a href="datasets.html' + suffix + '" class="bg-success text-white p-1">Show datasets</a></td>' + str;
 
         return '<tr>' + str + '</tr>';
     }

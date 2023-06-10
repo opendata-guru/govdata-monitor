@@ -311,9 +311,9 @@ var table = (function () {
         var params = new URLSearchParams(window.location.search);
         var suffix = '';
         if (countDatasets) {
-            suffix = '?catalog=' + id;
+            suffix = '?cat=' + id;
         } else {
-            suffix = '?catalog=' + id + '&in=' + packagesInId;
+            suffix = '?cat=' + id + '&in=' + packagesInId;
         }
 
         str = '<td>' + title + ' <a href="datasets.html' + suffix + '" class="bg-success text-white p-1">Show datasets</a></td>' + str;

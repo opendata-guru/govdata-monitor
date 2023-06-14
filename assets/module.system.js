@@ -8,7 +8,8 @@ var system = (function () {
         idSystemImage = 'system-image',
         idImage1 = 'image-1',
         idImage2 = 'image-2',
-        idImage3 = 'image-3';
+        idImage3 = 'image-3',
+        idWikipedia = 'linkWikipedia';
     var assets = [];
 
     function init() {
@@ -60,6 +61,8 @@ var system = (function () {
 
     function loadSPARQL(qid) {
         var endpointUrl = 'https://query.wikidata.org/sparql';
+//        var lang = 'en';
+        var lang = 'de';
         var sparqlQuery = 'SELECT ' +
             '?item ' +
             '(SAMPLE(?photo1) as ?photo1) ' +
@@ -68,6 +71,7 @@ var system = (function () {
             '(SAMPLE(?logo) as ?logo) ' +
             '(SAMPLE(?map) as ?map) ' +
             '(SAMPLE(?coat) as ?coat) ' +
+            '(SAMPLE(?article) as ?article) ' +
             '' +
             'WHERE {' +
             '  BIND(wd:' + qid + ' as ?item)' +
@@ -89,6 +93,12 @@ var system = (function () {
             '' +
             '  OPTIONAL { ?item wdt:P94 ?coat. }' +
             '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
+            '' +
+            '  OPTIONAL {' +
+            '    ?article schema:about ?item .' +
+            '    ?article schema:inLanguage "' + lang + '" .' +
+            '    ?article schema:isPartOf <https://' + lang + '.wikipedia.org/> .' +
+            '  }' +
             '}' +
             'GROUP BY ?item';
 
@@ -115,10 +125,14 @@ var system = (function () {
                 document.getElementById(idImage1).src = photos.length > 0 ? photos[0] : '';
                 document.getElementById(idImage2).src = photos.length > 1 ? photos[1] : '';
                 document.getElementById(idImage3).src = photos.length > 2 ? photos[2] : '';
+                document.getElementById(idWikipedia).href = values.article.value;
+                document.getElementById(idWikipedia).style.display = 'inline-block';
             } else if (this.readyState == 4) {
                 document.getElementById(idImage1).src = '';
                 document.getElementById(idImage2).src = '';
                 document.getElementById(idImage3).src = '';
+                document.getElementById(idWikipedia).href = '';
+                document.getElementById(idWikipedia).style.display = 'none';
             }
         }
 
@@ -163,8 +177,9 @@ var system = (function () {
         return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:8rem">';
     }
 
-    function formatButton(key, link) {
-        return '<div class=""><a href="' + link + '" style="text-align:center;display:inline-block;" target="_blank"><span style="display:block;width:3rem;height:3rem;border-radius:3rem;line-height:3rem;text-align:center;margin:auto;" class="bg-secondary text-white">' + key.substring(0, 1) + '</span>' + key + '</a></div>';
+    function formatButton(key, link, id) {
+        var addID = id ? ' id="' + id + '"' : '';
+        return '<a href="' + link + '" style="text-align:center;display:inline-block;" target="_blank" class="me-3"' + addID + '><span style="display:block;width:3rem;height:3rem;border-radius:3rem;line-height:3rem;text-align:center;margin:auto;" class="bg-secondary text-white">' + key.substring(0, 1) + '</span>' + key + '</a>';
     }
 
     function funcUpdate() {
@@ -174,6 +189,7 @@ var system = (function () {
         systemId = catalog.id;
 
         var catalogObj = catalog.get(systemId);
+        var sameAs = catalog.getSameAs(systemId);
         var sys = getSystem(systemId);
         var body = '';
         var images = '';
@@ -185,9 +201,31 @@ var system = (function () {
         body += '<div>' + type + '</div>';
         body += '<div class="mb-2"></div>';
 
+        var datasetCount = catalogObj ? catalogObj.datasetCount : '';
+        var minCount = (datasetCount === undefined) || (datasetCount === '') ? 9999999999 : datasetCount;
+        var maxCount = (datasetCount === undefined) || (datasetCount === '') ? 0 : datasetCount;
+        if (sameAs.length > 0) {
+            sameAs.forEach((id) => {
+                var sameAsObj = catalog.get(id);
+                minCount = Math.min(minCount, sameAsObj.packages);
+                maxCount = Math.max(maxCount, sameAsObj.packages);
+            });
+        }
+        if (minCount === 0) {
+            minCount = maxCount;
+        }
+        if (minCount === maxCount) {
+            body += 'Has <strong>' + monitorFormatNumber(minCount) + '</strong> datasets';
+        } else {
+            body += 'Has <strong>' + monitorFormatNumber(minCount) + '</strong> to <strong>' + monitorFormatNumber(maxCount) + '</strong> datasets';
+        }
+
+        body += '<div class="border-bottom border-1 border-secondary my-3 pb-2">';
         if (wikidata) {
+            body += formatButton('Wikipedia', '', idWikipedia);
             body += formatButton('Wikidata', 'https://www.wikidata.org/wiki/' + wikidata);
         }
+        body += '</div>';
 
         if (sys && sys.server) {
             body += format('System', sys.server.system + ', version ' + sys.server.version);

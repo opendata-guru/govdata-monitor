@@ -232,13 +232,13 @@ var table = (function () {
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
                 var addClass = col.highlight ? ' bg-warning' : '';
-                cols += '<td class="text-end' + addClass + '">' + monitorFormatNumber(col.count) + '</td>';
+                cols += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(col.count) + '</td>';
             });
         }
 
         if (row.datasetCount !== undefined) {
             if (row.datasetCount) {
-                cols += '<td class="text-end"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
+                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
             } else {
                 cols += '<td></td>';
             }
@@ -255,7 +255,6 @@ var table = (function () {
         var type = '';
         var lastCount = undefined;
         var maxDiff = 0;
-        var diffRow = '';
         var ignoreRow = false;
         var packagesInId = '';
 
@@ -287,7 +286,7 @@ var table = (function () {
                         addClass = ' bg-warning';
                     }
                 }
-                str += '<td class="text-end' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
+                str += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
                 if (showBadge) {
                     str += '<td></td>';
                 }
@@ -302,7 +301,7 @@ var table = (function () {
                         addClass = ' bg-warning';
                     }
                 }
-                str += '<td class="text-end' + addClass + '">-</td>';
+                str += '<td class="text-end align-middle' + addClass + '">-</td>';
                 if (showBadge) {
                     str += '<td></td>';
                 }
@@ -314,6 +313,9 @@ var table = (function () {
             return '';
         }
 
+        var secondLine = '';
+        var showDiff = '';
+        var showPortal = '';
         var suffix = '';
         var diffSuffix = '';
         if (countDatasets) {
@@ -325,9 +327,14 @@ var table = (function () {
         }
 
         if (lastSuffix.value !== '') {
-            diffRow = '<a href="datasets.html' + lastSuffix.value + diffSuffix + '" class="bg-success text-white p-1 ms-1">Diff above</a>';
+//            showDiff = '<a href="datasets.html' + lastSuffix.value + diffSuffix + '" class="link-info ms-2">Show differences</a>';
+//            showDiff = '<a href="" class="ms-2" style="pointer-events:none;color:#888">Show differences</a>';
         }
-        str = '<td>' + title + ' <a href="datasets.html' + suffix + '" class="bg-success text-white p-1">Show datasets</a>' + diffRow + '</td>' + str;
+//        showPortal = '<a href="" class="ms-2" style="pointer-events:none;color:#888">Show in portal</a>';
+
+        secondLine = '<br><a href="datasets.html' + suffix + '" class="link-info ms-4">Show datasets</a>' + showPortal + showDiff;
+
+        str = '<td>' + title + secondLine + '</td>' + str;
 
         lastSuffix.value = suffix;
 
@@ -344,8 +351,8 @@ var table = (function () {
         var body = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        firstHeader += '<th>Data Catalog</th>';
-        secondHeader += '<th>Data Supplier</th>';
+        firstHeader += '<th>Data Catalogs</th>';
+        secondHeader += '<th>Data Suppliers</th>';
 
         for (var v = 0; v < data.viewHeader.length; ++v) {
             firstHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
@@ -374,7 +381,7 @@ var table = (function () {
             data.view.forEach((row) => body += getRow(row));
             footer += '<th>' + data.view.length + ' data suppliers</th>';
         } else {
-            body += '<tr><td>No data available</td></tr>';
+            body += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             footer += '<th></th>';
         }
 

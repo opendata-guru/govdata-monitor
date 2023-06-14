@@ -347,7 +347,18 @@ var ckanV2 = class CKANAdapterV2{
 var diffService = class DiffAdapter {
 	constructor(baseUrl) {
 		this.left = new page.catalogLeft.service(page.catalogLeft.dataURI);
+		this.leftData = {
+			availableFacets: [],
+			datasets: [],
+			datasetsCount: 0
+		};
 		this.right = new page.catalogRight.service(page.catalogRight.dataURI);
+		this.rightData = {
+			availableFacets: [],
+			datasets: [],
+			datasetsCount: 0
+		};
+		this.initialized = false;
 	}
 
 	getSingle(id) {
@@ -355,7 +366,50 @@ var diffService = class DiffAdapter {
 	}
 
 	get(q, facets, limit, pageNum = 0 /* , sort = 'relevance+asc, last_modified+asc, name+asc', facetOperator = "AND", facetGroupOperator = "AND", geoBounds */) {
+		if (!this.initialized) {
+			this.initialized = true;
+			return this.loadLeft(q, facets, limit, pageNum);
+		}
+
 		return this.left.get(q, facets, limit, pageNum);
+	}
+
+	loadLeft(q, facets, limit, pageNum) {
+		return new Promise((resolve) => {
+			this.left.get(q, facets, limit, pageNum).then((data) => {
+				this.leftData.availableFacets = data.availableFacets;
+				this.leftData.datasets = this.leftData.datasets.concat(data.datasets);
+				this.leftData.datasetsCount = data.datasetsCount;
+
+				console.log(this.leftData.datasetsCount);
+
+				if (this.leftData.datasets.length >= this.leftData.datasetsCount) {
+    CONFIG_APP_DATA_URL = page.catalog.dataURI,
+    CONFIG_APP_DATA_SERVICE = page.catalog.service,
+					resolve(this.loadRight(q, facets, limit, 0));
+				} else {
+					resolve(this.loadLeft(q, facets, limit, pageNum + limit));
+				}
+			});
+		});
+	}
+
+	loadRight(q, facets, limit, pageNum) {
+		return new Promise((resolve) => {
+			this.left.get(q, facets, limit, pageNum).then((data) => {
+				this.rightData.availableFacets = data.availableFacets;
+				this.rightData.datasets = this.rightData.datasets.concat(data.datasets);
+				this.rightData.datasetsCount = data.datasetsCount;
+
+				console.log(this.rightData.datasetsCount);
+
+				if (this.rightData.datasets.length >= this.rightData.datasetsCount) {
+					resolve(this.rightData);
+				} else {
+					resolve(this.loadRight(q, facets, limit, pageNum + limit));
+				}
+			});
+		});
 	}
 };
 

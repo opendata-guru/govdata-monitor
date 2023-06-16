@@ -1,8 +1,7 @@
 var catalog = (function () {
     var initvalId = '',
         defaultId = 'govdata';
-    var idDisplayCatalog = 'display-catalog',
-        idHistoryTitle = 'history-title',
+    var idHistoryTitle = 'history-title',
         idBreadcrumb = 'breadcrumb';
     var paramId = 'catalog';
 
@@ -76,18 +75,13 @@ var catalog = (function () {
 
         window.scrollTo(0, 0);
 
-        var text = '';
         var catalogObject = funcGet(catalogId);
         var strCatalog = catalogId;
-        var strDatasetCount = '';
 
         if (catalogObject) {
             strCatalog = catalogObject.title;
-            strDatasetCount = catalogObject.datasetCount;
         }
 
-        text = strCatalog + ' have ' + '<strong>' + monitorFormatNumber(strDatasetCount) + '</strong> datasets';
-        document.getElementById(idDisplayCatalog).innerHTML = text;
         document.getElementById(idHistoryTitle).innerHTML = strCatalog + ' History';
         document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
 

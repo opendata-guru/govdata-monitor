@@ -1,47 +1,76 @@
 <?php
-	$mappingFile = '../data/opendataportals.csv';
-	$mappingList = explode("\n", file_get_contents($mappingFile));
-	$mappingHeader = explode(',', $mappingList[0]);
-	$mappingGML = null;
-	$mappingURI1 = null;
-	$mappingURI2 = null;
-	$mappingURI3 = null;
-	$mappingURI4 = null;
-	$mappingLink = null;
-	$mappingType = null;
-	$mappingTitle = null;
-	$mappingWikidata = null;
-	$mappingContributor = null;
+	$mappingTitle = 0;
+	$mappingContributor = 1;
+	$mappingType = 2;
+	$mappingGML = 3;
+	$mappingWikidata = 4;
+	$mappingLink = 5;
+	$mappingURI1 = 6;
+	$mappingURI2 = 7;
+	$mappingURI3 = 8;
+	$mappingURI4 = 9;
 	$mapping = [];
 
-	for ($m = 0; $m < count($mappingHeader); ++$m) {
-		if ($mappingHeader[$m] === 'parent_and_id_1') {
-			$mappingURI1 = $m;
-		} else if ($mappingHeader[$m] === 'parent_and_id_2') {
-			$mappingURI2 = $m;
-		} else if ($mappingHeader[$m] === 'parent_and_id_3') {
-			$mappingURI3 = $m;
-		} else if ($mappingHeader[$m] === 'parent_and_id_4') {
-			$mappingURI4 = $m;
-		} else if ($mappingHeader[$m] === 'title') {
-			$mappingTitle = $m;
-		} else if ($mappingHeader[$m] === 'url') {
-			$mappingContributor = $m;
-		} else if ($mappingHeader[$m] === 'type') {
-			$mappingType = $m;
-		} else if ($mappingHeader[$m] === 'gml') {
-			$mappingGML = $m;
-		} else if ($mappingHeader[$m] === 'wikidata') {
-			$mappingWikidata = $m;
-		} else if ($mappingHeader[$m] === 'api_list_children') {
-			$mappingLink = $m;
-		}
-	}
+	loadMappingFile('../data/opendataportals.csv', $mapping);
+	loadMappingFile('../data/opendataportals.at.csv', $mapping);
+	loadMappingFile('../data/opendataportals.ch.csv', $mapping);
 
-	array_shift($mappingList);
-	foreach($mappingList as $line) {
-		if ($line != '') {
-			$mapping[] = explode(',', $line);
+	function loadMappingFile($file, &$mapping) {
+		$idGML = null;
+		$idURI1 = null;
+		$idURI2 = null;
+		$idURI3 = null;
+		$idURI4 = null;
+		$idLink = null;
+		$idType = null;
+		$idTitle = null;
+		$idWikidata = null;
+		$idContributor = null;
+
+		$lines = explode("\n", file_get_contents($file));
+		$mappingHeader = explode(',', $lines[0]);
+
+		for ($m = 0; $m < count($mappingHeader); ++$m) {
+			if ($mappingHeader[$m] === 'parent_and_id_1') {
+				$idURI1 = $m;
+			} else if ($mappingHeader[$m] === 'parent_and_id_2') {
+				$idURI2 = $m;
+			} else if ($mappingHeader[$m] === 'parent_and_id_3') {
+				$idURI3 = $m;
+			} else if ($mappingHeader[$m] === 'parent_and_id_4') {
+				$idURI4 = $m;
+			} else if ($mappingHeader[$m] === 'title') {
+				$idTitle = $m;
+			} else if ($mappingHeader[$m] === 'url') {
+				$idContributor = $m;
+			} else if ($mappingHeader[$m] === 'type') {
+				$idType = $m;
+			} else if ($mappingHeader[$m] === 'gml') {
+				$idGML = $m;
+			} else if ($mappingHeader[$m] === 'wikidata') {
+				$idWikidata = $m;
+			} else if ($mappingHeader[$m] === 'api_list_children') {
+				$idLink = $m;
+			}
+		}
+
+		array_shift($lines);
+		foreach($lines as $line) {
+			if ($line != '') {
+				$arr = explode(',', $line);
+				$mapping[] = [
+					$arr[$idTitle] ?: '',
+					$arr[$idContributor] ?: '',
+					$arr[$idType] ?: '',
+					$arr[$idGML] ?: '',
+					$arr[$idWikidata] ?: '',
+					$arr[$idLink] ?: '',
+					$arr[$idURI1] ?: '',
+					$arr[$idURI2] ?: '',
+					$arr[$idURI3] ?: '',
+					$arr[$idURI4] ?: ''
+				];
+			}
 		}
 	}
 

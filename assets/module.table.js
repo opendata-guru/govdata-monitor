@@ -265,7 +265,7 @@ var table = (function () {
                     ignoreRow = true;
                 }
                 if (countDatasets && (undefined === dataObj[0].datasetCount)) {
-                    ignoreRow = true;
+//                    ignoreRow = true;
                 }
 
                 var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);

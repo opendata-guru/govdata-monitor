@@ -9,6 +9,8 @@ var system = (function () {
         idImage1 = 'image-1',
         idImage2 = 'image-2',
         idImage3 = 'image-3',
+        idLogo1 = 'logo-1',
+        idLogo2 = 'logo-2',
         idWikipedia = 'linkWikipedia';
     var assets = [];
 
@@ -70,6 +72,7 @@ var system = (function () {
             '(SAMPLE(?photo3) as ?photo3) ' +
             '(SAMPLE(?logo) as ?logo) ' +
             '(SAMPLE(?map) as ?map) ' +
+            '(SAMPLE(?flag) as ?flag) ' +
             '(SAMPLE(?coat) as ?coat) ' +
             '(SAMPLE(?article) as ?article) ' +
             '' +
@@ -90,6 +93,9 @@ var system = (function () {
             '' +
             '  OPTIONAL { ?item wdt:P242 ?map. }' +
             '  BIND(IF( BOUND( ?map), ?map, "") AS ?map)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
+            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
             '' +
             '  OPTIONAL { ?item wdt:P94 ?coat. }' +
             '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
@@ -112,29 +118,41 @@ var system = (function () {
             if (this.readyState == 4 && this.status == 200) {
                 var res = JSON.parse(this.responseText);
                 var values = res.results.bindings[0];
-                var photos = [];
+                var images = [];
+                var logos = [];
 
-                photos.push(values.photo1.value);
-                photos.push(values.photo2.value);
-                photos.push(values.photo3.value);
-                photos.push(values.logo.value);
-                photos.push(values.map.value);
-                photos.push(values.coat.value);
-                photos = photos.filter(n => n);
+                images.push(values.photo1.value);
+                images.push(values.photo2.value);
+                images.push(values.photo3.value);
+                images.push(values.map.value);
+                images = images.filter(n => n);
 
-                document.getElementById(idImage1).src = photos.length > 0 ? photos[0] : '';
-                document.getElementById(idImage2).src = photos.length > 1 ? photos[1] : '';
-                document.getElementById(idImage3).src = photos.length > 2 ? photos[2] : '';
+                logos.push(values.flag.value);
+                logos.push(values.coat.value);
+                logos.push(values.logo.value);
+                logos = logos.filter(n => n);
+
+                document.getElementById(idImage1).src = images.length > 0 ? images[0] : '';
+                document.getElementById(idImage2).src = images.length > 1 ? images[1] : '';
+                document.getElementById(idImage3).src = images.length > 2 ? images[2] : '';
+                document.getElementById(idLogo1).src = logos.length > 0 ? logos[0] : '';
+                document.getElementById(idLogo2).src = logos.length > 1 ? logos[1] : '';
                 document.getElementById(idWikipedia).href = values.article.value;
-                document.getElementById(idWikipedia).style.display = 'inline-block';
             } else if (this.readyState == 4) {
                 document.getElementById(idImage1).src = '';
                 document.getElementById(idImage2).src = '';
                 document.getElementById(idImage3).src = '';
+                document.getElementById(idLogo1).src = '';
+                document.getElementById(idLogo2).src = '';
                 document.getElementById(idWikipedia).href = '';
-                document.getElementById(idWikipedia).style.display = 'none';
             }
-        }
+            document.getElementById(idImage1).style.display = document.getElementById(idImage1).getAttribute('src') == '' ? 'none' : 'inline-block';
+            document.getElementById(idImage2).style.display = document.getElementById(idImage2).getAttribute('src') == '' ? 'none' : 'inline-block';
+            document.getElementById(idImage3).style.display = document.getElementById(idImage3).getAttribute('src') == '' ? 'none' : 'inline-block';
+            document.getElementById(idLogo1).style.display = document.getElementById(idLogo1).getAttribute('src') == '' ? 'none' : 'inline-block';
+            document.getElementById(idLogo2).style.display = document.getElementById(idLogo2).getAttribute('src') == '' ? 'none' : 'inline-block';
+            document.getElementById(idWikipedia).style.display = document.getElementById(idWikipedia).getAttribute('href') == '' ? 'none' : 'inline-block';
+    }
 
         xhr.send();
     }
@@ -174,7 +192,7 @@ var system = (function () {
     }
 
     function formatImage(number) {
-        return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:8rem">';
+        return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:10rem;width:33%;object-fit:cover;display:none">';
     }
 
     function formatButton(key, link, id) {
@@ -197,6 +215,10 @@ var system = (function () {
         var wikidata = sys ? sys.wikidata : catalogObj.wikidata;
         var type = data.getTypeString(sys ? sys.type : catalogObj.type);
 
+        body += '<div class="border-bottom border-1 border-secondary mb-2 pb-2">';
+        body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;display:none">';
+        body += '<img src="" id="' + idLogo2 + '" style="height:3rem;width:50%;object-fit:contain;display:none">';
+        body += '</div>';
         body += '<h1 class="fw-light fs-3">' + title + '</h1>';
         body += '<div>' + type + '</div>';
         body += '<div class="mb-2"></div>';

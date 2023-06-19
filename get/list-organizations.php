@@ -19,6 +19,6 @@
 	} else if (substr($link, -strlen($piveauEndpoint)) === $piveauEndpoint) {
 		include 'list-organizations/piveau-list-organizations.php';
 	} else {
-		include 'ckan-organizations.php';
+		include 'list-organizations/ckan-list-organizations.php';
 	}
 ?>

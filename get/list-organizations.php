@@ -8,7 +8,7 @@
 	} else if ('https://datenadler.de/publisher' === $link) {
 		include 'adler-organizations.php';
 	} else if ('https://www.mcloud.de/web/guest/suche/' === $link) {
-		include 'mcloud-organizations.php';
+		include 'list-organizations/mcloud-list-organizations.php';
 	} else if ('https://www.opendata.sachsen.de' === $link) {
 		include 'list-organizations/sachsen-list-organizations.php';
 	} else if ('https://ckan.open.nrw.de/api/3/action/organization_list' === $link) {

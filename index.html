@@ -17,10 +17,6 @@
 	<link href="assets/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.12/proj4.js" type="text/javascript"></script>
-	<script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css">
-
 	<script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
 	<link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
 </head>
@@ -129,69 +125,38 @@
 			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
 			zoom: 4
 		});
-		var source = 'https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=gml3&Request=GetFeature&TYPENAMES=vg250:vg250_lan&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
+		var ars = '05';
+		var source = 'https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&srsName=urn:ogc:def:crs:EPSG::4326&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E' + ars + '%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
 
 		map.on('load', function () {
-			map.addSource('sample-gml', {
+			map.addSource('gml', {
 				'type': 'geojson',
 				'data': source
 			});
+			map.addLayer({
+				'id': 'gml-polygons',
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+					'fill-color': '#ff0',
+					'fill-outline-color': '#f00',
+					'fill-opacity': 1
+				},
+//				'filter': ['==', '$type', 'Polygon']
+			});
 		});
 
-		function loadGML(uri, callback) {
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', uri, true);
+		// download shape as GEOJSON an in GPS coordinates
+		//   https://codeberg.org/opengovtech/ars-tool/src/branch/main/download_geojson.sh
+		//   sample Berlin:
+		//     https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/11
+		//   is equal:
+		//     https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=gml3&Request=GetFeature&TYPENAMES=vg250:vg250_lan&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E
+		//   output format: JSON
+		//     https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E
+		//   output coordinate reference system: GPS
+		//     https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&srsName=urn:ogc:def:crs:EPSG::4326&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E
 
-			xhr.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200) {
-					callback(this.responseText);
-				} else if (this.readyState == 4) {
-					callback(null);
-				}
-			}
-
-			xhr.send();
-		}
-
-		// https://openlayers.org/en/latest/apidoc/module-ol_format_GML3-GML3.html
-		var gml = new ol.format.GML3();
-		loadGML(source, function(xml) {
-			var pos = xml.indexOf('<gml:Envelope srsName=');
-			pos = xml.indexOf('"', pos) + 1;
-			var srsName = xml.substring(pos, xml.indexOf('"', pos));
-			console.log(srsName);
-			console.log('');
-			console.log(ol.proj.get(srsName));
-			console.log(ol.proj.get('EPSG:25832'));
-
-			var projectionName = 'EPSG:25832';
-	        proj4.defs(projectionName, '+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
-
-			console.log(ol.proj.get('EPSG:25832'));
-
-			ol.proj.addEquivalentProjections(
-				ol.proj.get('EPSG:25832'),
-				ol.proj.get('urn:x-ogc:def:crs:EPSG:25832'));
-			console.log('');
-
-			var features = gml.readFeatures(xml);
-			console.log(features);
-		});
-
-		// center: ol.proj.transform([8.22, 53.15], 'EPSG:4326', projectionName),
-
-		// Translate gml geometries to geojson
-		//   https://www.npmjs.com/package/@permettezmoideconstruire/gml-to-geojson
-
-		// Transform point coordinates from one coordinate system to another, including datum transformations:
-		//   https://www.npmjs.com/package/proj4
-
-		// Collection of open source loaders and writers for file formats including tabular, geospatial, and 3D formats. It is focused on supporting visualization and analytics of big data.
-		//   https://loaders.gl/docs
-		//   https://loaders.gl/docs/modules/wms/api-reference/gml-loader#usage
-
-		// OpenLayers makes it easy to put a dynamic map in any web page
-		//   https://openlayers.org/
 	</script>
 </body>
 

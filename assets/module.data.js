@@ -95,7 +95,7 @@ var data = (function () {
         } else if (type === 'statisticaloffice') {
             return 'O';
         } else if (type === 'portal') {
-            return 'P';
+            return 'Portal';
         } else if (type === 'geoPortal') {
             return 'G';
         } else if (type === 'dumping') {

@@ -168,8 +168,14 @@ var data = (function () {
             });
         });
 
-        if ((table.layer !== table.layerAll) && (-1 === type.split('+').indexOf(table.layer))) {
-            return;
+        if (table.layers.length > 0) {
+            var show = false;
+            table.layers.forEach(layer => {
+                show |= (-1 !== type.split('+').indexOf(layer));
+            });
+            if (!show) {
+                return;
+            }
         }
         if (diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {
             return;

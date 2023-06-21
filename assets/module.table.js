@@ -1,8 +1,8 @@
 var table = (function () {
     var initvalFlatten = false,
         defaultFlatten = false,
-        initvalLayer = 'all',
-        defaultLayer = 'all';
+        initvalLayers = [],
+        defaultLayers = [];
     var idTableBody = 'supplier-table',
         idTableHeader = 'supplier-table-header',
         idTableFooter = 'supplier-table-footer',
@@ -13,7 +13,7 @@ var table = (function () {
         layerClass = 'layer',
         layerAll = 'all';
     var paramFlatten = 'flatten',
-        paramLayer = 'layer';
+        paramLayers = 'layers';
 
     function getCheckIcon() {
         return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check align-middle" style="margin:0 .2rem 0 -.2rem"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -50,6 +50,9 @@ var table = (function () {
             html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
         });
         html += '  </div>';
+        html += '  <div class="text-muted text-center mt-2" style="font-size:.75rem">';
+        html += '    Use "Ctrl + Click" to select multiple layers';
+        html += '  </div>';
         html += '</div>';
 
         html += '<div class="dropdown-divider"></div>';
@@ -61,17 +64,30 @@ var table = (function () {
         document.getElementById(idMenu).innerHTML = html;
     }
 
+    function isLayerSelected(classList) {
+        var ret = false;
+        if (initvalLayers.length > 0) {
+            initvalLayers.forEach(layer => {
+                ret |= classList.contains(layer);
+            });
+        } else if (classList.contains(layerAll)) {
+            ret = true;
+        }
+
+        return ret;
+    }
+
     function updateIndicator() {
         var elem = document.getElementById(idElement);
         var layer = document.getElementsByClassName(layerClass);
 
         if (table) {
             initvalFlatten = table.flatten;
-            initvalLayer = table.layer;
+            initvalLayers = table.layers;
         }
 
         var hidden = initvalFlatten == defaultFlatten
-            && initvalLayer === defaultLayer;
+            && initvalLayers.length === defaultLayers.length;
 
             elem.style.background = hidden ? 'inherit' : 'repeating-linear-gradient(-55deg,#17a2b860 0,#17a2b860 .1rem,#fff .1rem,#fff .4rem)';
 
@@ -81,7 +97,7 @@ var table = (function () {
 
             item.classList.remove('bg-success', 'bg-secondary');
 
-            if (item.classList.contains(initvalLayer)) {
+            if (isLayerSelected(item.classList)) {
                 item.classList.add('bg-success');
                 span.innerHTML = getCheckIcon();
             } else {
@@ -96,7 +112,7 @@ var table = (function () {
         var layer = document.getElementsByClassName(layerClass);
 
         initvalFlatten = params.has(paramFlatten) ? (params.get(paramFlatten) === 'true') : defaultFlatten;
-        initvalLayer = params.get(paramLayer) || defaultLayer;
+        initvalLayers = params.get(paramLayers)?.split('|') || defaultLayers;
 
         document.getElementById(idFlatten).checked = initvalFlatten;
 
@@ -119,11 +135,11 @@ var table = (function () {
         document.getElementById(idFlatten).checked = defaultFlatten;
 
         table.flatten = defaultFlatten;
-        table.layer = defaultLayer;
+        table.layers = defaultLayers;
 
         var params = new URLSearchParams(window.location.search);
         params.delete(paramFlatten);
-        params.delete(paramLayer);
+        params.delete(paramLayers);
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
@@ -146,7 +162,8 @@ var table = (function () {
         data.emitFilterChanged();
     }
 
-    function onClickLayer() {
+    function onClickLayer(event) {
+        var ctrlKey = event.ctrlKey || event.metaKey;
         var classList = this.className.split(' ');
         if (-1 !== classList.indexOf('badge')) {
             classList.splice(classList.indexOf('badge'), 1);
@@ -164,13 +181,24 @@ var table = (function () {
             classList.splice(classList.indexOf(layerClass), 1);
         }
 
-        table.layer = classList[0] || '';
-
-        var params = new URLSearchParams(window.location.search);
-        if (table.layer === defaultLayer) {
-            params.delete(paramLayer);
+        var name = classList[0];
+        if (name === layerAll) {
+            table.layers = [];
+        } else if (ctrlKey) {
+            if (table.layers.indexOf(name) === -1) {
+                table.layers.push(name);
+            } else {
+                table.layers.splice(table.layers.indexOf(name), 1);
+            }
         } else {
-            params.set(paramLayer, table.layer);
+            table.layers = name ? [name] : [];
+        }
+        
+        var params = new URLSearchParams(window.location.search);
+        if (table.layers.length === 0) {
+            params.delete(paramLayers);
+        } else {
+            params.set(paramLayers, table.layers.join('|'));
         }
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
@@ -410,8 +438,7 @@ var table = (function () {
 
     return {
         flatten: initvalFlatten,
-        layer: initvalLayer,
-        layerAll: layerAll,
+        layers: initvalLayers,
         update: funcUpdate,
     };
 }());

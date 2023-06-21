@@ -228,7 +228,7 @@ Stadtverwaltung Chemnitz,Stadtverwaltung Chemnitz,geoportal.de|StadtverwaltungCh
 Stadtverwaltung Goch,Stadtverwaltung Goch,geoportal.de|StadtverwaltungGoch,,,,municipalityAgency,,,,,,,,,,,,,,,,,2023-05-23
 Stadtwerke Osnabrück,SWO Netz GmbH,http://dcat-ap.de/def/contributors/SWONetzGmbH,,,,other,,,,,,,Q1114682,,,,,,,,,,
 Statistisches Amt für Hamburg und Schleswig-Holstein,Statistikamt Nord,opendata.schleswig-holstein.de|statistikamt-nord,,,,stateAgency,https://www.statistik-nord.de/,,,,,,Q15130249,,,,,,,,,,2023-02-05
-Statistisches Bundesamt,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,,,,federalAgency,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,,,Q764739,,,,,,Website,,,,2023-04-21
+Statistisches Bundesamt,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,mcloud.de|GovDataStatistischesBundesamt,geoportal.de|StatistischesBundesamtDestatis,,federalAgency,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,,,Q764739,,,,,,Website,,,,2023-06-21
 Statistisches Landesamt,Landesdatenbank NRW,open.nrw|landesdatenbank_nrw,,,,stateAgency,,,,,,,,,,,,,,,,,2023-05-14
 Statistisches Landesamt Rheinland-Pfalz,Statistisches Landesamt Rheinland-Pfalz,daten.rlp.de|stala___rlp,,,,stateAgency,,,,,,,Q2333954,,,,,,,,,,2023-05-14
 Stolberg,Kupferstadt Stolberg,offenedaten.aachen.de|stadt-stolberg,,,,municipality,,,,,053340032032,https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/053340032032,Q4068,,,,,,,,,,2023-05-30
@@ -303,8 +303,12 @@ Werne,Stadt Werne,opendata.ruhr|werne,geoportal.de|StadtWerne,,,municipality,htt
 ,Ortenaukreis,,,,,district,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,DE134,,,,,,,,,,Website,,,,2019-07-30
 ,Rhein-Kreis Neuss,,,,,district,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,,,Tobias Schellhorn und Jürgen Brings,digitalisierung@rhein-kreis-neuss.de,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
 ,Baustelleninformationssystem des Bundes und der Länder,,,,,other,https://www.bast.de/BASt_2017/DE/Fahrzeugtechnik/Fachthemen/Baustelleninformation/baustelleninformation.html,,,,,,,Dr. Lutz Rittershaus,mdm@bast.de,,,Materna Information & Communications SE,Website,,,,2019-07-29
+Bundesanstalt für Straßenwesen,Bundesanstalt für Straßenwesen (BASt),opendata.schleswig-holstein.de|bast,mcloud.de|OpenDataSchleswigHolsteinBundesanstaltfrStraenwesenBASt,mcloud.de|BundesanstaltfrStraenwesenBASt,,federalAgency,,,,,,,Q1005541,,,,,,,,,,2023-06-21
+Bundesanstalt für Geowissenschaften und Rohstoffe,Bundesanstalt für Geowissenschaften und Rohstoffe (BGR),geoportal.de|BundesanstaltfrGeowissenschaftenundRohstoffeBGR,,,,federalAgency,,,,,,,Q1005526,,,,,,,,,,2023-06-21
+Bundesanstalt für Wasserbau,Bundesanstalt für Wasserbau (BAW),geoportal.de|BundesanstaltfrWasserbauBAW,mcloud.de|BundesanstaltfrWasserbau,,,federalAgency,,,,,,,Q1005545,,,,,,,,,,2023-06-21
+Umweltbundesamt,Umweltbundesamt (UBA),geoportal.de|UmweltbundesamtUBA,mcloud.de|GovDataUmweltbundesamt,,,federalAgency,,,,,,,Q2491722,,,,,,,,,,2023-06-21
 ,Bundesamt für Kartographie und Geodäsie,,,,,other,http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=0&gdz_user_id=0,,,,,,,,,,,Bundesamt für Kartographie und Geodäsie,Website,,,,2019-03-09
-,Bundesamt für Seeschifffahrt und Hydrographie,,,,,other,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,,,,,,,,,,,,,2019-07-29
+Bundesamt für Seeschifffahrt und Hydrographie,Bundesamt für Seeschifffahrt und Hydrographie,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSHBundesamtfrSeeschifffahrtundHydrographieBSHTheFederalMaritimeandHydrographicAgencyBSH,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSH,,,federalAgency,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,,,Q1005487,,,,,,,,,,2023-06-21
 ,Deutsche Bahn,,,,,other,http://data.deutschebahn.com/,,,,,,,,DBOpenData@deutschebahn.com,https://twitter.com/dbopendata,,,CKAN,https://data.deutschebahn.com/api/3/action/package_list,,,2019-03-09
 ,Deutscher Wetterdienst,,,,,other,https://opendata.dwd.de/,,,,,,,,,,,,Website,,,,2019-07-29
 ,Esri Deutschland Open Data Portal,,,,,other,https://opendata-esri-de.opendata.arcgis.com/,,,,,,,,,,,,Website,,,,2019-08-11

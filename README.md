@@ -45,6 +45,11 @@ Get system status information:
 - https://opendata.guru/govdata/get/system-status.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/system-status.php?link=https://data.europa.eu/api/hub/search/catalogues
 
+Convert RS (Regionalschlüssel) to GEOJSON file:
+
+- https://opendata.guru/govdata/get/rs-to-geojson.php
+- https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04
+
 And service endpoints:
 
 - https://opendata.guru/govdata/service/artery.php

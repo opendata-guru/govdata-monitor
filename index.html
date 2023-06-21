@@ -64,31 +64,17 @@
 				<div class="container-fluid p-0">
 
 					<div class="row">
-						<div class="col-xl-6 col-xxl-5 d-flex">
-							<div class="w-100">
-
-								<div class="card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col mt-0">
-												<h5 class="card-title">To be done</h5>
-											</div>
-										</div>
-										<h1 class="mt-1 mb-3">Infos</h1>
-										<div class="mb-0">
-											<span class="text-muted">later...</span>
-										</div>
-									</div>
-								</div>
-
+						<div class="col bg-white">
+							<div class="w-100 text-muted">
+								<h1 class="fs-3 m-0 p-3" style="overflow-x: scroll;white-space: nowrap;text-overflow: ellipsis;">The dissemination of open data</h1>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="col">
+						<div class="col bg-white">
 
-							<div id='map' style='width: 400px; height: 300px;'></div>
+							<div id='map' style='width:100vw;height:calc(100vh - 7rem - 3.55rem - 3.15rem);'></div>
 
 						</div>
 					</div>
@@ -123,7 +109,7 @@
 //			customAttribution: 'test',
 //			hash: true,
 			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
-			zoom: 4
+			zoom: 5
 		});
 		var ars = '05';
 		var source = 'https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&srsName=urn:ogc:def:crs:EPSG::4326&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E' + ars + '%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
@@ -140,7 +126,7 @@
 				'paint': {
 					'fill-color': '#ff0',
 					'fill-outline-color': '#f00',
-					'fill-opacity': 1
+					'fill-opacity': .5
 				},
 //				'filter': ['==', '$type', 'Polygon']
 			});

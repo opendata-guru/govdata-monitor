@@ -4,7 +4,7 @@
 	$piveauEndpoint = '/api/hub/search/catalogues';
 
 	if ('https://geoportal.de' === $link) {
-		include 'gdide-organizations.php';
+		include 'list-organizations/gdide-list-organizations.php';
 	} else if ('https://datenadler.de/publisher' === $link) {
 		include 'adler-organizations.php';
 	} else if ('https://www.mcloud.de/web/guest/suche/' === $link) {

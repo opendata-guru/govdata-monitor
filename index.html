@@ -111,8 +111,8 @@
 			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
 			zoom: 5
 		});
-		var ars = '05';
-		var source = 'https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&srsName=urn:ogc:def:crs:EPSG::4326&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E' + ars + '%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
+		var rs = '05,11';
+		var source = 'https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs;
 
 		map.on('load', function () {
 			map.addSource('gml', {
@@ -131,18 +131,6 @@
 //				'filter': ['==', '$type', 'Polygon']
 			});
 		});
-
-		// download shape as GEOJSON an in GPS coordinates
-		//   https://codeberg.org/opengovtech/ars-tool/src/branch/main/download_geojson.sh
-		//   sample Berlin:
-		//     https://registry.gdi-de.org/id/de.bund.bkg.regschluessel/11
-		//   is equal:
-		//     https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=gml3&Request=GetFeature&TYPENAMES=vg250:vg250_lan&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E
-		//   output format: JSON
-		//     https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E
-		//   output coordinate reference system: GPS
-		//     https://sgx.geodatenzentrum.de/wfs_vg250?Service=WFS&Version=2.0.0&OUTPUTFORMAT=application%2Fjson&Request=GetFeature&TYPENAMES=vg250:vg250_lan&srsName=urn:ogc:def:crs:EPSG::4326&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E11%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E
-
 	</script>
 </body>
 

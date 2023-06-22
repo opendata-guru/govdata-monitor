@@ -49,6 +49,7 @@ Convert RS (Regionalschlüssel) to GEOJSON file:
 
 - https://opendata.guru/govdata/get/rs-to-geojson.php
 - https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04
+- https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04,06
 
 And service endpoints:
 

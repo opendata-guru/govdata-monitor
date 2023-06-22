@@ -1,5 +1,5 @@
 <?php
-    header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET');
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
@@ -10,14 +10,10 @@
 		exit;
 	}
 
-	$paramRS = preg_replace("/[^0-9]/", '', $paramRS);
-	$paramRS = substr($paramRS, 0, 15);
+	$paramRS = preg_replace("/[^0-9,]/", '', $paramRS);
+	$listRS = explode(',', $paramRS);
 
-	$filePath = '../assets/geojson-' . date('Y') . '/' . date('Y-m') . '/' . $paramRS . '.geojson';
-
-	function getWorkingData() {
-		global $filePath;
-
+	function loadGeoJSON($filePath) {
 		$dir = dirname($filePath);
 		mkdir($dir, 0777, true);
 
@@ -29,26 +25,44 @@
 		return $data;
 	}
 
-	function setWorkingData($data) {
-		global $filePath;
-
+	function saveGeoJSON($filePath, $data) {
 		file_put_contents($filePath, $data);
 	}
 
-	$data = getWorkingData();
+	function getGeoJSON($rs) {
+		$rs = substr($rs, 0, 15);
+		$filePath = '../assets/geojson-' . date('Y') . '/' . date('Y-m') . '/' . $rs . '.geojson';
 
-	if (is_null($data)) {
-		$ars = $paramRS;
-		$output = '&OUTPUTFORMAT=application%2Fjson';
-		$crs = '&srsName=urn:ogc:def:crs:EPSG::4326';
-		$getFeature = '&Service=WFS&Version=2.0.0&Request=GetFeature';
-		$filter = '&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E' . $ars . '%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
-		$uri = 'https://sgx.geodatenzentrum.de/wfs_vg250?TYPENAMES=vg250:vg250_lan' . $getFeature . $output . $crs . $filter;
+		$data = loadGeoJSON($filePath);
 
-		$data = file_get_contents($uri);
+		if (is_null($data)) {
+			$output = '&OUTPUTFORMAT=application%2Fjson';
+			$crs = '&srsName=urn:ogc:def:crs:EPSG::4326';
+			$getFeature = '&Service=WFS&Version=2.0.0&Request=GetFeature';
+			$filter = '&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E' . $rs . '%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
+			$uri = 'https://sgx.geodatenzentrum.de/wfs_vg250?TYPENAMES=vg250:vg250_lan' . $getFeature . $output . $crs . $filter;
 
-		setWorkingData($data);
+			$data = file_get_contents($uri);
+
+			saveGeoJSON($filePath, $data);
+		}
+
+		return $data;
 	}
 
-	echo $data;
+	function concatFeatures(&$geoJSON, $geoJSON2) {
+		$geoJSON->features = array_merge($geoJSON->features, $geoJSON2->features);
+	}
+
+	$geojson = (object) [
+		'type' => 'FeatureCollection',
+		'features' => []
+	];
+
+	foreach($listRS as $rs) {
+		$data = json_decode(getGeoJSON($rs), false);
+		concatFeatures($geojson, $data);
+	}
+
+	echo json_encode($geojson);
 ?>

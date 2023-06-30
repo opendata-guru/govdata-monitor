@@ -15,7 +15,7 @@
 		// for bug in NRW
 		include 'list-organizations/nrw-list-organizations.php';
 	} else if (substr($link, -strlen($groupEndpoint)) === $groupEndpoint) {
-		include 'ckan-groups.php';
+		include 'list-organizations/ckan-list-groups.php';
 	} else if (substr($link, -strlen($piveauEndpoint)) === $piveauEndpoint) {
 		include 'list-organizations/piveau-list-organizations.php';
 	} else {

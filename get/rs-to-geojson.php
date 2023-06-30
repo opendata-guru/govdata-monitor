@@ -56,7 +56,34 @@
 
 	$geojson = (object) [
 		'type' => 'FeatureCollection',
+		'crs' => array(
+			'type' => 'name',
+			'properties' => array(
+				'name' => 'urn:ogc:def:crs:EPSG::4326'
+			)
+		),
 		'features' => []
+/*
+  ["totalFeatures"]=>
+  int(5)
+  ["numberMatched"]=>
+  int(5)
+  ["numberReturned"]=>
+  int(5)
+  ["timeStamp"]=>
+  string(24) "2023-06-22T20:40:58.575Z"
+  ["bbox"]=>
+  array(4) {
+    [0]=>
+    float(7.521)
+    [1]=>
+    float(53.3598)
+    [2]=>
+    float(11.6725)
+    [3]=>
+    float(55.0992)
+  }
+*/
 	];
 
 	foreach($listRS as $rs) {

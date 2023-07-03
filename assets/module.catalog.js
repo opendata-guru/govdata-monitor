@@ -82,7 +82,7 @@ var catalog = (function () {
             strCatalog = catalogObject.title;
         }
 
-        document.getElementById(idHistoryTitle).innerHTML = strCatalog + ' History';
+        document.getElementById(idHistoryTitle).innerHTML = monitor.maxDays + ' days history';
         document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
 
         date.update();

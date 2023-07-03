@@ -1,8 +1,10 @@
 var monitor = {
-    maxDays: 30,
+    maxDays: 20,
     chartLine: null,
     chartPie: null,
     displayDate: '',
+    map: null,
+    mapCatalog: null,
 };
 
 function monitorFormatNumber(x) {
@@ -218,6 +220,100 @@ function monitorUpdateCatalogPieChart() {
 
 // ----------------------------------------------------------------------------
 
+function monitorSetupMap() {
+    table.map = new maplibregl.Map({
+        center: [10, 51],
+        container: 'map',
+        style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
+        zoom: 4
+    });
+
+    table.map.on('load', monitorOnMapLoaded);
+}
+
+var monitorMapIsLoaded = false;
+var monitorMapDataLoaded = false;
+
+function monitorUpdateMap() {
+    if (monitor.mapCatalog !== catalog.id) {
+        monitor.mapCatalog = catalog.id;
+        monitorMapIsLoaded = true;
+    }
+
+    monitorInitMapLayer();
+}
+
+function monitorOnMapLoaded() {
+    monitorMapDataLoaded = true;
+
+    monitorInitMapLayer();
+}
+
+function monitorGetRSList() {
+    var catalogObj = catalog.get(catalog.id);
+    var rs = catalogObj.rs;
+
+    console.log('RS:', rs);
+/*    console.log(data.view);
+    if (data.view) {
+        data.view.forEach((view) => {
+
+        });
+    }*/
+
+    return [rs];
+}
+
+function monitorInitMapLayer() {
+    if (monitorMapIsLoaded && monitorMapDataLoaded) {
+//        monitorMapIsLoaded = false; // hack
+    } else {
+        return;
+    }
+
+    var rs = monitorGetRSList().join(',');
+    var source = rs === '' ? {'type':'FeatureCollection','features':[]} : ('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
+//    console.log(source);
+
+/*    table.map.once('data', function() {
+        console.log('loaded');
+    });*/
+
+    if (table.map.getSource('gml')) {
+        table.map.getSource('gml').setData(source);
+    } else {
+        table.map.addSource('gml', {
+            'type': 'geojson',
+            'data': source
+        });
+        table.map.addLayer({
+            'id': 'gml-polygons',
+            'type': 'fill',
+            'source': 'gml',
+            'paint': {
+                'fill-color': '#ff0',
+                'fill-outline-color': '#f00',
+                'fill-opacity': .5
+            },
+    //		'filter': ['==', '$type', 'Polygon']
+        });
+    }
+
+/*    if (rs !== '') {
+        var gml = table.map.getSource('gml');
+        console.log(gml._data);
+        var bbox = turf.bbox(gml);
+        console.log(bbox);
+
+        table.map.fitBounds([
+            [32.958984, -5.353521],
+            [43.50585, 5.615985]
+        ]);
+    }*/
+}
+
+// ----------------------------------------------------------------------------
+
 var idLoadingLabel = 'loading-description',
 classNameLoadingCard = 'card-loading',
 classNameBreadcrumbTitle = 'card-breadcrumb-and-catalog-title';
@@ -250,6 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
     data.addEventListenerEndLoading(hideProgress);
 
     system.loadData();
+    monitorSetupMap();
 });
 
 // ----------------------------------------------------------------------------

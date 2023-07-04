@@ -36,11 +36,32 @@
 		$data = loadGeoJSON($filePath);
 
 		if (is_null($data)) {
+			// vg250 - Verwaltungsgebiete 1:250 000 (VG250)
+			// Das Produkt VG250-EW enthält Einwohnerzahlen und Katasterflächen
+			$service = 'wfs_vg250?TYPENAMES=vg250:vg250_';
+			$layer = 'lan';
 			$output = '&OUTPUTFORMAT=application%2Fjson';
 			$crs = '&srsName=urn:ogc:def:crs:EPSG::4326';
 			$getFeature = '&Service=WFS&Version=2.0.0&Request=GetFeature';
 			$filter = '&FILTER=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Ears%3C/ValueReference%3E%3CLiteral%3E' . $rs . '%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E';
-			$uri = 'https://sgx.geodatenzentrum.de/wfs_vg250?TYPENAMES=vg250:vg250_lan' . $getFeature . $output . $crs . $filter;
+
+			// https://sg.geodatenzentrum.de/web_public/gdz/dokumentation/deu/vg250_01-01.pdf
+			if (0 === strlen($rs)) {
+				$layer = 'sta'; // Staat
+				$filter = '';
+			} else if (2 === strlen($rs)) {
+				$layer = 'lan'; // Land
+			} else if (3 === strlen($rs)) {
+				$layer = 'rbz'; // Regierungsbezirk
+			} else if (5 === strlen($rs)) {
+				$layer = 'krs'; // Kreis
+			} else if (9 === strlen($rs)) {
+				$layer = 'vwg'; // Verwaltungsgemeinschaft
+			} else if (12 === strlen($rs)) {
+				$layer = 'gem'; // Gemeinde
+			}
+
+			$uri = 'https://sgx.geodatenzentrum.de/' . $service . $layer . $getFeature . $output . $crs . $filter;
 
 			$data = file_get_contents($uri);
 

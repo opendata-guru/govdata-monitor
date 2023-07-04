@@ -253,7 +253,7 @@ function monitorGetRSList() {
     var catalogObj = catalog.get(catalog.id);
     var rs = catalogObj.rs;
 
-    console.log('RS:', rs);
+//    console.log('RS:', rs);
 /*    console.log(data.view);
     if (data.view) {
         data.view.forEach((view) => {
@@ -273,11 +273,21 @@ function monitorInitMapLayer() {
 
     var rs = monitorGetRSList().join(',');
     var source = rs === '' ? {'type':'FeatureCollection','features':[]} : ('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
-//    console.log(source);
 
-/*    table.map.once('data', function() {
-        console.log('loaded');
-    });*/
+    if (rs !== '') {
+        table.map.once('data', function(e) {
+/*            var gml = table.map.getSource('gml');
+            console.log(e);
+            console.log(gml._data);
+            var bbox = turf.bbox(gml);
+            console.log(bbox);*/
+
+/*            table.map.fitBounds([
+                [32.958984, -5.353521],
+                [43.50585, 5.615985]
+            ]);*/
+        });
+    }
 
     if (table.map.getSource('gml')) {
         table.map.getSource('gml').setData(source);
@@ -299,17 +309,12 @@ function monitorInitMapLayer() {
         });
     }
 
-/*    if (rs !== '') {
-        var gml = table.map.getSource('gml');
-        console.log(gml._data);
-        var bbox = turf.bbox(gml);
-        console.log(bbox);
-
-        table.map.fitBounds([
-            [32.958984, -5.353521],
-            [43.50585, 5.615985]
-        ]);
-    }*/
+    if (rs === '') {
+        table.map.jumpTo({
+            center: [10, 51],
+            zoom: 4
+        });
+    }
 }
 
 // ----------------------------------------------------------------------------

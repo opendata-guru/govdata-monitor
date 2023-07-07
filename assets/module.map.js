@@ -21,17 +21,22 @@ var map = (function () {
 
     function getRSList() {
         var catalogObj = catalog.get(catalog.id);
-        var rs = catalogObj.rs;
+        var ret = [];
 
-//        console.log('RS:', rs);
-/*        console.log(data.view);
+        if (catalogObj.rs) {
+            ret.push(catalogObj.rs);
+        }
+
         if (data.view) {
             data.view.forEach((view) => {
-    
+                var viewCatalog = catalog.get(view.linkId);
+                if (viewCatalog.rs) {
+                    ret.push(viewCatalog.rs);
+                }
             });
-        }*/
+        }
 
-        return [rs];
+        return [ ...new Set(ret) ];
     }
 
     function setLayer(source) {
@@ -47,9 +52,9 @@ var map = (function () {
                 'type': 'fill',
                 'source': idSource,
                 'paint': {
-                    'fill-color': '#ff0',
-                    'fill-outline-color': '#f00',
-                    'fill-opacity': .5
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
                 },
 //	            'filter': ['==', '$type', 'Polygon']
             });

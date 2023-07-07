@@ -430,7 +430,8 @@ var table = (function () {
 
         monitorUpdateCatalogPieChart();
         monitorUpdateCatalogHistoryChart();
-        monitorUpdateMap();
+
+        map.update();
         system.update();
     }
 

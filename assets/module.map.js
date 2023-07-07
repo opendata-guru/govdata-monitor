@@ -34,20 +34,7 @@ var map = (function () {
         return [rs];
     }
 
-    function setupLayer() {
-        if (isMapLoaded && isDataLoaded) {
-//            isMapLoaded = false; // hack
-        } else {
-            return;
-        }
-
-        var rs = getRSList().join(',');
-        var source = rs === '' ? {'type':'FeatureCollection','features':[]} : ('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
-
-        if (rs !== '') {
-            map.once('data', onLayerLoaded);
-        }
-
+    function setLayer(source) {
         if (map.getSource(idSource)) {
             map.getSource(idSource).setData(source);
         } else {
@@ -64,42 +51,56 @@ var map = (function () {
                     'fill-outline-color': '#f00',
                     'fill-opacity': .5
                 },
-//	        'filter': ['==', '$type', 'Polygon']
-            });
-        }
-
-        if (rs === '') {
-            map.jumpTo({
-                center: defaultCenter,
-                zoom: defaultZoom
+//	            'filter': ['==', '$type', 'Polygon']
             });
         }
     }
 
-    function onLayerLoaded(e) {
-        if (!e.isSourceLoaded) {
-            map.once('data', onLayerLoaded);
+    function setupLayerWithGeoJSON(geoJSON) {
+        setLayer(geoJSON);
+
+        map.jumpTo({
+            center: defaultCenter,
+            zoom: defaultZoom
+        });
+    }
+
+    function loadLayer(path) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', path, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                features = JSON.parse(this.responseText);
+                setLayer(features);
+
+                var bounds = turf.bbox(features);
+                map.fitBounds(bounds, {padding: 20});
+            } else if (this.readyState == 4) {
+                map.jumpTo({
+                    // AUA
+                    center: [9.571, 50.915],
+                    zoom: 14
+                });
+            }
+        }
+
+        xhr.send();
+    }
+
+    function setupLayer() {
+        if (isMapLoaded && isDataLoaded) {
+//            isMapLoaded = false; // hack
+        } else {
             return;
         }
 
-        var features = map.querySourceFeatures(idSource);
-//        var features = map.querySourceFeatures('gml-polygons', {sourceLayer: idSource});
-//        var features = map.queryRenderedFeatures();
-//        var features = map.queryRenderedFeatures({layers: ['gml-polygons']});
-        console.log(features);
-
-        var gml = map.getSource(idSource);
-        console.log(gml);
-        console.log(gml.tileBounds);
-
-        var bounds = turf.bbox(features);
-        map.fitBounds(bounds, {padding: 20});
-        console.log(bounds);
-
-/*        map.fitBounds([
-            [32.958984, -5.353521],
-            [43.50585, 5.615985]
-        ]);*/
+        var rs = getRSList().join(',');
+        if (rs === '') {
+            setupLayerWithGeoJSON({'type':'FeatureCollection','features':[]});
+        } else {
+            loadLayer('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
+        }
     }
 
     function onMapLoaded() {

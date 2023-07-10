@@ -113,6 +113,7 @@
 		});
 		var rs = '05,11';
 		var source = 'https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs;
+		var source = 'https://opendata.guru/govdata/assets/map-2023-07/2023-07-10-de.geojson';
 
 		map.on('load', function () {
 			map.addSource('gml', {
@@ -124,9 +125,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-					'fill-color': '#ff0',
-					'fill-outline-color': '#f00',
-					'fill-opacity': .5
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
 				},
 //				'filter': ['==', '$type', 'Polygon']
 			});

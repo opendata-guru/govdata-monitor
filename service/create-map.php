@@ -6,7 +6,7 @@
 
 	include('../get/list-organizations/_semantic.php');
 
-	$filePath = '../assets/map-' . date('Y-m') . '/' . date('Y-m-d') . '-de.geojson';
+	$filePath = '../assets/map-' . date('Y') . '/' . date('Y-m-d') . '-de.geojson';
 
 	function curl($url) {
 		$curl = curl_init($url);

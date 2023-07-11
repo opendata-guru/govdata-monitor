@@ -168,7 +168,7 @@ var system = (function () {
     function getSystem(catalogId) {
         var catalogObj = catalog.get(catalogId);
         var ret = null;
-        // contributor, gml, link, title, type, wikidata
+        // contributor, link, title, type, wikidata
 
         assets.forEach(asset => {
             if (asset.link === catalogObj.link) {

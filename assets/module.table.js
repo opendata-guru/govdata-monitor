@@ -242,7 +242,7 @@ var table = (function () {
         return '';
     }
 
-    function getRow(row) {
+    function getRow(parent, row) {
         var cols = '';
         var icon = '';
         var title = row.title;
@@ -272,7 +272,18 @@ var table = (function () {
             }
         }
 
-        return '<tr><td><span title="' + row.name + '">' + icon + title + '</span></td>' + cols + '</tr>';
+        if (icon === '') {
+            var parentParts = parent.contributor.split('/');
+            var copyTitle = '<button onclick="table.copyToClipboard(\'' + row.title + '\')" class="badge bg-success ms-1 border-0">Name</button>';
+            var copyPath = '<button onclick="table.copyToClipboard(\'' + parentParts[2] + '|' + row.name + '\')" class="badge bg-success ms-1 border-0">Path</button>';
+            return '<tr><td><span>' + title + ', copy'+ copyTitle + copyPath + '</span></td>' + cols + '</tr>';
+        }
+
+        return '<tr><td><span>' + icon + title + '</span></td>' + cols + '</tr>';
+    }
+
+    function funcCopyToClipboard(value) {
+        navigator.clipboard.writeText(value);
     }
 
     function getSublineRow(arrayData, id, countDatasets, lastSuffix) {
@@ -406,7 +417,8 @@ var table = (function () {
         }
 
         if (data.view.length > 0) {
-            data.view.forEach((row) => body += getRow(row));
+            var parent = catalog.get(catalog.id);
+            data.view.forEach((row) => body += getRow(parent, row));
             footer += '<th>' + data.view.length + ' data suppliers</th>';
         } else {
             body += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
@@ -439,6 +451,7 @@ var table = (function () {
     init();
 
     return {
+        copyToClipboard: funcCopyToClipboard,
         flatten: initvalFlatten,
         layers: initvalLayers,
         update: funcUpdate,

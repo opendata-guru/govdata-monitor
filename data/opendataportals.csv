@@ -33,11 +33,15 @@ Brohltal,Verbandsgemeinde Brohltal,daten.rlp.de|verbandsgemeinde_brohltal,,,,col
 Brühl,Brühl (Rheinland),offenedaten.kdvz-frechen.de|brühl,,,,municipality,http://offenedaten.kdvz-frechen.de/group/br%C3%BChl,2016-11-08,,,053620012012,Q7036,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2023-05-21
 Bundesamt für Bauwesen und Raumordnung,Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesamtFuerBauwesenUndRaumordnung,,,,federalAgency,,,,,,Q1005429,,,,,,,,,,
 Bundesamt für Justiz,Bundesamt für Justiz,http://dcat-ap.de/def/contributors/bundesamtFuerJustiz,,,,federalAgency,,,,,,Q1005444,,,,,,,,,,
+Bundesamt für Seeschifffahrt und Hydrographie,Bundesamt für Seeschifffahrt und Hydrographie,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSHBundesamtfrSeeschifffahrtundHydrographieBSHTheFederalMaritimeandHydrographicAgencyBSH,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSH,,,federalAgency,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,,Q1005487,,,,,,,,,,2023-06-21
 Bundesamt für Soziale Sicherung,Bundesversicherungsamt,http://dcat-ap.de/def/contributors/bundesversicherungsamt,,,,federalAgency,,,,,,Q1009200,,,,,,,,,,
 Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,http://dcat-ap.de/def/contributors/bundesamtFuerVerbraucherschutzUndLebensmittelsicherheit,,,,federalAgency,,,,,,Q18124763,,,,,,,,,,
 Bundesamt für Wirtschaft und Ausfuhrkontrolle,Bundesamt für Wirtschaft und Ausfuhrkontrolle,http://dcat-ap.de/def/contributors/bundesamtFuerWirtschaftUndAusfuhrkontrolle,,,,federalAgency,,,,,,Q1005513,,,,,,,,,,
 Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,http://dcat-ap.de/def/contributors/bundesanstaltFuerArbeitsschutzUndArbeitsmedizin,,,,federalAgency,,,,,,Q1005523,,,,,,,,,,
+Bundesanstalt für Geowissenschaften und Rohstoffe,Bundesanstalt für Geowissenschaften und Rohstoffe (BGR),geoportal.de|BundesanstaltfrGeowissenschaftenundRohstoffeBGR,,,,federalAgency,,,,,,Q1005526,,,,,,,,,,2023-06-21
 Bundesanstalt für Materialforschung und -prüfung,Bundesanstalt für Materialforschung und -prüfung (BAM),http://dcat-ap.de/def/contributors/bundesanstaltFuerMaterialforschungUndPruefung,,,,federalAgency,,,,,,Q1005540,,,,,,,,,,
+Bundesanstalt für Straßenwesen,Bundesanstalt für Straßenwesen (BASt),opendata.schleswig-holstein.de|bast,mcloud.de|OpenDataSchleswigHolsteinBundesanstaltfrStraenwesenBASt,mcloud.de|BundesanstaltfrStraenwesenBASt,,federalAgency,,,,,,Q1005541,,,,,,,,,,2023-06-21
+Bundesanstalt für Wasserbau,Bundesanstalt für Wasserbau (BAW),geoportal.de|BundesanstaltfrWasserbauBAW,mcloud.de|BundesanstaltfrWasserbau,,,federalAgency,,,,,,Q1005545,,,,,,,,,,2023-06-21
 Bundesarchiv,Bundesarchiv,http://dcat-ap.de/def/contributors/bundesarchiv,,,,federalAgency,,,,,,Q685753,,,,,,,,,,
 Bundesausgleichsamt,Bundesausgleichsamt,http://dcat-ap.de/def/contributors/bundesausgleichsamt,,,,federalAgency,,,,,,Q1005650,,,,,,,,,,
 Bundesbeauftragter für den Datenschutz und die Informationsfreiheit,Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit,http://dcat-ap.de/def/contributors/derBundesbeauftragteFuerDenDatenschutzUndDieInformationsfreiheit,,,,federalAgency,,,,,,Q1005821,,,,,,,,,,
@@ -65,7 +69,7 @@ Deutsche Rentenversicherung Bund,Deutsche Rentenversicherung Bund,http://dcat-ap
 Deutsches Patent- und Markenamt,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,,,federalAgency,,,,,,Q314296,,,,,,,,,,
 Dierdorf,Verbandsgemeinde Dierdorf,daten.rlp.de|verbandsgemeinde_dierdorf,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_dierdorf,,,,071385003,Q537915,,,,,,,,,,2023-05-21
 Dormagen,Dormagen,open.nrw|dormagen,mcloud.de|OpenNRWDormagen,,,municipality,https://opendata.dormagen.de,2017-12-07,,,051620004004,Q3978,,opendata@stadt-dormagen.de,,,OpenDataSoft,OpenDataSoft,https://opendata.dormagen.de/api/v2/catalog/datasets,,,2023-05-21
-Dortmund,Dortmund,open.nrw|dortmund,,,,municipality,https://opendata.dortmund.de/,2018-08-23,,,059130000000,Q1295,,opendata@dortmund.de,https://twitter.com/DortmundData,,,Website,,,,2023-02-26
+Dortmund,Dortmund,open.nrw|dortmund,opendata.ruhr|dortmund,,,municipality,https://opendata.dortmund.de/,2018-08-23,,,059130000000,Q1295,,opendata@dortmund.de,https://twitter.com/DortmundData,,,Website,,,,2023-07-13
 Dresden,Stadt Dresden,www.opendata.sachsen.de|StadtDresden,geoportal.de|LandeshauptstadtDresden,mcloud.de|GovDataLandeshauptstadtDresden,,municipality,https://opendata.dresden.de,,,,146120000000,Q1731,,statistik@dresden.de,,,,DUVA,,,,2023-05-21
 Duisburg,Duisburg,open.nrw|duisburg,opendata.ruhr|duisburg,geoportal.de|StadtDuisburg,mcloud.de|OpenNRWDuisburg,municipality,https://opendata-duisburg.de/,2019-03-19,,,051120000000,Q2100,,,,,Stadt Köln,DKAN,https://opendata-duisburg.de/api/3/action/package_list,,https://opendata-duisburg.de/catalog.xml,2023-05-21
 Dülmen,Stadt Dülmen,geoportal.de|StadtDlmen,,,,municipality,https://www.o-sp.de/duelmen/opendata.php,,,,055580016016,Q6910,,,,,,,,,,2023-05-21
@@ -241,6 +245,7 @@ Traben-Trarbach,Traben-Trabach,daten.rlp.de|verbandsgemeinde_traben_trabach,,,,c
 Trier,Stadt Trier,daten.rlp.de|stadt_trier,,,,municipality,https://daten.rlp.de/organization/stadt_trier,,,,072110000000,Q3138,,,,,,,,,,2023-05-14
 Troisdorf,Stadt Troisdorf,geoportal.de|StadtTroisdorf,,,,municipality,,,,,053820068068,Q3900,,,,,,,,,,2023-06-19
 Uder,VG Uder,geoportal.de|VGUder,,,,collectiveMunicipality,,,,,160615012,Q454522,,,,,,,,,,2023-06-19
+Umweltbundesamt,Umweltbundesamt (UBA),geoportal.de|UmweltbundesamtUBA,mcloud.de|GovDataUmweltbundesamt,,,federalAgency,,,,,,Q2491722,,,,,,,,,,2023-06-21
 Vettweiß,Vettweiß,offenedaten.kdvz-frechen.de|vettweiß,,,,municipality,http://offenedaten.kdvz-frechen.de/group/vettwei%C3%9F,2016-11-08,,,053580060060,Q200087,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2023-06-19
 Viersen,Stadt Viersen,www.offenesdatenportal.de|stadt-viersen,,,,municipality,https://www.offenesdatenportal.de/organization/stadt-viersen,,,,051660032032,Q3902,,,,,,,,,,2023-06-19
 Viersen,Kreis Viersen,www.offenesdatenportal.de|kreis-viersen,,,,district,https://www.offenesdatenportal.de/organization/kreis-viersen,2017-01-01,,,05166,Q6249,Michael Stein,michael.stein@kreis-viersen.de,https://twitter.com/kreisviersen,https://www.facebook.com/KreisViersen/,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=kreis-viersen,,,2023-06-19
@@ -252,6 +257,11 @@ Weilerbach,Ortsgemeinde Weilerbach,daten.rlp.de|ortsgemeinde_weilerbach,,,,munic
 Weißenthurm,Verbandsgemeinde Weißenthurm,daten.rlp.de|verbandsgemeinde_weissenthurm,,,,collectiveMunicipality,,,,,071375008,Q519426,,,,,,,,,,2023-05-14
 Wennigsen (Deister),Gemeinde Wennigsen (Deister),geoportal.de|GemeindeWennigsenDeister,,,,municipality,http://data.wennigsen.net/,,,,032410020020,Q621469,Jens Spiwek,jens@spiwi.de,,,,Website,,,,2023-06-19
 Werne,Stadt Werne,opendata.ruhr|werne,geoportal.de|StadtWerne,,,municipality,https://www.o-sp.de/werne/opendata,,,,059780040040,Q10936,,,,,,,,,,2023-06-19
+Wesel,Stadt Wesel,opendata.ruhr|wesel,offenesdatenportal.de|stadt-wesel,www.mcloud.de|StadtWesel,,municipality,http://opendata.wesel.de/,,,,051700048048,Q4011,Herr Scholten und Herr Bohm,informationstechnik@wesel.de,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=stadt-wesel,,,2023-07-13
+Wesel,Kreis Wesel,opendata.ruhr|wesel-kreis,offenesdatenportal.de|kreis-wesel,www.mcloud.de|KreisWesel,,district,https://www.offenesdatenportal.de/organization/kreis-wesel,,,,05170,Q6245,Patrick Erhart,patrick.erhart@kreis-wesel.de,,,,,,,,2023-07-13
+Wesseling,Wesseling,offenedaten.kdvz-frechen.de|wesseling,,,,municipality,http://offenedaten.kdvz-frechen.de/group/wesseling,2016-11-08,,,053620040040,Q14956,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2023-07-13
+Wittlich,Stadtverwaltung Wittlich,daten.rlp.de|stadt_wittlich,,,,municipality,https://daten.rlp.de/organization/stadt_wittlich,,,,072310134134,Q559514,,,,,,,,,,2023-07-13
+Wuppertal,Stadt Wuppertal,open.nrw|wuppertal,www.gdi-de.org|StadtWuppertal,www.mcloud.de|OpenNRWWuppertal,,municipality,http://www.offenedaten-wuppertal.de/,2016-09-05,,,051240000000,Q2107,Dietmar Szlagowski,offenedaten@stadt.wuppertal.de,https://twitter.com/OpenData_Wtal,,Stadt Köln,DKAN,https://www.offenedaten-wuppertal.de/api/3/action/package_list,,https://www.offenedaten-wuppertal.de/catalog.xml,2023-07-13
 🇩🇪 Deutschland,govdata - Datenportal für Deutschland,data.europa.eu|govdata,,,,country,https://www.govdata.de/,2016-01-17,,,,Q183,Thomas Tursics,info@govdata.de,https://twitter.com/govdata_de,https://www.facebook.com/govdata.de/,SEITENBAU GmbH,CKAN+Liferay,https://ckan.govdata.de/api/3/action/package_list,https://ckan.govdata.de/api/3/action/organization_list,https://ckan.govdata.de/catalog.rdf,2023-04-18
 ,Altenburg,,,,,municipality,https://www.altenburg.eu/sixcms/detail.php?id=139875,,DEG0M,16077001,160770001001,,,,,,,Website,,,,2019-08-10
 ,Elsdorf (Rheinland),,,,,municipality,http://offenedaten.kdvz-frechen.de/group/elsdorf,2016-11-08,,,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
@@ -279,11 +289,7 @@ Werne,Stadt Werne,opendata.ruhr|werne,geoportal.de|StadtWerne,,,municipality,htt
 ,Sulingen,,,,,municipality,via Musterdatenkatalog Deutschland,,DE922,03251040,032510040040,,,,,,,,,,,
 ,Ulm,,,,,municipality,http://daten.ulm.de/,,DE144,08421000,084210000000,,,,,,Wilken Rechenzentrum GmbH,Website,,,,2019-07-30
 ,Waltrop,,,,,municipality,https://www.o-sp.de/waltrop/opendata,,DEA36,05562036,055620036036,,,,,,,,,,,2021-03-03
-,Wesel,,,,,municipality,http://opendata.wesel.de/,,DEA1F,05170048,051700048048,,Herr Scholten und Herr Bohm,informationstechnik@wesel.de,,,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=stadt-wesel,,,2019-03-12
-,Wesseling,,,,,municipality,http://offenedaten.kdvz-frechen.de/group/wesseling,2016-11-08,DEA27,05362040,053620040040,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
-,Wittlich,,,,,municipality,https://daten.rlp.de/organization/stadt_wittlich,,DEB22,07231134,072310134134,,,,,,,,,,,2021-03-03
-,Wörth,,,,,municipality,https://daten.rlp.de/organization/stadt_woerth,,DE21A,09177144,091775121144,,,,,,,,,,,2021-03-03
-,Wuppertal,,,,,municipality,http://www.offenedaten-wuppertal.de/,2016-09-05,DEA1A,05124000,051240000000,,Dietmar Szlagowski,offenedaten@stadt.wuppertal.de,https://twitter.com/OpenData_Wtal,,Stadt Köln,DKAN,https://www.offenedaten-wuppertal.de/api/3/action/package_list,,https://www.offenedaten-wuppertal.de/catalog.xml,2019-11-11
+,Wörth,,,,,municipality,https://daten.rlp.de/organization/stadt_woerth,,,,091775121144,,,,,,,,,,,2021-03-03
 ,Hochsauerlandkreis,,,,,district,http://www.hochsauerlandkreis.de/buergerservice/bauen_wohnen_kataster/geo_service/OpenData/,,,,,,,,,,,Website,,,,2019-08-11
 ,Kreis Bautzen,,,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,,,,,,
 ,Kreis Euskirchen,,,,,district,http://offenedaten.kdvz-frechen.de/group/kreis-euskirchen,2016-11-08,DEA28,,,,,offene-daten@kdvz-frechen.de,https://twitter.com/OpenDataKDVZ,,Stadt Köln,DKAN,,,,2019-08-10
@@ -295,7 +301,6 @@ Werne,Stadt Werne,opendata.ruhr|werne,geoportal.de|StadtWerne,,,municipality,htt
 ,Kreis Soest,,,,,district,https://www.kreis-soest.de/gis/start/opendata/opendata.php,,,,,,,,,,,Website,,,,2019-08-11
 ,Kreis Steinfurt,,,,,district,https://gis-kreis-steinfurt.opendata.arcgis.com/,2019-06-01,,,,,Stefan Albers,gdm@kreis-steinfurt.de,,,,ArcGIS,,,,2021-03-04
 ,Kreis Unna,,,,,district,https://opendata.ruhr/organization/kreis-unna,,,,,,,,,,,,,,,2021-03-04
-,Kreis Wesel,,,,,district,https://www.offenesdatenportal.de/organization/kreis-wesel,,,,,,Patrick Erhart,patrick.erhart@kreis-wesel.de,,,,,,,,2021-03-03
 ,Landkreis Cham,,,,,district,https://data-lra-cha.opendata.arcgis.com/,,,,,,,gis@lra.landkreis-cham.de,,,,ArcGIS,,,,2021-03-04
 ,Landkreis Diepholz,,,,,district,https://daten.diepholz.de/,,,,,,,,,,,DKAN,,,,2019-07-29
 ,Landkreis Lüneburg,,,,,district,https://open.lklg.net/,2016-08-18,DE935,,,,Hendrik Lampe,opendata@lklg.de,,,,CKAN,https://open.lklg.net/api/3/action/package_list,,,2019-08-04
@@ -303,12 +308,7 @@ Werne,Stadt Werne,opendata.ruhr|werne,geoportal.de|StadtWerne,,,municipality,htt
 ,Ortenaukreis,,,,,district,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,DE134,,,,,,,,,Website,,,,2019-07-30
 ,Rhein-Kreis Neuss,,,,,district,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,,Tobias Schellhorn und Jürgen Brings,digitalisierung@rhein-kreis-neuss.de,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
 ,Baustelleninformationssystem des Bundes und der Länder,,,,,other,https://www.bast.de/BASt_2017/DE/Fahrzeugtechnik/Fachthemen/Baustelleninformation/baustelleninformation.html,,,,,,Dr. Lutz Rittershaus,mdm@bast.de,,,Materna Information & Communications SE,Website,,,,2019-07-29
-Bundesanstalt für Straßenwesen,Bundesanstalt für Straßenwesen (BASt),opendata.schleswig-holstein.de|bast,mcloud.de|OpenDataSchleswigHolsteinBundesanstaltfrStraenwesenBASt,mcloud.de|BundesanstaltfrStraenwesenBASt,,federalAgency,,,,,,Q1005541,,,,,,,,,,2023-06-21
-Bundesanstalt für Geowissenschaften und Rohstoffe,Bundesanstalt für Geowissenschaften und Rohstoffe (BGR),geoportal.de|BundesanstaltfrGeowissenschaftenundRohstoffeBGR,,,,federalAgency,,,,,,Q1005526,,,,,,,,,,2023-06-21
-Bundesanstalt für Wasserbau,Bundesanstalt für Wasserbau (BAW),geoportal.de|BundesanstaltfrWasserbauBAW,mcloud.de|BundesanstaltfrWasserbau,,,federalAgency,,,,,,Q1005545,,,,,,,,,,2023-06-21
-Umweltbundesamt,Umweltbundesamt (UBA),geoportal.de|UmweltbundesamtUBA,mcloud.de|GovDataUmweltbundesamt,,,federalAgency,,,,,,Q2491722,,,,,,,,,,2023-06-21
 ,Bundesamt für Kartographie und Geodäsie,,,,,other,http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=0&gdz_user_id=0,,,,,,,,,,Bundesamt für Kartographie und Geodäsie,Website,,,,2019-03-09
-Bundesamt für Seeschifffahrt und Hydrographie,Bundesamt für Seeschifffahrt und Hydrographie,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSHBundesamtfrSeeschifffahrtundHydrographieBSHTheFederalMaritimeandHydrographicAgencyBSH,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSH,,,federalAgency,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,,Q1005487,,,,,,,,,,2023-06-21
 ,Deutsche Bahn,,,,,other,http://data.deutschebahn.com/,,,,,,,DBOpenData@deutschebahn.com,https://twitter.com/dbopendata,,,CKAN,https://data.deutschebahn.com/api/3/action/package_list,,,2019-03-09
 ,Deutscher Wetterdienst,,,,,other,https://opendata.dwd.de/,,,,,,,,,,,Website,,,,2019-07-29
 ,Esri Deutschland Open Data Portal,,,,,other,https://opendata-esri-de.opendata.arcgis.com/,,,,,,,,,,,Website,,,,2019-08-11

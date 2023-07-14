@@ -275,6 +275,9 @@ var table = (function () {
         if (icon === '') {
             var contributorParts = row.contributor.split('/');
             var contributor = contributorParts[2];
+            if (0 === contributor.indexOf('www.mcloud.de')) {
+                contributor = contributor.slice(4);
+            }
             var copyTitle = '<button onclick="table.copyToClipboard(\'' + row.title + '\')" class="badge bg-success ms-1 border-0">Name</button>';
             var copyPath = '<button onclick="table.copyToClipboard(\'' + contributor + '|' + row.name + '\')" class="badge bg-success ms-1 border-0">Path</button>';
             return '<tr><td><span>' + title + '<span><span class="text-success text-sm">, copy'+ copyTitle + copyPath + '</span></td>' + cols + '</tr>';

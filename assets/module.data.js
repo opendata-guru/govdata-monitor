@@ -79,6 +79,15 @@ var data = (function () {
         return '';
     }
 
+    function getContributor(dataObj, item) {
+        var itemParent = dataObj.filter(dataItem => dataItem.id === item.packagesInId);
+        if (itemParent.length > 0) {
+            return itemParent[0].link;
+        }
+
+        return '';
+    }
+
     function funcGetTypeString(type) {
         var ret = '';
         Object.keys(layers).forEach(key => {
@@ -116,6 +125,7 @@ var data = (function () {
         var title = '';
         var typeStr = '';
         var packages = [];
+        var contributor = '';
         var datasetCount = undefined;
         var lastCount = undefined;
         var maxDiff = 0;
@@ -133,6 +143,7 @@ var data = (function () {
                 type = obj.type ? obj.type : type;
 
                 typeStr = funcGetTypeString(type);
+                contributor = getContributor(processData, obj);
 
                 if (showBadge) {
                     datasetCount = obj.datasetCount ? obj.datasetCount : null;
@@ -183,6 +194,7 @@ var data = (function () {
 
         view.push({
             cols: packages,
+            contributor: contributor,
             datasetCount: datasetCount,
             linkId: id,
             name: name,

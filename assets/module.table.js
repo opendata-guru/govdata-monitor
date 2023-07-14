@@ -273,10 +273,11 @@ var table = (function () {
         }
 
         if (icon === '') {
-            var parentParts = parent.contributor.split('/');
+            var contributorParts = row.contributor.split('/');
+            var contributor = contributorParts[2];
             var copyTitle = '<button onclick="table.copyToClipboard(\'' + row.title + '\')" class="badge bg-success ms-1 border-0">Name</button>';
-            var copyPath = '<button onclick="table.copyToClipboard(\'' + parentParts[2] + '|' + row.name + '\')" class="badge bg-success ms-1 border-0">Path</button>';
-            return '<tr><td><span>' + title + ', copy'+ copyTitle + copyPath + '</span></td>' + cols + '</tr>';
+            var copyPath = '<button onclick="table.copyToClipboard(\'' + contributor + '|' + row.name + '\')" class="badge bg-success ms-1 border-0">Path</button>';
+            return '<tr><td><span>' + title + '<span><span class="text-success text-sm">, copy'+ copyTitle + copyPath + '</span></td>' + cols + '</tr>';
         }
 
         return '<tr><td><span>' + icon + title + '</span></td>' + cols + '</tr>';

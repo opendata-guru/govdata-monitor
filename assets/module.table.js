@@ -1,6 +1,8 @@
 var table = (function () {
     var initvalFlatten = false,
         defaultFlatten = false,
+        initvalClipboard = false,
+        defaultClipboard = false;
         initvalLayers = [],
         defaultLayers = [];
     var idTableBody = 'supplier-table',
@@ -10,9 +12,11 @@ var table = (function () {
         idMenu = 'table-menu',
         idReset = 'table-reset',
         idFlatten = 'checkbox-flatten',
+        idClipboard = 'checkbox-clipboard',
         layerClass = 'layer',
         layerAll = 'all';
     var paramFlatten = 'flatten',
+        paramClipboard = 'clipboard',
         paramLayers = 'layers';
 
     function getCheckIcon() {
@@ -26,17 +30,6 @@ var table = (function () {
         var styleRight = style + 'border-top-left-radius:0;border-bottom-left-radius:0;';
 
         html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
-        html += '  <label class="form-check">';
-        html += '    <input id="' + idFlatten + '" class="form-check-input" value="" type="checkbox">';
-        html += '    <span class="form-check-label">';
-        html += '      Flatten all portals';
-        html += '    </span>';
-        html += '  </label>';
-        html += '</div>';
-
-        html += '<div class="dropdown-divider"></div>';
-
-        html += '<div class="list-group" style="padding: 0 1rem">';
         html += '  <div>';
         html += '    Layer:';
         html += '  </div>';
@@ -53,6 +46,23 @@ var table = (function () {
         html += '  <div class="text-muted text-center mt-2" style="font-size:.75rem">';
         html += '    Use "Ctrl + Click" to select multiple layers';
         html += '  </div>';
+        html += '</div>';
+
+        html += '<div class="dropdown-divider"></div>';
+
+        html += '<div class="list-group" style="padding: 0 1rem">';
+        html += '  <label class="form-check">';
+        html += '    <input id="' + idFlatten + '" class="form-check-input" value="" type="checkbox">';
+        html += '    <span class="form-check-label">';
+        html += '      Flatten all portals';
+        html += '    </span>';
+        html += '  </label>';
+        html += '  <label class="form-check">';
+        html += '    <input id="' + idClipboard + '" class="form-check-input" value="" type="checkbox">';
+        html += '    <span class="form-check-label">';
+        html += '      Show "copy to clipboard" buttons';
+        html += '    </span>';
+        html += '  </label>';
         html += '</div>';
 
         html += '<div class="dropdown-divider"></div>';
@@ -87,6 +97,7 @@ var table = (function () {
         }
 
         var hidden = initvalFlatten == defaultFlatten
+            && initvalClipboard == defaultClipboard
             && initvalLayers.length === defaultLayers.length;
 
             elem.style.background = hidden ? 'inherit' : 'repeating-linear-gradient(-55deg,#17a2b860 0,#17a2b860 .1rem,#fff .1rem,#fff .4rem)';
@@ -112,13 +123,16 @@ var table = (function () {
         var layer = document.getElementsByClassName(layerClass);
 
         initvalFlatten = params.has(paramFlatten) ? (params.get(paramFlatten) === 'true') : defaultFlatten;
+        initvalClipboard = params.has(paramClipboard) ? (params.get(paramClipboard) === 'true') : defaultClipboard;
         initvalLayers = params.get(paramLayers)?.split('|') || defaultLayers;
 
         document.getElementById(idFlatten).checked = initvalFlatten;
+        document.getElementById(idClipboard).checked = initvalClipboard;
 
         document.querySelector('[aria-labelledby="' + idElement + '"]').addEventListener('click', onStopPropagation);
         document.getElementById(idReset).addEventListener('click', onClickReset);
         document.getElementById(idFlatten).addEventListener('click', onClickFlatten);
+        document.getElementById(idClipboard).addEventListener('click', onClickClipboard);
         for(var l = 0; l < layer.length; ++l) {
             var item = layer[l];
             item.addEventListener('click', onClickLayer);
@@ -133,12 +147,15 @@ var table = (function () {
 
     function onClickReset() {
         document.getElementById(idFlatten).checked = defaultFlatten;
+        document.getElementById(idClipboard).checked = defaultClipboard;
 
         table.flatten = defaultFlatten;
         table.layers = defaultLayers;
+        initvalClipboard = defaultClipboard;
 
         var params = new URLSearchParams(window.location.search);
         params.delete(paramFlatten);
+        params.delete(paramClipboard);
         params.delete(paramLayers);
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
@@ -155,6 +172,22 @@ var table = (function () {
             params.delete(paramFlatten);
         } else {
             params.set(paramFlatten, table.flatten);
+        }
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+        updateIndicator();
+        data.emitFilterChanged();
+    }
+
+    function onClickClipboard() {
+        var cb = document.getElementById(idClipboard);
+        initvalClipboard = cb.checked;
+
+        var params = new URLSearchParams(window.location.search);
+        if (initvalClipboard === defaultClipboard) {
+            params.delete(paramClipboard);
+        } else {
+            params.set(paramClipboard, initvalClipboard);
         }
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
@@ -272,7 +305,7 @@ var table = (function () {
             }
         }
 
-        if (icon === '') {
+        if (initvalClipboard && (icon === '')) {
             var contributorParts = row.contributor.split('/');
             var contributor = contributorParts[2];
             if (0 === contributor.indexOf('www.mcloud.de')) {

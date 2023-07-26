@@ -3,12 +3,13 @@
 	$mappingContributor = 1;
 	$mappingType = 2;
 	$mappingRS = 3;
-	$mappingWikidata = 4;
-	$mappingLink = 5;
-	$mappingURI1 = 6;
-	$mappingURI2 = 7;
-	$mappingURI3 = 8;
-	$mappingURI4 = 9;
+	$mappingAssociatedRS = 4;
+	$mappingWikidata = 5;
+	$mappingLink = 6;
+	$mappingURI1 = 7;
+	$mappingURI2 = 8;
+	$mappingURI3 = 9;
+	$mappingURI4 = 10;
 	$mapping = [];
 
 	loadMappingFile('../data/opendataportals.csv', $mapping);
@@ -26,6 +27,7 @@
 		$idTitle = null;
 		$idWikidata = null;
 		$idContributor = null;
+		$idAssociatedRS = null;
 
 		$lines = explode("\n", file_get_contents($file));
 		$mappingHeader = explode(',', $lines[0]);
@@ -47,6 +49,8 @@
 				$idType = $m;
 			} else if ($mappingHeader[$m] === 'rs') {
 				$idRS = $m;
+			} else if ($mappingHeader[$m] === 'associated_rs') {
+				$idAssociatedRS = $m;
 			} else if ($mappingHeader[$m] === 'wikidata') {
 				$idWikidata = $m;
 			} else if ($mappingHeader[$m] === 'api_list_children') {
@@ -63,6 +67,7 @@
 					$arr[$idContributor] ?: '',
 					$arr[$idType] ?: '',
 					$arr[$idRS] ?: '',
+					$arr[$idAssociatedRS] ?: '',
 					$arr[$idWikidata] ?: '',
 					$arr[$idLink] ?: '',
 					$arr[$idURI1] ?: '',
@@ -75,7 +80,7 @@
 	}
 
 	function semanticContributor($uriDomain, $obj) {
-		global $mapping, $mappingURI1, $mappingURI2, $mappingURI3, $mappingURI4, $mappingLink, $mappingType, $mappingTitle, $mappingRS, $mappingWikidata, $mappingContributor;
+		global $mapping, $mappingURI1, $mappingURI2, $mappingURI3, $mappingURI4, $mappingLink, $mappingType, $mappingTitle, $mappingRS, $mappingAssociatedRS, $mappingWikidata, $mappingContributor;
 
 		$obj['contributor'] = '';
 		$obj['type'] = '';
@@ -92,6 +97,7 @@
 				$obj['contributor'] = $line[$mappingContributor];
 				$obj['type'] = $line[$mappingType];
 				$obj['rs'] = $line[$mappingRS];
+				$obj['associated_rs'] = $line[$mappingAssociatedRS];
 				$obj['wikidata'] = $line[$mappingWikidata];
 				$obj['link'] = $line[$mappingLink];
 			} else if (
@@ -104,6 +110,7 @@
 				$obj['contributor'] = $line[$mappingContributor];
 				$obj['type'] = $line[$mappingType];
 				$obj['rs'] = $line[$mappingRS];
+				$obj['associated_rs'] = $line[$mappingAssociatedRS];
 				$obj['wikidata'] = $line[$mappingWikidata];
 				$obj['link'] = $line[$mappingLink];
 			}
@@ -115,7 +122,7 @@
 	}
 
 	function semanticGetAllPortals() {
-		global $mapping, $mappingLink, $mappingType, $mappingTitle, $mappingRS, $mappingWikidata, $mappingContributor;
+		global $mapping, $mappingLink, $mappingType, $mappingTitle, $mappingRS, $mappingAssociatedRS, $mappingWikidata, $mappingContributor;
 
 		$ret = [];
 
@@ -126,6 +133,7 @@
 				$obj['contributor'] = $line[$mappingContributor];
 				$obj['type'] = $line[$mappingType];
 				$obj['rs'] = $line[$mappingRS];
+				$obj['associated_rs'] = $line[$mappingAssociatedRS];
 				$obj['wikidata'] = $line[$mappingWikidata];
 				$obj['link'] = $line[$mappingLink];
 

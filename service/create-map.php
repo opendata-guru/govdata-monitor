@@ -39,7 +39,7 @@
 	}
 
 	function getRSList() {
-		global $mapping, $mappingRS;
+		global $mapping, $mappingRS, $mappingAssociatedRS;
 
 		$ret = [];
 
@@ -47,8 +47,12 @@
 			if ($line[$mappingRS]) {
 				$ret[] = $line[$mappingRS];
 			}
+			if ($line[$mappingAssociatedRS]) {
+				$ret[] = $line[$mappingAssociatedRS];
+			}
 		}
 
+		$ret = array_unique($ret);
 		return $ret;
 	}
 

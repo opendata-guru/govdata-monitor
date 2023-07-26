@@ -101,14 +101,8 @@ var data = (function () {
 
         if (type === 'municipality+state') {
             return 'Land + Stadt';
-        } else if (type === 'statisticaloffice') {
-            return 'O';
         } else if (type === 'portal') {
             return 'Portal';
-        } else if (type === 'geoPortal') {
-            return 'G';
-        } else if (type === 'dumping') {
-            return 'D';
         } else if (type !== '') {
             return '?';
         }

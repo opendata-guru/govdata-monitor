@@ -33,6 +33,9 @@ var map = (function () {
                 if (viewCatalog.rs) {
                     ret.push(viewCatalog.rs);
                 }
+                if (viewCatalog.associated_rs) {
+                    ret.push(viewCatalog.associated_rs);
+                }
             });
         }
 

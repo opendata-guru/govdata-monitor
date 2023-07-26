@@ -106,12 +106,14 @@
 		var map = new maplibregl.Map({
 			center: [10, 51],
 			container: 'map',
-//			customAttribution: 'test',
 //			hash: true,
 			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
 			zoom: 5
 		});
-        var date = (new Date(Date.now())).toISOString().split('T')[0];
+		var offsetMinutes = 10;
+		var now = new Date();
+		now = new Date(now.getTime() - offsetMinutes * 60000);
+        var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
 		var year = date.split('-')[0];
 		var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-de.geojson';
 

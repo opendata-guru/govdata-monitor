@@ -395,7 +395,6 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Euskirchen,,,,,municipality,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03
 ,Gronau,,,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,
 ,Heilbronn,,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,,https://opendata.heilbronn.de/catalog.xml,2021-05-13
-,Hennef,,,,,municipality,via Musterdatenkatalog Deutschland,,053820020020,,,,,,,,
 ,Ingolstadt,,,,,municipality,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,091610000000,,,,,,,,2021-03-04
 ,Jena,,,,,municipality,https://opendata.jena.de/,2016-12-20,160530000000,,,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,,,2019-08-10
 ,Kaarst,,,,,municipality,https://www.o-sp.de/kaarst/opendata,,051620016016,,,,,,,,2021-03-03
@@ -408,14 +407,9 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Meiningen,,,,,municipality,via Musterdatenkatalog Deutschland,,160665050042,,,,,,,,
 ,Minden,,,,,municipality,"https://www.minden.de/stadt_minden/de/B%C3%BCrger,%20Service,%20Politik/Offene%20Daten/Datens%C3%A4tze/",,072325005082,,,,,,,,2021-03-04
 ,Neubrandenburg,,,,,municipality,http://www.neubrandenburg.de/opendata/,,130710107107,,,,,,,,
-,Obere Kyll,,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_obere_kyll,,,,,,,,,,2021-03-03
-,Siegen,,,,,municipality,via Musterdatenkatalog Deutschland,,059700040040,,,,,,,,
-,Stuttgart,,,,,municipality,via Musterdatenkatalog Deutschland,,081110000000,,,,,,,,
-,Sulingen,,,,,municipality,via Musterdatenkatalog Deutschland,,032510040040,,,,,,,,
 ,Ulm,,,,,municipality,http://daten.ulm.de/,,084210000000,,,Wilken Rechenzentrum GmbH,Website,,,,2019-07-30
 ,Waltrop,,,,,municipality,https://www.o-sp.de/waltrop/opendata,,055620036036,,,,,,,,2021-03-03
 ,Wörth,,,,,municipality,https://daten.rlp.de/organization/stadt_woerth,,091775121144,,,,,,,,2021-03-03
-,Kreis Bautzen,,,,,district,via Musterdatenkatalog Deutschland,,,,,,,,,,
 ,Kreis Steinfurt,,,,,district,https://gis-kreis-steinfurt.opendata.arcgis.com/,2019-06-01,,,,,ArcGIS,,,,2021-03-04
 ,Landkreis Lüneburg,,,,,district,https://open.lklg.net/,2016-08-18,,,,,CKAN,https://open.lklg.net/api/3/action/package_list,,,2019-08-04
 ,Ortenaukreis,,,,,district,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,,,,,Website,,,,2019-07-30

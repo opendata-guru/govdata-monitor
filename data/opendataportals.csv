@@ -310,6 +310,11 @@ Prüm,Verbandsgemeinde Prüm,daten.rlp.de|verbandsgemeinde_pruem,,,,collectiveMu
 Puderbach,Verbandsgemeinde Puderbach,daten.rlp.de|verbandsgemeinde_puderbach,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,071385005,,Q519436,,,,,,2023-05-30
 Recklinghausen,Recklinghausen,opendata.ruhr|recklinghausen,,,,municipality,https://opendata.ruhr/organization/recklinghausen,,055620032032,,Q3050,,,,,,2023-05-30
 Recklinghausen,Kreis Recklinghausen,geoportal.de|KreisverwaltungRecklinghausen,,,,district,https://geoserver4.kreis-re.de/geonetwork/,,05562,,Q6214,,,,,,2023-05-30
+Regierungsbezirk Arnsberg,Bezirksregierung Arnsberg,geoportal.de|BezirksregierungArnsberg,,,,governmentRegion,,,059,,Q7924,,,,,,2023-07-29
+Regierungsbezirk Detmold,Bezirksregierung Detmold,geoportal.de|BezirksregierungDetmold,,,,governmentRegion,,,057,,Q7923,,,,,,2023-07-29
+Regierungsbezirk Düsseldorf,Bezirksregierung Düsseldorf,geoportal.de|BezirksregierungDsseldorf,,,,governmentRegion,,,051,,Q7926,,,,,,2023-07-29
+Regierungsbezirk Köln,Bezirksregierung Köln,geoportal.de|BezirksregierungKln,,,,governmentRegion,,,053,,Q7927,,,,,,2023-07-29
+Regierungsbezirk Münster,Bezirksregierung Münster,geoportal.de|BezirksregierungMnster,,,,governmentRegion,,,055,,Q7920,,,,,,2023-07-29
 Regionalstatistik,Regionalstatistik,http://dcat-ap.de/def/contributors/regionalstatistik,,,,federalAgency,,,,,,,,,,,
 Regionalverband Großraum Braunschweig,Regionalverband Großraum Braunschweig,geoportal.de|RegionalverbandGroraumBraunschweig,,,,regionalNetwork,,,,,Q231845,,,,,,2023-05-21
 Regionalverband Ruhr,Regionalverband Ruhr,open.nrw|rvr,,,,regionalNetwork,https://opendata.ruhr/,2019-10-20,,,Q49849,,CKAN,https://opendata.ruhr/api/3/action/package_list,https://opendata.ruhr/api/3/action/organization_list,https://opendata.ruhr/catalog.rdf,2023-02-05

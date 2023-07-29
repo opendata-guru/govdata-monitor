@@ -16,6 +16,7 @@ var data = (function () {
         layers['federalCooperation'] = 'Bund + Länder';
         layers['state'] = 'Land';
         layers['stateAgency'] = 'Landesamt';
+        layers['governmentRegion'] = 'Regierungsbezirk';
         layers['regionalNetwork'] = 'Region';
         layers['district'] = 'Kreis';
         layers['districtAgency'] = 'Kreisverwaltung';

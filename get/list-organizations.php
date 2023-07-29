@@ -6,7 +6,7 @@
 	if ('https://geoportal.de' === $link) {
 		include 'list-organizations/gdide-list-organizations.php';
 	} else if ('https://datenadler.de/publisher' === $link) {
-		include 'adler-organizations.php';
+		include 'list-organizations/adler-list-organizations.php';
 	} else if ('https://www.mcloud.de/web/guest/suche/' === $link) {
 		include 'list-organizations/mcloud-list-organizations.php';
 	} else if ('https://www.opendata.sachsen.de' === $link) {

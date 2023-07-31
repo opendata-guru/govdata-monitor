@@ -200,6 +200,60 @@ var system = (function () {
         return '<a href="' + link + '" style="text-align:center;display:inline-block;" target="_blank" class="me-3"' + addID + '><span style="display:block;width:3rem;height:3rem;border-radius:3rem;line-height:3rem;text-align:center;margin:auto;" class="bg-secondary text-white">' + key.substring(0, 1) + '</span>' + key + '</a>';
     }
 
+    function formatExtensions(extensions) {
+        var ret = '';
+
+        if (extensions.length > 0) {
+            var arr = [];
+            var strBasics = '', strViews = '', strMaps = '', strDCAT = '';
+
+            extensions.forEach(extension => {
+                // GovData:
+                //   activity, search_index_hook
+                //   govdatade, 
+                // Schleswig-Holstein:
+                //   qa, archiver, report, 
+                //   kiel_harvester, statistikamtnord_harvester, 
+                //   odsh, odsh_autocomplete, odsh_dcat_harvest, odsh_collections,
+                // Hamburg:
+                //   distributed_harvest, inforeg_metadata_api, no_groups, inforeg_solr_search, solr_highlighting, fast_search_solr_highlighting, file_proxy, log_proxy, request_logger,
+                //   hmdktoinforeg_harvester, zs_parladb_harvester, allris_CCEGOV_harvester, allris_bezirk__harvester, oktagon_harvester, bacom_harvester_new, workflow_harvester, imis_harvester, statistik_nord_harvester, 
+                //   hmbtg_template, hmbtg_helper, hmbtg_search, hmbtgdashboard, hmbtg_geo, hmbtg_feed
+                // NRW:
+                //   opennrw-ldb-harvester-dcat, opennrw-aachen-harvester-dcat, opennrw-dormagen-harvester-dcat, opennrw-offenesdatenportal-harvester-dcat, opennrw-meerbusch-harvester-dcat, opennrw-gelsenkirchen-harvester-dcat, opennrw-ignrw-harvester-dcat, opennrw-redesign-nrwmetadata-harvester-dcat, opennrw-fassaden-harvester-dcat, opennrw-neuss-harvester-dcat, opennrw-dortmund-harvester-dcat, opennrw-rvr-harvester-dcat, dortmund-arcgis-harvester-dcat, opennrw-oepnv-harvester-dcat, nrw-rdf-wuppertal-harvester, nrw-rdf-koeln-harvester, nrw-rdf-bonn-harvester, nrw-rdf-rheinerftrur-harvester, nrw-rdf-gelsenkirchen-harvester, nrw-rdf-duesseldorf-harvester, nrw-rdf-bielefeld-harvester, nrw-rdf-duisburg-harvester, nrw-rdf-muenster-harvester, nrw-rdf-essen-harvester, nrw-rdf-paderborn-harvester, nrw-rdf-neuss-harvester, nrw-rdf-rvr-harvester, nrw-rdf-ldb-harvester
+                //   opennrw-portal-zipharvester, nrw-rdf-harvester, 
+                // RP:
+                //   scheming_datasets, scheming_organizations, pages, 
+                //   rlp
+                // Niederrhein:
+                //   datastore, datapusher, showcase, 
+                //   krzn
+                // Regionalverband Ruhr:
+                //   envvars, datastore, datapusher, navigablemap, choroplethmap, pages, downloadall
+                //   rvr, rvr_spatial_query, 
+                // Aachen:
+                //   custom_theme, pages, showcase
+
+                if (-1 !== extension.indexOf('_view')) {
+                    strViews += '<span title="' + extension + '">🎨</span>';
+                } else if (-1 !== ['spatial_metadata','spatial_query','spatial_harvest_metadata_api'].indexOf(extension)) {
+                    strMaps += '<span title="' + extension + '">🗺️</span>';
+                } else if (-1 !== ['harvest','ckan_harvester','stats','structured_data','resource_proxy'].indexOf(extension)) {
+                    strBasics += '<span title="' + extension + '">🧰</span>';
+                } else if (-1 !== ['dcat','dcatde','dcat_json_harvester','dcat_json_interface','dcat_rdf_harvester','dcatde_rdf_harvester'].indexOf(extension)) {
+                    strDCAT += '<span title="' + extension + '">*️⃣</span>';
+                } else {
+                    arr.push(extension);
+                }
+            });
+            ret = '<span style="font-size:1.5rem">' + strBasics + strViews + strMaps + strDCAT + '</span> ' + arr.join(', ');
+        } else {
+            ret += JSON.stringify(extensions);
+        }
+
+        return ret;
+    }
+
     function funcUpdate() {
         if (systemId === catalog.id) {
             return;
@@ -252,11 +306,7 @@ var system = (function () {
         if (sys && sys.server) {
             body += format('System', sys.server.system + ', version ' + sys.server.version);
             body += formatLink('API', sys.server.url, sys.server.url);
-            if (sys.server.extensions.length > 0) {
-                body += formatScroll('Extensions', sys.server.extensions.join(', '));
-            } else {
-                body += formatScroll('Extensions', JSON.stringify(sys.server.extensions));
-            }
+            body += formatScroll('Extensions', formatExtensions(sys.server.extensions));
         }
 
         if (wikidata) {

@@ -72,7 +72,7 @@
 	if ($json) {
 		$list = $json->facets->dct_publisher_facet->buckets;
 
-		for ($l = 1; $l < count($list); ++$l) {
+		for ($l = 0; $l < count($list); ++$l) {
 			$item = $list[$l];
 
 			$name = preg_replace('#[^a-z0-9]#i', '', $item->val);

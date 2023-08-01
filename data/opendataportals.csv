@@ -33,7 +33,7 @@ Bernkastel-Kues,Stadt Bernkastel-Kues,daten.rlp.de|stadt_bernkastel_kues,,,,muni
 Bernkastel-Wittlich,Landkreis Bernkastel-Wittlich,daten.rlp.de|landkreis_bernkastel_wittlich,,,,district,,,07231,,Q8585,,,,,,2023-07-18
 Bersenbrück,Samtgemeinde Bersenbrück,geoportal.de|SamtgemeindeBersenbrck,,,,collectiveMunicipality,,,034595402,,Q453990,,,,,,2023-07-24
 Bezirksversammlung,ALLRIS,suche.transparenz.hamburg.de|allris,,,,municipalityAgency,,,,020000000000,Q854388,,CKAN,,,,2023-04-11
-Bielefeld,Bielefeld,open.nrw|bielefeld,mcloud.de|OpenNRWBielefeld,,,municipality,https://open-data.bielefeld.de/,,057110000000,,Q2112,Stadt Köln,DKAN,https://open-data.bielefeld.de/api/3/action/package_list,,,2023-05-21
+Bielefeld,Bielefeld,open.nrw|bielefeld,mcloud.de|OpenNRWBielefeld,,,municipality,https://open-data.bielefeld.de/,,057110000000,,Q2112,Stadt Köln,DKAN,https://open-data.bielefeld.de/api/3/action/package_list,https://open-data.bielefeld.de/api/3/action/group_list,,2023-05-21
 Bielefeld - Amt für Geoinformation und Kataster,Stadt Bielefeld - Amt für Geoinformation und Kataster,geoportal.de|StadtBielefeldAmtfrGeoinformationundKataster,,,,municipalityAgency,,,,057110000000,,,,,,,2023-05-21
 Birkenfeld,Verbandsgemeinde Birkenfeld,daten.rlp.de|verbandsgemeinde_birkenfeld,,,,collectiveMunicipality,,,071345002,,Q510356,,,,,,2023-07-19
 Bocholt,Stadt Bocholt,geoportal.de|StadtBocholt,,,,municipality,,,055540008008,,Q3917,,,,,,2023-05-21
@@ -103,9 +103,9 @@ Dierdorf,Verbandsgemeinde Dierdorf,daten.rlp.de|verbandsgemeinde_dierdorf,,,,col
 Dormagen,Dormagen,open.nrw|dormagen,mcloud.de|OpenNRWDormagen,,,municipality,https://opendata.dormagen.de,2017-12-07,051620004004,,Q3978,OpenDataSoft,OpenDataSoft,https://opendata.dormagen.de/api/v2/catalog/datasets,,,2023-05-21
 Dortmund,Dortmund,open.nrw|dortmund,opendata.ruhr|dortmund,,,municipality,https://opendata.dortmund.de/,2018-08-23,059130000000,,Q1295,,Website,,,,2023-07-13
 Dresden,Stadt Dresden,www.opendata.sachsen.de|StadtDresden,geoportal.de|LandeshauptstadtDresden,mcloud.de|GovDataLandeshauptstadtDresden,,municipality,https://opendata.dresden.de,,146120000000,,Q1731,,DUVA,,,,2023-05-21
-Duisburg,Duisburg,open.nrw|duisburg,opendata.ruhr|duisburg,geoportal.de|StadtDuisburg,mcloud.de|OpenNRWDuisburg,municipality,https://opendata-duisburg.de/,2019-03-19,051120000000,,Q2100,Stadt Köln,DKAN,https://opendata-duisburg.de/api/3/action/package_list,,https://opendata-duisburg.de/catalog.xml,2023-05-21
+Duisburg,Duisburg,open.nrw|duisburg,opendata.ruhr|duisburg,geoportal.de|StadtDuisburg,mcloud.de|OpenNRWDuisburg,municipality,https://opendata-duisburg.de/,2019-03-19,051120000000,,Q2100,Stadt Köln,DKAN,https://opendata-duisburg.de/api/3/action/package_list,https://opendata-duisburg.de/api/3/action/group_list,https://opendata-duisburg.de/catalog.xml,2023-05-21
 Dülmen,Stadt Dülmen,geoportal.de|StadtDlmen,,,,municipality,https://www.o-sp.de/duelmen/opendata.php,,055580016016,,Q6910,,,,,,2023-05-21
-Düsseldorf,Düsseldorf,open.nrw|duesseldorf,,,,municipality,https://opendata.duesseldorf.de/,2017-12-06,051110000000,,Q1718,Stadt Köln,DKAN,https://opendata.duesseldorf.de/api/3/action/package_list,,https://opendata.duesseldorf.de/catalog.xml,2023-05-14
+Düsseldorf,Düsseldorf,open.nrw|duesseldorf,,,,municipality,https://opendata.duesseldorf.de/,2017-12-06,051110000000,,Q1718,Stadt Köln,DKAN,https://opendata.duesseldorf.de/api/3/action/package_list,https://opendata.duesseldorf.de/api/3/action/group_list,https://opendata.duesseldorf.de/catalog.xml,2023-05-14
 Eich,Verbandsgemeinde Eich,daten.rlp.de|verbandsgemeinde_eich,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_eich,,073315002,,Q251357,,,,,,2023-05-21
 Eichsfeld,Landratsamt Eichsfeld,geoportal.de|LandratsamtEichsfeld,,,,district,,,16061,,Q7861,,,,,,2023-07-26
 Elmshorn,Stadt Elmshorn,opendata.schleswig-holstein.de|elmshorn,,,,municipality,,,010560015015,,Q6845,,,,,,2023-05-08
@@ -124,7 +124,7 @@ Euskirchen,Kreis Euskirchen,offenedaten.kdvz-frechen.de|kreis-euskirchen,,,,dist
 Everswinkel,Gemeinde Everswinkel,geoportal.de|GemeindeEverswinkel,,,,municipality,https://www.o-sp.de/everswinkel/opendata,,055700024024,,Q2809,,,,,,2023-05-23
 Finanzministerium des Landes Schleswig-Holstein,Finanzministerium,opendata.schleswig-holstein.de|finanzministerium,,,,stateAgency,,,,01,Q16831368,,,,,,2023-07-17
 Frankelbach,Ortsgemeinde Frankelbach,daten.rlp.de|ortsgemeinde_frankelbach,,,,municipality,,,073355010009,,Q566972,,,,,,2023-07-19
-Frankfurt am Main,Stadt Frankfurt am Main,http://dcat-ap.de/def/contributors/stadtFrankfurtAmMain,,,,municipality,http://offenedaten.frankfurt.de/,2014-10-15,064120000000,,Q1794,,CKAN,http://offenedaten.frankfurt.de/api/3/action/package_list,,,2019-08-04
+Frankfurt am Main,Stadt Frankfurt am Main,http://dcat-ap.de/def/contributors/stadtFrankfurtAmMain,,,,municipality,http://offenedaten.frankfurt.de/,2014-10-15,064120000000,,Q1794,,CKAN,http://offenedaten.frankfurt.de/api/3/action/package_list,http://offenedaten.frankfurt.de/api/3/action/organization_list,,2019-08-04
 Freiburg im Breisgau,Stadt Freiburg im Breisgau,http://dcat-ap.de/def/contributors/stadtFreiburgImBreisgau,,,,municipality,http://opendata.freiburg.de,2017-04-01,083110000000,,Q2833,badenIT GmbH,Website,https://fritz.freiburg.de/duva2ckan/files/,,,2019-11-05
 Friedrich-Loeffler-Institut,Friedrich-Loeffler-Institut,http://dcat-ap.de/def/contributors/friedrichLoefflerInstitut,,,,federalAgency,,,,,Q1457808,,,,,,
 Föderale IT-Kooperation,FITKO (Föderale IT-Kooperation),http://dcat-ap.de/def/contributors/fitko,,,,federalCooperation,,,,,Q104760828,,,,,,2023-05-21
@@ -205,7 +205,7 @@ Krefeld,Stadt Krefeld,www.offenesdatenportal.de|krefeld,mcloud.de|StadtKrefeld,,
 Kreisarchiv Stormarn,Kreisarchiv Stormarn,opendata.schleswig-holstein.de|kreisarchiv-stormarn,,,,districtAgency,,,,01062,Q28735056,,,,,,2023-05-09
 Kreuzau,Kreuzau,offenedaten.kdvz-frechen.de|kreuzau,,,,municipality,http://offenedaten.kdvz-frechen.de/group/kreuzau,2016-11-08,053580028028,,Q199988,Stadt Köln,DKAN,,,,2023-05-23
 Kyffhäuserkreis,Landratsamt Kyffhäuserkreis,geoportal.de|LandratsamtKyffhuserkreis,,,,district,,,16065,,Q7862,,,,,,2023-07-28
-Köln,Köln,open.nrw|koeln,,,,municipality,http://offenedaten-koeln.de/,2012,053150000000,,Q365,Stadt Köln,DKAN,https://offenedaten-koeln.de/api/3/action/package_list,,https://offenedaten-koeln.de/catalog.xml,2023-05-14
+Köln,Köln,open.nrw|koeln,,,,municipality,http://offenedaten-koeln.de/,2012,053150000000,,Q365,Stadt Köln,DKAN,https://offenedaten-koeln.de/api/3/action/package_list,https://offenedaten-koeln.de/api/3/action/group_list,https://offenedaten-koeln.de/catalog.xml,2023-05-14
 Königsfeld,Ortsgemeinde Königsfeld,daten.rlp.de|ortsgemeinde_koenigsfeld,,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_koenigsfeld,,071315004041,,Q675574,,,,,,2023-05-23
 Lambsheim,Ortsgemeinde Lambsheim,daten.rlp.de|ortsgemeinde_lambsheim,,,,municipality,,,073385006016,,Q22961,,,,,,2023-07-18
 Landau in der Pfalz - Stadtbauamt,Stadt Landau - Stadtbauamt,daten.rlp.de|stadt_landau,,,,municipalityAgency,https://daten.rlp.de/organization/stadt_landau,,,073130000000,Q7052,,,,,,2023-07-18
@@ -226,7 +226,7 @@ Landesmeldestelle Schleswig-Holstein,Landesmeldestelle Schleswig-Holstein,openda
 Landesvermessung und Geobasisinformation Brandenburg,Landesvermessung und Geobasisinformation Brandenburg (LGB),geoportal.de|LandesvermessungundGeobasisinformationBrandenburgLGB,,,,stateAgency,,,,12,Q1802711,,,,,,2023-05-16
 Langenhagen,Stadt Langenhagen,geoportal.de|StadtLangenhagen,,,,municipality,,,032410010010,,Q4158,,,,,,2023-07-15
 Langerwehe,Langerwehe,offenedaten.kdvz-frechen.de|langerwehe,,,,municipality,http://offenedaten.kdvz-frechen.de/group/langerwehe,2016-11-08,053580032032,,Q200018,Stadt Köln,DKAN,,,,2023-05-23
-Leipzig,Stadt Leipzig,geoportal.de|StadtLeipzig,,,,municipality,https://opendata.leipzig.de,,147130000000,,Q2079,Lecos GmbH,CKAN,https://opendata.leipzig.de/api/3/action/package_list,,,2023-05-30
+Leipzig,Stadt Leipzig,geoportal.de|StadtLeipzig,,,,municipality,https://opendata.leipzig.de,,147130000000,,Q2079,Lecos GmbH,CKAN,https://opendata.leipzig.de/api/3/action/package_list,https://opendata.leipzig.de/api/3/action/organization_list,,2023-05-30
 Leipzig,Landratsamt Leipzig,geoportal.de|LandratsamtLeipzig,,,,district,,,14729,,Q6308,,,,,,2023-07-28
 Lengerich,Stadt Lengerich,geoportal.de|StadtLengerich,,,,municipality,https://www.o-sp.de/lengerich/opendata,,055660040040,,Q181609,,,,,,2023-05-30
 Lieser,Ortsgemeinde Lieser,daten.rlp.de|ortsgemeinde_lieser,,,,municipality,,,072315001075,,Q646892,,,,,,2023-07-19
@@ -275,7 +275,7 @@ Mönchengladbach,Stadt Mönchengladbach,geoportal.de|StadtMnchengladbach,,,,muni
 Mülheim an der Mosel,Ortsgemeinde Mülheim an der Mosel,daten.rlp.de|ortsgemeinde_muelheim_an_der_mosel,,,,municipality,,,072315001090,,Q667192,,,,,,2023-05-30
 Mülheim an der Ruhr,Stadt Mülheim an der Ruhr,opendata.ruhr|mulheim-a-d-ruhr,,,,municipality,http://open.muelheim-ruhr.de,2014-12-19,051170000000,,Q2899,Stadt Mülheim an der Ruhr,DKAN,https://geo.muelheim-ruhr.de/api/3/action/package_list,,,2023-05-30
 München,Landeshauptstadt München,http://dcat-ap.de/def/contributors/landeshauptstadtMuenchen,,,,municipality,http://www.opengov-muenchen.de,2014-12-19,091620000000,,Q1726,,CKAN,https://www.opengov-muenchen.de/api/3/action/package_list,,,2019-07-31
-Münster,Münster (Westfalen),open.nrw|muenster,mcloud.de|OpenNRWMnster,,,municipality,https://opendata.stadt-muenster.de/,2019-09,055150000000,,Q2742,citeq,Drupal,https://opendata.stadt-muenster.de/api/3/action/package_list,,https://opendata.stadt-muenster.de/catalog.xml,2023-05-30
+Münster,Münster (Westfalen),open.nrw|muenster,mcloud.de|OpenNRWMnster,,,municipality,https://opendata.stadt-muenster.de/,2019-09,055150000000,,Q2742,citeq,Drupal,https://opendata.stadt-muenster.de/api/3/action/package_list,https://opendata.stadt-muenster.de/api/3/action/group_list,https://opendata.stadt-muenster.de/catalog.xml,2023-05-30
 Neuenkirchen,Samtgemeinde Neuenkirchen,geoportal.de|SamtgemeindeNeuenkirchen,,,,collectiveMunicipality,,,034595404,,Q314658,,,,,,2023-07-28
 Neumagen-Dhron,Ortsgemeinde Neumagen-Dhron,daten.rlp.de|ortsgemeinde_neumagen_dhron,,,,municipality,,,072315001092,,Q572352,,,,,,2023-07-19
 Neuss,Stadt Neuss,open.nrw|neuss,mcloud.de|OpenNRWNeuss,geoportal.de|StadtNeuss,,municipality,https://ckan.www.open.nrw.de/organization/neuss,,051620024024,,Q2948,,,,,,2023-05-30
@@ -297,7 +297,7 @@ Oelde,Stadt Oelde,geoportal.de|StadtOelde,,,,municipality,https://www.o-sp.de/oe
 Oldenburg,Stadt Oldenburg (Oldb),http://dcat-ap.de/def/contributors/stadtOldenburg,,,,municipality,,,034030000000,,Q2936,,,,,,
 Open Data Bund,Open Data Bund,http://dcat-ap.de/def/contributors/openDataBund,,,,portal,,,,,,,,,,,2023-05-21
 OpenAgrar,OpenAgrar Repositorium der Forschungseinrichtungen des BMEL,http://dcat-ap.de/def/contributors/openAgrarRepositoriumDerForschungseinrichtungenDesBMEL,,,,federalAgency,,,,,,,,,,,
-OpenData ÖPNV,OpenData-Plattform ÖPNV,open.nrw|opendata_oepnv,mcloud.de|OpenNRWOpenDataPNV,,,other,https://www.opendata-oepnv.de/,,,,,Verkehrsverbund Rhein-Ruhr AöR,CKAN,https://www.opendata-oepnv.de/api/3/action/package_list,,,2023-07-15
+OpenData ÖPNV,OpenData-Plattform ÖPNV,open.nrw|opendata_oepnv,mcloud.de|OpenNRWOpenDataPNV,,,other,https://www.opendata-oepnv.de/,,,,,Verkehrsverbund Rhein-Ruhr AöR,CKAN,https://www.opendata-oepnv.de/api/3/action/package_list,https://www.opendata-oepnv.de/api/3/action/organization_list,,2023-07-15
 Ostholstein,Kreis Ostholstein,opendata.schleswig-holstein.de|kreis-ostholstein,,,,district,https://opendata.schleswig-holstein.de/organization/kreis-ostholstein,,01055,,Q2975,,,,,,2023-05-09
 Otterbach-Otterberg,Verbandsgemeinde Otterbach-Otterberg,daten.rlp.de|verbandsgemeinde_otterbach_otterberg,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,073355010,,Q2514006,,,,,,2023-05-30
 Otterberg,Stadt Otterberg,daten.rlp.de|stadt_otterberg,,,,municipality,,,073355010035,,Q632266,,,,,,2023-07-19
@@ -331,7 +331,7 @@ Robert Koch-Institut,Robert Koch-Institut,http://dcat-ap.de/def/contributors/rob
 Rodalben,Verbandsgemeinde Rodalben,daten.rlp.de|verbandsgemeinde_rodalben,,,,collectiveMunicipality,,,073405004,,Q451664,,,,,,2023-07-18
 Rodenbach,Ortsgemeinde Rodenbach,daten.rlp.de|ortsgemeinde_rodenbach,,,,municipality,,,073355009040,,Q567476,,,,,,2023-07-19
 Roetgen,Roetgen,offenedaten.aachen.de|gemeinde-roetgen,,,,municipality,https://offenedaten.aachen.de/organization/gemeinde-roetgen,,053340024024,,Q200743,,,,,,2023-02-05
-Rostock,OpenData.HRO,http://dcat-ap.de/def/contributors/openDataHRO,,,,municipality,http://www.opendata-hro.de/,,130030000000,,Q2861,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,,https://www.opendata-hro.de/catalog.xml,2019-08-04
+Rostock,OpenData.HRO,http://dcat-ap.de/def/contributors/openDataHRO,,,,municipality,http://www.opendata-hro.de/,,130030000000,,Q2861,,CKAN,https://www.opendata-hro.de/api/3/action/package_list,https://www.opendata-hro.de/api/3/action/organization_list,https://www.opendata-hro.de/catalog.xml,2019-08-04
 Saale-Holzland-Kreis,Landratsamt Saale-Holzland-Kreis,geoportal.de|LandratsamtSaaleHolzlandKreis,,,,district,,,16074,,Q7884,,,,,,2023-07-26
 Saale-Orla-Kreis,Landratsamt Saale-Orla-Kreis,geoportal.de|LandratsamtSaaleOrlaKreis,geoportal.de|LandkreisSaaleOrlaKreis,,,district,,,16075,,Q7883,,,,,,2023-07-27
 Saalfeld-Rudolstadt,Landkreis Saalfeld-Rudolstadt,geoportal.de|LandkreisSaalfeldRudolstadt,,,,district,,,16073,,Q7882,,,,,,2023-07-28
@@ -406,7 +406,7 @@ Wintrich,Ortsgemeinde Wintrich,daten.rlp.de|ortsgemeinde_wintrich,,,,municipalit
 Wittlich,Stadtverwaltung Wittlich,daten.rlp.de|stadt_wittlich,,,,municipality,https://daten.rlp.de/organization/stadt_wittlich,,072310134134,,Q559514,,,,,,2023-07-13
 Wittlich-Land,Verbandsgemeinde Wittlich-Land,daten.rlp.de|verbandsgemeinde_wittlich_land,,,,collectiveMunicipality,,,072315008,,Q17300305,,,,,,2023-07-19
 Worms,Stadt Worms,daten.rlp.de|stadt_worms,,,,municipality,,,073190000000,,Q3852,,,,,,2023-07-19
-Wuppertal,Stadt Wuppertal,open.nrw|wuppertal,geoportal.de|StadtWuppertal,mcloud.de|OpenNRWWuppertal,,municipality,http://www.offenedaten-wuppertal.de/,2016-09-05,051240000000,,Q2107,Stadt Köln,DKAN,https://www.offenedaten-wuppertal.de/api/3/action/package_list,,https://www.offenedaten-wuppertal.de/catalog.xml,2023-07-13
+Wuppertal,Stadt Wuppertal,open.nrw|wuppertal,geoportal.de|StadtWuppertal,mcloud.de|OpenNRWWuppertal,,municipality,http://www.offenedaten-wuppertal.de/,2016-09-05,051240000000,,Q2107,Stadt Köln,DKAN,https://www.offenedaten-wuppertal.de/api/3/action/package_list,https://www.offenedaten-wuppertal.de/api/3/action/group_list,https://www.offenedaten-wuppertal.de/catalog.xml,2023-07-13
 Wörth am Rhein,Stadt Wörth,daten.rlp.de|stadt_woerth,,,,municipality,,,073340501501,,Q522165,,,,,,2023-07-18
 Zeltingen-Rachtig,Ortsgemeinde Zeltingen-Rachtig,daten.rlp.de|ortsgemeinde_zeltingen_rachtig,,,,municipality,,,072315001136,,Q189241,,,,,,2023-07-19
 Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,,Q6330,,,,,,2023-07-28
@@ -416,12 +416,12 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Emsdetten,,,,,municipality,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,055660008008,,,,,,,,2021-03-03
 ,Euskirchen,,,,,municipality,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03
 ,Gronau,,,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,
-,Heilbronn,,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,,https://opendata.heilbronn.de/catalog.xml,2021-05-13
+,Heilbronn,,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,https://opendata.heilbronn.de/api/3/action/group_list,https://opendata.heilbronn.de/catalog.xml,2021-05-13
 ,Ingolstadt,,,,,municipality,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,091610000000,,,,,,,,2021-03-04
-,Jena,,,,,municipality,https://opendata.jena.de/,2016-12-20,160530000000,,,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,,,2019-08-10
+,Jena,,,,,municipality,https://opendata.jena.de/,2016-12-20,160530000000,,,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,https://opendata.jena.de/api/3/action/organization_list,,2019-08-10
 ,Kaarst,,,,,municipality,https://www.o-sp.de/kaarst/opendata,,051620016016,,,,,,,,2021-03-03
 ,Kamen,,,,,municipality,https://www.o-sp.de/kamen/opendata,,059780020020,,,,,,,,2021-03-03
-,Karlsruhe,,,,,municipality,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,,,2019-11-12
+,Karlsruhe,,,,,municipality,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2019-11-12
 ,Konstanz,,,,,municipality,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,,https://offenedaten-konstanz.de/catalog.xml,2020-06-29
 ,Lemgo,,,,,municipality,https://www.o-sp.de/lemgo/opendata,,057660044044,,,,,,,,2021-03-03
 ,Magdeburg,,,,,municipality,https://www.magdeburg.de/Start/B%C3%BCrger-Stadt/Verwaltung-Service/Offene-Verwaltungsdaten,,150030000000,,,,Website,,,,2019-08-11

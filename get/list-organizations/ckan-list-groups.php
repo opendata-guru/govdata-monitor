@@ -61,7 +61,12 @@
 		);
 	}
 
-	foreach($json->result as $groupID) {
+	$jsonData = $json;
+	if ($json->result) {
+		$jsonData = $json->result;
+	}
+
+	foreach($jsonData as $groupID) {
 		$uri = $uriCKAN . $groupShowSuffix;
 		$json = json_decode(file_get_contents($uri . $groupID->name));
 

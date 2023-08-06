@@ -90,6 +90,7 @@
 
 			foreach($data as $existingOrga) {
 				if ($newOrga->id == $existingOrga->id) {
+//				if (($newOrga->id == $existingOrga->id) && ($newOrga->packagesInPortal == $existingOrga->packagesInPortal)) {
 					$found = true;
 					break;
 				}

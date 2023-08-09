@@ -416,20 +416,20 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Emsdetten,,,,,municipality,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,055660008008,,,,,,,,2021-03-03
 ,Euskirchen,,,,,municipality,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03
 ,Gronau,,,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,
-,Heilbronn,,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,https://opendata.heilbronn.de/api/3/action/group_list,https://opendata.heilbronn.de/catalog.xml,2021-05-13
+,Heilbronn,,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,Q715,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,https://opendata.heilbronn.de/api/3/action/group_list,https://opendata.heilbronn.de/catalog.xml,2023-08-09
 ,Ingolstadt,,,,,municipality,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,091610000000,,,,,,,,2021-03-04
 ,Jena,,,,,municipality,https://opendata.jena.de/,2016-12-20,160530000000,,,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,https://opendata.jena.de/api/3/action/organization_list,,2019-08-10
 ,Kaarst,,,,,municipality,https://www.o-sp.de/kaarst/opendata,,051620016016,,,,,,,,2021-03-03
 ,Kamen,,,,,municipality,https://www.o-sp.de/kamen/opendata,,059780020020,,,,,,,,2021-03-03
-,Karlsruhe,,,,,municipality,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2019-11-12
-,Konstanz,,,,,municipality,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,,https://offenedaten-konstanz.de/catalog.xml,2020-06-29
+,Karlsruhe,,,,,municipality,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,Q1040,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2023-08-09
+,Konstanz,,,,,municipality,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,Q3834,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,,https://offenedaten-konstanz.de/catalog.xml,2023-08-09
 ,Lemgo,,,,,municipality,https://www.o-sp.de/lemgo/opendata,,057660044044,,,,,,,,2021-03-03
 ,Magdeburg,,,,,municipality,https://www.magdeburg.de/Start/B%C3%BCrger-Stadt/Verwaltung-Service/Offene-Verwaltungsdaten,,150030000000,,,,Website,,,,2019-08-11
-,Mannheim,,,,,municipality,https://opendata.mannheim.de/,2015-11-24,082220000000,,,OpenDataSoft,OpenDataSoft,https://mannheim.opendatasoft.com/api/v2/catalog/datasets,,,2019-07-29
+,Mannheim,,,,,municipality,https://opendata.mannheim.de/,2015-11-24,082220000000,,Q2119,OpenDataSoft,OpenDataSoft,https://mannheim.opendatasoft.com/api/v2/catalog/datasets,,,2023-08-09
 ,Meiningen,,,,,municipality,via Musterdatenkatalog Deutschland,,160665050042,,,,,,,,
 ,Minden,,,,,municipality,"https://www.minden.de/stadt_minden/de/B%C3%BCrger,%20Service,%20Politik/Offene%20Daten/Datens%C3%A4tze/",,072325005082,,,,,,,,2021-03-04
 ,Neubrandenburg,,,,,municipality,http://www.neubrandenburg.de/opendata/,,130710107107,,,,,,,,
-,Ulm,,,,,municipality,http://daten.ulm.de/,,084210000000,,,Wilken Rechenzentrum GmbH,Website,,,,2019-07-30
+,Ulm,,,,,municipality,https://datenportal.ulm.de/,,084210000000,,Q3012,Wilken Rechenzentrum GmbH,Website,,,,2023-08-09
 ,Waltrop,,,,,municipality,https://www.o-sp.de/waltrop/opendata,,055620036036,,,,,,,,2021-03-03
 ,Wörth,,,,,municipality,https://daten.rlp.de/organization/stadt_woerth,,091775121144,,,,,,,,2021-03-03
 ,Kreis Steinfurt,,,,,district,https://gis-kreis-steinfurt.opendata.arcgis.com/,2019-06-01,,,,,ArcGIS,,,,2021-03-04
@@ -441,4 +441,4 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Geobasisdaten und Geodatendienste der Vermessungsverwaltung Baden-Württemberg,,,,,other,https://www.lgl-bw.de/lgl-internet/opencms/de/07_Produkte_und_Dienstleistungen/Open_Data_Initiative/,,,,,,Website,,,,2019-07-29
 ,Nahverkehrsgesellschaft Baden-Württemberg mbH,,,,,other,https://www.nvbw.de/aufgaben/digitale-mobilitaet/open-data/,,,,,,TYPO3,,,,2019-07-29
 ,OffeneDaten.de,,,,,other,https://offenedaten.de/,,,,,Open Knowledge Foundation Deutschland,CKAN,https://offenedaten.de/api/3/action/package_list,,,2019-07-29
-,Baden-Württemberg,,,,,state,http://opendata.service-bw.de,2014-10-08,,,,,,,,,
+Baden-Württemberg,Open Data Baden-Württemberg,http://dcat-ap.de/def/contributors/datenBW,,,,state,https://www.daten-bw.de/,2014-10-08,08,,Q985,,,,https://www.daten-bw.de/ckan/api/3/action/organization_list,,2023-08-09

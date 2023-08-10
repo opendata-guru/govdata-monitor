@@ -18,6 +18,7 @@ Auswärtiges Amt,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertige
 AWSH - Abfallwirtschaft Südholstein GmbH,AWSH - Abfallwirtschaft Südholstein GmbH,opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,,,,other,https://opendata.schleswig-holstein.de/organization/awsh-abfallwirtschaft-sudholstein-gmbh,,,,,,,,,,2023-02-05
 Bad Münstereifel,Bad Münstereifel,offenedaten.kdvz-frechen.de|bad-münstereifel,,,,municipality,http://offenedaten.kdvz-frechen.de/group/bad-m%C3%BCnstereifel,2016-11-08,053660004004,,Q241450,Stadt Köln,DKAN,,,,2023-05-21
 Bad Zwischenahn,Bad Zwischenahn,geoportal.de|GemeindeBadZwischenahn,,,,municipality,,,034510002002,,Q504526,,,,,,2023-07-15
+Baden-Württemberg,Open Data Baden-Württemberg,http://dcat-ap.de/def/contributors/datenBW,,,,state,https://www.daten-bw.de/,2014-10-08,08,,Q985,,,,https://www.daten-bw.de/ckan/api/3/action/organization_list,,2023-08-09
 Bautzen,Landratsamt Bautzen,geoportal.de|LandratsamtBautzen,,,,district,,,14625,,Q571947,,,,,,2023-07-27
 Bayern,Bayern,http://dcat-ap.de/def/contributors/openDataBayern,,,,state,https://opendata.bayern,,09,,Q980,,Piveau,https://opendata.bayern/api/hub/search/,https://opendata.bayern/api/hub/search/catalogues,,2023-05-25
 Beauftragter der Bundesregierung für Kultur und Medien,Die Beauftragte der Bundesregierung für Kultur und Medien,http://dcat-ap.de/def/contributors/dieBeauftragteDerBundesregierungFuerKulturUndMedien,,,,federalAgency,,,,,Q813386,,,,,,
@@ -125,7 +126,7 @@ Everswinkel,Gemeinde Everswinkel,geoportal.de|GemeindeEverswinkel,,,,municipalit
 Finanzministerium des Landes Schleswig-Holstein,Finanzministerium,opendata.schleswig-holstein.de|finanzministerium,,,,stateAgency,,,,01,Q16831368,,,,,,2023-07-17
 Frankelbach,Ortsgemeinde Frankelbach,daten.rlp.de|ortsgemeinde_frankelbach,,,,municipality,,,073355010009,,Q566972,,,,,,2023-07-19
 Frankfurt am Main,Stadt Frankfurt am Main,http://dcat-ap.de/def/contributors/stadtFrankfurtAmMain,,,,municipality,http://offenedaten.frankfurt.de/,2014-10-15,064120000000,,Q1794,,CKAN,http://offenedaten.frankfurt.de/api/3/action/package_list,http://offenedaten.frankfurt.de/api/3/action/organization_list,,2019-08-04
-Freiburg im Breisgau,Stadt Freiburg im Breisgau,http://dcat-ap.de/def/contributors/stadtFreiburgImBreisgau,,,,municipality,http://opendata.freiburg.de,2017-04-01,083110000000,,Q2833,badenIT GmbH,Website,https://fritz.freiburg.de/duva2ckan/files/,,,2019-11-05
+Freiburg im Breisgau,Stadt Freiburg im Breisgau,http://dcat-ap.de/def/contributors/stadtFreiburgImBreisgau,www.daten-bw.de|stadt-freiburg-im-breisgau,,,municipality,http://opendata.freiburg.de,2017-04-01,083110000000,,Q2833,badenIT GmbH,Website,https://fritz.freiburg.de/duva2ckan/files/,,,2023-08-10
 Friedrich-Loeffler-Institut,Friedrich-Loeffler-Institut,http://dcat-ap.de/def/contributors/friedrichLoefflerInstitut,,,,federalAgency,,,,,Q1457808,,,,,,
 Föderale IT-Kooperation,FITKO (Föderale IT-Kooperation),http://dcat-ap.de/def/contributors/fitko,,,,federalCooperation,,,,,Q104760828,,,,,,2023-05-21
 Fürstenau,Samtgemeinde Fürstenau,geoportal.de|SamtgemeindeFrstenau,,,,collectiveMunicipality,,,034595403,,Q314976,,,,,,2023-07-28
@@ -135,6 +136,7 @@ Geldern,Stadt Geldern,www.offenesdatenportal.de|stadt-geldern,geoportal.de|Stadt
 Gelsenkirchen,Stadt Gelsenkirchen,open.nrw|gelsenkirchen,opendata.ruhr|gelsenkirchen,geoportal.de|StadtGelsenkirchen,mcloud.de|GovDataStadtGelsenkirchen,municipality,https://opendata.gelsenkirchen.de/,2017-05-23,055130000000,,Q2765,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,,,2023-05-23
 Generaldirektion Kulturelles Erbe Rheinland-Pfalz,Generaldirektion Kulturelles Erbe,daten.rlp.de|generaldirektion_kulturelles_erbe,,,,stateAgency,,,,07,Q1501748,,,,,,2023-07-18
 Generalzolldirektion,Generalzolldirektion,http://dcat-ap.de/def/contributors/generalzolldirektion,,,,federalAgency,,,,,Q18287062,,,,,,
+Geoportal Baden-Württemberg,Geoportal Baden-Württemberg,www.daten-bw.de|geoportal-baden-wurttemberg,,,,stateAgency,https://www.geoportal-bw.de/,,,08,,,,,,,2023-08-10
 Geoportal Bayern,Geoportal Bayern,opendata.bayern|geoportalbayern,,,,stateAgency,,,,09,,,,,,,2023-07-24
 Geoportal Ruhr,Geoportal Ruhr,opendata.ruhr|geoportal-ruhr,,,,regionalNetwork,,,,,,,,,,,2023-05-14
 GEOportal.NRW,Geoportal,open.nrw|geoportal,,,,stateAgency,,,,05,,,,,,,2023-05-14
@@ -166,6 +168,8 @@ Haren (Ems),Stadt Haren (Ems),geoportal.de|StadtHarenEms,,,,municipality,,,03454
 Harsewinkel,Stadt Harsewinkel,geoportal.de|StadtHarsewinkel,,,,municipality,https://www.o-sp.de/harsewinkel/opendata.php,,057540016016,,Q225729,,,,,,2023-05-23
 Hattingen,Stadt Hattingen,opendata.ruhr|hattingen,geoportal.de|StadtHattingen,,,municipality,https://www.o-sp.de/hattingen/opendata.php,,059540016016,,Q4082,,,,,,2023-05-23
 Heerlen,Heerlen,offenedaten.aachen.de|gemeinde-heerlen,,,,municipality,https://www.heerlen.nl,,,,Q9799,,,,,,2023-02-05
+Heidelberg,Stadt Heidelberg,www.daten-bw.de|stadt-heidelberg,,,,municipality,,,082210000000,,Q2966,,,,,,2023-08-10
+Heilbronn,Heilbronn,www.daten-bw.de|stadt-heilbronn,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,Q715,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,https://opendata.heilbronn.de/api/3/action/group_list,https://opendata.heilbronn.de/catalog.xml,2023-08-10
 Heiligenhaus,Stadt Heiligenhaus,geoportal.de|StadtHeiligenhaus,,,,municipality,https://www.o-sp.de/heiligenhaus/opendata,,051580012012,,Q161673,,,,,,2023-05-23
 Heimbach,Heimbach (Eifel),offenedaten.kdvz-frechen.de|heimbach,geoportal.de|StadtHeimbach,,,municipality,http://offenedaten.kdvz-frechen.de/group/heimbach,2016-11-08,053580012012,,Q200138,Stadt Köln,DKAN,,,,2023-05-23
 Herford,Kreis Herford,geoportal.de|KreisHerford,,,,district,,,05758,,Q6234,,,,,,2023-07-28
@@ -201,6 +205,7 @@ Kleve,Kreis Kleve,www.offenesdatenportal.de|kreis-kleve,geoportal.de|KreisKleve,
 Kleve,Stadt Kleve,www.offenesdatenportal.de|stadt-kleve,,,,municipality,https://www.offenesdatenportal.de/organization/stadt-kleve,,051540036036,,Q6842,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=stadt-kleve,,,2023-05-23
 Kollweiler,Ortsgemeinde Kollweiler,daten.rlp.de|ortsgemeinde_kollweiler,,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_kollweiler,,073355009019,,Q652106,,,,,,2023-05-23
 Kommen,Ortsgemeinde Kommen,daten.rlp.de|ortsgemeinde_kommen,,,,municipality,,,072315001071,,Q565849,,,,,,2023-07-19
+Konstanz,Stadt Konstanz,www.daten-bw.de|stadt-konstanz,,,,municipality,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,Q3834,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,https://offenedaten-konstanz.de/api/3/action/group_list,https://offenedaten-konstanz.de/catalog.xml,2023-08-10
 Krefeld,Stadt Krefeld,www.offenesdatenportal.de|krefeld,mcloud.de|StadtKrefeld,,,municipality,https://www.offenesdatenportal.de/organization/krefeld,2016-01-13,051140000000,,Q2805,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=krefeld,,,2023-05-23
 Kreisarchiv Stormarn,Kreisarchiv Stormarn,opendata.schleswig-holstein.de|kreisarchiv-stormarn,,,,districtAgency,,,,01062,Q28735056,,,,,,2023-05-09
 Kreuzau,Kreuzau,offenedaten.kdvz-frechen.de|kreuzau,,,,municipality,http://offenedaten.kdvz-frechen.de/group/kreuzau,2016-11-08,053580028028,,Q199988,Stadt Köln,DKAN,,,,2023-05-23
@@ -268,6 +273,7 @@ Ministerium für Soziales， Arbeit， Gesundheit und Demografie Rheinland Pfalz
 Ministerium für Soziales， Gesundheit， Jugend， Familie und Senioren des Landes Schleswig-Holstein,Ministerium für Soziales， Gesundheit， Jugend， Familie und Senioren,opendata.schleswig-holstein.de|msgjfs,,,,stateAgency,,,,01,Q1937029,,,,,,2023-07-17
 Mittelsachsen,Landratsamt Mittelsachsen,geoportal.de|LandratsamtMittelsachsen,,,,district,,,14522,,Q6328,,,,,,2023-07-28
 Mittenwalde,Stadt Mittenwalde,mcloud.de|GovDataStadtMittenwalde,,,,municipality,http://stadt-mittenwalde.opendata.arcgis.com/,,120610332332,,Q574811,,ArcGIS,,,,2023-05-30
+MobiData BW,MobiData BW,www.daten-bw.de|mobidata-bw,,,,other,https://www.mobidata-bw.de/,,,08,Q1963808,,CKAN,https://www.mobidata-bw.de/api/3,https://www.mobidata-bw.de/api/3/action/organization_list,,2023-08-10
 Moers,Moers,www.offenesdatenportal.de|moers,opendata.ruhr|moers,,,municipality,http://offenedaten.moers.de/,2015-08,051700024024,,Q3132,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=moers,,,2023-02-05
 Monzelfeld,Ortsgemeinde Monzelfeld,daten.rlp.de|ortsgemeinde_monzelfeld,,,,municipality,,,072315001087,,Q654069,,,,,,2023-07-19
 Märkischer Kreis,Märkischer Kreis,geoportal.de|MrkischerKreis,,,,district,,,05962,,Q5937,,,,,,2023-07-15
@@ -416,13 +422,11 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Emsdetten,,,,,municipality,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,055660008008,,,,,,,,2021-03-03
 ,Euskirchen,,,,,municipality,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03
 ,Gronau,,,,,municipality,via Musterdatenkatalog Deutschland,,,,,,,,,,
-,Heilbronn,,,,,municipality,https://opendata.heilbronn.de,2020-12-20,081210000000,,Q715,Stadt Köln,DKAN,https://opendata.heilbronn.de/api/3/action/package_list,https://opendata.heilbronn.de/api/3/action/group_list,https://opendata.heilbronn.de/catalog.xml,2023-08-09
 ,Ingolstadt,,,,,municipality,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,091610000000,,,,,,,,2021-03-04
 ,Jena,,,,,municipality,https://opendata.jena.de/,2016-12-20,160530000000,,,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,https://opendata.jena.de/api/3/action/organization_list,,2019-08-10
 ,Kaarst,,,,,municipality,https://www.o-sp.de/kaarst/opendata,,051620016016,,,,,,,,2021-03-03
 ,Kamen,,,,,municipality,https://www.o-sp.de/kamen/opendata,,059780020020,,,,,,,,2021-03-03
 ,Karlsruhe,,,,,municipality,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,Q1040,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2023-08-09
-,Konstanz,,,,,municipality,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,Q3834,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,,https://offenedaten-konstanz.de/catalog.xml,2023-08-09
 ,Lemgo,,,,,municipality,https://www.o-sp.de/lemgo/opendata,,057660044044,,,,,,,,2021-03-03
 ,Magdeburg,,,,,municipality,https://www.magdeburg.de/Start/B%C3%BCrger-Stadt/Verwaltung-Service/Offene-Verwaltungsdaten,,150030000000,,,,Website,,,,2019-08-11
 ,Mannheim,,,,,municipality,https://opendata.mannheim.de/,2015-11-24,082220000000,,Q2119,OpenDataSoft,OpenDataSoft,https://mannheim.opendatasoft.com/api/v2/catalog/datasets,,,2023-08-09
@@ -438,7 +442,4 @@ Zwickau,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,district,,,14524,
 ,Rhein-Kreis Neuss,,,,,district,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
 ,Baustelleninformationssystem des Bundes und der Länder,,,,,other,https://www.bast.de/BASt_2017/DE/Fahrzeugtechnik/Fachthemen/Baustelleninformation/baustelleninformation.html,,,,,Materna Information & Communications SE,Website,,,,2019-07-29
 ,Deutsche Bahn,,,,,other,http://data.deutschebahn.com/,,,,,,CKAN,https://data.deutschebahn.com/api/3/action/package_list,,,2019-03-09
-,Geobasisdaten und Geodatendienste der Vermessungsverwaltung Baden-Württemberg,,,,,other,https://www.lgl-bw.de/lgl-internet/opencms/de/07_Produkte_und_Dienstleistungen/Open_Data_Initiative/,,,,,,Website,,,,2019-07-29
-,Nahverkehrsgesellschaft Baden-Württemberg mbH,,,,,other,https://www.nvbw.de/aufgaben/digitale-mobilitaet/open-data/,,,,,,TYPO3,,,,2019-07-29
 ,OffeneDaten.de,,,,,other,https://offenedaten.de/,,,,,Open Knowledge Foundation Deutschland,CKAN,https://offenedaten.de/api/3/action/package_list,,,2019-07-29
-Baden-Württemberg,Open Data Baden-Württemberg,http://dcat-ap.de/def/contributors/datenBW,,,,state,https://www.daten-bw.de/,2014-10-08,08,,Q985,,,,https://www.daten-bw.de/ckan/api/3/action/organization_list,,2023-08-09

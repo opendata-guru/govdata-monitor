@@ -177,7 +177,11 @@ var data = (function () {
         if (table.layers.length > 0) {
             var show = false;
             table.layers.forEach(layer => {
-                show |= (-1 !== type.split('+').indexOf(layer));
+                if (layer === table.layerNameOfUndefined) {
+                    show |= type === '';
+                } else {
+                    show |= (-1 !== type.split('+').indexOf(layer));
+                }
             });
             if (!show) {
                 return;
@@ -279,6 +283,8 @@ var data = (function () {
         setLoadingDate(current); 
 
         dispatchEventStartLoading(dateToLoad);
+        monitorUpdateCatalogHistoryChart();
+
         load();
     }
 

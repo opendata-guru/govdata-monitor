@@ -14,7 +14,8 @@ var table = (function () {
         idFlatten = 'checkbox-flatten',
         idClipboard = 'checkbox-clipboard',
         layerClass = 'layer',
-        layerAll = 'all';
+        layerAll = 'all',
+        layerUndefined = 'void';
     var paramFlatten = 'flatten',
         paramClipboard = 'clipboard',
         paramLayers = 'layers';
@@ -35,6 +36,7 @@ var table = (function () {
         html += '  </div>';
         html += '  <div style="padding-left:1.4rem">';
         html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>All</span>';
+        html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>Undefined</span>';
         Object.keys(data.layers).forEach(key => {
             var isLeft = -1 !== ['federal','state','district','municipality'].indexOf(key);
             var isRight = -1 !== ['federalAgency','stateAgency','districtAgency','municipalityAgency'].indexOf(key);
@@ -491,6 +493,7 @@ var table = (function () {
         copyToClipboard: funcCopyToClipboard,
         flatten: initvalFlatten,
         layers: initvalLayers,
+        layerNameOfUndefined: layerUndefined,
         update: funcUpdate,
     };
 }());

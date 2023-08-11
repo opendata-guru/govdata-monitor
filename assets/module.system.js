@@ -234,7 +234,7 @@ var system = (function () {
                 // Aachen:
                 //   custom_theme, pages, showcase
 
-                if (-1 !== extension.indexOf('_view')) {
+                if ((-1 !== extension.indexOf('_view')) && (extension.indexOf('_view') === (extension.length - 5))) {
                     strViews += '<span title="' + extension + '">🎨</span>';
                 } else if (-1 !== ['spatial_metadata','spatial_query','spatial_harvest_metadata_api'].indexOf(extension)) {
                     strMaps += '<span title="' + extension + '">🗺️</span>';

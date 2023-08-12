@@ -58,12 +58,15 @@ Brühl,Brühl (Rheinland),offenedaten.kdvz-frechen.de|brühl,,,,municipality,htt
 Bundesamt für Bauwesen und Raumordnung,Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesamtFuerBauwesenUndRaumordnung,,,,federalAgency,,,,,Q1005429,,,,,,
 Bundesamt für Justiz,Bundesamt für Justiz,http://dcat-ap.de/def/contributors/bundesamtFuerJustiz,,,,federalAgency,,,,,Q1005444,,,,,,
 Bundesamt für Kartographie und Geodäsie,Bundesamt für Kartographie und Geodäsie,geoportal.de|BundesamtfrKartographieundGeodsieBKG,opendata.schleswig-holstein.de|bkg,,,federalAgency,http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=0&gdz_user_id=0,,,,Q1005454,Bundesamt für Kartographie und Geodäsie,Website,,,,2023-07-15
+Bundesamt für Naturschutz,Bundesamt für Naturschutz (BfN),geoportal.de|BundesamtfrNaturschutzBfN,,,,federalAgency,,,,,Q1005480,,,,,,2023-08-12
 Bundesamt für Seeschifffahrt und Hydrographie,Bundesamt für Seeschifffahrt und Hydrographie,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSHBundesamtfrSeeschifffahrtundHydrographieBSHTheFederalMaritimeandHydrographicAgencyBSH,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSH,,,federalAgency,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,Q1005487,,,,,,2023-06-21
 Bundesamt für Soziale Sicherung,Bundesversicherungsamt,http://dcat-ap.de/def/contributors/bundesversicherungsamt,,,,federalAgency,,,,,Q1009200,,,,,,
 Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,http://dcat-ap.de/def/contributors/bundesamtFuerVerbraucherschutzUndLebensmittelsicherheit,,,,federalAgency,,,,,Q18124763,,,,,,
 Bundesamt für Wirtschaft und Ausfuhrkontrolle,Bundesamt für Wirtschaft und Ausfuhrkontrolle,http://dcat-ap.de/def/contributors/bundesamtFuerWirtschaftUndAusfuhrkontrolle,,,,federalAgency,,,,,Q1005513,,,,,,
 Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,http://dcat-ap.de/def/contributors/bundesanstaltFuerArbeitsschutzUndArbeitsmedizin,,,,federalAgency,,,,,Q1005523,,,,,,
 Bundesanstalt für Geowissenschaften und Rohstoffe,Bundesanstalt für Geowissenschaften und Rohstoffe (BGR),geoportal.de|BundesanstaltfrGeowissenschaftenundRohstoffeBGR,,,,federalAgency,,,,,Q1005526,,,,,,2023-06-21
+Bundesanstalt für Gewässerkunde,Bundesanstalt für Gewässerkunde,mcloud.de|BundesanstaltfrGewsserkunde,geoportal.de|BundesanstaltfrGewsserkundeBfG,,,federalAgency,,,,,Q1005530,,,,,,2023-08-12
+Bundesanstalt für Landwirtschaft und Ernährung,Bundesanstalt für Landwirtschaft und Ernährung (BLE),geoportal.de|BundesanstaltfrLandwirtschaftundErnhrungBLE,,,,federalAgency,,,,,Q1005534,,,,,,2023-08-12
 Bundesanstalt für Materialforschung und -prüfung,Bundesanstalt für Materialforschung und -prüfung (BAM),http://dcat-ap.de/def/contributors/bundesanstaltFuerMaterialforschungUndPruefung,,,,federalAgency,,,,,Q1005540,,,,,,
 Bundesanstalt für Straßenwesen,Bundesanstalt für Straßenwesen (BASt),opendata.schleswig-holstein.de|bast,mcloud.de|OpenDataSchleswigHolsteinBundesanstaltfrStraenwesenBASt,mcloud.de|BundesanstaltfrStraenwesenBASt,,federalAgency,,,,,Q1005541,,,,,,2023-06-21
 Bundesanstalt für Wasserbau,Bundesanstalt für Wasserbau (BAW),geoportal.de|BundesanstaltfrWasserbauBAW,mcloud.de|BundesanstaltfrWasserbau,,,federalAgency,,,,,Q1005545,,,,,,2023-06-21
@@ -118,6 +121,7 @@ Düsseldorf,Düsseldorf,open.nrw|duesseldorf,,,,municipality,https://opendata.du
 Edewecht,Gemeinde Edewecht,geoportal.de|GemeindeEdewecht,,,,municipality,,,034510004004,,Q503410,,,,,,2023-08-11
 Eich,Verbandsgemeinde Eich,daten.rlp.de|verbandsgemeinde_eich,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_eich,,073315002,,Q251357,,,,,,2023-05-21
 Eichsfeld,Landratsamt Eichsfeld,geoportal.de|LandratsamtEichsfeld,,,,district,,,16061,,Q7861,,,,,,2023-07-26
+Eisenbahn-Bundesamt,Eisenbahn-Bundesamt,mcloud.de|EisenbahnBundesamt,geoportal.de|EisenbahnBundesamtEBA,,,federalAgency,,,,,Q261760,,,,,,2023-08-12
 Elmshorn,Stadt Elmshorn,opendata.schleswig-holstein.de|elmshorn,geoportal.de|StadtElmshorn,mcloud.de|OpenDataSchleswigHolsteinStadtElmshorn,,municipality,,,010560015015,,Q6845,,,,,,2023-08-11
 Elsdorf,Elsdorf (Rheinland),offenedaten.kdvz-frechen.de|elsdorf,geoportal.de|StadtElsdorf,,,municipality,http://offenedaten.kdvz-frechen.de/group/elsdorf,2016-11-08,053620016016,,Q4615,Stadt Köln,DKAN,,,,2023-08-11
 Emmelshausen,Verbandsgemeide Emmelshausen,daten.rlp.de|verbandsgemeinde_emmelshausen,,,,collectiveMunicipality,https://daten.rlp.de/organization/verbandsgemeinde_emmelshausen,,071405009036,,Q539565,,,,,,2023-05-23
@@ -222,6 +226,7 @@ Kleve,Stadt Kleve,www.offenesdatenportal.de|stadt-kleve,,,,municipality,https://
 Kollweiler,Ortsgemeinde Kollweiler,daten.rlp.de|ortsgemeinde_kollweiler,,,,municipality,https://daten.rlp.de/organization/ortsgemeinde_kollweiler,,073355009019,,Q652106,,,,,,2023-05-23
 Kommen,Ortsgemeinde Kommen,daten.rlp.de|ortsgemeinde_kommen,,,,municipality,,,072315001071,,Q565849,,,,,,2023-07-19
 Konstanz,Stadt Konstanz,www.daten-bw.de|stadt-konstanz,,,,municipality,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,Q3834,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,https://offenedaten-konstanz.de/api/3/action/group_list,https://offenedaten-konstanz.de/catalog.xml,2023-08-10
+Kraftfahrt-Bundesamt,Kraftfahrt-Bundesamt (KBA),mcloud.de|KraftfahrtBundesamtKBA,,,,federalAgency,,,,,Q1423161,,,,,,2023-08-12
 Krefeld,Stadt Krefeld,www.offenesdatenportal.de|krefeld,mcloud.de|StadtKrefeld,,,municipality,https://www.offenesdatenportal.de/organization/krefeld,2016-01-13,051140000000,,Q2805,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=krefeld,,,2023-05-23
 Kreisarchiv Stormarn,Kreisarchiv Stormarn,opendata.schleswig-holstein.de|kreisarchiv-stormarn,,,,districtAgency,,,,01062,Q28735056,,,,,,2023-05-09
 Kreuzau,Kreuzau,offenedaten.kdvz-frechen.de|kreuzau,,,,municipality,http://offenedaten.kdvz-frechen.de/group/kreuzau,2016-11-08,053580028028,,Q199988,Stadt Köln,DKAN,,,,2023-05-23
@@ -256,6 +261,7 @@ Linnich,Linnich,offenedaten.kdvz-frechen.de|linnich,,,,municipality,http://offen
 Lippstadt,Stadt Lippstadt,geoportal.de|StadtLippstadt,,,,municipality,https://www.o-sp.de/lippstadt/opendata.php,,059740028028,,Q3943,,,,,,2023-05-30
 Longkamp,Ortsgemeinde Longkamp,daten.rlp.de|ortsgemeinde_longkamp,,,,municipality,,,072315001077,,Q367112,,,,,,2023-07-19
 Ludwigslust-Parchim,Landkreis Ludwigslust-Parchim,geoportal.de|LandkreisLudwigslustParchim,,,,district,,,13076,,Q2905,,,,,,2023-07-26
+Luftfahrt-Bundesamt,Luftfahrt-Bundesamt (LBA),mcloud.de|LuftfahrtBundesamtLBA,,,,federalAgency,,,,,Q1875599,,,,,,2023-08-12
 Lösnich,Ortsgemeinde Lösnich,daten.rlp.de|ortsgemeinde_loesnich,,,,municipality,,,072315001076,,Q510820,,,,,,2023-07-19
 Lübeck,Hansestadt Lübeck,opendata.schleswig-holstein.de|luebeck,mcloud.de|OpenDataSchleswigHolsteinHansestadtLbeck,,,municipality,,,010030000000,,Q2843,,,,,,2023-07-17
 Lüdenscheid,Stadt Lüdenscheid,geoportal.de|StadtLdenscheid,,,,municipality,https://www.o-sp.de/luedenscheid/opendata,,059620032032,,Q3893,,,,,,2023-05-30

@@ -9,7 +9,7 @@ Altenburger Land,district,Landratsamt Altenburger Land,geoportal.de|LandratsamtA
 Altenkirchen-Flammersfeld,collectiveMunicipality,Verbandsgemeinde Altenkirchen,daten.rlp.de|verbandsgemeinde_altenkirchen,,,,,,071325010,,Q56245020,,,,,,2023-05-14
 Am Ettersberg,collectiveMunicipality,Gemeinde Am Ettersberg und der beauftragenden Gemeinden,geoportal.de|GemeindeAmEttersbergundderbeauftragendenGemeinden,,,,,,160715053,,Q59775091,,,,,,2023-08-14
 Ammerland,district,Landkreis Ammerland - Test,geoportal.de|LandkreisAmmerlandTest,,,,,,03451,,Q5947,,,,,,2023-07-26
-Amt Süderbrarup,collectiveMunicipality,Amt Süderbrarup,opendata.schleswig-holstein.de|amt-suederbrarup,,,,https://opendata.schleswig-holstein.de/organization/amt-suederbrarup,,010595974,,Q316729,,,,,,2023-02-05
+Amt Süderbrarup,collectiveMunicipality,Amt Süderbrarup,opendata.schleswig-holstein.de|amt-suederbrarup,mcloud.de|OpenDataSchleswigHolsteinAmtSderbrarup,,,https://opendata.schleswig-holstein.de/organization/amt-suederbrarup,,010595974,,Q316729,,,,,,2023-02-05
 An der Schmücke,municipality,Stadt An der Schmücke,geoportal.de|StadtAnderSchmcke,,,,,,160655056088,,Q59775092,,,,,,2023-08-13
 Andernach,municipality,Stadt Andernach,daten.rlp.de|stadt_andernach,,,,https://daten.rlp.de/organization/stadt_andernach,,071370003003,,Q490058,,,,,,2023-05-21
 Apen,municipality,Gemeinde Apen,geoportal.de|GemeindeApen,,,,,,034510001001,,Q503471,,,,,,2023-07-15
@@ -130,6 +130,8 @@ Deutsche Nationalbibliothek,other,Deutsche Nationalbibliothek,http://dcat-ap.de/
 Deutsche Rentenversicherung Bund,federalCooperation,Deutsche Rentenversicherung Bund,http://dcat-ap.de/def/contributors/deutscheRentenversicherungBund,,,,,,,,Q1203782,,,,,,2023-05-21
 Deutscher Wetterdienst,federalAgency,Deutscher Wetterdienst,mcloud.de|DeutscherWetterdienst,geoportal.de|DeutscherWetterdienstDWD,,,https://opendata.dwd.de/,,,,Q325859,,Website,,,,2023-07-15
 Deutsches Patent- und Markenamt,federalAgency,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,,,,,,,Q314296,,,,,,
+Die Senatorin für Kinder und Bildung,stateAgency,Freie Hansestadt Bremen， Die Senatorin für Kinder und Bildung,geoportal.de|FreieHansestadtBremenDieSenatorinfrKinderundBildung,,,,,,,04,Q61874530,,,,,,2023-08-15
+Die Senatorin für Umwelt， Klima und Wissenschaft,stateAgency,Freie Hansestadt Bremen， Die Senatorin für Umwelt， Klima und Wissenschaft,geoportal.de|FreieHansestadtBremenDieSenatorinfrUmweltKlimaundWissenschaft,,,,,,,04,,,,,,,2023-08-15
 Diepholz,district,Landkreis Diepholz,geoportal.de|LandkreisDiepholz,mcloud.de|GovDataLandkreisDiepholz,,,https://daten.diepholz.de/,,03251,,Q5956,,DKAN,,,,2023-07-15
 Dierdorf,collectiveMunicipality,Verbandsgemeinde Dierdorf,daten.rlp.de|verbandsgemeinde_dierdorf,,,,https://daten.rlp.de/organization/verbandsgemeinde_dierdorf,,071385003,,Q537915,,,,,,2023-05-21
 Dingelstädt,municipality,Stadt Dingelstädt,geoportal.de|StadtDingelstdt,,,,,,160610118118,,Q530075,,,,,,2023-08-13
@@ -274,6 +276,7 @@ Kleve,municipality,Stadt Kleve,www.offenesdatenportal.de|stadt-kleve,,,,https://
 Kollweiler,municipality,Ortsgemeinde Kollweiler,daten.rlp.de|ortsgemeinde_kollweiler,,,,https://daten.rlp.de/organization/ortsgemeinde_kollweiler,,073355009019,,Q652106,,,,,,2023-05-23
 Kommen,municipality,Ortsgemeinde Kommen,daten.rlp.de|ortsgemeinde_kommen,,,,,,072315001071,,Q565849,,,,,,2023-07-19
 Konstanz,municipality,Stadt Konstanz,www.daten-bw.de|stadt-konstanz,,,,https://offenedaten-konstanz.de/,2019-04-09,083355004043,,Q3834,Stadt Köln,DKAN,https://offenedaten-konstanz.de/api/3/action/package_list,https://offenedaten-konstanz.de/api/3/action/group_list,https://offenedaten-konstanz.de/catalog.xml,2023-08-10
+Koordinierungsstelle GDI-FHB,stateAgency,Landesamt GeoInformation Bremen， Koordinierungsstelle GDI-FHB,geoportal.de|LandesamtGeoInformationBremenKoordinierungsstelleGDIFHB,,,,,,,04,,,,,,,2023-08-15
 Kraftfahrt-Bundesamt,federalAgency,Kraftfahrt-Bundesamt (KBA),mcloud.de|KraftfahrtBundesamtKBA,,,,,,,,Q1423161,,,,,,2023-08-12
 Krefeld,municipality,Stadt Krefeld,www.offenesdatenportal.de|krefeld,mcloud.de|StadtKrefeld,,,https://www.offenesdatenportal.de/organization/krefeld,2016-01-13,051140000000,,Q2805,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=krefeld,,,2023-05-23
 Kreisarchiv Stormarn,districtAgency,Kreisarchiv Stormarn,opendata.schleswig-holstein.de|kreisarchiv-stormarn,,,,,,,01062,Q28735056,,,,,,2023-05-09
@@ -285,16 +288,20 @@ Königsfeld,municipality,Ortsgemeinde Königsfeld,daten.rlp.de|ortsgemeinde_koen
 Lambsheim,municipality,Ortsgemeinde Lambsheim,daten.rlp.de|ortsgemeinde_lambsheim,,,,,,073385006016,,Q22961,,,,,,2023-07-18
 Landau in der Pfalz - Stadtbauamt,municipalityAgency,Stadt Landau - Stadtbauamt,daten.rlp.de|stadt_landau,,,,https://daten.rlp.de/organization/stadt_landau,,,073130000000,Q7052,,,,,,2023-07-18
 Landesamt für Denkmalpflege Schleswig-Holstein,stateAgency,Landesamt für Denkmalpflege,opendata.schleswig-holstein.de|landesamt-fur-denkmalpflege,,,,https://opendata.schleswig-holstein.de/organization/landesamt-fur-denkmalpflege,,,01,Q17124210,,,,,,2023-03-04
+Landesamt für Landwirtschaft und nachhaltige Landentwicklung,stateAgency,Landesamt für Landwirtschaft und nachhaltige Landentwicklung,opendata.schleswig-holstein.de|llnl,,,,,,,01,Q118695656,,,,,,2023-08-15
 Landesamt für Landwirtschaft， Umwelt und ländliche Räume,stateAgency,Landesamt für Landwirtschaft， Umwelt und ländliche Räume (LLUR),opendata.schleswig-holstein.de|llur,,,,https://opendata.schleswig-holstein.de/organization/llur,,,01,Q1802059,,,,,,2023-03-04
 Landesamt für soziale Dienste,stateAgency,Landesamt für soziale Dienste,opendata.schleswig-holstein.de|landesamt-fur-soziale-dienste,,,,https://opendata.schleswig-holstein.de/organization/landesamt-fur-soziale-dienste,,,01,Q1802073,,,,,,2023-03-04
 Landesamt für Umwelt,stateAgency,Landesamt für Umwelt,opendata.schleswig-holstein.de|lfu,geoportal.de|LandesamtfrUmweltdesLandesSchleswigHolsteinLfU,mcloud.de|OpenDataSchleswigHolsteinLandesamtfrUmwelt,,,,,01,Q118695658,,,,,,2023-07-17
 Landesamt für Umwelt， Landwirtschaft und Geologie,stateAgency,Sächsisches Landesamt für Umwelt， Landwirtschaft und Geologie,geoportal.de|SchsischesLandesamtfrUmweltLandwirtschaftundGeologie,,,,,,,14,Q1802061,,,,,,2023-07-24
 Landesamt für Vermessung und Geobasisinformation Rheinland-Pfalz,stateAgency,Landesamt für Vermessung und Geobasisinformationen,daten.rlp.de|landesamt_fuer_vermessung_und_geobasisinformationen,,,,,,,07,Q1802069,,,,,,2023-05-14
-Landesamt für Vermessung und Geoinformation Schleswig-Holstein,stateAgency,Landesamt für Vermessung und Geoinformation Schleswig-Holstein,opendata.schleswig-holstein.de|lvermgeo,geoportal.de|LandesamtfrVermessungundGeoinformationSchleswigHolstein,,,,,,01,Q23786349,,,,,,2023-05-16
+Landesamt für Vermessung und Geoinformation Schleswig-Holstein,stateAgency,Landesamt für Vermessung und Geoinformation Schleswig-Holstein,opendata.schleswig-holstein.de|lvermgeo,geoportal.de|LandesamtfrVermessungundGeoinformationSchleswigHolstein,mcloud.de|OpenDataSchleswigHolsteinLandesamtfrVermessungundGeoinformationSchleswigHolstein,,,,,01,Q23786349,,,,,,2023-05-16
+Landesamt für Zuwanderung und Flüchtlinge,stateAgency,Landesamt für Zuwanderung und Flüchtlinge,opendata.schleswig-holstein.de|lazuf,,,,,,,01,Q107632663,,,,,,2023-08-15
 Landesarchiv Schleswig-Holstein,stateAgency,Landesarchiv,opendata.schleswig-holstein.de|landesarchiv,,,,,,,01,Q1710818,,,,,,2023-07-18
 Landesbehörden,stateAgency,Landesbehörden,open.nrw|landesbehoerden,mcloud.de|OpenNRWLandesbehrden,,,,,,05,,,,,,,2023-07-24
+Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein,stateAgency,Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein,geoportal.de|LandesbetriebfrKstenschutzNationalparkundMeeresschutzSchleswigHolstein,,,,,,,01,Q1785301,,,,,,2023-08-15
 Landesbetrieb Geoinformation und Vermessung,stateAgency,HMDKLGV,suche.transparenz.hamburg.de|hmdklgv,geoportal.de|LandesbetriebGeoinformationundVermessungLGVHamburg,,,https://metaver.de/freitextsuche?rstart=0&currentSelectorPage=1&f=type:opendata;provider:hh;,,,02,Q93384739,,,,,,2023-04-11
 Landesbetrieb Mobilität Rheinland-Pfalz,stateAgency,Landesbetrieb Mobilität Rheinland-Pfalz,daten.rlp.de|lbm_zentrale,mcloud.de|GovDataLandesbetriebMobilittRheinlandPfalz,,,,,,07,Q1802132,,,,,,2023-07-18
+Landesbetrieb Straßenbau und Verkehr Schleswig-Holstein,stateAgency,Landesbetrieb Straßenbau und Verkehr Schleswig-Holstein (LBV.SH),opendata.schleswig-holstein.de|lbv,mcloud.de|OpenDataSchleswigHolsteinLandesbetriebStraenbauundVerkehrSchleswigHolsteinLBVSH,,,,,,01,,,,,,,2023-08-15
 Landesbibliothekszentrum Rheinland-Pfalz,stateAgency,Landesbibliothekszentrum Rheinland-Pfalz,daten.rlp.de|lbz,,,,,,,07,Q1802141,,,,,,2023-07-19
 Landeskriminalamt Schleswig-Holstein,stateAgency,Landeskriminalamt Schleswig-Holstein,opendata.schleswig-holstein.de|landeskriminalamt-schleswig-holstein,,,,,,,01,Q1802342,,,,,,2023-07-17
 Landesmeldestelle Schleswig-Holstein,stateAgency,Landesmeldestelle Schleswig-Holstein,opendata.schleswig-holstein.de|landesmeldestelle,,,,https://opendata.schleswig-holstein.de/organization/landesmeldestelle,,,01,,,,,,,2023-03-04
@@ -342,13 +349,19 @@ Merzenich,municipality,Merzenich,offenedaten.kdvz-frechen.de|merzenich,,,,http:/
 Metropolregion Rhein-Neckar,regionalNetwork,Metropolregion Rhein-Neckar,http://dcat-ap.de/def/contributors/metropolregionRheinNeckar,mcloud.de|MetropolregionRheinNeckar,,,https://daten.digitale-mrn.de/,,,,Q559125,,CKAN,https://daten.digitale-mrn.de/api/3/action/package_list,https://daten.digitale-mrn.de/api/3/action/organization_list,,2023-08-11
 Minden-Lübbecke,district,Kreis Minden-Lübbecke,geoportal.de|KreisMindenLbbecke,,,,,,05770,,Q6239,,,,,,2023-07-15
 Minheim,municipality,Ortsgemeinde Minheim,daten.rlp.de|ortsgemeinde_minheim,,,,,,072315001086,,Q524796,,,,,,2023-07-19
+Ministerium für Allgemeine und Berufliche Bildung， Wissenschaft， Forschung und Kultur,stateAgency,Ministerium für Allgemeine und Berufliche Bildung， Wissenschaft， Forschung und Kultur,opendata.schleswig-holstein.de|mbwfk,,,,,,,01,,,,,,,2023-08-15
 Ministerium für Bildung， Wissenschaft und Kultur des Landes Schleswig-Holstein,stateAgency,Ministerium für Bildung， Wissenschaft und Kultur,opendata.schleswig-holstein.de|mbwk,,,,,,,01,Q31841253,,,,,,2023-07-17
+Ministerium für Energiewende， Klimaschutz， Umwelt und Natur,stateAgency,Ministerium für Energiewende， Klimaschutz， Umwelt und Natur,opendata.schleswig-holstein.de|mekun,geoportal.de|MinisteriumfrEnergiewendeKlimaschutzUmweltundNaturMEKUN,geoportal.de|MinisteriumfrEnergiewendeKlimaschutzUmweltundNaturdesLandesSchleswigHolsteinMEKUN,,,,,01,,,,,,,2023-08-15
 Ministerium für Energiewende， Landwirtschaft， Umwelt， Natur und Digitalisierung des Landes Schleswig-Holstein,stateAgency,Ministerium für Energiewende， Landwirtschaft， Umwelt， Natur und Digitalisierung,opendata.schleswig-holstein.de|melund,,,,,,,01,Q31840727,,,,,,2023-07-17
+Ministerium für Inneres， Kommunales， Wohnen und Sport,stateAgency,Ministerium für Inneres， Kommunales， Wohnen und Sport,geoportal.de|MinisteriumfrInneresKommunalesWohnenundSport,opendata.schleswig-holstein.de|mikws,mcloud.de|OpenDataSchleswigHolsteinMinisteriumfrInneresKommunalesWohnenundSport,,,,,01,,,,,,,2023-08-15
 Ministerium für Inneres， ländliche Räume， Integration und Gleichstellung des Landes Schleswig-Holstein,stateAgency,Ministerium für Inneres， ländliche Räume， Integration und Gleichstellung,opendata.schleswig-holstein.de|milig,mcloud.de|OpenDataSchleswigHolsteinMinisteriumfrInnereslndlicheRumeIntegrationundGleichstellung,,,,,,01,Q94734782,,,,,,2023-07-18
 Ministerium für Justiz und Gesundheit des Landes Schleswig-Holstein,stateAgency,Ministerium für Justiz und Gesundheit,opendata.schleswig-holstein.de|mjg,,,,,,,01,Q23824541,,,,,,2023-07-18
 Ministerium für Klimaschutz， Umwelt， Energie und Mobilität Rheinland-Pfalz,stateAgency,Ministerium für Klimaschutz， Umwelt， Energie und Mobilität,daten.rlp.de|mkuem,,,,,,,07,Q1330854,,,,,,2023-07-18
+Ministerium für Landwirtschaft， ländliche Räume， Europa und Verbraucherschutz,stateAgency,Ministerium für Landwirtschaft， ländliche Räume， Europa und Verbraucherschutz,opendata.schleswig-holstein.de|mllev,,,,,,,01,Q112824021,,,,,,2023-08-15
+Ministerium für Soziales， Jugend， Familie， Senioren， Integration und Gleichstellung,stateAgency,Ministerium für Soziales， Jugend， Familie， Senioren， Integration und Gleichstellung,opendata.schleswig-holstein.de|msjfsig,,,,,,,01,,,,,,,2023-08-15
 Ministerium für Soziales， Arbeit， Gesundheit und Demografie Rheinland Pfalz,stateAgency,Ministerium für Soziales， Arbeit， Gesundheit und Demografie,daten.rlp.de|msagd,,,,,,,07,Q1717202,,,,,,2023-07-18
 Ministerium für Soziales， Gesundheit， Jugend， Familie und Senioren des Landes Schleswig-Holstein,stateAgency,Ministerium für Soziales， Gesundheit， Jugend， Familie und Senioren,opendata.schleswig-holstein.de|msgjfs,,,,,,,01,Q1937029,,,,,,2023-07-17
+Ministerium für Wirtschaft， Verkehr， Arbeit， Technologie und Tourismus,stateAgency,Ministerium für Wirtschaft， Verkehr， Arbeit， Technologie und Tourismus,opendata.schleswig-holstein.de|mwvatt,mcloud.de|OpenDataSchleswigHolsteinMinisteriumfrWirtschaftVerkehrArbeitTechnologieundTourismus,,,,,,01,Q31841252,,,,,,2023-08-15
 Mittelsachsen,district,Landratsamt Mittelsachsen,geoportal.de|LandratsamtMittelsachsen,,,,,,14522,,Q6328,,,,,,2023-07-28
 Mittenwalde,municipality,Stadt Mittenwalde,mcloud.de|GovDataStadtMittenwalde,,,,http://stadt-mittenwalde.opendata.arcgis.com/,,120610332332,,Q574811,,ArcGIS,,,,2023-05-30
 MobiData BW,other,MobiData BW,www.daten-bw.de|mobidata-bw,,,,https://www.mobidata-bw.de/,,,08,Q1963808,,CKAN,https://www.mobidata-bw.de/api/3,https://www.mobidata-bw.de/api/3/action/organization_list,,2023-08-10
@@ -362,6 +375,7 @@ Mülheim an der Mosel,municipality,Ortsgemeinde Mülheim an der Mosel,daten.rlp.
 Mülheim an der Ruhr,municipality,Stadt Mülheim an der Ruhr,opendata.ruhr|mulheim-a-d-ruhr,,,,http://open.muelheim-ruhr.de,2014-12-19,051170000000,,Q2899,Stadt Mülheim an der Ruhr,DKAN,https://geo.muelheim-ruhr.de/api/3/action/package_list,,,2023-05-30
 München,municipality,Landeshauptstadt München,http://dcat-ap.de/def/contributors/landeshauptstadtMuenchen,,,,http://www.opengov-muenchen.de,2014-12-19,091620000000,,Q1726,,CKAN,https://www.opengov-muenchen.de/api/3/action/package_list,,,2019-07-31
 Münster,municipality,Münster (Westfalen),open.nrw|muenster,mcloud.de|OpenNRWMnster,,,https://opendata.stadt-muenster.de/,2019-09,055150000000,,Q2742,citeq,Drupal,https://opendata.stadt-muenster.de/api/3/action/package_list,https://opendata.stadt-muenster.de/api/3/action/group_list,https://opendata.stadt-muenster.de/catalog.xml,2023-05-30
+Nationalparkverwaltung im Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein,stateAgency,Nationalparkverwaltung im Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein (LKN-NPV),geoportal.de|NationalparkverwaltungimLandesbetriebfrKstenschutzNationalparkundMeeresschutzSchleswigHolsteinLKNNPV,,,,,,,01,,,,,,,2023-08-15
 Nessetal,collectiveMunicipality,Gemeinde Nessetal und den zu erfüllenden Gemeinden,geoportal.de|GemeindeNessetalunddenzuerfllendenGemeinden,,,,,,160675053,,Q59775089,,,,,,2023-08-14
 Neuenkirchen,collectiveMunicipality,Samtgemeinde Neuenkirchen,geoportal.de|SamtgemeindeNeuenkirchen,,,,,,034595404,,Q314658,,,,,,2023-07-28
 Neuhaus am Rennweg,collectiveMunicipality,Stadt Neuhaus am Rennweg und der beauftragenden Gemeinden,geoportal.de|StadtNeuhausamRennwegundderbeauftragendenGemeinden,,,,,,160725051,,Q371158,,,,,,2023-08-14
@@ -451,6 +465,7 @@ Schleiz,municipality,Stadt Schleiz,geoportal.de|StadtSchleiz,,,,,,160750098098,,
 Schleswig-Flensburg,district,Kreis Schleswig-Flensburg,opendata.schleswig-holstein.de|kreis-schleswig-flensburg,geoportal.de|KreisSchleswigFlensburg,,,,,01059,,Q2941,,,,,,2023-07-28
 Schleswig-Holstein,state,Schleswig-Holstein,http://dcat-ap.de/def/contributors/schleswigHolstein,,,,https://opendata.schleswig-holstein.de/,,01,,Q1194,Dataport,CKAN,https://opendata.schleswig-holstein.de/api/3/action/package_list,https://opendata.schleswig-holstein.de/api/3/action/organization_list,https://opendata.schleswig-holstein.de/catalog.xml,2023-02-05
 Schleswig-Holstein Netz,other,Schleswig-Holstein Netz AG,opendata.schleswig-holstein.de|sh-netz,,,,,,,,Q2239261,,,,,,2023-07-17
+Schleswig-Holsteinische Landesbibliothek,stateAgency,Schleswig-Holsteinische Landesbibliothek,opendata.schleswig-holstein.de|shlb,mcloud.de|OpenDataSchleswigHolsteinSchleswigHolsteinischeLandesbibliothek,,,,,,01,Q2239285,,,,,,2023-08-15
 Schleusegrund,municipality,Gemeinde Schleusegrund,geoportal.de|GemeindeSchleusegrund,,,,,,160690042042,,Q559816,,,,,,2023-08-11
 Schleusingen,municipality,Stadt Schleusingen,geoportal.de|StadtSchleusingen,,,,,,160690043043,,Q504914,,,,,,2023-08-13
 Schmalkalden,municipality,Stadt Schmalkalden,geoportal.de|StadtSchmalkalden,,,,,,160660063063,,Q489147,,,,,,2023-08-13
@@ -480,6 +495,7 @@ Stadtwerke Osnabrück,municipalityAgency,SWO Netz GmbH,http://dcat-ap.de/def/con
 Statistisches Amt für Hamburg und Schleswig-Holstein,stateAgency,Statistikamt Nord,opendata.schleswig-holstein.de|statistikamt-nord,mcloud.de|OpenDataSchleswigHolsteinStatistischesAmtfrHamburgundSchleswigHolsteinARStatistikamtNord,geoportal.de|StatistischesAmtfrHamburgundSchleswigHolstein,,https://www.statistik-nord.de/,,,01,Q15130249,,,,,,2023-08-11
 Statistisches Bundesamt,federalAgency,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,mcloud.de|GovDataStatistischesBundesamt,geoportal.de|StatistischesBundesamtDestatis,opendata.schleswig-holstein.de|statistische-amter-des-bundes-und-der-lander,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,Q764739,,Website,,,,2023-06-21
 Statistisches Landesamt,stateAgency,Landesdatenbank NRW,open.nrw|landesdatenbank_nrw,,,,,,,05,,,,,,,2023-05-14
+Statistisches Landesamt Bremen,stateAgency,Statistisches Landesamt Bremen,geoportal.de|StatistischesLandesamtBremen,,,,,,,04,Q15130251,,,,,,2023-08-15
 Statistisches Landesamt Rheinland-Pfalz,stateAgency,Statistisches Landesamt Rheinland-Pfalz,daten.rlp.de|stala___rlp,,,,,,,07,Q2333954,,,,,,2023-05-14
 Steinbach-Hallenberg,municipality,Stadt Steinbach-Hallenberg,geoportal.de|StadtSteinbachHallenberg,,,,,,160660069069,,Q551984,,,,,,2023-08-13
 Stolberg,municipality,Kupferstadt Stolberg,offenedaten.aachen.de|stadt-stolberg,,,,,,053340032032,,Q4068,,,,,,2023-05-30
@@ -523,7 +539,7 @@ Wallenhorst,municipality,Gemeinde Wallenhorst,geoportal.de|GemeindeWallenhorst,,
 Waltershausen,municipality,Stadt Waltershausen,geoportal.de|StadtWaltershausen,,,,,,160670072072,,Q506743,,,,,,2023-08-13
 Warendorf,district,Kreis Warendorf,geoportal.de|KreisWarendorf,,,,,,05570,,Q2839,,,,,,2023-07-28
 Wartburgkreis,district,Landratsamt Wartburgkreis,geoportal.de|LandratsamtWartburgkreis,,,,,,16063,,Q7866,,,,,,2023-07-26
-Wedel,municipality,Stadt Wedel,opendata.schleswig-holstein.de|wedel,,,,,,010560050050,,Q4356,,,,,,2023-05-09
+Wedel,municipality,Stadt Wedel,opendata.schleswig-holstein.de|wedel,mcloud.de|OpenDataSchleswigHolsteinStadtWedel,,,,,010560050050,,Q4356,,,,,,2023-05-09
 Weida,municipality,Stadt Weida,geoportal.de|StadtWeida,,,,,,160765053079,,Q519751,,,,,,2023-08-13
 Weilerbach,municipality,Ortsgemeinde Weilerbach,daten.rlp.de|ortsgemeinde_weilerbach,,,,https://daten.rlp.de/organization/ortsgemeinde_weilerbach,,073355009049,,Q553992,,,,,,2023-06-19
 Weimar,municipality,Stadt Weimar,geoportal.de|StadtWeimar,,,,,,160550000000,,Q3955,,,,,,2023-08-11

@@ -128,7 +128,7 @@ Dedenbach,municipality,Ortsgemeinde Dedenbach,daten.rlp.de|ortsgemeinde_dedenbac
 Delbrück,municipality,Stadt Delbrück,geoportal.de|StadtDelbrck,,,,,,057740020020,,Q16146,,,,,,2023-08-13
 Deutsche Nationalbibliothek,other,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,,,,,,,Q27302,,,,,,
 Deutsche Rentenversicherung Bund,federalCooperation,Deutsche Rentenversicherung Bund,http://dcat-ap.de/def/contributors/deutscheRentenversicherungBund,,,,,,,,Q1203782,,,,,,2023-05-21
-Deutscher Wetterdienst,federalAgency,Deutscher Wetterdienst,mcloud.de|DeutscherWetterdienst,geoportal.de|DeutscherWetterdienstDWD,,,https://opendata.dwd.de/,,,,Q325859,,Website,,,,2023-07-15
+Deutscher Wetterdienst,federalAgency,Deutscher Wetterdienst,mcloud.de|DeutscherWetterdienst,geoportal.de|DeutscherWetterdienstDWD,geoportal.de|DeutscherWetterdienstDeutscherWetterdienst,,https://opendata.dwd.de/,,,,Q325859,,Website,,,,2023-08-16
 Deutsches Patent- und Markenamt,federalAgency,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,,,,,,,Q314296,,,,,,
 Die Senatorin für Kinder und Bildung,stateAgency,Freie Hansestadt Bremen， Die Senatorin für Kinder und Bildung,geoportal.de|FreieHansestadtBremenDieSenatorinfrKinderundBildung,,,,,,,04,Q61874530,,,,,,2023-08-15
 Die Senatorin für Umwelt， Klima und Wissenschaft,stateAgency,Freie Hansestadt Bremen， Die Senatorin für Umwelt， Klima und Wissenschaft,geoportal.de|FreieHansestadtBremenDieSenatorinfrUmweltKlimaundWissenschaft,,,,,,,04,,,,,,,2023-08-15
@@ -192,6 +192,7 @@ GEOportal.NRW,stateAgency,Geoportal,open.nrw|geoportal,,,,,,,05,,,,,,,2023-05-14
 Georgenthal,collectiveMunicipality,Landgemeinde Georgenthal und der beauftragenden Gemeinden,geoportal.de|LandgemeindeGeorgenthalundderbeauftragendenGemeinden,,,,,,160675054,,Q567994,,,,,,2023-08-14
 Georgsmarienhütte,municipality,Stadt Georgsmarienhütte,geoportal.de|StadtGeorgsmarienhtte,,,,,,034590019019,,Q16078,,,,,,2023-08-13
 Gerolstein,collectiveMunicipality,Verbandsgemeinde Gerolstein,daten.rlp.de|verbandsgemeinde_gerolstein,daten.rlp.de|vg_gerolstein,,,https://daten.rlp.de/organization/verbandsgemeinde_gerolstein,,072335006,,Q52404118,,,,,,2023-07-19
+Gevelsberg,municipality,Gevelsberg,opendata.ruhr|gevelsberg,,,,,,059540012012,,Q11331,,,,,,2023-08-16
 Gladbeck,municipality,Stadt Gladbeck,geoportal.de|StadtGladbeck,,,,,,055620014014,,Q3905,,,,,,2023-08-13
 Glees,municipality,Ortsgemeinde Glees,daten.rlp.de|ortsgemeinde_glees,,,,https://daten.rlp.de/organization/ortsgemeinde_glees,,071315004205,,Q644241,,,,,,2023-05-23
 Glinde,municipality,Stadt Glinde,geoportal.de|StadtGlinde,,,,,,010620018018,,Q569696,,,,,,2023-08-13
@@ -222,6 +223,7 @@ Hamburg,state,Hamburg,http://dcat-ap.de/def/contributors/transparenzportalHambur
 Hamburg,municipality,StadtHamburg,suche.transparenz.hamburg.de|stadthamburg,,,,,,,,,,CKAN,,,,2023-04-11
 Hameln,municipality,Stadt Hameln,geoportal.de|StadtHameln,,,,,,032520006006,,Q4062,,,,,,2023-08-11
 Hamm,collectiveMunicipality,Verbandsgemeinde Hamm,daten.rlp.de|verbandsgemeinde_hamm,,,,https://daten.rlp.de/organization/verbandsgemeinde_hamm,,071325006,,Q561426,,,,,,2023-05-23
+Hamm,municipality,Hamm,opendata.ruhr|hamm,geoportal.de|StadtHamm,,,,,059150000000,,Q2880,,,,,,2023-08-16
 Hanau,municipality,Stadt Hanau,geoportal.de|StadtHanau,,,,,,064350014014,,Q3802,,,,,,2023-08-13
 Haren (Ems),municipality,Stadt Haren (Ems),geoportal.de|StadtHarenEms,,,,,,034540018018,,Q529185,,,,,,2023-07-24
 Harsewinkel,municipality,Stadt Harsewinkel,geoportal.de|StadtHarsewinkel,,,,https://www.o-sp.de/harsewinkel/opendata.php,,057540016016,,Q225729,,,,,,2023-05-23
@@ -238,6 +240,7 @@ Heringen/Helme,municipality,Stadt Heringen/Helme,geoportal.de|StadtHeringenHelme
 Hermeskeil,collectiveMunicipality,Verbandsgemeinde Hermeskeil,daten.rlp.de|verbandsgemeinde_hermeskeil,,,,,,072355001,,Q545759,,,,,,2023-07-18
 Herne,municipality,Stadt Herne,opendata.ruhr|herne,geoportal.de|StadtHerne,,,https://opendata.herne.de/,,059160000000,,Q2904,,GeoNetwork,https://opendata.herne.de/katalogopendata/doc/api/index.html,,,2023-05-23
 Herrenberg,municipality,Stadt Herrenberg,mcloud.de|StadtHerrenberg,,,,,,081155003021,,Q16100,,,,,,2023-08-13
+Herten,municipality,Herten,opendata.ruhr|herten,,,,,,055620020020,,Q3985,,,,,,2023-08-16
 Herzogenrath,municipality,Stadt Herzogenrath,offenedaten.aachen.de|stadt-herzogenrath,,,,,,053340016016,,Q6916,,,,,,2023-08-13
 Herzogtum Lauenburg,district,Kreis Herzogtum Lauenburg,opendata.schleswig-holstein.de|kreis-herzogtum-lauenburg,,,,,,01053,,Q3000,,,,,,2023-05-09
 Hildburghausen,district,Landratsamt Hildburghausen,geoportal.de|LandratsamtHildburghausen,,,,,,16069,,,,,,,,2023-07-26
@@ -250,8 +253,10 @@ Hohenleimbach,municipality,Ortsgemeinde Hohenleimbach,daten.rlp.de|ortsgemeinde_
 Holzwickede,municipality,Gemeinde Holzwickede,opendata.ruhr|holzwickede,geoportal.de|GemeindeHolzwickede,,,https://www.holzwickede.de/seite/307793/open-data.html,,059780016016,,Q10941,,,,,,2023-05-23
 Hürtgenwald,municipality,Hürtgenwald,offenedaten.kdvz-frechen.de|hürtgenwald,,,,http://offenedaten.kdvz-frechen.de/group/h%C3%BCrtgenwald,2016-11-08,053580016016,,Q199974,Stadt Köln,DKAN,,,,2023-05-23
 Hürth,municipality,Stadt Hürth,geoportal.de|StadtHrth,,,,https://www.o-sp.de/huerth/opendata.php,,053620028028,,Q4060,,,,,,2023-05-23
+IG NRW,stateAgency,IG NRW,open.nrw|ig_nrw,,,,,,,05,,,,,,,2023-08-16
 Ilm-Kreis,district,Landratsamt Ilm-Kreis,geoportal.de|LandratsamtIlmKreis,geoportal.de|LandkreisIlmKreis,,,,,16070,,Q7878,,,,,,2023-07-27
 Ilmenau,municipality,Stadt Ilmenau,geoportal.de|StadtIlmenau,,,,,,160700029029,,Q205929,,,,,,2023-08-13
+Information und Technik Nordrhein-Westfalen,stateAgency,Information und Technik Nordrhein-Westfalen,geoportal.de|InformationundTechnikNordrheinWestfalen,,,,,,,05,Q1802131,,,,,,2023-08-16
 Informationstechnikzentrum Bund,federalAgency,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,,,,,,,,Q23786362,,,,,,
 Iserlohn,municipality,Stadt Iserlohn,geoportal.de|StadtIserlohn,,,,,,059620024024,,Q1130,,,,,,2023-05-23
 Jena,municipality,Stadtverwaltung Jena,geoportal.de|StadtverwaltungJena,,,,https://opendata.jena.de/,2016-12-20,160530000000,,Q3150,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,https://opendata.jena.de/api/3/action/organization_list,,2023-08-11
@@ -290,6 +295,7 @@ Landau in der Pfalz - Stadtbauamt,municipalityAgency,Stadt Landau - Stadtbauamt,
 Landesamt für Denkmalpflege Schleswig-Holstein,stateAgency,Landesamt für Denkmalpflege,opendata.schleswig-holstein.de|landesamt-fur-denkmalpflege,,,,https://opendata.schleswig-holstein.de/organization/landesamt-fur-denkmalpflege,,,01,Q17124210,,,,,,2023-03-04
 Landesamt für Landwirtschaft und nachhaltige Landentwicklung,stateAgency,Landesamt für Landwirtschaft und nachhaltige Landentwicklung,opendata.schleswig-holstein.de|llnl,,,,,,,01,Q118695656,,,,,,2023-08-15
 Landesamt für Landwirtschaft， Umwelt und ländliche Räume,stateAgency,Landesamt für Landwirtschaft， Umwelt und ländliche Räume (LLUR),opendata.schleswig-holstein.de|llur,,,,https://opendata.schleswig-holstein.de/organization/llur,,,01,Q1802059,,,,,,2023-03-04
+Landesamt für Natur， Umwelt und Verbraucherschutz Nordrhein-Westfalen,stateAgency,Landesamt für Natur， Umwelt und Verbraucherschutz Nordrhein-Westfalen,geoportal.de|LandesamtfrNaturUmweltundVerbraucherschutzNordrheinWestfalen,,,,,,,05,Q1315485,,,,,,2023-08-16
 Landesamt für soziale Dienste,stateAgency,Landesamt für soziale Dienste,opendata.schleswig-holstein.de|landesamt-fur-soziale-dienste,,,,https://opendata.schleswig-holstein.de/organization/landesamt-fur-soziale-dienste,,,01,Q1802073,,,,,,2023-03-04
 Landesamt für Umwelt,stateAgency,Landesamt für Umwelt,opendata.schleswig-holstein.de|lfu,geoportal.de|LandesamtfrUmweltdesLandesSchleswigHolsteinLfU,mcloud.de|OpenDataSchleswigHolsteinLandesamtfrUmwelt,,,,,01,Q118695658,,,,,,2023-07-17
 Landesamt für Umwelt， Landwirtschaft und Geologie,stateAgency,Sächsisches Landesamt für Umwelt， Landwirtschaft und Geologie,geoportal.de|SchsischesLandesamtfrUmweltLandwirtschaftundGeologie,,,,,,,14,Q1802061,,,,,,2023-07-24
@@ -298,10 +304,12 @@ Landesamt für Vermessung und Geoinformation Schleswig-Holstein,stateAgency,Land
 Landesamt für Zuwanderung und Flüchtlinge,stateAgency,Landesamt für Zuwanderung und Flüchtlinge,opendata.schleswig-holstein.de|lazuf,,,,,,,01,Q107632663,,,,,,2023-08-15
 Landesarchiv Schleswig-Holstein,stateAgency,Landesarchiv,opendata.schleswig-holstein.de|landesarchiv,,,,,,,01,Q1710818,,,,,,2023-07-18
 Landesbehörden,stateAgency,Landesbehörden,open.nrw|landesbehoerden,mcloud.de|OpenNRWLandesbehrden,,,,,,05,,,,,,,2023-07-24
+Landesbehörden NRW,stateAgency,Landesbehörden NRW,opendata.stadt-muenster.de|landesbehörden-nrw,,,,,,,05,,,,,,,2023-08-16
 Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein,stateAgency,Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein,geoportal.de|LandesbetriebfrKstenschutzNationalparkundMeeresschutzSchleswigHolstein,,,,,,,01,Q1785301,,,,,,2023-08-15
 Landesbetrieb Geoinformation und Vermessung,stateAgency,HMDKLGV,suche.transparenz.hamburg.de|hmdklgv,geoportal.de|LandesbetriebGeoinformationundVermessungLGVHamburg,,,https://metaver.de/freitextsuche?rstart=0&currentSelectorPage=1&f=type:opendata;provider:hh;,,,02,Q93384739,,,,,,2023-04-11
 Landesbetrieb Mobilität Rheinland-Pfalz,stateAgency,Landesbetrieb Mobilität Rheinland-Pfalz,daten.rlp.de|lbm_zentrale,mcloud.de|GovDataLandesbetriebMobilittRheinlandPfalz,,,,,,07,Q1802132,,,,,,2023-07-18
 Landesbetrieb Straßenbau und Verkehr Schleswig-Holstein,stateAgency,Landesbetrieb Straßenbau und Verkehr Schleswig-Holstein (LBV.SH),opendata.schleswig-holstein.de|lbv,mcloud.de|OpenDataSchleswigHolsteinLandesbetriebStraenbauundVerkehrSchleswigHolsteinLBVSH,,,,,,01,,,,,,,2023-08-15
+Landesbetrieb Wald und Holz NRW,stateAgency,Landesbetrieb Wald und Holz Nordrhein-Westfalen,geoportal.de|LandesbetriebWaldundHolzNordrheinWestfalen,,,,,,,05,Q1286885,,,,,,2023-08-16
 Landesbibliothekszentrum Rheinland-Pfalz,stateAgency,Landesbibliothekszentrum Rheinland-Pfalz,daten.rlp.de|lbz,,,,,,,07,Q1802141,,,,,,2023-07-19
 Landeskriminalamt Schleswig-Holstein,stateAgency,Landeskriminalamt Schleswig-Holstein,opendata.schleswig-holstein.de|landeskriminalamt-schleswig-holstein,,,,,,,01,Q1802342,,,,,,2023-07-17
 Landesmeldestelle Schleswig-Holstein,stateAgency,Landesmeldestelle Schleswig-Holstein,opendata.schleswig-holstein.de|landesmeldestelle,,,,https://opendata.schleswig-holstein.de/organization/landesmeldestelle,,,01,,,,,,,2023-03-04
@@ -350,17 +358,23 @@ Metropolregion Rhein-Neckar,regionalNetwork,Metropolregion Rhein-Neckar,http://d
 Minden-Lübbecke,district,Kreis Minden-Lübbecke,geoportal.de|KreisMindenLbbecke,,,,,,05770,,Q6239,,,,,,2023-07-15
 Minheim,municipality,Ortsgemeinde Minheim,daten.rlp.de|ortsgemeinde_minheim,,,,,,072315001086,,Q524796,,,,,,2023-07-19
 Ministerium für Allgemeine und Berufliche Bildung， Wissenschaft， Forschung und Kultur,stateAgency,Ministerium für Allgemeine und Berufliche Bildung， Wissenschaft， Forschung und Kultur,opendata.schleswig-holstein.de|mbwfk,,,,,,,01,,,,,,,2023-08-15
+Ministerium für Arbeit， Gesundheit und Soziales des Landes Nordrhein-Westfalen,stateAgency,Ministerium für Arbeit， Gesundheit und Soziales des Landes Nordrhein-Westfalen,geoportal.de|MinisteriumfrArbeitGesundheitundSozialesdesLandesNordrheinWestfalen,,,,,,,05,Q1937023,,,,,,2023-08-16
 Ministerium für Bildung， Wissenschaft und Kultur des Landes Schleswig-Holstein,stateAgency,Ministerium für Bildung， Wissenschaft und Kultur,opendata.schleswig-holstein.de|mbwk,,,,,,,01,Q31841253,,,,,,2023-07-17
 Ministerium für Energiewende， Klimaschutz， Umwelt und Natur,stateAgency,Ministerium für Energiewende， Klimaschutz， Umwelt und Natur,opendata.schleswig-holstein.de|mekun,geoportal.de|MinisteriumfrEnergiewendeKlimaschutzUmweltundNaturMEKUN,geoportal.de|MinisteriumfrEnergiewendeKlimaschutzUmweltundNaturdesLandesSchleswigHolsteinMEKUN,,,,,01,,,,,,,2023-08-15
 Ministerium für Energiewende， Landwirtschaft， Umwelt， Natur und Digitalisierung des Landes Schleswig-Holstein,stateAgency,Ministerium für Energiewende， Landwirtschaft， Umwelt， Natur und Digitalisierung,opendata.schleswig-holstein.de|melund,,,,,,,01,Q31840727,,,,,,2023-07-17
+Ministerium für Heimat， Kommunales， Bau und Digitalisierung des Landes Nordrhein-Westfalen,stateAgency,Ministerium für Heimat， Kommunales， Bau und Digitalisierung des Landes Nordrhein-Westfalen,geoportal.de|MinisteriumfrHeimatKommunalesBauundDigitalisierungdesLandesNordrheinWestfalen,,,,,,,05,Q31841289,,,,,,2023-08-16
+Ministerium für Heimat， Kommunales， Bau und Gleichstellung des Landes Nordrhein-Westfalen,stateAgency,Ministerium für Heimat， Kommunales， Bau und Gleichstellung des Landes Nordrhein-Westfalen,geoportal.de|MinisteriumfrHeimatKommunalesBauundGleichstellungdesLandesNordrheinWestfalen,,,,,,,05,,,,,,,2023-08-16
 Ministerium für Inneres， Kommunales， Wohnen und Sport,stateAgency,Ministerium für Inneres， Kommunales， Wohnen und Sport,geoportal.de|MinisteriumfrInneresKommunalesWohnenundSport,opendata.schleswig-holstein.de|mikws,mcloud.de|OpenDataSchleswigHolsteinMinisteriumfrInneresKommunalesWohnenundSport,,,,,01,,,,,,,2023-08-15
 Ministerium für Inneres， ländliche Räume， Integration und Gleichstellung des Landes Schleswig-Holstein,stateAgency,Ministerium für Inneres， ländliche Räume， Integration und Gleichstellung,opendata.schleswig-holstein.de|milig,mcloud.de|OpenDataSchleswigHolsteinMinisteriumfrInnereslndlicheRumeIntegrationundGleichstellung,,,,,,01,Q94734782,,,,,,2023-07-18
 Ministerium für Justiz und Gesundheit des Landes Schleswig-Holstein,stateAgency,Ministerium für Justiz und Gesundheit,opendata.schleswig-holstein.de|mjg,,,,,,,01,Q23824541,,,,,,2023-07-18
+Ministerium für Kinder， Jugend， Familie， Gleichstellung， Flucht und Integration des Landes Nordrhein-Westfalen,stateAgency,Ministerium für Kinder， Jugend， Familie， Gleichstellung， Flucht und Integration des Landes Nordrhein-Westfalen,geoportal.de|MinisteriumfrKinderJugendFamilieGleichstellungFluchtundIntegrationdesLandesNordrheinWestfalen,,,,,,,05,Q1680188,,,,,,2023-08-16
 Ministerium für Klimaschutz， Umwelt， Energie und Mobilität Rheinland-Pfalz,stateAgency,Ministerium für Klimaschutz， Umwelt， Energie und Mobilität,daten.rlp.de|mkuem,,,,,,,07,Q1330854,,,,,,2023-07-18
 Ministerium für Landwirtschaft， ländliche Räume， Europa und Verbraucherschutz,stateAgency,Ministerium für Landwirtschaft， ländliche Räume， Europa und Verbraucherschutz,opendata.schleswig-holstein.de|mllev,,,,,,,01,Q112824021,,,,,,2023-08-15
-Ministerium für Soziales， Jugend， Familie， Senioren， Integration und Gleichstellung,stateAgency,Ministerium für Soziales， Jugend， Familie， Senioren， Integration und Gleichstellung,opendata.schleswig-holstein.de|msjfsig,,,,,,,01,,,,,,,2023-08-15
 Ministerium für Soziales， Arbeit， Gesundheit und Demografie Rheinland Pfalz,stateAgency,Ministerium für Soziales， Arbeit， Gesundheit und Demografie,daten.rlp.de|msagd,,,,,,,07,Q1717202,,,,,,2023-07-18
 Ministerium für Soziales， Gesundheit， Jugend， Familie und Senioren des Landes Schleswig-Holstein,stateAgency,Ministerium für Soziales， Gesundheit， Jugend， Familie und Senioren,opendata.schleswig-holstein.de|msgjfs,,,,,,,01,Q1937029,,,,,,2023-07-17
+Ministerium für Soziales， Jugend， Familie， Senioren， Integration und Gleichstellung,stateAgency,Ministerium für Soziales， Jugend， Familie， Senioren， Integration und Gleichstellung,opendata.schleswig-holstein.de|msjfsig,,,,,,,01,,,,,,,2023-08-15
+Ministerium für Umwelt， Naturschutz und Verkehr des Landes Nordrhein-Westfalen,stateAgency,Ministerium für Umwelt， Naturschutz und Verkehr des Landes Nordrhein-Westfalen,geoportal.de|MinisteriumfrUmweltNaturschutzundVerkehrdesLandesNordrheinWestfalen,,,,,,,05,Q1937035,,,,,,2023-08-16
+Ministerium für Wirtschaft， Industrie， Klimaschutz und Energie des Landes Nordrhein-Westfalen,stateAgency,Ministerium für Wirtschaft， Industrie， Klimaschutz und Energie des Landes Nordrhein-Westfalen,geoportal.de|MinisteriumfrWirtschaftIndustrieKlimaschutzundEnergiedesLandesNordrheinWestfalen,,,,,,,05,,,,,,,2023-08-16
 Ministerium für Wirtschaft， Verkehr， Arbeit， Technologie und Tourismus,stateAgency,Ministerium für Wirtschaft， Verkehr， Arbeit， Technologie und Tourismus,opendata.schleswig-holstein.de|mwvatt,mcloud.de|OpenDataSchleswigHolsteinMinisteriumfrWirtschaftVerkehrArbeitTechnologieundTourismus,,,,,,01,Q31841252,,,,,,2023-08-15
 Mittelsachsen,district,Landratsamt Mittelsachsen,geoportal.de|LandratsamtMittelsachsen,,,,,,14522,,Q6328,,,,,,2023-07-28
 Mittenwalde,municipality,Stadt Mittenwalde,mcloud.de|GovDataStadtMittenwalde,,,,http://stadt-mittenwalde.opendata.arcgis.com/,,120610332332,,Q574811,,ArcGIS,,,,2023-05-30
@@ -412,6 +426,7 @@ Ostercappeln,municipality,Gemeinde Ostercappeln,geoportal.de|GemeindeOstercappel
 Ostholstein,district,Kreis Ostholstein,opendata.schleswig-holstein.de|kreis-ostholstein,,,,https://opendata.schleswig-holstein.de/organization/kreis-ostholstein,,01055,,Q2975,,,,,,2023-05-09
 Otterbach-Otterberg,collectiveMunicipality,Verbandsgemeinde Otterbach-Otterberg,daten.rlp.de|verbandsgemeinde_otterbach_otterberg,,,,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,073355010,,Q2514006,,,,,,2023-05-30
 Otterberg,municipality,Stadt Otterberg,daten.rlp.de|stadt_otterberg,,,,,,073355010035,,Q632266,,,,,,2023-07-19
+Paderborn,municipality,Paderborn,open.nrw|paderborn,,,,,,057740032032,,Q2971,,,,,,2023-08-16
 Paderborn， Amt für Geoinformation， Kataster und Vermessung,districtAgency,Kreis Paderborn， Amt für Geoinformation， Kataster und Vermessung,mcloud.de|KreisPaderbornAmtfrGeoinformationKatasterundVermessung,,,,,,,05774,,,,,,,2023-07-28
 Papenburg,municipality,Stadt Papenburg,geoportal.de|StadtPapenburg,,,,,,034540041041,,Q14957,,,,,,2023-08-13
 Parchim,municipality,Stadt Parchim,geoportal.de|StadtParchim,,,,,,130760108108,,Q559010,,,,,,2023-08-13
@@ -551,7 +566,7 @@ Werne,municipality,Stadt Werne,opendata.ruhr|werne,geoportal.de|StadtWerne,,,htt
 Wesel,municipality,Stadt Wesel,opendata.ruhr|wesel,www.offenesdatenportal.de|stadt-wesel,mcloud.de|StadtWesel,,http://opendata.wesel.de/,,051700048048,,Q4011,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=stadt-wesel,,,2023-07-13
 Wesel,district,Kreis Wesel,opendata.ruhr|wesel-kreis,www.offenesdatenportal.de|kreis-wesel,mcloud.de|KreisWesel,,https://www.offenesdatenportal.de/organization/kreis-wesel,,05170,,Q6245,,,,,,2023-07-13
 Wesseling,municipality,Wesseling,offenedaten.kdvz-frechen.de|wesseling,,,,http://offenedaten.kdvz-frechen.de/group/wesseling,2016-11-08,053620040040,,Q14956,Stadt Köln,DKAN,,,,2023-07-13
-Wetter (Ruhr),municipality,Stadt Wetter (Ruhr),geoportal.de|StadtWetterRuhr,,,,,,059540032032,,Q11343,,,,,,2023-08-13
+Wetter (Ruhr),municipality,Stadt Wetter (Ruhr),geoportal.de|StadtWetterRuhr,opendata.ruhr|wetter,,,,,059540032032,,Q11343,,,,,,2023-08-16
 Wetteraukreis,district,Wetteraukreis,geoportal.de|Wetteraukreis,,,,,,06440,,Q7910,,,,,,2023-07-28
 Wintrich,municipality,Ortsgemeinde Wintrich,daten.rlp.de|ortsgemeinde_wintrich,,,,,,072315001133,,Q373778,,,,,,2023-07-19
 Wittlich,municipality,Stadtverwaltung Wittlich,daten.rlp.de|stadt_wittlich,,,,https://daten.rlp.de/organization/stadt_wittlich,,072310134134,,Q559514,,,,,,2023-07-13
@@ -563,6 +578,7 @@ Wurzbach,municipality,Stadt Wurzbach,geoportal.de|StadtWurzbach,,,,,,16075013313
 Wörth am Rhein,municipality,Stadt Wörth,daten.rlp.de|stadt_woerth,,,,https://daten.rlp.de/organization/stadt_woerth,,073340501501,,Q522165,,,,,,2023-07-18
 Würselen,municipality,Stadt Würselen,offenedaten.aachen.de|stadt-wuerselen,,,,,,053340036036,,Q14901,,,,,,2023-08-13
 Würzburg,municipality,Stadt Würzburg,opendata.bayern|wuerzburg,,,,,,096630000000,,Q2999,,,,,,2023-08-11
+Xanten,municipality,Xanten,opendata.ruhr|xanten,,,,,,051700052052,,Q162890,,,,,,2023-08-16
 Zella-Mehlis,municipality,Stadt Zella-Mehlis,geoportal.de|StadtZellaMehlis,,,,,,160660092092,,Q187636,,,,,,2023-08-13
 Zeltingen-Rachtig,municipality,Ortsgemeinde Zeltingen-Rachtig,daten.rlp.de|ortsgemeinde_zeltingen_rachtig,,,,,,072315001136,,Q189241,,,,,,2023-07-19
 Zeulenroda-Triebes,collectiveMunicipality,Stadt Zeulenroda-Triebes und der beauftragenden Gemeinden,geoportal.de|StadtZeulenrodaTriebesundderbeauftragendenGemeinden,,,,,,160765054,,Q62268,,,,,,2023-08-14

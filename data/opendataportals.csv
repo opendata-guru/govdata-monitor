@@ -21,6 +21,7 @@ Auengrund,collectiveMunicipality,Gemeinde Auengrund und der beauftragenden Gemei
 Augsburg,municipality,Stadt Augsburg,http://dcat-ap.de/def/contributors/stadtAugsburg,,,,,,097610000000,,Q2749,,,,,,
 Auma-Weidatal,municipality,Stadt Auma-Weidatal,geoportal.de|StadtAumaWeidatal,,,,,,160760092092,,Q4426,,,,,,2023-08-13
 Auswärtiges Amt,federal,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertigesAmt,,,,,,,,Q56034,,,,,,
+Autobahn GmbH,federalAgency,Die Autobahn GmbH des Bundes,mcloud.de|DieAutobahnGmbHdesBundes,,,,,,,,Q31840061,,,,,,2023-08-17
 AWSH - Abfallwirtschaft Südholstein GmbH,other,AWSH - Abfallwirtschaft Südholstein GmbH,opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,,,,https://opendata.schleswig-holstein.de/organization/awsh-abfallwirtschaft-sudholstein-gmbh,,,,,,,,,,2023-02-05
 Bad Berka,municipality,Stadt Bad Berka,geoportal.de|StadtBadBerka,,,,,,160710003003,,Q630334,,,,,,2023-08-13
 Bad Blankenburg,municipality,Stadt Bad Blankenburg,geoportal.de|StadtBadBlankenburg,,,,,,160730005005,,Q518432,,,,,,2023-08-13
@@ -73,12 +74,15 @@ Brenk,municipality,Ortsgemeinde Brenk,daten.rlp.de|ortsgemeinde_brenk,,,,,,07131
 Brohltal,collectiveMunicipality,Verbandsgemeinde Brohltal,daten.rlp.de|verbandsgemeinde_brohltal,,,,https://daten.rlp.de/organization/vg_brohltal,,071315004,,Q634710,,,,,,2023-05-21
 Brotterode-Trusetal,municipality,Stadt Brotterode-Trusetal,geoportal.de|StadtBrotterodeTrusetal,,,,,,160660074074,,Q638178,,,,,,2023-08-13
 Brühl,municipality,Brühl (Rheinland),offenedaten.kdvz-frechen.de|brühl,,,,http://offenedaten.kdvz-frechen.de/group/br%C3%BChl,2016-11-08,053620012012,,Q7036,Stadt Köln,DKAN,,,,2023-05-21
+Bund/Länder-Arbeitsgemeinschaft Nord- und Ostsee (BLANO),federalCooperation,Bund / Länder Arbeitsgemeinschaft Nord- und Ostsee [BLANO],geoportal.de|BundLnderArbeitsgemeinschaftNordundOstseeBLANO,,,,,,,,,,,,,,2023-08-17
 Bundesamt für Bauwesen und Raumordnung,federalAgency,Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesamtFuerBauwesenUndRaumordnung,,,,,,,,Q1005429,,,,,,
 Bundesamt für Justiz,federalAgency,Bundesamt für Justiz,http://dcat-ap.de/def/contributors/bundesamtFuerJustiz,,,,,,,,Q1005444,,,,,,
 Bundesamt für Kartographie und Geodäsie,federalAgency,Bundesamt für Kartographie und Geodäsie,geoportal.de|BundesamtfrKartographieundGeodsieBKG,opendata.schleswig-holstein.de|bkg,,,http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=0&gdz_user_id=0,,,,Q1005454,Bundesamt für Kartographie und Geodäsie,Website,,,,2023-07-15
+Bundesamt für Logistik und Mobilität,federalAgency,Bundesamt für Logistik und Mobilität BALM,mcloud.de|BundesamtfrLogistikundMobilittBALM,,,,,,,,Q34646,,,,,,2023-08-17
 Bundesamt für Naturschutz,federalAgency,Bundesamt für Naturschutz (BfN),geoportal.de|BundesamtfrNaturschutzBfN,,,,,,,,Q1005480,,,,,,2023-08-12
 Bundesamt für Seeschifffahrt und Hydrographie,federalAgency,Bundesamt für Seeschifffahrt und Hydrographie,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSHBundesamtfrSeeschifffahrtundHydrographieBSHTheFederalMaritimeandHydrographicAgencyBSH,geoportal.de|BundesamtfrSeeschifffahrtundHydrographieBSH,,,https://www.mcloud.de/web/guest/suche/-/results/searchAgg?_mcloudsearchportlet_aggsChoice=extras.displayContact.name.raw%3A%22Bundesamt+f%C3%BCr+Seeschifffahrt+und+Hydrographie+(BSH)%22,2019-07-13,,,Q1005487,,,,,,2023-06-21
 Bundesamt für Soziale Sicherung,federalAgency,Bundesversicherungsamt,http://dcat-ap.de/def/contributors/bundesversicherungsamt,,,,,,,,Q1009200,,,,,,
+Bundesamt für Strahlenschutz,federalAgency,Bundesamt für Strahlenschutz (BfS),geoportal.de|BundesamtfrStrahlenschutzBfS,mcloud.de|GovDataBundesamtfrStrahlenschutz,,,,,,,Q1005494,,,,,,2023-08-17
 Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,federalAgency,Bundesamt für Verbraucherschutz und Lebensmittelsicherheit,http://dcat-ap.de/def/contributors/bundesamtFuerVerbraucherschutzUndLebensmittelsicherheit,,,,,,,,Q18124763,,,,,,
 Bundesamt für Wirtschaft und Ausfuhrkontrolle,federalAgency,Bundesamt für Wirtschaft und Ausfuhrkontrolle,http://dcat-ap.de/def/contributors/bundesamtFuerWirtschaftUndAusfuhrkontrolle,,,,,,,,Q1005513,,,,,,
 Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,federalAgency,Bundesanstalt für Arbeitsschutz und Arbeitsmedizin,http://dcat-ap.de/def/contributors/bundesanstaltFuerArbeitsschutzUndArbeitsmedizin,,,,,,,,Q1005523,,,,,,
@@ -91,19 +95,25 @@ Bundesanstalt für Wasserbau,federalAgency,Bundesanstalt für Wasserbau (BAW),ge
 Bundesarchiv,federalAgency,Bundesarchiv,http://dcat-ap.de/def/contributors/bundesarchiv,,,,,,,,Q685753,,,,,,
 Bundesausgleichsamt,federalAgency,Bundesausgleichsamt,http://dcat-ap.de/def/contributors/bundesausgleichsamt,,,,,,,,Q1005650,,,,,,
 Bundesbeauftragter für den Datenschutz und die Informationsfreiheit,federalAgency,Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit,http://dcat-ap.de/def/contributors/derBundesbeauftragteFuerDenDatenschutzUndDieInformationsfreiheit,,,,,,,,Q1005821,,,,,,
-Bundesinstitut für Bau-， Stadt- und Raumforschung,federalAgency,Bundesinstitut für Bau-， Stadt- und Raumforschung (BBSR) im Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesinstitutFuerBauStadtUndRaumforschungImBundesamtFuerBauwesenundRaumordnung,,,,,,,,Q111431906,,,,,,
+Bundeseisenbahnvermögen,federalAgency,Bundeseisenbahnvermögen (BEV) - Hauptverwaltung - Immobilien,mcloud.de|BundeseisenbahnvermgenBEVHauptverwaltungImmobilien,,,,,,,,Q1005921,,,,,,2023-08-17
+Bundesinstitut für Bau-， Stadt- und Raumforschung,federalAgency,Bundesinstitut für Bau-， Stadt- und Raumforschung (BBSR) im Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesinstitutFuerBauStadtUndRaumforschungImBundesamtFuerBauwesenundRaumordnung,geoportal.de|BundesinstitutfrBauStadtundRaumforschung,,,,,,,Q111431906,,,,,,
 Bundesministerium der Finanzen,federal,Bundesministerium der Finanzen,http://dcat-ap.de/def/contributors/bundesministeriumDerFinanzen,,,,,,,,Q499118,,,,,,
+Bundesministerium der Finanzen,federal,Bundesministerium der Finanzen (BMF),geoportal.de|BundesministeriumderFinanzenBMF,,,,,,,,Q499118,,,,,,2023-08-17
 Bundesministerium der Verteidigung,federal,Bundesministerium der Verteidigung,http://dcat-ap.de/def/contributors/bundesministeriumDerVerteidigung,,,,,,,,Q493353,,,,,,
 Bundesministerium des Innern und Heimat,federal,Bundesministerium des Innern und Heimat,http://dcat-ap.de/def/contributors/bundesministeriumDesInnernUndHeimat,,,,,,,,Q502698,,,,,,2023-04-21
 Bundesministerium für Arbeit und Soziales,federal,Bundesministerium für Arbeit und Soziales,http://dcat-ap.de/def/contributors/bundesministeriumFuerArbeitUndSoziales,,,,,,,,Q491578,,,,,,
 Bundesministerium für Bildung und Forschung,federal,Bundesministerium für Bildung und Forschung,http://dcat-ap.de/def/contributors/bundesministeriumFuerBildungUndForschung,,,,,,,,Q492234,,,,,,
-Bundesministerium für Digitales und Verkehr,federal,Bundesministerium für Digitales und Verkehr (BMDV),mcloud.de|BundesministeriumfrDigitalesundVerkehrBMDV,,,,,,,,Q491637,,,,,,2023-06-09
+Bundesministerium für Digitales und Verkehr,federal,Bundesministerium für Digitales und Verkehr (BMDV),mcloud.de|BundesministeriumfrDigitalesundVerkehrBMDV,geoportal.de|BundesministeriumfrDigitalesundVerkehr,,,,,,,Q491637,,,,,,2023-06-09
 Bundesministerium für Ernährung und Landwirtschaft,federal,Bundesministerium für Ernährung und Landwirtschaft,http://dcat-ap.de/def/contributors/bundesministeriumFuerErnaehrungUndLandwirtschaft,,,,,,,,Q699656,,,,,,
 Bundesministerium für Familie， Senioren， Frauen und Jugend,federal,Bundesministerium für Familie， Senioren， Frauen und Jugend,http://dcat-ap.de/def/contributors/bundesministeriumFuerFamilieSeniorenFrauenUndJugend,,,,,,,,Q166020,,,,,,
 Bundesministerium für Wirtschaft und Klimaschutz,federal,Bundesministerium für Wirtschaft und Klimaschutz,http://dcat-ap.de/def/contributors/bundesministeriumFuerWirtschaftUndKlimaschutz,,,,,,,,Q488589,,,,,,
 Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung,federal,Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung,http://dcat-ap.de/def/contributors/bundesministeriumFuerWirtschaftlicheZusammenarbeitUndEntwicklung,,,,,,,,Q684357,,,,,,
+Bundesministerium für Wohnen， Stadtentwicklung und Bauwesen,federal,Bundesministerium für Wohnen， Stadtentwicklung und Bauwesen,geoportal.de|BundesministeriumfrWohnenStadtentwicklungundBauwesen,,,,,,,,Q110021824,,,,,,2023-08-17
 Bundesnetzagentur,federalAgency,Bundesnetzagentur,opendata.schleswig-holstein.de|bundesnetzagentur,mcloud.de|OpenDataSchleswigHolsteinBundesnetzagentur,geoportal.de|BundesnetzagenturBNetzA,,,,,,Q269138,,,,,,2023-07-17
 Bundessortenamt,federalAgency,Bundessortenamt,http://dcat-ap.de/def/contributors/bundessortenamt,,,,,,,,Q1006713,,,,,,
+Bundesstelle für Eisenbahnunfalluntersuchung,federalAgency,Bundesstelle für Eisenbahnunfalluntersuchung (BEU),mcloud.de|BundesstellefrEisenbahnunfalluntersuchungBEU,,,,,,,,Q1311374,,,,,,2023-08-17
+Bundesstelle für Flugunfalluntersuchung,federalAgency,Bundesstelle für Flugunfalluntersuchung BFU,mcloud.de|BundesstellefrFlugunfalluntersuchungBFU,,,,,,,,Q315221,,,,,,2023-08-17
+Bundesstelle für Seeunfalluntersuchung,federalAgency,Bundesstelle für Seeunfalluntersuchung (BSU),mcloud.de|BundesstellefrSeeunfalluntersuchungBSU,,,,,,,,Q1006743,,,,,,2023-08-17
 Bundesverwaltungsamt,federalAgency,Bundesverwaltungsamt,http://dcat-ap.de/def/contributors/bundesverwaltungsamt,,,,,,,,Q1009218,,,,,,
 Bundeszentralamt für Steuern,federalAgency,Bundeszentralamt für Steuern,http://dcat-ap.de/def/contributors/bundeszentralamtFuerSteuern,,,,,,,,Q1009314,,,,,,
 Burgbrohl,municipality,Ortsgemeinde Burgbrohl,daten.rlp.de|ortsgemeinde_burgbrohl,,,,https://daten.rlp.de/organization/og_burgbrohl,,071315004202,,Q563764,,,,,,2023-05-21
@@ -130,10 +140,12 @@ Deutsche Nationalbibliothek,other,Deutsche Nationalbibliothek,http://dcat-ap.de/
 Deutsche Rentenversicherung Bund,federalCooperation,Deutsche Rentenversicherung Bund,http://dcat-ap.de/def/contributors/deutscheRentenversicherungBund,,,,,,,,Q1203782,,,,,,2023-05-21
 Deutscher Wetterdienst,federalAgency,Deutscher Wetterdienst,mcloud.de|DeutscherWetterdienst,geoportal.de|DeutscherWetterdienstDWD,geoportal.de|DeutscherWetterdienstDeutscherWetterdienst,,https://opendata.dwd.de/,,,,Q325859,,Website,,,,2023-08-16
 Deutsches Patent- und Markenamt,federalAgency,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,,,,,,,Q314296,,,,,,
+Deutsches Zentrum für Schienenverkehrsforschung,federalAgency,Deutsches Zentrum für Schienenverkehrsforschung beim Eisenbahn-Bundesamt,geoportal.de|DeutschesZentrumfrSchienenverkehrsforschungbeimEisenbahnBundesamt,,,,,,,,Q64485073,,,,,,2023-08-17
 Die Senatorin für Kinder und Bildung,stateAgency,Freie Hansestadt Bremen， Die Senatorin für Kinder und Bildung,geoportal.de|FreieHansestadtBremenDieSenatorinfrKinderundBildung,,,,,,,04,Q61874530,,,,,,2023-08-15
 Die Senatorin für Umwelt， Klima und Wissenschaft,stateAgency,Freie Hansestadt Bremen， Die Senatorin für Umwelt， Klima und Wissenschaft,geoportal.de|FreieHansestadtBremenDieSenatorinfrUmweltKlimaundWissenschaft,,,,,,,04,,,,,,,2023-08-15
 Diepholz,district,Landkreis Diepholz,geoportal.de|LandkreisDiepholz,mcloud.de|GovDataLandkreisDiepholz,,,https://daten.diepholz.de/,,03251,,Q5956,,DKAN,,,,2023-07-15
 Dierdorf,collectiveMunicipality,Verbandsgemeinde Dierdorf,daten.rlp.de|verbandsgemeinde_dierdorf,,,,https://daten.rlp.de/organization/verbandsgemeinde_dierdorf,,071385003,,Q537915,,,,,,2023-05-21
+Dietzenbach,municipality,Kreisstadt Dietzenbach,geoportal.de|KreisstadtDietzenbach,,,,,,064380001001,,Q16033,,,,,,2023-08-17
 Dingelstädt,municipality,Stadt Dingelstädt,geoportal.de|StadtDingelstdt,,,,,,160610118118,,Q530075,,,,,,2023-08-13
 Dormagen,municipality,Dormagen,open.nrw|dormagen,mcloud.de|OpenNRWDormagen,,,https://opendata.dormagen.de,2017-12-07,051620004004,,Q3978,OpenDataSoft,OpenDataSoft,https://opendata.dormagen.de/api/v2/catalog/datasets,,,2023-05-21
 Dortmund,municipality,Dortmund,open.nrw|dortmund,opendata.ruhr|dortmund,,,https://opendata.dortmund.de/,2018-08-23,059130000000,,Q1295,,Website,,,,2023-07-13
@@ -208,7 +220,9 @@ Grafschaft Bentheim,district,Landkreis Grafschaft Bentheim,geoportal.de|Landkrei
 Grafschaft Hoya,collectiveMunicipality,Samtgemeinde Grafschaft Hoya,geoportal.de|SamtgemeindeGrafschaftHoya,,,,,,032565409,,Q486777,,,,,,2023-07-28
 Greiz,district,Kreis Greiz,geoportal.de|LandkreisGreiz,geoportal.de|LandratsamtGreiz,,,,,16076,,Q7887,,,,,,2023-07-15
 Greiz,municipality,Stadt Greiz,geoportal.de|StadtGreiz,,,,,,160760022022,,Q502710,,,,,,2023-08-13
+Greven,municipality,Stadt Greven,geoportal.de|StadtGreven,,,,,,055660012012,,Q14917,,,,,,2023-08-17
 Grevenbroich,municipality,Stadt Grevenbroich,geoportal.de|StadtGrevenbroich,,,,https://www.o-sp.de/grevenbroich/opendata.php,,051620008008,,Q3973,,,,,,2023-05-23
+Gronau,municipality,Stadt Gronau,geoportal.de|StadtGronau,,,,,,055540020020,,Q6924,,,,,,2023-08-17
 Groß-Gerau,district,Kreis Groß-Gerau,geoportal.de|KreisGroGerau,,,,,,06433,,Q7914,,,,,,2023-07-26
 Großbreitenbach,municipality,Landgemeinde Großbreitenbach,geoportal.de|LandgemeindeGrobreitenbach,,,,,,160700058058,,Q32510020,,,,,,2023-08-11
 Görlitz,district,Landratsamt Görlitz,geoportal.de|LandratsamtGrlitz,,,,,,14626,,Q6317,,,,,,2023-07-27
@@ -246,9 +260,11 @@ Herzogtum Lauenburg,district,Kreis Herzogtum Lauenburg,opendata.schleswig-holste
 Hildburghausen,district,Landratsamt Hildburghausen,geoportal.de|LandratsamtHildburghausen,,,,,,16069,,,,,,,,2023-07-26
 Hildburghausen,municipality,Stadt Hildburghausen,geoportal.de|StadtHildburghausen,,,,,,160690024024,,Q504348,,,,,,2023-08-13
 Hilden,municipality,Stadt Hilden,geoportal.de|StadtHilden,,,,,,051580016016,,Q4094,,,,,,2023-05-23
+Hirschberg,municipality,Stadt Hirschberg,geoportal.de|StadtHirschberg,,,,,,160750046046,,Q630383,,,,,,2023-08-17
 Hochsauerlandkreis,district,Hochsauerlandkreis,geoportal.de|Hochsauerlandkreis,,,,http://www.hochsauerlandkreis.de/buergerservice/bauen_wohnen_kataster/geo_service/OpenData/,,05958,,Q5946,,Website,,,,2023-07-15
 Hochscheid,municipality,Ortsgemeinde Hochscheid,daten.rlp.de|ortsgemeinde_hochscheid,,,,,,072315001056,,Q432047,,,,,,2023-07-19
 Hochtaunuskreis,district,Hochtaunuskreis,geoportal.de|Hochtaunuskreis,,,,,,06434,,Q7908,,,,,,2023-07-26
+Hofheim am Taunus,municipality,Kreisstadt Hofheim am Taunus,geoportal.de|KreisstadtHofheimamTaunus,,,,,,064360007007,,Q14896,,,,,,2023-08-17
 Hohenleimbach,municipality,Ortsgemeinde Hohenleimbach,daten.rlp.de|ortsgemeinde_hohenleimbach,,,,https://daten.rlp.de/organization/ortsgemeinde_hohenleimbach,,071315004206,,Q562916,,,,,,2023-05-23
 Holzwickede,municipality,Gemeinde Holzwickede,opendata.ruhr|holzwickede,geoportal.de|GemeindeHolzwickede,,,https://www.holzwickede.de/seite/307793/open-data.html,,059780016016,,Q10941,,,,,,2023-05-23
 Hürtgenwald,municipality,Hürtgenwald,offenedaten.kdvz-frechen.de|hürtgenwald,,,,http://offenedaten.kdvz-frechen.de/group/h%C3%BCrtgenwald,2016-11-08,053580016016,,Q199974,Stadt Köln,DKAN,,,,2023-05-23
@@ -257,7 +273,7 @@ IG NRW,stateAgency,IG NRW,open.nrw|ig_nrw,,,,,,,05,,,,,,,2023-08-16
 Ilm-Kreis,district,Landratsamt Ilm-Kreis,geoportal.de|LandratsamtIlmKreis,geoportal.de|LandkreisIlmKreis,,,,,16070,,Q7878,,,,,,2023-07-27
 Ilmenau,municipality,Stadt Ilmenau,geoportal.de|StadtIlmenau,,,,,,160700029029,,Q205929,,,,,,2023-08-13
 Information und Technik Nordrhein-Westfalen,stateAgency,Information und Technik Nordrhein-Westfalen,geoportal.de|InformationundTechnikNordrheinWestfalen,,,,,,,05,Q1802131,,,,,,2023-08-16
-Informationstechnikzentrum Bund,federalAgency,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,,,,,,,,Q23786362,,,,,,
+Informationstechnikzentrum Bund,federalAgency,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,geoportal.de|InformationstechnikzentrumBundITZBund,geoportal.de|ITZBundInformationstechnikzentrumBundPoststelle,,,,,,Q23786362,,,,,,2023-08-17
 Iserlohn,municipality,Stadt Iserlohn,geoportal.de|StadtIserlohn,,,,,,059620024024,,Q1130,,,,,,2023-05-23
 Jena,municipality,Stadtverwaltung Jena,geoportal.de|StadtverwaltungJena,,,,https://opendata.jena.de/,2016-12-20,160530000000,,Q3150,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,https://opendata.jena.de/api/3/action/organization_list,,2023-08-11
 Jockgrim,collectiveMunicipality,Verbandsgemeinde Jockgrim,daten.rlp.de|verbandsgemeinde_jockgrim,,,,https://daten.rlp.de/organization/verbandsgemeinde_jockgrim,,073345003,,Q516953,,,,,,2023-05-14
@@ -273,6 +289,7 @@ Kaulsdorf,collectiveMunicipality,Gemeinde Kaulsdorf und der beauftragenden Gemei
 Kempenich,municipality,Ortsgemeinde Kempenich,daten.rlp.de|ortsgemeinde_kempenich,,,,https://daten.rlp.de/organization/ortsgemeinde_kempenich,,071315004502,,Q563845,,,,,,2023-05-23
 Kerpen,municipality,Kerpen,offenedaten.kdvz-frechen.de|kerpen,,,,http://offenedaten.kdvz-frechen.de/group/kerpen,2016-11-08,053620032032,,Q3959,Stadt Köln,DKAN,,,,2023-05-23
 Kesten,municipality,Ortsgemeinde Kesten,daten.rlp.de|ortsgemeinde_kesten,,,,,,072315001066,,Q569300,,,,,,2023-07-19
+Kevelaer,municipality,Wallfahrtsstadt Kevelaer,geoportal.de|WallfahrtsstadtKevelaer,,,,,,051540032032,,Q243526,,,,,,2023-08-17
 Kiel,municipality,Landeshauptstadt Kiel,opendata.schleswig-holstein.de|landeshauptstadt-kiel,mcloud.de|OpenDataSchleswigHolsteinLandeshauptstadtKiel,,,https://opendata.schleswig-holstein.de/organization/landeshauptstadt-kiel,,010020000000,,Q1707,Dataport,CKAN,,,,2023-08-11
 Kirchberg,collectiveMunicipality,Verbandsgemeide Kirchberg,daten.rlp.de|verbandsgemeinde_kirchberg,,,,https://daten.rlp.de/organization/verbandsgemeinde_kirchberg,,071405004,,Q559333,,,,,,2023-05-23
 Kleinich,municipality,Ortsgemeinde Kleinich,daten.rlp.de|ortsgemeinde_kleinich,,,,,,072315001070,,Q543401,,,,,,2023-07-19
@@ -488,6 +505,7 @@ Schmalkalden-Meiningen,district,Landratsamt Schmalkalden - Meiningen,geoportal.d
 Schwalmtal,municipality,Gemeinde Schwalmtal,www.offenesdatenportal.de|gemeinde-schwalmtal,,,,https://www.offenesdatenportal.de/organization/gemeinde-schwalmtal,,051660024024,,Q163917,,,,,,2023-05-30
 Schwedelbach,municipality,Ortsgemeinde Schwedelbach,daten.rlp.de|ortsgemeinde_schwedelbach,,,,https://daten.rlp.de/organization/ortsgemeinde_schwedelbach,,073355009043,,Q651998,,,,,,2023-05-30
 Schwentinental,municipality,Stadt Schwentinental,geoportal.de|StadtSchwentinental,,,,,,010570091091,,Q640402,,,,,,2023-08-13
+Schwerin,municipality,Landeshauptstadt Schwerin,geoportal.de|LandeshauptstadtSchwerin,,,,,,130040000000,,Q1709,,,,,,2023-08-17
 Selters (Westerwald),collectiveMunicipality,Verbandsgemeinde Selters,daten.rlp.de|verbandsgemeinde_selters,,,,https://daten.rlp.de/organization/verbandsgemeinde_selters,,071435007,,Q519525,,,,,,2023-05-30
 Senatsverwaltung für Mobilität， Verkehr， Klimaschutz und Umwelt,municipalityAgency,Senatsverwaltung für Mobilität， Verkehr， Klimaschutz und Umwelt Berlin,geoportal.de|SenatsverwaltungfrMobilittVerkehrKlimaschutzundUmwelt,geoportal.de|SenatsverwaltungfrMobilittVerkehrKlimaschutzundUmweltBerlin,,,,,,110000000000,,,,,,,2023-07-24
 Senatsverwaltung für Stadtentwicklung， Bauen und Wohnen,municipalityAgency,Senatsverwaltung für Stadtentwicklung， Bauen und Wohnen Berlin,geoportal.de|SenatsverwaltungfrStadtentwicklungBauenundWohnenBerlin,datenregister.berlin.de|senatsverwaltung-fur-stadtentwicklung-bauen-und-wohnen,,,,,,110000000000,,,,,,,2023-07-24
@@ -507,8 +525,10 @@ Stadtverwaltung Chemnitz,municipalityAgency,Stadtverwaltung Chemnitz,geoportal.d
 Stadtverwaltung Goch,municipalityAgency,Stadtverwaltung Goch,geoportal.de|StadtverwaltungGoch,,,,,,,051540016016,,,,,,,2023-05-23
 Stadtverwaltung Nottertal-Heilinger Höhen,municipalityAgency,Stadtverwaltung Nottertal-Heilinger Höhen,geoportal.de|StadtverwaltungNottertalHeilingerHhen,,,,,,,160645055,,,,,,,2023-08-14
 Stadtwerke Osnabrück,municipalityAgency,SWO Netz GmbH,http://dcat-ap.de/def/contributors/SWONetzGmbH,,,,,,,034040000000,Q1114682,,,,,,2023-07-24
+Statistische Ämter des Bundes und der Länder,federalCooperation,GovData: Statistische Ämter des Bundes und der Länder,mcloud.de|GovDataStatistischemterdesBundesundderLnder,opendata.schleswig-holstein.de|statistische-amter-des-bundes-und-der-lander,geoportal.de|StatistischemterdesBundesundderLnderStatistikportal,mcloud.de|OpenDataSchleswigHolsteinStatistischemterdesBundesundderLnder,,,,,,,,,,,2023-08-17
 Statistisches Amt für Hamburg und Schleswig-Holstein,stateAgency,Statistikamt Nord,opendata.schleswig-holstein.de|statistikamt-nord,mcloud.de|OpenDataSchleswigHolsteinStatistischesAmtfrHamburgundSchleswigHolsteinARStatistikamtNord,geoportal.de|StatistischesAmtfrHamburgundSchleswigHolstein,,https://www.statistik-nord.de/,,,01,Q15130249,,,,,,2023-08-11
-Statistisches Bundesamt,federalAgency,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,mcloud.de|GovDataStatistischesBundesamt,geoportal.de|StatistischesBundesamtDestatis,opendata.schleswig-holstein.de|statistische-amter-des-bundes-und-der-lander,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,Q764739,,Website,,,,2023-06-21
+Statistisches Bundesamt,federalAgency,Statistisches Bundesamt,http://dcat-ap.de/def/contributors/destatis,mcloud.de|GovDataStatistischesBundesamt,geoportal.de|StatistischesBundesamtDestatis,,https://www.destatis.de/DE/Service/OpenData/_inhalt.html,,,,Q764739,,Website,,,,2023-06-21
+Statistisches Bundesamt， Servicestelle Gleichwertige Lebensverhältnisse， Deutschlandatlas,federalAgency,Statistisches Bundesamt， Servicestelle Gleichwertige Lebensverhältnisse， Deutschlandatlas,geoportal.de|StatistischesBundesamtServicestelleGleichwertigeLebensverhltnisseDeutschlandatlas,,,,,,,,,,,,,,2023-08-17
 Statistisches Landesamt,stateAgency,Landesdatenbank NRW,open.nrw|landesdatenbank_nrw,,,,,,,05,,,,,,,2023-05-14
 Statistisches Landesamt Bremen,stateAgency,Statistisches Landesamt Bremen,geoportal.de|StatistischesLandesamtBremen,,,,,,,04,Q15130251,,,,,,2023-08-15
 Statistisches Landesamt Rheinland-Pfalz,stateAgency,Statistisches Landesamt Rheinland-Pfalz,daten.rlp.de|stala___rlp,,,,,,,07,Q2333954,,,,,,2023-05-14
@@ -524,6 +544,7 @@ Sömmerda,municipality,Stadt Sömmerda,geoportal.de|StadtSmmerda,,,,,,1606800510
 Südeifel,collectiveMunicipality,Verbandsgemeinde Südeifel,daten.rlp.de|verbandsgemeinde_suedeifel,,,,,,072325005,,Q15852582,,,,,,2023-07-18
 Südlohn,municipality,Gemeinde Südlohn,geoportal.de|GemeindeSdlohn,,,,,,055540060060,,Q200177,,,,,,2023-06-19
 Tambach-Dietharz,municipality,Stadt Tambach-Dietharz,geoportal.de|StadtTambachDietharz,,,,,,160670065065,,Q530007,,,,,,2023-08-13
+Technisches Hilfswerk， Landesverband Sachsen und Thüringen,federalAgency,Bundesanstalt Technisches Hilfswerk， Landesverband Sachsen und Thüringen,geoportal.de|BundesanstaltTechnischesHilfswerkLandesverbandSachsenundThringen,,,,,,,,,,,,,,2023-08-17
 Thalfang am Erbeskopf,collectiveMunicipality,Verbandsgemeinde Thalfang am Erbeskopf,daten.rlp.de|verbandsgemeinde_thalfang_am_erbeskopf,,,,https://daten.rlp.de/organization/verbandsgemeinde_thalfang_am_erbeskopf,,072315006,,Q559872,,,,,,2023-06-19
 Thüringer Landesamt für Bodenmanagement und Geoinformation,stateAgency,Thüringer Landesamt für Bodenmanagement und Geoinformation,geoportal.de|ThringerLandesamtfrBodenmanagementundGeoinformation,mcloud.de|GovDataThringerLandesamtfrBodenmanagementundGeoinformation,,,,,,16,,,,,,,2023-07-24
 Titz,municipality,Titz,offenedaten.kdvz-frechen.de|titz,,,,http://offenedaten.kdvz-frechen.de/group/titz,2016-11-08,053580056056,,Q200076,Stadt Köln,DKAN,,,,2023-06-19
@@ -589,7 +610,6 @@ Zwönitz,municipality,Stadt Zwönitz,www.opendata.sachsen.de|StadtZwnitz,,,,,,14
 ,municipality,Altenburg,,,,,https://www.altenburg.eu/sixcms/detail.php?id=139875,,160770001001,,,,Website,,,,2019-08-10
 ,municipality,Emsdetten,,,,,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,055660008008,,,,,,,,2021-03-03
 ,municipality,Euskirchen,,,,,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03
-,municipality,Gronau,,,,,via Musterdatenkatalog Deutschland,,,,,,,,,,
 ,municipality,Ingolstadt,,,,,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,091610000000,,,,,,,,2021-03-04
 ,municipality,Kaarst,,,,,https://www.o-sp.de/kaarst/opendata,,051620016016,,,,,,,,2021-03-03
 ,municipality,Kamen,,,,,https://www.o-sp.de/kamen/opendata,,059780020020,,,,,,,,2021-03-03

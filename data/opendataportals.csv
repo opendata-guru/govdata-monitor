@@ -177,7 +177,7 @@ Erzenhausen,municipality,Ortsgemeinde Erzenhausen,daten.rlp.de|ortsgemeinde_erze
 Erzgebirgskreis,district,Landratsamt Erzgebirgskreis,geoportal.de|LandratsamtErzgebirgskreis,,,,,,14521,,Q6339,,,,,,2023-07-27
 Eschweiler,municipality,Stadt Eschweiler,offenedaten.aachen.de|stadt-eschweiler,,,,,,053340012012,,Q4083,,,,,,2023-08-13
 Esri Deutschland GmbH,other,Esri Deutschland Open Data Portal,mcloud.de|EsriDeutschlandGmbH,,,,https://opendata-esri-de.opendata.arcgis.com/,,,,Q1045778,,Website,,,,2023-07-15
-Essen,municipality,Essen,open.nrw|essen,opendata.ruhr|essen,,,https://opendata.essen.de/,,051130000000,,Q2066,Stadt Köln,DKAN,https://opendata.essen.de/api/3/action/package_list,,https://opendata.essen.de/catalog.xml,2023-05-23
+Essen,municipality,Essen,open.nrw|essen,opendata.ruhr|essen,,,https://opendata.essen.de/,,051130000000,,Q2066,Stadt Köln,DKAN,https://opendata.essen.de/api/3/action/package_list,https://opendata.essen.de/api/3/action/group_list,https://opendata.essen.de/catalog.xml,2023-08-19
 Eulenbis,municipality,Ortsgemeinde Eulenbis,daten.rlp.de|ortsgemeinde_eulenbis,,,,https://daten.rlp.de/organization/ortsgemeinde_eulenbis,,073355009006,,Q285275,,,,,,2023-05-23
 Euskirchen,district,Kreis Euskirchen,offenedaten.kdvz-frechen.de|kreis-euskirchen,,,,http://offenedaten.kdvz-frechen.de/group/kreis-euskirchen,2016-11-08,05366,,Q6280,Stadt Köln,DKAN,,,,2023-07-15
 Everswinkel,municipality,Gemeinde Everswinkel,geoportal.de|GemeindeEverswinkel,,,,https://www.o-sp.de/everswinkel/opendata,,055700024024,,Q2809,,,,,,2023-05-23
@@ -194,7 +194,7 @@ Fürstenau,collectiveMunicipality,Samtgemeinde Fürstenau,geoportal.de|Samtgemei
 Galenberg,municipality,Ortsgemeinde Galenberg,daten.rlp.de|ortsgemeinde_galenberg,,,,https://daten.rlp.de/organization/ortsgemeinde_galenberg,,071315004204,,Q644473,,,,,,2023-05-23
 GDI-DE,federalCooperation,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,,,https://www.gdi-de.org/,,,,Q1502855,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
 Geldern,municipality,Stadt Geldern,www.offenesdatenportal.de|stadt-geldern,geoportal.de|StadtGeldern,,,https://www.offenesdatenportal.de/organization/stadt-geldern,,051540012012,,Q16024,,,,,,2023-05-23
-Gelsenkirchen,municipality,Stadt Gelsenkirchen,open.nrw|gelsenkirchen,opendata.ruhr|gelsenkirchen,geoportal.de|StadtGelsenkirchen,mcloud.de|GovDataStadtGelsenkirchen,https://opendata.gelsenkirchen.de/,2017-05-23,055130000000,,Q2765,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,,,2023-05-23
+Gelsenkirchen,municipality,Stadt Gelsenkirchen,open.nrw|gelsenkirchen,opendata.ruhr|gelsenkirchen,geoportal.de|StadtGelsenkirchen,mcloud.de|GovDataStadtGelsenkirchen,https://opendata.gelsenkirchen.de/,2017-05-23,055130000000,,Q2765,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,https://opendata.gelsenkirchen.de/api/3/action/group_list,,2023-08-19
 Generaldirektion Kulturelles Erbe Rheinland-Pfalz,stateAgency,Generaldirektion Kulturelles Erbe,daten.rlp.de|generaldirektion_kulturelles_erbe,,,,,,,07,Q1501748,,,,,,2023-07-18
 Generalzolldirektion,federalAgency,Generalzolldirektion,http://dcat-ap.de/def/contributors/generalzolldirektion,,,,,,,,Q18287062,,,,,,
 Geoportal Baden-Württemberg,stateAgency,Geoportal Baden-Württemberg,www.daten-bw.de|geoportal-baden-wurttemberg,,,,https://www.geoportal-bw.de/,,,08,,,,,,,2023-08-10
@@ -411,7 +411,8 @@ Nessetal,collectiveMunicipality,Gemeinde Nessetal und den zu erfüllenden Gemein
 Neuenkirchen,collectiveMunicipality,Samtgemeinde Neuenkirchen,geoportal.de|SamtgemeindeNeuenkirchen,,,,,,034595404,,Q314658,,,,,,2023-07-28
 Neuhaus am Rennweg,collectiveMunicipality,Stadt Neuhaus am Rennweg und der beauftragenden Gemeinden,geoportal.de|StadtNeuhausamRennwegundderbeauftragendenGemeinden,,,,,,160725051,,Q371158,,,,,,2023-08-14
 Neumagen-Dhron,municipality,Ortsgemeinde Neumagen-Dhron,daten.rlp.de|ortsgemeinde_neumagen_dhron,,,,,,072315001092,,Q572352,,,,,,2023-07-19
-Neuss,municipality,Stadt Neuss,open.nrw|neuss,mcloud.de|OpenNRWNeuss,geoportal.de|StadtNeuss,,https://ckan.www.open.nrw.de/organization/neuss,,051620024024,,Q2948,,,,,,2023-05-30
+Neuss,municipality,Stadt Neuss,geoportal.de|StadtNeuss,,,,https://ckan.www.open.nrw.de/organization/neuss,,051620024024,,Q2948,,,,,,2023-08-19
+Rhein-Kreis Neuss,district,Rhein-Kreis Neuss,open.nrw|neuss,mcloud.de|OpenNRWNeuss,,,http://opendata.rhein-kreis-neuss.de/,2019-02-12,05162,,Q6253,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2023-08-19
 Neustadt an der Orla,collectiveMunicipality,Stadt Neustadt an der Orla und der beauftragenden Gemeinden,geoportal.de|StadtNeustadtanderOrlaundderbeauftragendenGemeinden,,,,,,160755050,,Q505196,,,,,,2023-08-14
 Niederrhein,regionalNetwork,Niederrhein (Region),open.nrw|offenesdatenportal,,,,http://offenesdatenportal.de/,2015-04-16,,,,,CKAN,https://www.offenesdatenportal.de/api/3/action/package_list,https://www.offenesdatenportal.de/api/3/action/organization_list,https://www.offenesdatenportal.de/catalog.rdf,2023-02-05
 Niedersachsen,state,Niedersachsen,http://dcat-ap.de/def/contributors/landNiedersachsen,,,,,,03,,Q1197,,,,,,2023-02-06
@@ -624,7 +625,6 @@ Zwönitz,municipality,Stadt Zwönitz,www.opendata.sachsen.de|StadtZwnitz,,,,,,14
 ,district,Kreis Steinfurt,,,,,https://gis-kreis-steinfurt.opendata.arcgis.com/,2019-06-01,,,,,ArcGIS,,,,2021-03-04
 ,district,Landkreis Lüneburg,,,,,https://open.lklg.net/,2016-08-18,,,,,CKAN,https://open.lklg.net/api/3/action/package_list,,,2019-08-04
 ,district,Ortenaukreis,,,,,http://www.ortenaukreis.de/Online-Dienste/Open-Data,,,,,,Website,,,,2019-07-30
-,district,Rhein-Kreis Neuss,,,,,http://opendata.rhein-kreis-neuss.de/,2019-02-12,,,,OpenDataSoft,OpenDataSoft,https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets,,,2019-07-29
 ,other,Baustelleninformationssystem des Bundes und der Länder,,,,,https://www.bast.de/BASt_2017/DE/Fahrzeugtechnik/Fachthemen/Baustelleninformation/baustelleninformation.html,,,,,Materna Information & Communications SE,Website,,,,2019-07-29
 ,other,Deutsche Bahn,,,,,http://data.deutschebahn.com/,,,,,,CKAN,https://data.deutschebahn.com/api/3/action/package_list,,,2019-03-09
 ,other,OffeneDaten.de,,,,,https://offenedaten.de/,,,,,Open Knowledge Foundation Deutschland,CKAN,https://offenedaten.de/api/3/action/package_list,,,2019-07-29

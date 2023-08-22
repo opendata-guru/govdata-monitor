@@ -30,10 +30,10 @@ var map = (function () {
         if (data.view) {
             data.view.forEach((view) => {
                 var viewCatalog = catalog.get(view.linkId);
-                if (viewCatalog.rs) {
+                if (viewCatalog && viewCatalog.rs) {
                     ret.push(viewCatalog.rs);
                 }
-                if (viewCatalog.associated_rs) {
+                if (viewCatalog && viewCatalog.associated_rs) {
                     ret.push(viewCatalog.associated_rs);
                 }
             });

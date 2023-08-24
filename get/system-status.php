@@ -1,6 +1,7 @@
 <?php
 	$link = htmlspecialchars($_GET['link']);
 	$piveauEndpoint = '/api/hub/search/catalogues';
+	$opendatasoftEndpoint = '/api/v2/catalog/facets';
 
 /*	if ('https://geoportal.de' === $link) {
 		include 'gdide-organizations.php';
@@ -15,6 +16,8 @@
 		include 'list-organizations/nrw-list-organizations.php';
 	} else */ if (substr($link, -strlen($piveauEndpoint)) === $piveauEndpoint) {
 		include 'system-status/piveau-system-status.php';
+	} else if (substr($link, -strlen($opendatasoftEndpoint)) === $opendatasoftEndpoint) {
+		include 'system-status/opendatasoft-system-status.php';
 	} else {
 		include 'system-status/ckan-system-status.php';
 	}

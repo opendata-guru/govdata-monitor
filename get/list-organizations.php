@@ -2,6 +2,7 @@
 	$link = htmlspecialchars($_GET['link']);
 	$groupEndpoint = '/group_list';
 	$piveauEndpoint = '/api/hub/search/catalogues';
+	$opendatasoftEndpoint = '/api/v2/catalog/facets';
 
 	if ('https://geoportal.de' === $link) {
 		include 'list-organizations/gdide-list-organizations.php';
@@ -18,6 +19,8 @@
 		include 'list-organizations/ckan-list-groups.php';
 	} else if (substr($link, -strlen($piveauEndpoint)) === $piveauEndpoint) {
 		include 'list-organizations/piveau-list-organizations.php';
+	} else if (substr($link, -strlen($opendatasoftEndpoint)) === $opendatasoftEndpoint) {
+		include 'list-organizations/opendatasoft-list-organizations.php';
 	} else {
 		include 'list-organizations/ckan-list-organizations.php';
 	}

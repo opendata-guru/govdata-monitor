@@ -26,6 +26,7 @@ Count all datasets:
 - https://opendata.guru/govdata/get/count-datasets.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/count-datasets.php?link=https://www.opendata.sachsen.de
 - https://opendata.guru/govdata/get/count-datasets.php?link=https://data.europa.eu/api/hub/search/catalogues
+- https://opendata.guru/govdata/get/count-datasets.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
 
 Get a list of all contributors and some more meta data:
 
@@ -38,6 +39,7 @@ Get a list of all contributors and some more meta data:
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://www.opendata.sachsen.de
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://data.europa.eu/api/hub/search/catalogues
 - for bug in NRW: https://opendata.guru/govdata/get/list-organizations/nrw-list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
+- https://opendata.guru/govdata/get/list-organizations.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
 
 Get system status information:
 
@@ -69,6 +71,10 @@ Regionalschlüssel:
 
 - https://codeberg.org/opengovtech/ars-tool/src/branch/main
 - https://www.opengovtech.de/ars/
+
+## API documentation
+
+- [Opendatasoft's Explore API Reference Documentation (v2.1)](https://help.opendatasoft.com/apis/ods-explore-v2/)
 
 ### Organisations
 

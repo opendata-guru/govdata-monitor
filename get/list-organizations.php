@@ -3,6 +3,8 @@
 	$groupEndpoint = '/group_list';
 	$piveauEndpoint = '/api/hub/search/catalogues';
 	$opendatasoftEndpoint = '/api/v2/catalog/facets';
+	$opendatasoftEndpoint2_0 = '/api/explore/v2.0/catalog/facets';
+	$opendatasoftEndpoint2_1 = '/api/explore/v2.1/catalog/facets';
 
 	if ('https://geoportal.de' === $link) {
 		include 'list-organizations/gdide-list-organizations.php';
@@ -19,7 +21,7 @@
 		include 'list-organizations/ckan-list-groups.php';
 	} else if (substr($link, -strlen($piveauEndpoint)) === $piveauEndpoint) {
 		include 'list-organizations/piveau-list-organizations.php';
-	} else if (substr($link, -strlen($opendatasoftEndpoint)) === $opendatasoftEndpoint) {
+	} else if ((substr($link, -strlen($opendatasoftEndpoint)) === $opendatasoftEndpoint) || (substr($link, -strlen($opendatasoftEndpoint2_0)) === $opendatasoftEndpoint2_0) || (substr($link, -strlen($opendatasoftEndpoint2_1)) === $opendatasoftEndpoint2_1)) {
 		include 'list-organizations/opendatasoft-list-organizations.php';
 	} else {
 		include 'list-organizations/ckan-list-organizations.php';

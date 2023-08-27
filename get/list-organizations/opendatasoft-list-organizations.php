@@ -7,6 +7,9 @@
 	include('_semantic.php');
 
 	$opendatasoftSuffix = '/api/v2/catalog/facets';
+	$opendatasoftEndpoint = '/api/v2/catalog/facets';
+	$opendatasoftEndpoint2_0 = '/api/explore/v2.0/catalog/facets';
+	$opendatasoftEndpoint2_1 = '/api/explore/v2.1/catalog/facets';
 	$catalogSuffix = '/';
 
 	$paramLink = htmlspecialchars($_GET['link']);
@@ -15,13 +18,20 @@
 		exit;
 	}
 
-	if ($opendatasoftSuffix != substr($paramLink, -strlen($opendatasoftSuffix))) {
-		echo 'Parameter "link" must end with "' . $opendatasoftSuffix . '"';
+	$uriPortal = '';
+
+	if (substr($paramLink, -strlen($opendatasoftEndpoint)) === $opendatasoftEndpoint) {
+		$uriPortal = substr($paramLink, 0, -strlen($opendatasoftEndpoint));
+	} else if(substr($paramLink, -strlen($opendatasoftEndpoint2_0)) === $opendatasoftEndpoint2_0) {
+		$uriPortal = substr($paramLink, 0, -strlen($opendatasoftEndpoint2_0));
+	} else if(substr($paramLink, -strlen($opendatasoftEndpoint2_1)) === $opendatasoftEndpoint2_1) {
+		$uriPortal = substr($paramLink, 0, -strlen($opendatasoftEndpoint2_1));
+	} else {
+		echo 'Parameter "link" must end with "' . $opendatasoftEndpoint . '"';
 		exit;
 	}
 
 	$uri = $paramLink;
-	$uriPortal = substr($paramLink, 0, -strlen($opendatasoftSuffix));
 	$uriDomain = end(explode('/', $uriPortal));
 
 	$source = file_get_contents($uri);

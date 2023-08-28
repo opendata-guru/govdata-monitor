@@ -23,7 +23,8 @@
 		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
 		$uri = dirname(dirname($uri));
 
-		$uri .= '/get/rs-to-geojson.php?rs=' . urlencode($param);
+		$encodedParams = str_replace('%2C', ',', urlencode($param));
+		$uri .= '/get/rs-to-geojson.php?rs=' . $encodedParams;
 
 		return curl($uri);
 	}

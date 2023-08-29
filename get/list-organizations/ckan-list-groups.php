@@ -8,6 +8,7 @@
 
 	$groupListSuffix = '/api/3/action/group_list';
 	$groupShowSuffix = '/api/3/action/group_show?id=';
+	$groupPackageShowSuffix = '/api/3/action/group_package_show?id=';
 	$groupWebsiteSuffix = '/group/';
 
 	$paramLink = htmlspecialchars($_GET['link']);
@@ -81,7 +82,22 @@
 				'uri' => $uris[0]
 			));
 		} else {
-			$data[] = semanticContributor($uriDomain, scrapeWebsite($groupID->name));
+/*			$uri = $uriCKAN . $groupPackageShowSuffix;
+			$json = json_decode(file_get_contents($uri . $groupID->name));
+
+			if ($json) {
+				$uris = json_decode($json->result->extras[0]->value);
+				$data[] = semanticContributor($uriDomain, array(
+					'id' => $json->result->id,
+					'name' => $json->result->name,
+					'title' => $json->result->title,
+					'created' => $json->result->created,
+					'packages' => $json->result->package_count,
+					'uri' => $uris[0]
+				));
+			} else*/ {
+				$data[] = semanticContributor($uriDomain, scrapeWebsite($groupID->name));
+			}
 		}
 	}
 

@@ -8,6 +8,7 @@
 	$groupListSuffix = '/api/3/action/group_list';
 	$packageShowSuffix = '/api/3/action/package_search?rows=1&start=0';
 	$packageShowAllSuffix = '/api/3/action/package_search';
+	$resourcesShowSuffix = '/api/3/action/current_package_list_with_resources?limit=1000';
 	$countWebsiteSuffix = '/search';
 
 	$paramLink = htmlspecialchars($_GET['link']);
@@ -54,7 +55,13 @@
 		if ($json) {
 			echo $json->result->count;
 		} else {
-			echo scrapeWebsite($uriCKAN);
+			$json = json_decode(file_get_contents($uriCKAN . $resourcesShowSuffix));
+
+			if ($json) {
+				echo count($json->result[0]);
+			} else {
+				echo scrapeWebsite($uriCKAN);
+			}
 		}
 	}
 ?>

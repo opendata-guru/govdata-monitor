@@ -73,6 +73,20 @@ Regionalschlüssel:
 - https://codeberg.org/opengovtech/ars-tool/src/branch/main
 - https://www.opengovtech.de/ars/
 
+## Shapes: Nutzungsbestimmungen und Quellenvermerk
+
+Die hier angebotenen Geodaten stehen über Geodatendienste gemäß der Open Data
+Datenlizenz Deutschland – Namensnennung – Version 2.0 geldleistungsfrei zum Download
+und zur Online-Nutzung zur Verfügung.
+Insbesondere hat jeder Nutzer den Quellenvermerk zu allen Geodaten, Metadaten und
+Geodatendiensten erkennbar und in optischem Zusammenhang zu platzieren.
+Veränderungen, Bearbeitungen, neue Gestaltungen oder sonstige Abwandlungen sind mit
+einem Veränderungshinweis im Quellenvermerk zu versehen.
+Quellenvermerk und Veränderungshinweis sind wie folgt zu gestalten. Bei der Darstellung auf
+einer Webseite ist der Quellenvermerk mit der URL "http://www.bkg.bund.de" zu verlinken.
+© GeoBasis-DE / BKG (Jahr des letzten Datenbezugs)
+© GeoBasis-DE / BKG (Jahr des letzten Datenbezugs) (Daten verändert)
+
 ## API documentation
 
 - [Opendatasoft's Explore API Reference Documentation (v2.1)](https://help.opendatasoft.com/apis/ods-explore-v2/)

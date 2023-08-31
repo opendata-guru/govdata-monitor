@@ -1,6 +1,9 @@
 var monitor = {
     maxDays: 20,
     chartLine: null,
+    chartLineHeader: [],
+    chartLineData: [],
+    chartLineRowDates: [],
     chartPie: null,
     displayDate: '',
 };
@@ -34,14 +37,19 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
     return count;
 }
 
+function monitorLoadMoreDays(days) {
+    data.loadMoreData(days);
+}
+
 function monitorUpdateCatalogHistoryChart() {
     var ctx = document.getElementById('dataset-history').getContext('2d');
     var stepSize = 25000;
-    var labels = [];
-    var dataCollection = [];
-    var titles = [];
+    monitor.chartLineRowDates = [];
     var gradient = [];
     var gradientBase = [];
+
+    monitor.chartLineData = [];
+    monitor.chartLineHeader = [];
 
     gradientBase.push('#34bbe6'); // blue
     gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
@@ -67,8 +75,8 @@ function monitorUpdateCatalogHistoryChart() {
         title += ' in ' + row.title;
     });
 
-    dataCollection.push([]);
-    titles.push(title);
+    monitor.chartLineData.push([]);
+    monitor.chartLineHeader.push(title);
     if (sameAs.length > 0) {
         sameAs.forEach((id) => {
             title = 'Datasets';
@@ -76,19 +84,19 @@ function monitorUpdateCatalogHistoryChart() {
                 title += ' of ' + row.title + ' in ' + row.packagesInPortal;
             });
         
-            dataCollection.push([]);
-            titles.push(title);
+            monitor.chartLineData.push([]);
+            monitor.chartLineHeader.push(title);
         });
     }
 
-    for (d = 0; d < monitor.maxDays; ++d) {
-        labels.unshift(today.toISOString().split('T')[0]);
-        dataCollection[0].unshift(monitorGetDatasetCountByDate(catalog.id, today.toISOString().split('T')[0], true));
+    for (d = 0; d < data.loadedDays; ++d) {
+        monitor.chartLineRowDates.unshift(today.toISOString().split('T')[0]);
+        monitor.chartLineData[0].unshift(monitorGetDatasetCountByDate(catalog.id, today.toISOString().split('T')[0], true));
 
         if (sameAs.length > 0) {
             var s = 1;
             sameAs.forEach((same) => {
-                dataCollection[s].unshift(monitorGetDatasetCountByDate(same, today.toISOString().split('T')[0], false));
+                monitor.chartLineData[s].unshift(monitorGetDatasetCountByDate(same, today.toISOString().split('T')[0], false));
                 ++s;
             });
         }
@@ -97,18 +105,18 @@ function monitorUpdateCatalogHistoryChart() {
     }
 
     var datasets = [];
-    for (var c = 0; c < dataCollection.length; ++c) {
+    for (var c = 0; c < monitor.chartLineData.length; ++c) {
         datasets.push({
-            label: titles[c],
+            label: monitor.chartLineHeader[c],
             fill: c === 0,
             backgroundColor: gradient[c],
             borderColor: gradientBase[c],
-            data: dataCollection[c]
+            data: monitor.chartLineData[c]
         });
     }
 
     var historyData = {
-        labels: labels,
+        labels: monitor.chartLineRowDates,
         datasets: datasets,
     };
 
@@ -121,6 +129,9 @@ function monitorUpdateCatalogHistoryChart() {
             data: historyData,
             options: {
                 maintainAspectRatio: false,
+                animation: {
+                    duration: 0
+                },
                 legend: {
                     display: false
                 },
@@ -156,6 +167,43 @@ function monitorUpdateCatalogHistoryChart() {
             }
         });
     }
+}
+
+function monitorGetAsCSV() {
+    var ret = [];
+    var len = monitor.chartLineRowDates.length;
+    var col = monitor.chartLineHeader.length;
+
+    var header = [];
+    header.push('date');
+    for (var c = 0; c < col; ++c) {
+        header.push(monitor.chartLineHeader[c]);
+    }
+    ret.push(header);
+
+    for (var l = 0; l < len; ++l) {
+        var line = [];
+        line.push(monitor.chartLineRowDates[l]);
+
+        for (var c = 0; c < col; ++c) {
+            line.push(monitor.chartLineData[c][l]);
+        }
+        ret.push(line);
+    }
+
+    return ret;
+}
+
+function monitorDownloadAsCSV() {
+    let csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV().map(e => e.join(',')).join("\n");
+
+    var encoded = encodeURI(csv);
+    var link = document.createElement('a');
+    link.setAttribute('href', encoded);
+    link.setAttribute('download', 'download.csv');
+    document.body.appendChild(link);
+
+    link.click();
 }
 
 function monitorUpdateCatalogPieChart() {

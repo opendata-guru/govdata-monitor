@@ -70,6 +70,20 @@ var catalog = (function () {
         return ret;
     }
 
+    function getDownloadMenu() {
+        var html = '';
+        html += '<a class="dropdown-toggle ms-3 badge bg-secondary text-white" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
+        html += '<span>...</span>';
+        html += '</a>';
+        html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-0" aria-labelledby="downloadDropdown" id="table-menu">';
+        html += '<a onclick="monitorDownloadAsCSV()" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV file</a>';
+        html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one week)</a>';
+        html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one month)</a>';
+        html += '</div>';
+
+        return html;
+    }
+
     function funcSet(catalogId) {
         setId(catalogId);
 
@@ -82,7 +96,7 @@ var catalog = (function () {
             strCatalog = catalogObject.title;
         }
 
-        document.getElementById(idHistoryTitle).innerHTML = monitor.maxDays + ' days history';
+        document.getElementById(idHistoryTitle).innerHTML = monitor.maxDays + ' days history ' + getDownloadMenu();
         document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
 
         date.update();

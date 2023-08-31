@@ -7,6 +7,7 @@ var data = (function () {
     var assets = [],
         view = [],
         viewHeader = [],
+        loadDays = 0,
         layers = [];
 
     function init() {
@@ -271,8 +272,9 @@ var data = (function () {
 
     function store(payload) {
         assets[dateToLoad] = payload;
+        data.loadedDays = Object.keys(assets).length;
 
-        if (Object.keys(assets).length === 1) {
+        if (data.loadedDays === 1) {
             setDate(dateToLoad);
             catalog.set(catalog.id); // <-  this is a hack
         }
@@ -308,7 +310,7 @@ var data = (function () {
         var diffs = start.getTime() - current.getTime();
         var days = Math.ceil(diffs / (1000 * 3600 * 24));
 
-        if (days <= monitor.maxDays) {
+        if (days <= loadDays) {
             xhr.send();
         } else {
             dispatchEventEndLoading();
@@ -319,6 +321,19 @@ var data = (function () {
     }
 
     function funcLoadData() {
+        data.loadedDays = 0;
+        loadDays = monitor.maxDays;
+
+        setLoadingDate(new Date(Date.now()));
+        dispatchEventStartLoading(dateToLoad);
+
+        load();
+    }
+
+    function funcLoadMoreData(days) {
+        data.loadedDays = 0;
+        loadDays += days;
+
         setLoadingDate(new Date(Date.now()));
         dispatchEventStartLoading(dateToLoad);
 
@@ -337,6 +352,8 @@ var data = (function () {
         has: funcHas,
         layers: layers,
         loadData: funcLoadData,
+        loadedDays: 0,
+        loadMoreData: funcLoadMoreData,
         view: view,
         viewHeader: viewHeader,
     };

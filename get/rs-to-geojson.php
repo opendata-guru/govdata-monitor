@@ -72,7 +72,9 @@
 	}
 
 	function concatFeatures(&$geoJSON, $geoJSON2) {
-		$geoJSON->features = array_merge($geoJSON->features, $geoJSON2->features);
+		if ($geoJSON2) {
+			$geoJSON->features = array_merge($geoJSON->features, $geoJSON2->features);
+		}
 	}
 
 	$geojson = (object) [

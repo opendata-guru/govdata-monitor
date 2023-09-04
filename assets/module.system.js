@@ -7,8 +7,8 @@ var system = (function () {
     var idSystemBody = 'system-body',
         idSystemImage = 'system-image',
         idImage1 = 'image-1',
-        idImage2 = 'image-2',
-        idImage3 = 'image-3',
+//        idImage2 = 'image-2',
+//        idImage3 = 'image-3',
         idLogo1 = 'logo-1',
         idLogo2 = 'logo-2',
         idWikipedia = 'linkWikipedia';
@@ -133,24 +133,24 @@ var system = (function () {
                 logos = logos.filter(n => n);
 
                 document.getElementById(idImage1).src = images.length > 0 ? images[0] : '';
-                document.getElementById(idImage2).src = images.length > 1 ? images[1] : '';
-                document.getElementById(idImage3).src = images.length > 2 ? images[2] : '';
+//                document.getElementById(idImage2).src = images.length > 1 ? images[1] : '';
+//                document.getElementById(idImage3).src = images.length > 2 ? images[2] : '';
                 document.getElementById(idLogo1).src = logos.length > 0 ? logos[0] : '';
                 document.getElementById(idLogo2).src = logos.length > 1 ? logos[1] : '';
                 document.getElementById(idWikipedia).href = values.article.value;
             } else if (this.readyState == 4) {
                 document.getElementById(idImage1).src = '';
-                document.getElementById(idImage2).src = '';
-                document.getElementById(idImage3).src = '';
+//                document.getElementById(idImage2).src = '';
+//                document.getElementById(idImage3).src = '';
                 document.getElementById(idLogo1).src = '';
                 document.getElementById(idLogo2).src = '';
                 document.getElementById(idWikipedia).href = '';
             }
-            document.getElementById(idImage1).style.display = document.getElementById(idImage1).getAttribute('src') == '' ? 'none' : 'inline-block';
-            document.getElementById(idImage2).style.display = document.getElementById(idImage2).getAttribute('src') == '' ? 'none' : 'inline-block';
-            document.getElementById(idImage3).style.display = document.getElementById(idImage3).getAttribute('src') == '' ? 'none' : 'inline-block';
-            document.getElementById(idLogo1).style.display = document.getElementById(idLogo1).getAttribute('src') == '' ? 'none' : 'inline-block';
-            document.getElementById(idLogo2).style.display = document.getElementById(idLogo2).getAttribute('src') == '' ? 'none' : 'inline-block';
+            document.getElementById(idImage1).style.opacity = document.getElementById(idImage1).getAttribute('src') == '' ? 0 : 1;
+//            document.getElementById(idImage2).style.opacity = document.getElementById(idImage2).getAttribute('src') == '' ? 0 : 1;
+//            document.getElementById(idImage3).style.opacity = document.getElementById(idImage3).getAttribute('src') == '' ? 0 : 1;
+            document.getElementById(idLogo1).style.opacity = document.getElementById(idLogo1).getAttribute('src') == '' ? 0 : 1;
+            document.getElementById(idLogo2).style.opacity = document.getElementById(idLogo2).getAttribute('src') == '' ? 0 : 1;
             document.getElementById(idWikipedia).style.display = document.getElementById(idWikipedia).getAttribute('href') == '' ? 'none' : 'inline-block';
     }
 
@@ -189,10 +189,6 @@ var system = (function () {
 
     function formatLink(key, value, link) {
         return '<div class="font-monospace"><span class="fw-bold">' + key + ':</span> <a href="' + link + '" target="_blank">' + value + '</a></div>';
-    }
-
-    function formatImage(number) {
-        return '<img src="" id="' + idImage1.slice(0, -1) + number + '" style="height:10rem;width:33%;object-fit:cover;display:none">';
     }
 
     function formatButton(key, link, id) {
@@ -270,8 +266,8 @@ var system = (function () {
         var type = data.getTypeString(sys ? sys.type : catalogObj.type);
 
         body += '<div class="border-bottom border-1 border-secondary mb-2 pb-2">';
-        body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;display:none">';
-        body += '<img src="" id="' + idLogo2 + '" style="height:3rem;width:50%;object-fit:contain;display:none">';
+        body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
+        body += '<img src="" id="' + idLogo2 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
         body += '</div>';
         body += '<h1 class="fw-light fs-3">' + title + '</h1>';
         body += '<div>' + type + '</div>';
@@ -296,10 +292,11 @@ var system = (function () {
             body += 'Has <strong>' + monitorFormatNumber(minCount) + '</strong> to <strong>' + monitorFormatNumber(maxCount) + '</strong> datasets';
         }
 
-        body += '<div class="border-bottom border-1 border-secondary my-3 pb-2">';
+        body += '<div class="border-bottom border-1 border-secondary my-3" style="text-align:center">';
         if (wikidata) {
             body += formatButton('Wikipedia', '', idWikipedia);
             body += formatButton('Wikidata', 'https://www.wikidata.org/wiki/' + wikidata);
+            body += '<img src="" id="' + idImage1 + '" class="bg-light mt-2" style="height:6rem;width:100%;object-fit:cover;opacity:0">';
         }
         body += '</div>';
 
@@ -310,10 +307,6 @@ var system = (function () {
         }
 
         if (wikidata) {
-            images += formatImage(1);
-            images += formatImage(2);
-            images += formatImage(3);
-
             loadSPARQL(wikidata);
         }
 

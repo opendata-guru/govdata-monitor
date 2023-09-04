@@ -77,7 +77,6 @@ var catalog = (function () {
         html += '</a>';
         html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-0" aria-labelledby="downloadDropdown" id="table-menu">';
         html += '<a onclick="monitorDownloadAsCSV()" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV file</a>';
-        html += '<a onclick="monitorLoadMoreDays(1)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one day)</a>';
         html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one week)</a>';
         html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one month)</a>';
         html += '</div>';

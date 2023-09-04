@@ -332,9 +332,13 @@ var data = (function () {
 
     function funcLoadMoreData(days) {
         data.loadedDays = 0;
+
+        var current = new Date(Date.now());
+        current.setDate(current.getDate() - loadDays);
+
         loadDays += days;
 
-        setLoadingDate(new Date(Date.now()));
+        setLoadingDate(current);
         dispatchEventStartLoading(dateToLoad);
 
         load();

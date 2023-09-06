@@ -68,8 +68,9 @@ var system = (function () {
         var sparqlQuery = 'SELECT ' +
             '?item ' +
             '(SAMPLE(?photo1) as ?photo1) ' +
-            '(SAMPLE(?photo2) as ?photo2) ' +
-            '(SAMPLE(?photo3) as ?photo3) ' +
+//            '(SAMPLE(?photo2) as ?photo2) ' +
+//            '(SAMPLE(?photo3) as ?photo3) ' +
+            '(SAMPLE(?banner) as ?banner) ' +
             '(SAMPLE(?logo) as ?logo) ' +
             '(SAMPLE(?map) as ?map) ' +
             '(SAMPLE(?flag) as ?flag) ' +
@@ -82,11 +83,14 @@ var system = (function () {
             '  OPTIONAL { ?item wdt:P18 ?photo1. }' +
             '  BIND(IF( BOUND( ?photo1), ?photo1, "") AS ?photo1)' +
             '' +
-            '  OPTIONAL { ?item wdt:P18 ?photo2. FILTER ( ?photo1 != ?photo2) }' +
-            '  BIND(IF( BOUND( ?photo2), ?photo2, "") AS ?photo2)' +
+//            '  OPTIONAL { ?item wdt:P18 ?photo2. FILTER ( ?photo1 != ?photo2) }' +
+//            '  BIND(IF( BOUND( ?photo2), ?photo2, "") AS ?photo2)' +
             '' +
-            '  OPTIONAL { ?item wdt:P18 ?photo3. FILTER ( ?photo1 != ?photo3) FILTER ( ?photo2 != ?photo3) }' +
-            '  BIND(IF( BOUND( ?photo3), ?photo3, "") AS ?photo3)' +
+//            '  OPTIONAL { ?item wdt:P18 ?photo3. FILTER ( ?photo1 != ?photo3) FILTER ( ?photo2 != ?photo3) }' +
+//            '  BIND(IF( BOUND( ?photo3), ?photo3, "") AS ?photo3)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P948 ?banner. }' +
+            '  BIND(IF( BOUND( ?banner), ?banner, "") AS ?banner)' +
             '' +
             '  OPTIONAL { ?item wdt:P154 ?logo. }' +
             '  BIND(IF( BOUND( ?logo), ?logo, "") AS ?logo)' +
@@ -121,9 +125,10 @@ var system = (function () {
                 var images = [];
                 var logos = [];
 
+                images.push(values.banner.value);
                 images.push(values.photo1.value);
-                images.push(values.photo2.value);
-                images.push(values.photo3.value);
+//                images.push(values.photo2.value);
+//                images.push(values.photo3.value);
                 images.push(values.map.value);
                 images = images.filter(n => n);
 

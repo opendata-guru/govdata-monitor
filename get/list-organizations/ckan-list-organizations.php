@@ -22,7 +22,8 @@
 
 	$uriCKAN = substr($paramLink, 0, -strlen($orgaListSuffix));
 	$uri = $paramLink;
-	$uriDomain = end(explode('/',$uriCKAN));
+//	$uriDomain = end(explode('/',$uriCKAN));
+	$uriDomain = explode('/',$uriCKAN)[2];
 	$json = json_decode(file_get_contents($uri));
 
 	$data = [];

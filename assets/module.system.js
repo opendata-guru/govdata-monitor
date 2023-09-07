@@ -5,7 +5,6 @@ var system = (function () {
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var idSystemBody = 'system-body',
-        idSystemImage = 'system-image',
         idImage1 = 'image-1',
 //        idImage2 = 'image-2',
 //        idImage3 = 'image-3',
@@ -265,7 +264,6 @@ var system = (function () {
         var sameAs = catalog.getSameAs(systemId);
         var sys = getSystem(systemId);
         var body = '';
-        var images = '';
         var title = sys ? sys.title : catalogObj.title;
         var wikidata = sys ? sys.wikidata : catalogObj.wikidata;
         var type = data.getTypeString(sys ? sys.type : catalogObj.type);
@@ -315,7 +313,6 @@ var system = (function () {
             loadSPARQL(wikidata);
         }
 
-        document.getElementById(idSystemImage).innerHTML = images;
         document.getElementById(idSystemBody).innerHTML = body;
     }
 

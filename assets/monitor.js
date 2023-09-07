@@ -53,8 +53,8 @@ function monitorUpdateCatalogHistoryChart() {
 
     gradientBase.push('#34bbe6'); // blue
     gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
-    gradient[gradient.length - 1].addColorStop(0, 'rgba(52, 187, 230, 1)');
-    gradient[gradient.length - 1].addColorStop(1, 'rgba(52, 187, 230, 0)');
+    gradient[gradient.length - 1].addColorStop(0, 'rgba(52, 187, 230, .3)');
+    gradient[gradient.length - 1].addColorStop(1, 'rgba(52, 187, 230, .2)');
 
     gradientBase.push('#eb7532'); // orange
     gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
@@ -111,6 +111,8 @@ function monitorUpdateCatalogHistoryChart() {
             fill: c === 0,
             backgroundColor: gradient[c],
             borderColor: gradientBase[c],
+            borderWidth: 2,
+            pointRadius: 0,
             data: monitor.chartLineData[c]
         });
     }
@@ -204,6 +206,32 @@ function monitorDownloadAsCSV() {
     document.body.appendChild(link);
 
     link.click();
+}
+
+function monitorZoomIn() {
+    document.getElementById('columnLeft').className = 'col-12';
+
+    document.getElementById('historyZoomIn').style.pointerEvents = 'none';
+    document.getElementById('historyZoomIn').classList.remove('text-dark');
+
+    document.getElementById('historyZoomOut').style.pointerEvents = '';
+    document.getElementById('historyZoomOut').classList.add('text-dark');
+
+    document.getElementById('history-chart').classList.remove('chart-sm');
+    document.getElementById('history-chart').classList.add('chart-lg');
+}
+
+function monitorZoomOut() {
+    document.getElementById('columnLeft').className = 'col-12 col-sm-6 col-md-7 col-xl-7';
+
+    document.getElementById('historyZoomIn').style.pointerEvents = '';
+    document.getElementById('historyZoomIn').classList.add('text-dark');
+
+    document.getElementById('historyZoomOut').style.pointerEvents = 'none';
+    document.getElementById('historyZoomOut').classList.remove('text-dark');
+
+    document.getElementById('history-chart').classList.remove('chart-lg');
+    document.getElementById('history-chart').classList.add('chart-sm');
 }
 
 function monitorUpdateCatalogPieChart() {

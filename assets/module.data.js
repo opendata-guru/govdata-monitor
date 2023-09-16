@@ -344,6 +344,22 @@ var data = (function () {
         load();
     }
 
+    function funcRemoveLoadedData() {
+        while (Object.keys(assets).length > monitor.maxDays) {
+            var current = new Date(dateToLoad);
+            current.setDate(current.getDate() + 1);
+            setLoadingDate(current);
+
+            delete assets[dateToLoad];
+        }
+
+        data.loadedDays = Object.keys(assets).length;
+        loadDays = Object.keys(assets).length;
+
+        date.update();
+        monitorUpdateCatalogHistoryChart();
+    }
+
     init();
 
     return {
@@ -358,6 +374,7 @@ var data = (function () {
         loadData: funcLoadData,
         loadedDays: 0,
         loadMoreData: funcLoadMoreData,
+        removeLoadedData: funcRemoveLoadedData,
         view: view,
         viewHeader: viewHeader,
     };

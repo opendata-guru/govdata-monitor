@@ -38,7 +38,15 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
 }
 
 function monitorLoadMoreDays(days) {
+    document.getElementById('removeLoadedDays').style.pointerEvents = '';
+    document.getElementById('removeLoadedDays').classList.add('text-dark');
     data.loadMoreData(days);
+}
+
+function monitorRemoveLoadedDays() {
+    document.getElementById('removeLoadedDays').style.pointerEvents = 'none';
+    document.getElementById('removeLoadedDays').classList.remove('text-dark');
+    data.removeLoadedData();
 }
 
 function monitorUpdateCatalogHistoryChart() {

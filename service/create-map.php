@@ -24,9 +24,20 @@
 		$uri = dirname(dirname($uri));
 
 		$encodedParams = str_replace('%2C', ',', urlencode($param));
-		$uri .= '/get/rs-to-geojson.php?rs=' . $encodedParams;
+		$uri .= '/get/rs-to-geojson.php';
 
-		return curl($uri);
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, $uri);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, 'rs=' . $encodedParams);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$ret = curl_exec($ch);
+
+		curl_close($ch);
+
+		return $ret;
 	}
 
 	function sortRS($a, $b) {

@@ -6,6 +6,9 @@
 
 	$paramRS = htmlspecialchars($_GET['rs']);
 	if ($paramRS == '') {
+		$paramRS = htmlspecialchars($_POST['rs']);
+	}
+	if ($paramRS == '') {
 		echo 'Parameter "rs" is not set';
 		exit;
 	}
@@ -73,6 +76,7 @@
 
 	function concatFeatures(&$geoJSON, $geoJSON2) {
 		if ($geoJSON2) {
+//			$geoJSON->bbox = $geoJSON2->bbox;
 			$geoJSON->features = array_merge($geoJSON->features, $geoJSON2->features);
 		}
 	}
@@ -85,6 +89,7 @@
 				'name' => 'urn:ogc:def:crs:EPSG::4326'
 			)
 		),
+//		'bbox' => [],
 		'features' => []
 /*
   ["totalFeatures"]=>

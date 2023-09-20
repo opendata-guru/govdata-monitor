@@ -54,6 +54,11 @@ Convert RS (Regionalschlüssel) to GEOJSON file:
 - https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04
 - https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04,06
 
+Parameter length in GET method is limited to some KByte (depend on Browser support).
+You can use `rs` as POST parameter to prevent this limitation.
+
+- https://opendata.guru/govdata/get/rs-to-geojson.php and POST parameter `rs=04,06`
+
 And service endpoints:
 
 - https://opendata.guru/govdata/service/artery.php

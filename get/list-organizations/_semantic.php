@@ -15,6 +15,7 @@
 	loadMappingFile('../data/opendataportals.csv', $mapping);
 	loadMappingFile('../data/opendataportals.at.csv', $mapping);
 	loadMappingFile('../data/opendataportals.ch.csv', $mapping);
+	loadMappingFile('../data/opendataportals.eu.csv', $mapping);
 
 	function loadMappingFile($file, &$mapping) {
 		$idRS = null;

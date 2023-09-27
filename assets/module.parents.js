@@ -4,12 +4,12 @@ var parents = (function () {
     function init() {
         var css = '';
 
-        css += '.parent-diagram {width:max-content;}';
-        css += '.parent-diagram ul {padding:.75rem 0 0 0;position:relative;}';
+        css += '.parent-diagram {margin:0 auto;width:max-content;}';
+        css += '.parent-diagram ul {display:flex;padding:.75rem 0 0 0;position:relative;}';
         css += '.parent-diagram ul::before {border-left:1px solid #17a2b8;content:"";height:.75rem;left:50%;position:absolute;top:0;width:0;}';
         css += '.parent-diagram > ul::before {border:none;}';
         css += '.parent-diagram li {float:left;list-style-type:none;padding:.75rem .2rem 0 .2rem;position:relative;text-align:center;}';
-        css += '.parent-diagram li:only-child {padding-top:0;}';
+        css += '.parent-diagram li:only-child {flex:auto;padding-top:0;}';
         css += '.parent-diagram li::after, .parent-diagram li::before {border-top:1px solid #17a2b8;content:"";height:.75rem;position:absolute;top:0;width:50%;}';
         css += '.parent-diagram li:only-child::after, .parent-diagram li:only-child::before {display:none;}';
         css += '.parent-diagram li::after {left:50%;}';

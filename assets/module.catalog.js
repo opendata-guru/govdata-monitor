@@ -1,8 +1,7 @@
 var catalog = (function () {
     var initvalId = '',
         defaultId = 'govdata';
-    var idHistoryTitle = 'history-title',
-        idBreadcrumb = 'breadcrumb';
+    var idHistoryTitle = 'history-title';
     var paramId = 'catalog';
 
     function init() {
@@ -102,37 +101,10 @@ var catalog = (function () {
         }
 
         document.getElementById(idHistoryTitle).innerHTML = monitor.maxDays + ' days history ' + getDownloadMenu();
-        document.getElementById(idBreadcrumb).innerHTML = getBreadcrumb(catalogId);
 
+        parents.update();
         date.update();
         data.emitFilterChanged();
-    }
-
-    function getBreadcrumb_(id) {
-        var ret = '';
-        var catalogObject = funcGet(id);
-
-        if (catalogObject) {
-            ret += getBreadcrumb_(catalogObject.packagesInId);
-            if (id === catalog.id) {
-                ret += ' &gt; ' + catalogObject.title;
-            } else {
-                ret += ' &gt; <a class="text-primary" onclick="catalog.set(\'' + id + '\')">' + catalogObject.title + '</a>';
-            }
-        }
-
-        return ret;
-    }
-
-    function getBreadcrumb(id) {
-        var ret = '';
-
-        var sameAs = funcGetSameAs(id);
-        if (sameAs.length > 0) {
-            sameAs.forEach((id_) => ret += (ret === '' ? '' : '&nbsp;&nbsp;&nbsp;and&nbsp;&nbsp;&nbsp;') + getBreadcrumb_(id_));
-        }
-
-        return ret;
     }
 
     init();

@@ -304,7 +304,7 @@ function monitorUpdateCatalogPieChart() {
 
 var idLoadingLabel = 'loading-description',
 classNameLoadingCard = 'card-loading',
-classNameBreadcrumbTitle = 'card-breadcrumb-and-catalog-title';
+classNameParentsTitle = 'card-parents-and-catalog-title';
 
 function showProgress(value) {
     var text = '';
@@ -314,13 +314,13 @@ function showProgress(value) {
 
     document.getElementById(idLoadingLabel).innerHTML = text;
 
-    document.getElementsByClassName(classNameBreadcrumbTitle)[0].style.display = 'none';
+    document.getElementsByClassName(classNameParentsTitle)[0].style.display = 'none';
     document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'block';
 }
 
 function hideProgress() {
     document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'none';
-    document.getElementsByClassName(classNameBreadcrumbTitle)[0].style.display = 'block';
+    document.getElementsByClassName(classNameParentsTitle)[0].style.display = 'block';
 }
 
 document.addEventListener('DOMContentLoaded', function() {

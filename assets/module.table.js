@@ -5,9 +5,11 @@ var table = (function () {
         defaultClipboard = false;
         initvalLayers = [],
         defaultLayers = [];
-    var idTableBody = 'supplier-table',
-        idTableHeader = 'supplier-table-header',
-        idTableFooter = 'supplier-table-footer',
+    var idSupplierTableBody = 'supplier-table',
+        idSupplierTableHeader = 'supplier-table-header',
+        idSupplierTableFooter = 'supplier-table-footer',
+        idCatalogTableBody = 'catalog-table',
+        idCatalogTableHeader = 'catalog-table-header',
         idElement = 'tableDropdown',
         idMenu = 'table-menu',
         idReset = 'table-reset',
@@ -325,8 +327,7 @@ var table = (function () {
         navigator.clipboard.writeText(value);
     }
 
-    function getSublineRow(arrayData, id, countDatasets, lastSuffix) {
-        var showBadge = arrayData.length === 1;
+    function getCatalogRow(arrayData, id, countDatasets, lastSuffix) {
         var str = '';
         var name = '';
         var title = '';
@@ -343,7 +344,7 @@ var table = (function () {
                     ignoreRow = true;
                 }
                 if (countDatasets && (undefined === dataObj[0].datasetCount)) {
-//                    ignoreRow = true;
+                    ignoreRow = true;
                 }
 
                 var currentCount = countDatasets ? parseInt(dataObj[0].datasetCount ? dataObj[0].datasetCount : 0, 10) : parseInt(dataObj[0].packages ? dataObj[0].packages : 0, 10);
@@ -365,9 +366,6 @@ var table = (function () {
                     }
                 }
                 str += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(currentCount) + '</td>';
-                if (showBadge) {
-                    str += '<td></td>';
-                }
 
                 lastCount = currentCount;
             } else {
@@ -380,9 +378,6 @@ var table = (function () {
                     }
                 }
                 str += '<td class="text-end align-middle' + addClass + '">-</td>';
-                if (showBadge) {
-                    str += '<td></td>';
-                }
                 lastCount = null;
             }
         });
@@ -422,23 +417,22 @@ var table = (function () {
     function funcUpdate() {
         var arrayData = [];
         var arrayIds = [];
-        var firstHeader = '';
-        var secondHeader = '';
-        var footer = '';
-        var subline = '';
-        var body = '';
+        var catalogHeader = '';
+        var catalogRows = '';
+        var supplierHeader = '';
+        var supplierRows = '';
+        var supplierFooter = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        firstHeader += '<th>Data Catalogs</th>';
-        secondHeader += '<th>Data Suppliers</th>';
+        catalogHeader += '<th></th>';
+        supplierHeader += '<th>Data Suppliers</th>';
 
         for (var v = 0; v < data.viewHeader.length; ++v) {
-            firstHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
-            secondHeader += '<th></th>';
+            catalogHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
+            supplierHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
         }
         if (data.viewHeader.length === 1) {
-            firstHeader += '<th class="text-end">In source portal</th>';
-            secondHeader += '<th></th>';
+            supplierHeader += '<th class="text-end">In source portal</th>';
         }
 
         for (d = 0; d < date.selection.length; ++d) {
@@ -457,27 +451,29 @@ var table = (function () {
 
         if (data.view.length > 0) {
             var parent = catalog.get(catalog.id);
-            data.view.forEach((row) => body += getRow(parent, row));
-            footer += '<th>' + data.view.length + ' data suppliers</th>';
+            data.view.forEach((row) => supplierRows += getRow(parent, row));
+            supplierFooter += '<th>' + data.view.length + ' data suppliers</th>';
         } else {
-            body += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-            footer += '<th></th>';
+            supplierRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+            supplierFooter += '<th></th>';
         }
 
         var suffix = { value: '' };
-        subline += getSublineRow(arrayData, catalog.id, true, suffix);
+        catalogRows += getCatalogRow(arrayData, catalog.id, true, suffix);
         if (sameAs.length > 0) {
-            sameAs.forEach((id) => subline += getSublineRow(arrayData, id, false, suffix));
+            sameAs.forEach((id) => catalogRows += getCatalogRow(arrayData, id, false, suffix));
         }
 
-        firstHeader = '<tr style="border-bottom:2px solid #000">' + firstHeader + '</tr>';
-        secondHeader = '<tr style="border-top:2px solid #000;border-bottom:2px solid #000">' + secondHeader + '</tr>';
-        footer = '<tr style="border-top:2px solid #000">' + footer + '</tr>';
-        subline = '<tr>' + subline + '</tr>';
+        catalogHeader = '<tr>' + catalogHeader + '</tr>';
+        supplierHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + supplierHeader + '</tr>';
+        supplierFooter = '<tr style="border-top:1.5px solid #6C757D">' + supplierFooter + '</tr>';
 
-        document.getElementById(idTableHeader).innerHTML = firstHeader + subline + secondHeader;
-        document.getElementById(idTableFooter).innerHTML = footer;
-        document.getElementById(idTableBody).innerHTML = body;
+        document.getElementById(idCatalogTableHeader).innerHTML = catalogHeader;
+        document.getElementById(idCatalogTableBody).innerHTML = catalogRows;
+
+        document.getElementById(idSupplierTableHeader).innerHTML = supplierHeader;
+        document.getElementById(idSupplierTableFooter).innerHTML = supplierFooter;
+        document.getElementById(idSupplierTableBody).innerHTML = supplierRows;
 
         monitorUpdateCatalogPieChart();
         monitorUpdateCatalogHistoryChart();

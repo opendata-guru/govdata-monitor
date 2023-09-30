@@ -204,6 +204,10 @@ function monitorGetAsCSV() {
     return ret;
 }
 
+function monitorGetAsPNG() {
+    return monitor.chartPie.toBase64Image();
+}
+
 function monitorDownloadAsCSV() {
     let csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV().map(e => e.join(',')).join("\n");
 
@@ -211,6 +215,17 @@ function monitorDownloadAsCSV() {
     var link = document.createElement('a');
     link.setAttribute('href', encoded);
     link.setAttribute('download', 'download.csv');
+    document.body.appendChild(link);
+
+    link.click();
+}
+
+function monitorDownloadAsPNG() {
+    let png = monitorGetAsPNG();
+
+    var link = document.createElement('a');
+    link.setAttribute('href', png);
+    link.setAttribute('download', 'download.png');
     document.body.appendChild(link);
 
     link.click();

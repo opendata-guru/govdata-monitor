@@ -75,7 +75,8 @@ var catalog = (function () {
         html += '<span>...</span>';
         html += '</a>';
         html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
-        html += '<a onclick="monitorDownloadAsCSV()" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV file</a>';
+        html += '<a onclick="monitorDownloadAsCSV()" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV table</a>';
+//        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">Download as PNG image</a>';
         html += '<div class="dropdown-divider"></div>';
         html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one week)</a>';
         html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one month)</a>';

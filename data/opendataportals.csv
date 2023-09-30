@@ -24,7 +24,7 @@ Artern,collectiveMunicipality,Stadt Artern und der beauftragenden Gemeinden,geop
 Artland,collectiveMunicipality,Samtgemeinde Artland,geoportal.de|SamtgemeindeArtland,,,,,,034595401,,Q450095,,,,,,2023-07-24
 Attendorn,municipality,Hansestadt Attendorn,geoportal.de|HansestadtAttendorn,,,,https://www.o-sp.de/attendorn/opendata,,059660004004,,Q10887,,,,,,2023-05-21
 Auengrund,collectiveMunicipality,Gemeinde Auengrund und der beauftragenden Gemeinden,geoportal.de|GemeindeAuengrundundderbeauftragendenGemeinden,,,,,,160695051,,Q546627,,,,,,2023-08-14
-Augsburg,municipality,Stadt Augsburg,http://dcat-ap.de/def/contributors/stadtAugsburg,,,,,,097610000000,,Q2749,,,,,,
+Augsburg,municipality,Stadt Augsburg,http://dcat-ap.de/def/contributors/stadtAugsburg,opendata.bayern|augsburg,,,,,097610000000,,Q2749,,,,,,2023-09-30
 Auma-Weidatal,municipality,Stadt Auma-Weidatal,geoportal.de|StadtAumaWeidatal,,,,,,160760092092,,Q4426,,,,,,2023-08-13
 Auswärtiges Amt,federal,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertigesAmt,,,,,,,,Q56034,,,,,,
 Autobahn GmbH,federalAgency,Die Autobahn GmbH des Bundes,mcloud.de|DieAutobahnGmbHdesBundes,,,,,,,,Q31840061,,,,,,2023-08-17
@@ -84,6 +84,7 @@ Bremen,municipality+state,Freie Hansestadt Bremen,http://dcat-ap.de/def/contribu
 Brenk,municipality,Ortsgemeinde Brenk,daten.rlp.de|ortsgemeinde_brenk,,,,,,071315004201,,Q645340,,,,,,2023-07-19
 Brohltal,collectiveMunicipality,Verbandsgemeinde Brohltal,daten.rlp.de|verbandsgemeinde_brohltal,,,,https://daten.rlp.de/organization/vg_brohltal,,071315004,,Q634710,,,,,,2023-05-21
 Brotterode-Trusetal,municipality,Stadt Brotterode-Trusetal,geoportal.de|StadtBrotterodeTrusetal,,,,,,160660074074,,Q638178,,,,,,2023-08-13
+Brunsbüttel,municipality,Stadt Brunsbüttel,opendata.schleswig-holstein.de|brunsbuettel,,,,,,010510011011,,Q516635,,,,,,2023-09-30
 Brühl,municipality,Brühl (Rheinland),offenedaten.kdvz-frechen.de|brühl,offenedaten.kdvz.nrw|brühl,,,http://offenedaten.kdvz-frechen.de/group/br%C3%BChl,2016-11-08,053620012012,,Q7036,Stadt Köln,DKAN,,,,2023-08-27
 Bund/Länder-Arbeitsgemeinschaft Nord- und Ostsee (BLANO),federalCooperation,Bund / Länder Arbeitsgemeinschaft Nord- und Ostsee [BLANO],geoportal.de|BundLnderArbeitsgemeinschaftNordundOstseeBLANO,,,,,,,,,,,,,,2023-08-17
 Bundesamt für Bauwesen und Raumordnung,federalAgency,Bundesamt für Bauwesen und Raumordnung (BBR),http://dcat-ap.de/def/contributors/bundesamtFuerBauwesenUndRaumordnung,,,,,,,,Q1005429,,,,,,
@@ -330,7 +331,7 @@ Kahla,municipality,Stadt Kahla,geoportal.de|StadtKahla,,,,,,160740044044,,Q55080
 Kaiserslautern,municipality,Stadt Kaiserslautern,daten.rlp.de|stadt_kaiserslautern,,,,,,073120000000,,Q3758,,,,,,2023-07-19
 Kalkar,municipality,Stadt Kalkar,geoportal.de|StadtKalkar,,,,,,051540024024,,Q243554,,,,,,2023-08-13
 Kall,municipality,Kall,offenedaten.kdvz-frechen.de|kall,offenedaten.kdvz.nrw|kall,,,http://offenedaten.kdvz-frechen.de/group/kall,2016-11-08,053660024024,,Q240887,Stadt Köln,DKAN,,,,2023-08-27
-Karlsruhe,municipality,Stadt Karlsruhe,www.mobidata-bw.de|stadt-karlsruhe,,,,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,Q1040,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2023-09-09
+Karlsruhe,municipality,Stadt Karlsruhe,www.mobidata-bw.de|stadt-karlsruhe,www.daten-bw.de|stadt-karlsruhe,,,https://transparenz.karlsruhe.de/,2016-07-14,082120000000,,Q1040,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2023-09-30
 Kastellaun,collectiveMunicipality,Verbandsgemeide Kastellaun,daten.rlp.de|verbandsgemeinde_kastellaun,,,,https://daten.rlp.de/organization/verbandsgemeinde_kastellaun,,071405003,,Q560240,,,,,,2023-05-23
 Kaulsdorf,collectiveMunicipality,Gemeinde Kaulsdorf und der beauftragenden Gemeinden,geoportal.de|GemeindeKaulsdorfundderbeauftragendenGemeinden,,,,,,160735051,,Q559705,,,,,,2023-08-14
 Kempenich,municipality,Ortsgemeinde Kempenich,daten.rlp.de|ortsgemeinde_kempenich,,,,https://daten.rlp.de/organization/ortsgemeinde_kempenich,,071315004502,,Q563845,,,,,,2023-05-23
@@ -462,7 +463,7 @@ Mönchengladbach,municipality,Stadt Mönchengladbach,geoportal.de|StadtMnchengla
 Mühlhausen/Thüringen,municipality,Stadt Mühlhausen/Thüringen,geoportal.de|StadtMhlhausenThringen,,,,,,160640046046,,Q14925,,,,,,2023-08-11
 Mülheim an der Mosel,municipality,Ortsgemeinde Mülheim an der Mosel,daten.rlp.de|ortsgemeinde_muelheim_an_der_mosel,,,,,,072315001090,,Q667192,,,,,,2023-05-30
 Mülheim an der Ruhr,municipality,Stadt Mülheim an der Ruhr,opendata.ruhr|mulheim-a-d-ruhr,,,,http://open.muelheim-ruhr.de,2014-12-19,051170000000,,Q2899,Stadt Mülheim an der Ruhr,DKAN,https://geo.muelheim-ruhr.de/api/3/action/package_list,,,2023-05-30
-München,municipality,Landeshauptstadt München,http://dcat-ap.de/def/contributors/landeshauptstadtMuenchen,,,,http://www.opengov-muenchen.de,2014-12-19,091620000000,,Q1726,,CKAN,https://www.opengov-muenchen.de/api/3/action/package_list,,,2019-07-31
+München,municipality,Landeshauptstadt München,http://dcat-ap.de/def/contributors/landeshauptstadtMuenchen,opendata.bayern|muenchen,,,http://www.opengov-muenchen.de,2014-12-19,091620000000,,Q1726,,CKAN,https://www.opengov-muenchen.de/api/3/action/package_list,,,2023-09-30
 Münchenbernsdorf,collectiveMunicipality,Verwaltungsgemeinschaft Münchenbernsdorf,geoportal.de|VerwaltungsgemeinschaftMnchenbernsdorf,,,,,,160765006,,Q146991,,,,,,2023-09-19
 Münster,municipality,Münster (Westfalen),open.nrw|muenster,mcloud.de|OpenNRWMnster,,,https://opendata.stadt-muenster.de/,2019-09,055150000000,,Q2742,citeq,Drupal,https://opendata.stadt-muenster.de/api/3/action/package_list,https://opendata.stadt-muenster.de/api/3/action/group_list,https://opendata.stadt-muenster.de/catalog.xml,2023-05-30
 Nationalparkverwaltung im Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein,stateAgency,Nationalparkverwaltung im Landesbetrieb für Küstenschutz， Nationalpark und Meeresschutz Schleswig-Holstein (LKN-NPV),geoportal.de|NationalparkverwaltungimLandesbetriebfrKstenschutzNationalparkundMeeresschutzSchleswigHolsteinLKNNPV,,,,,,,01,,,,,,,2023-08-15
@@ -507,6 +508,7 @@ Oppurg,collectiveMunicipality,Verwaltungsgemeinschaft Oppurg,geoportal.de|Verwal
 Osnabrück,municipality,Stadt Osnabrück,geoportal.de|StadtOsnabrck,,,,,,034040000000,,Q2916,,,,,,2023-08-13
 Ostercappeln,municipality,Gemeinde Ostercappeln,geoportal.de|GemeindeOstercappeln,,,,,,034590029029,,Q566437,,,,,,2023-08-11
 Ostholstein,district,Kreis Ostholstein,opendata.schleswig-holstein.de|kreis-ostholstein,,,,https://opendata.schleswig-holstein.de/organization/kreis-ostholstein,,01055,,Q2975,,,,,,2023-05-09
+Ostrach,municipality,Gemeinde Ostrach,www.daten-bw.de|gemeinde-ostrach,,,,,,084370086086,,Q632770,,,,,,2023-09-30
 Otterbach-Otterberg,collectiveMunicipality,Verbandsgemeinde Otterbach-Otterberg,daten.rlp.de|verbandsgemeinde_otterbach_otterberg,,,,https://daten.rlp.de/organization/verbandsgemeinde_otterbach_otterberg,,073355010,,Q2514006,,,,,,2023-05-30
 Otterberg,municipality,Stadt Otterberg,daten.rlp.de|stadt_otterberg,,,,,,073355010035,,Q632266,,,,,,2023-07-19
 Otzberg,municipality,Gemeinde Otzberg,geoportal.de|GemeindeOtzberg,,,,,,064320017017,,Q569095,,,,,,2023-09-09
@@ -550,7 +552,7 @@ Rheingau-Taunus-Kreis,district,Rheingau-Taunus-Kreis,geoportal.de|RheingauTaunus
 Rheinland-Pfalz,state,Rheinland-Pfalz,http://dcat-ap.de/def/contributors/openGovernmentDataPortalRheinlandPfalz,,,,http://daten.rlp.de/,,07,,Q1200,Landesbetrieb Daten und Information,CKAN,https://daten.rlp.de/api/3/action/package_list,https://daten.rlp.de/api/3/action/organization_list,https://daten.rlp.de/catalog.xml,2023-02-06
 Rheurdt,municipality,Gemeinde Rheurdt,geoportal.de|GemeindeRheurdt,,,,,,051540048048,,Q243206,,,,,,2023-09-09
 Riechheimer Berg,collectiveMunicipality,Verwaltungsgemeinschaft Riechheimer Berg,geoportal.de|VerwaltungsgemeinschaftRiechheimerBerg,,,,,,160705009,,Q896050,,,,,,2023-09-19
-Robert Koch-Institut,federalAgency,Robert Koch-Institut,http://dcat-ap.de/def/contributors/robertKochInstitut,,,,,,,,Q679041,,,,,,
+Robert Koch-Institut,federalAgency,Robert Koch-Institut,http://dcat-ap.de/def/contributors/robertKochInstitut,opendata.rhein-kreis-neuss.de|RobertKochInstitutRKI,opendata.rhein-kreis-neuss.de|RobertKochInstitut,,,,,,Q679041,,,,,,2023-09-30
 Rodalben,collectiveMunicipality,Verbandsgemeinde Rodalben,daten.rlp.de|verbandsgemeinde_rodalben,,,,,,073405004,,Q451664,,,,,,2023-07-18
 Rodenbach,municipality,Ortsgemeinde Rodenbach,daten.rlp.de|ortsgemeinde_rodenbach,,,,,,073355009040,,Q567476,,,,,,2023-07-19
 Roetgen,municipality,Roetgen,offenedaten.aachen.de|gemeinde-roetgen,,,,https://offenedaten.aachen.de/organization/gemeinde-roetgen,,053340024024,,Q200743,,,,,,2023-02-05

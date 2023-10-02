@@ -327,6 +327,19 @@ var table = (function () {
         navigator.clipboard.writeText(value);
     }
 
+    function getCatalogMenu(catalogId) {
+        var html = ' and ';
+        html += '<a title="Options" class="link-info" href="#" id="listDatasetsdDropdown" data-bs-toggle="dropdown">';
+        html += 'List Datasets';
+        html += '</a>';
+        html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="listDatasetsdDropdown" id="table-menu">';
+        html += '<div>Catalog name: <b>' + catalogId.name + '</b></div>';
+        html += '<div>Catalog in: <b>' + catalogId.in + '</b></div>';
+        html += '</div>';
+
+        return html;
+    }
+
     function getCatalogRow(arrayData, id, countDatasets, lastSuffix) {
         var str = '';
         var name = '';
@@ -391,12 +404,16 @@ var table = (function () {
         var showPortal = '';
         var suffix = '';
         var diffSuffix = '';
+        var catalogId = {};
         if (countDatasets) {
-            suffix = '?cat=' + id;
-            diffSuffix = '&cat2=' + id;
+            catalogId.name = id;
+            suffix = '?cat=' + catalogId.name;
+            diffSuffix = '&cat2=' + catalogId.name;
         } else {
-            suffix = '?cat=' + name + '&in=' + packagesInId;
-            diffSuffix = '&cat2=' + name + '&in2=' + packagesInId;
+            catalogId.name = name;
+            catalogId.in = packagesInId;
+            suffix = '?cat=' + catalogId.name + '&in=' + catalogId.in;
+            diffSuffix = '&cat2=' + catalogId.name + '&in2=' + catalogId.in;
         }
 
         if (lastSuffix.value !== '') {
@@ -405,7 +422,7 @@ var table = (function () {
         }
 //        showPortal = '<a href="" class="ms-2" style="pointer-events:none;color:#888">Show in portal</a>';
 
-        secondLine = '<br><a href="datasets.html' + suffix + '" class="link-info ms-4">Show datasets</a>' + showPortal + showDiff;
+        secondLine = '<br><span class="ms-4">Work in progress:</span> <a href="datasets.html' + suffix + '" class="link-info">Show datasets</a>' + showPortal + showDiff + getCatalogMenu(catalogId);
 
         str = '<td>' + title + secondLine + '</td>' + str;
 

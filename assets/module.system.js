@@ -169,7 +169,7 @@ var system = (function () {
         load();
     }
 
-    function getSystem(catalogId) {
+    function funcGet(catalogId) {
         var catalogObj = catalog.get(catalogId);
         var ret = null;
         // contributor, link, title, type, wikidata
@@ -262,7 +262,7 @@ var system = (function () {
 
         var catalogObj = catalog.get(systemId);
         var sameAs = catalog.getSameAs(systemId);
-        var sys = getSystem(systemId);
+        var sys = funcGet(systemId);
         var body = '';
         var title = sys ? sys.title : catalogObj.title;
         var wikidata = sys ? sys.wikidata : catalogObj.wikidata;
@@ -321,6 +321,7 @@ var system = (function () {
     return {
         addEventListenerStartLoading: funcAddEventListenerStartLoading,
         addEventListenerEndLoading: funcAddEventListenerEndLoading,
+        get: funcGet,
         loadData: funcLoadData,
         update: funcUpdate,
     };

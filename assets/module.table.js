@@ -327,6 +327,23 @@ var table = (function () {
         navigator.clipboard.writeText(value);
     }
 
+    function funcTest(name, parent) {
+        var catName = '', id = '';
+
+        if (parent === 'undefined') {
+            catName = name;
+            id = '';
+        } else {
+            catName = parent;
+            id = name;
+        }
+
+        var cat = catalog.get(catName);
+        var catLink = cat.link;
+        console.log('catalog:', catLink);
+        console.log('id:', id);
+    }
+
     function getCatalogMenu(catalogId) {
         var html = ' and ';
         html += '<a title="Options" class="link-info" href="#" id="listDatasetsdDropdown" data-bs-toggle="dropdown">';
@@ -335,6 +352,8 @@ var table = (function () {
         html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="listDatasetsdDropdown" id="table-menu">';
         html += '<div>Catalog name: <b>' + catalogId.name + '</b></div>';
         html += '<div>Catalog in: <b>' + catalogId.in + '</b></div>';
+        html += '<div class="dropdown-divider"></div>';
+        html += '<a data-name="' + catalogId.name + '" data-in="' + catalogId.in + '" onclick="table.test(\'' + catalogId.name + '\',\'' + catalogId.in + '\')" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Start</a>';
         html += '</div>';
 
         return html;
@@ -507,6 +526,7 @@ var table = (function () {
         flatten: initvalFlatten,
         layers: initvalLayers,
         layerNameOfUndefined: layerUndefined,
+        test: funcTest,
         update: funcUpdate,
     };
 }());

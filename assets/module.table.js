@@ -327,7 +327,7 @@ var table = (function () {
         navigator.clipboard.writeText(value);
     }
 
-    function funcTest(name, parent) {
+    function funcListDatasets(name, parent) {
         var catName = '', id = '';
 
         if (parent === 'undefined') {
@@ -342,6 +342,9 @@ var table = (function () {
         var catLink = cat.link;
         console.log('catalog:', catLink);
         console.log('id:', id);
+
+        console.log('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id);
+//        loadLayer('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id);
     }
 
     function getCatalogMenu(catalogId) {
@@ -353,7 +356,7 @@ var table = (function () {
         html += '<div>Catalog name: <b>' + catalogId.name + '</b></div>';
         html += '<div>Catalog in: <b>' + catalogId.in + '</b></div>';
         html += '<div class="dropdown-divider"></div>';
-        html += '<a data-name="' + catalogId.name + '" data-in="' + catalogId.in + '" onclick="table.test(\'' + catalogId.name + '\',\'' + catalogId.in + '\')" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Start</a>';
+        html += '<a data-name="' + catalogId.name + '" data-in="' + catalogId.in + '" onclick="table.listDatasets(\'' + catalogId.name + '\',\'' + catalogId.in + '\')" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Start</a>';
         html += '</div>';
 
         return html;
@@ -526,7 +529,7 @@ var table = (function () {
         flatten: initvalFlatten,
         layers: initvalLayers,
         layerNameOfUndefined: layerUndefined,
-        test: funcTest,
+        listDatasets: funcListDatasets,
         update: funcUpdate,
     };
 }());

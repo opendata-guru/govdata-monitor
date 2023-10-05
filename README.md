@@ -41,6 +41,11 @@ Get a list of all contributors and some more meta data:
 - for bug in NRW: https://opendata.guru/govdata/get/list-organizations/nrw-list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/list-organizations.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
 
+Get a list of all datasets:
+- https://opendata.guru/govdata/get/list-datasets.php
+- https://opendata.guru/govdata/get/list-datasets.php?link=http://offenedaten.frankfurt.de/api/3/action/organization_list
+- https://opendata.guru/govdata/get/list-datasets.php?link=http://offenedaten.frankfurt.de/api/3/action/organization_list&id=buergeramt-statistik-und-wahlen
+
 Get system status information:
 
 - https://opendata.guru/govdata/get/system-status.php

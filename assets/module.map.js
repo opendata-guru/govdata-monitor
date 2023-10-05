@@ -23,7 +23,7 @@ var map = (function () {
         var catalogObj = catalog.get(catalog.id);
         var ret = [];
 
-        if (catalogObj.rs) {
+        if (catalogObj && catalogObj.rs) {
             ret.push(catalogObj.rs);
         }
 

@@ -50,7 +50,7 @@ var catalog = (function () {
         var dataObj = data.get();
         var ret = [];
 
-        if (dataObj && id) {
+        if (catalogObject && dataObj && id) {
             dataObj.forEach((row) => {
                 if (catalogObject.wikidata && (catalogObject.wikidata !== '') && (row.wikidata === catalogObject.wikidata)) {
                     ret.push(row.id);

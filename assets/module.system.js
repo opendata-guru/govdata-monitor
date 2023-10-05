@@ -174,11 +174,13 @@ var system = (function () {
         var ret = null;
         // contributor, link, title, type, wikidata
 
-        assets.forEach(asset => {
-            if (asset.link === catalogObj.link) {
-                ret = asset;
-            }
-        });
+        if (catalogObj) {
+            assets.forEach(asset => {
+                if (asset.link === catalogObj.link) {
+                    ret = asset;
+                }
+            });
+        }
 
         return ret;
     }
@@ -264,9 +266,9 @@ var system = (function () {
         var sameAs = catalog.getSameAs(systemId);
         var sys = funcGet(systemId);
         var body = '';
-        var title = sys ? sys.title : catalogObj.title;
-        var wikidata = sys ? sys.wikidata : catalogObj.wikidata;
-        var type = data.getTypeString(sys ? sys.type : catalogObj.type);
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var wikidata = sys ? sys.wikidata : catalogObj ? catalogObj.wikidata : '';
+        var type = data.getTypeString(sys ? sys.type : catalogObj ? catalogObj.type : '');
 
         body += '<div class="border-bottom border-1 border-secondary mb-2 pb-2">';
         body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';

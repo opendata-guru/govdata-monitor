@@ -15,6 +15,7 @@ var table = (function () {
         idReset = 'table-reset',
         idFlatten = 'checkbox-flatten',
         idClipboard = 'checkbox-clipboard',
+        idDatasetDropdown = 'list-datasets-dropdown',
         layerClass = 'layer',
         layerAll = 'all',
         layerUndefined = 'void';
@@ -327,36 +328,58 @@ var table = (function () {
         navigator.clipboard.writeText(value);
     }
 
-    function funcListDatasets(name, parent) {
+    function loadDatasetList(path, elemHeader, elemBody) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', path, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var arr = JSON.parse(this.responseText);
+                elemHeader.innerHTML = arr.length + ' datasets loaded';
+                elemBody.innerHTML = arr.join('<br>');
+            } else if (this.readyState == 4) {
+                elemHeader.innerHTML = 'Error';
+                elemBody.innerHTML = '';
+            }
+        }
+
+        xhr.send();
+    }
+
+    function funcListDatasets(elemButton, name, parent) {
         var catName = '', id = '';
 
-        if (parent === 'undefined') {
-            catName = name;
+        if (elemButton.dataset.in === 'undefined') {
+            catName = elemButton.dataset.name;
             id = '';
         } else {
-            catName = parent;
-            id = name;
+            catName = elemButton.dataset.in;
+            id = elemButton.dataset.name;
         }
+
+        var elemMenu = elemButton.parentElement;
+        var elemHeader = elemMenu.querySelector('.menu-header');
+        var elemBody = elemMenu.querySelector('.menu-body');
 
         var cat = catalog.get(catName);
         var catLink = cat.link;
-        console.log('catalog:', catLink);
-        console.log('id:', id);
 
-        console.log('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id);
-//        loadLayer('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id);
+        elemHeader.innerHTML = 'Loading data...';
+        elemBody.innerHTML = '';
+        loadDatasetList('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id, elemHeader, elemBody);
     }
 
     function getCatalogMenu(catalogId) {
         var html = ' and ';
-        html += '<a title="Options" class="link-info" href="#" id="listDatasetsdDropdown" data-bs-toggle="dropdown">';
+        html += '<a title="Options" class="link-info" href="#" id="' + idDatasetDropdown + '" data-bs-toggle="dropdown">';
         html += 'List Datasets';
         html += '</a>';
-        html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="listDatasetsdDropdown" id="table-menu">';
-        html += '<div>Catalog name: <b>' + catalogId.name + '</b></div>';
-        html += '<div>Catalog in: <b>' + catalogId.in + '</b></div>';
-        html += '<div class="dropdown-divider"></div>';
-        html += '<a data-name="' + catalogId.name + '" data-in="' + catalogId.in + '" onclick="table.listDatasets(\'' + catalogId.name + '\',\'' + catalogId.in + '\')" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Start</a>';
+        html += '<div class="menu-canvas dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="' + idDatasetDropdown + '" id="table-menu">';
+        html += '<div class="menu-header d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Press "Start"...</div>';
+        html += '<div class="dropdown-divider mb-0"></div>';
+        html += '<div class="menu-body py-2" style="height:7.75rem;overflow:auto;"></div>';
+        html += '<div class="dropdown-divider mt-0"></div>';
+        html += '<a data-name="' + catalogId.name + '" data-in="' + catalogId.in + '" onclick="table.listDatasets(this)" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Start</a>';
         html += '</div>';
 
         return html;
@@ -513,6 +536,11 @@ var table = (function () {
         document.getElementById(idSupplierTableHeader).innerHTML = supplierHeader;
         document.getElementById(idSupplierTableFooter).innerHTML = supplierFooter;
         document.getElementById(idSupplierTableBody).innerHTML = supplierRows;
+
+        var menuCanvasList = document.querySelectorAll('.menu-canvas');
+        menuCanvasList.forEach((menuCanvas) => {
+            menuCanvas.addEventListener('click', onStopPropagation);
+        });
 
         monitorUpdateCatalogPieChart();
         monitorUpdateCatalogHistoryChart();

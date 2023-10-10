@@ -59,7 +59,7 @@ var map = (function () {
                     'fill-outline-color': '#800',
                     'fill-opacity': .25
                 },
-//	            'filter': ['==', '$type', 'Polygon']
+	            'filter': ['==', 'gf', 4] // hide Ost- and Nordsee
             });
         }
     }

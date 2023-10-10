@@ -334,7 +334,11 @@ var table = (function () {
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                elemHeader.innerHTML = 'Processing data...';
+                elemBody.innerHTML = '';
+
                 var arr = JSON.parse(this.responseText);
+                arr.sort();
                 elemHeader.innerHTML = arr.length + ' datasets loaded';
                 elemBody.innerHTML = arr.join('<br>');
             } else if (this.readyState == 4) {
@@ -348,6 +352,12 @@ var table = (function () {
 
     function funcListDatasets(elemButton, name, parent) {
         var catName = '', id = '';
+        var elemMenu = elemButton.parentElement;
+        var elemHeader = elemMenu.querySelector('.menu-header');
+        var elemBody = elemMenu.querySelector('.menu-body');
+
+        elemHeader.innerHTML = 'Loading data...';
+        elemBody.innerHTML = '';
 
         if (elemButton.dataset.in === 'undefined') {
             catName = elemButton.dataset.name;
@@ -357,15 +367,24 @@ var table = (function () {
             id = elemButton.dataset.name;
         }
 
-        var elemMenu = elemButton.parentElement;
-        var elemHeader = elemMenu.querySelector('.menu-header');
-        var elemBody = elemMenu.querySelector('.menu-body');
-
         var cat = catalog.get(catName);
         var catLink = cat.link;
 
-        elemHeader.innerHTML = 'Loading data...';
-        elemBody.innerHTML = '';
+        console.log('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id);
+        if (id === '') {
+            console.log('/api/3/action/package_list');
+        } else {
+            var base = catLink.split('/');
+            base.pop();
+            base.pop();
+            base.pop();
+            base.pop();
+            console.log(base.join('/') + '/api/3/action/organization_show?include_dataset_count=false&include_datasets=true&include_extras=false&include_followers=false&include_groups=false&include_tags=false&include_users=false&id=' + id);
+        }
+        // package_list
+        //   limit + offset
+        // package_search https://docs.ckan.org/en/2.8/api/index.html#ckan.logic.action.get.package_search
+
         loadDatasetList('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id, elemHeader, elemBody);
     }
 

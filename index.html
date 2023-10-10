@@ -64,17 +64,20 @@
 				<div class="container-fluid p-0">
 
 					<div class="row">
-						<div class="col bg-white">
-							<div class="w-100 text-muted">
-								<h1 class="fs-3 m-0 p-3" style="overflow-x: auto;white-space: nowrap;text-overflow: ellipsis;">The dissemination of open data</h1>
+						<div class="col bg-white" style="position:relative;">
+
+							<div id='map' style='width:100vw;height:calc(100vh - 7rem - 3.15rem);'></div>
+							<div class="bg-white bg-opacity-75" style="position:absolute;left:12px;top:0;">
+								<h1 class="fs-3 m-0 p-2" style="overflow-x: auto;white-space: nowrap;text-overflow: ellipsis;">The dissemination of open data</h1>
 							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col bg-white">
-
-							<div id='map' style='width:100vw;height:calc(100vh - 7rem - 3.55rem - 3.15rem);'></div>
+							<div class="border border-info m-2 bg-white" style="position:absolute;right:12px;top:0;">
+								<div class="m-2">Layer</div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
+							</div>
 
 						</div>
 					</div>
@@ -116,6 +119,12 @@
         var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
 		var year = date.split('-')[0];
 		var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-de.geojson';
+		var layerState = 'layer-state';
+		var layerGovernmentRegion = 'layer-government-region';
+		var layerDistrict = 'layer-district';
+		var layerCollectiveMunicipality1 = 'layer-collective-municipality1';
+		var layerCollectiveMunicipality2 = 'layer-collective-municipality2';
+		var layerMunicipality = 'layer-municipality';
 
 		map.on('load', function () {
 			map.addSource('gml', {
@@ -123,7 +132,7 @@
 				'data': source
 			});
 			map.addLayer({
-				'id': 'gml-polygons',
+				'id': layerState,
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
@@ -131,9 +140,119 @@
                     'fill-outline-color': '#800',
                     'fill-opacity': .25
 				},
-//				'filter': ['==', '$type', 'Polygon']
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 20], ['<=', 'ibz', 23]]
+			});
+			map.addLayer({
+				'id': layerGovernmentRegion,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 30]]
+			});
+			map.addLayer({
+				'id': layerDistrict,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 40], ['<=', 'ibz', 46]]
+			});
+			map.addLayer({
+				'id': layerCollectiveMunicipality1,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 50], ['<=', 'ibz', 56]]
+			});
+			map.addLayer({
+				'id': layerCollectiveMunicipality2,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 80], ['<=', 'ibz', 88]]
+			});
+			map.addLayer({
+				'id': layerMunicipality,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#f00',
+                    'fill-outline-color': '#800',
+                    'fill-opacity': .25
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]
 			});
 		});
+
+		function onSwitchState(link, layer) {
+			const visibility = map.getLayoutProperty(layer, 'visibility');
+
+			link.classList.remove('bg-info');
+			link.classList.remove('link-light');
+			link.classList.remove('link-info');
+
+			if (visibility === 'visible') {
+				map.setLayoutProperty(layer, 'visibility', 'none');
+				link.classList.add('link-info');
+			} else {
+				map.setLayoutProperty(layer, 'visibility', 'visible');
+				link.classList.add('bg-info');
+				link.classList.add('link-light');
+			}
+		}
+
+		function onTest() {
+			// ibz
+			// Linie: GMK Grenzmerkmal Küste/Meer
+			  // 7 = auf Meer (unübliche Darstellung)
+			  // 8 = ergänzend auf Meer (übliche Darstellung)
+			  // 9 = an Küste
+			  // 0 = ohne Merkmal
+			/* Fläche: ADE Administrative Ebene
+				Werteübersicht
+				1 = Staat
+				2 = Land
+				3 = Regierungsbezirk
+				4 = Kreis
+				5 = Verwaltungsgemeinschaft
+				6 = Gemeinde*/
+			// EWZ Einwohnerzahl
+			// KFL Katasterfläche in km²
+			// https://sg.geodatenzentrum.de/web_public/gdz/dokumentation/deu/verwaltungsgliederung_vg.pdf
+		}
 	</script>
 </body>
 

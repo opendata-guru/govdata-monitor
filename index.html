@@ -72,11 +72,18 @@
 							</div>
 							<div class="border border-info m-2 bg-white" style="position:absolute;right:12px;top:0;">
 								<div class="m-2">Layer</div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
+								<div class="ps-1" style="border-left:1rem solid #ffdd00;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
+								<div class="ps-1" style="border-left:1rem solid #bbe147;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
+								<div class="ps-1" style="border-left:1rem solid #3477d5;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
+								<div class="ps-1" style="border-left:1rem solid #8c4877;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
+								<div class="ps-1" style="border-left:1rem solid #e41818;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
+<!--								<div class="m-2">Background</div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json')">Color</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_top.json')">Relief</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json')">Gray</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_drk.json')">Beta: Dark</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json')">Beta: Binary</a></div>
+								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, '')">White</a></div> -->
 							</div>
 
 						</div>
@@ -110,7 +117,8 @@
 			center: [10, 51],
 			container: 'map',
 //			hash: true,
-			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
+//			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
+			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json',
 			zoom: 5
 		});
 		var offsetMinutes = 10;
@@ -126,19 +134,15 @@
 		var layerCollectiveMunicipality2 = 'layer-collective-municipality2';
 		var layerMunicipality = 'layer-municipality';
 
-		map.on('load', function () {
-			map.addSource('gml', {
-				'type': 'geojson',
-				'data': source
-			});
+		function addLayer() {
 			map.addLayer({
 				'id': layerState,
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
+                    'fill-color': '#ffdd00',
+                    'fill-outline-color': '#A38D00',
+                    'fill-opacity': .75
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -150,9 +154,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
+                    'fill-color': '#bbe147',
+                    'fill-outline-color': '#8BAF1D',
+                    'fill-opacity': .75
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -164,9 +168,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
+                    'fill-color': '#3477d5',
+                    'fill-outline-color': '#1C4987',
+                    'fill-opacity': .75
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -178,9 +182,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
+                    'fill-color': '#8c4877',
+                    'fill-outline-color': '#512A44',
+                    'fill-opacity': .75
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -192,9 +196,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
+                    'fill-color': '#8c4877',
+                    'fill-outline-color': '#512A44',
+                    'fill-opacity': .75
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -206,15 +210,23 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
+                    'fill-color': '#e41818',
+                    'fill-outline-color': '#941010',
+                    'fill-opacity': .75
 				},
 				'layout': {
 					'visibility': 'visible'
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]
 			});
+		}
+
+		map.on('load', function () {
+			map.addSource('gml', {
+				'type': 'geojson',
+				'data': source
+			});
+			addLayer();
 		});
 
 		function onSwitchState(link, layer) {
@@ -232,6 +244,31 @@
 				link.classList.add('bg-info');
 				link.classList.add('link-light');
 			}
+		}
+
+		function onSwitchBackground(link, style) {
+			if (style === '') {
+				map.setStyle({
+					version: 8,
+					sources: {},
+					layers: [
+						{
+							id: 'background',
+							type: 'background',
+							paint: { 
+								'background-color': 'white' 
+							}
+						}
+					]
+				});
+			} else {
+				map.setStyle(style);
+			}
+
+			map.fire(new Event('style.load')); 
+
+//			addLayer();
+//			map.setLayoutProperty('layerState', 'visibility', 'none');
 		}
 
 		function onTest() {

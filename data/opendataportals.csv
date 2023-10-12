@@ -216,6 +216,7 @@ Föritztal,municipality,Gemeinde Föritztal,geoportal.de|GemeindeFritztal,,,,,,1
 Fürstenau,collectiveMunicipality,Samtgemeinde Fürstenau,geoportal.de|SamtgemeindeFrstenau,,,,,,034595403,,Q314976,,,,,,2023-07-28
 Galenberg,municipality,Ortsgemeinde Galenberg,daten.rlp.de|ortsgemeinde_galenberg,,,,https://daten.rlp.de/organization/ortsgemeinde_galenberg,,071315004204,,Q644473,,,,,,2023-05-23
 GDI-DE,federalCooperation,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,,,https://www.gdi-de.org/,,,,Q1502855,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
+GDI-Saarland,stateAgency,GDI-Saarland,geoportal.de|GDISaarland,,,,,,,10,,,,,,,2023-10-12
 Geldern,municipality,Stadt Geldern,www.offenesdatenportal.de|stadt-geldern,geoportal.de|StadtGeldern,,,https://www.offenesdatenportal.de/organization/stadt-geldern,,051540012012,,Q16024,,,,,,2023-05-23
 Gelsenkirchen,municipality,Stadt Gelsenkirchen,open.nrw|gelsenkirchen,opendata.ruhr|gelsenkirchen,geoportal.de|StadtGelsenkirchen,mcloud.de|GovDataStadtGelsenkirchen,https://opendata.gelsenkirchen.de/,2017-05-23,055130000000,,Q2765,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,https://opendata.gelsenkirchen.de/api/3/action/group_list,,2023-08-19
 Generaldirektion Kulturelles Erbe Rheinland-Pfalz,stateAgency,Generaldirektion Kulturelles Erbe,daten.rlp.de|generaldirektion_kulturelles_erbe,,,,,,,07,Q1501748,,,,,,2023-07-18
@@ -300,6 +301,7 @@ Herrenberg,municipality,Stadt Herrenberg,mcloud.de|StadtHerrenberg,,,,,,08115500
 Herten,municipality,Herten,opendata.ruhr|herten,,,,,,055620020020,,Q3985,,,,,,2023-08-16
 Herzogenrath,municipality,Stadt Herzogenrath,offenedaten.aachen.de|stadt-herzogenrath,,,,,,053340016016,,Q6916,,,,,,2023-08-13
 Herzogtum Lauenburg,district,Kreis Herzogtum Lauenburg,opendata.schleswig-holstein.de|kreis-herzogtum-lauenburg,,,,,,01053,,Q3000,,,,,,2023-05-09
+Hessisches Landesamt für Bodenmanagement und Geoinformation,stateAgency,Hessisches Landesamt für Bodenmanagement und Geoinformation,geoportal.de|HessischesLandesamtfrBodenmanagementundGeoinformation,geoportal.de|HessischeVerwaltungfrBodenmanagementundGeoinformation,,,,,,06,Q1606979,,,,,,2023-10-12
 Hildburghausen,district,Landratsamt Hildburghausen,geoportal.de|LandratsamtHildburghausen,,,,,,16069,,,,,,,,2023-07-26
 Hildburghausen,municipality,Stadt Hildburghausen,geoportal.de|StadtHildburghausen,,,,,,160690024024,,Q504348,,,,,,2023-08-13
 Hilden,municipality,Stadt Hilden,geoportal.de|StadtHilden,,,,,,051580016016,,Q4094,,,,,,2023-05-23
@@ -322,6 +324,7 @@ Information und Technik Nordrhein-Westfalen,stateAgency,Information und Technik 
 Informationstechnikzentrum Bund,federalAgency,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,geoportal.de|InformationstechnikzentrumBundITZBund,geoportal.de|ITZBundInformationstechnikzentrumBundPoststelle,,,,,,Q23786362,,,,,,2023-08-17
 Iserlohn,municipality,Stadt Iserlohn,geoportal.de|StadtIserlohn,,,,,,059620024024,,Q1130,,,,,,2023-05-23
 Issum,municipality,Gemeinde Issum,geoportal.de|GemeindeIssum,,,,,,051540020020,,Q243337,,,,,,2023-09-09
+Itzehoe,municipality,Stadt Itzehoe,opendata.schleswig-holstein.de|itzehoe,,,,,,010610046046,,Q16073,,,,,,2023-10-12
 Jena,municipality,Stadtverwaltung Jena,geoportal.de|StadtverwaltungJena,,,,https://opendata.jena.de/,2016-12-20,160530000000,,Q3150,IT-Service - Kommunale Immobilien Jena,CKAN,https://opendata.jena.de/api/3/action/package_list,https://opendata.jena.de/api/3/action/organization_list,,2023-08-11
 Jockgrim,collectiveMunicipality,Verbandsgemeinde Jockgrim,daten.rlp.de|verbandsgemeinde_jockgrim,,,,https://daten.rlp.de/organization/verbandsgemeinde_jockgrim,,073345003,,Q516953,,,,,,2023-05-14
 Jugendring der Stadt Duisburg e.V.,municipalityAgency,Jugendring der Stadt Duisburg e.V.,geoportal.de|JugendringderStadtDuisburgeV,,,,,,,051120000000,,,,,,,2023-05-21
@@ -373,6 +376,7 @@ Landesamt für Umwelt,stateAgency,Landesamt für Umwelt,opendata.schleswig-holst
 Landesamt für Umwelt， Landwirtschaft und Geologie,stateAgency,Sächsisches Landesamt für Umwelt， Landwirtschaft und Geologie,geoportal.de|SchsischesLandesamtfrUmweltLandwirtschaftundGeologie,,,,,,,14,Q1802061,,,,,,2023-07-24
 Landesamt für Vermessung und Geobasisinformation Rheinland-Pfalz,stateAgency,Landesamt für Vermessung und Geobasisinformationen,daten.rlp.de|landesamt_fuer_vermessung_und_geobasisinformationen,,,,,,,07,Q1802069,,,,,,2023-05-14
 Landesamt für Vermessung und Geoinformation Schleswig-Holstein,stateAgency,Landesamt für Vermessung und Geoinformation Schleswig-Holstein,opendata.schleswig-holstein.de|lvermgeo,geoportal.de|LandesamtfrVermessungundGeoinformationSchleswigHolstein,mcloud.de|OpenDataSchleswigHolsteinLandesamtfrVermessungundGeoinformationSchleswigHolstein,,,,,01,Q23786349,,,,,,2023-05-16
+"Landesamt für Vermessung, Geoinformation und Landentwicklung Saarland",stateAgency,LVGL-Saarland,geoportal.de|LVGLSaarland,,,,,,,10,Q93384886,,,,,,2023-10-12
 Landesamt für Zuwanderung und Flüchtlinge,stateAgency,Landesamt für Zuwanderung und Flüchtlinge,opendata.schleswig-holstein.de|lazuf,,,,,,,01,Q107632663,,,,,,2023-08-15
 Landesarchiv Schleswig-Holstein,stateAgency,Landesarchiv,opendata.schleswig-holstein.de|landesarchiv,,,,,,,01,Q1710818,,,,,,2023-07-18
 Landesbehörden,stateAgency,Landesbehörden,open.nrw|landesbehoerden,mcloud.de|OpenNRWLandesbehrden,,,,,,05,,,,,,,2023-07-24

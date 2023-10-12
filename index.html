@@ -72,18 +72,18 @@
 							</div>
 							<div class="border border-info m-2 bg-white" style="position:absolute;right:12px;top:0;">
 								<div class="m-2">Layer</div>
-								<div class="ps-1" style="border-left:1rem solid #ffdd00;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
-								<div class="ps-1" style="border-left:1rem solid #bbe147;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
-								<div class="ps-1" style="border-left:1rem solid #3477d5;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
-								<div class="ps-1" style="border-left:1rem solid #8c4877;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
-								<div class="ps-1" style="border-left:1rem solid #e41818;"><a class="p-2 link-light bg-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
+								<div class="ps-1" style="border-left:1rem solid #ffc819cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
+								<div class="ps-1" style="border-left:1rem solid #e89532cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
+								<div class="ps-1" style="border-left:1rem solid #63af4fcc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
+								<div class="ps-1" style="border-left:1rem solid #8c4877cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
+								<div class="ps-1" style="border-left:1rem solid #bf2026cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
 <!--								<div class="m-2">Background</div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json')">Color</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_top.json')">Relief</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json')">Gray</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_drk.json')">Beta: Dark</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json')">Beta: Binary</a></div>
-								<div><a class="p-2 link-light bg-info d-block" onclick="onSwitchBackground(this, '')">White</a></div> -->
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json')">Color</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_top.json')">Relief</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json')">Gray</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_drk.json')">Beta: Dark</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json')">Beta: Binary</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, '')">White</a></div> -->
 							</div>
 
 						</div>
@@ -127,6 +127,7 @@
         var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
 		var year = date.split('-')[0];
 		var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-de.geojson';
+		var layerCountry = 'layer-country';
 		var layerState = 'layer-state';
 		var layerGovernmentRegion = 'layer-government-region';
 		var layerDistrict = 'layer-district';
@@ -135,14 +136,28 @@
 		var layerMunicipality = 'layer-municipality';
 
 		function addLayer() {
+/*			map.addLayer({
+				'id': layerCountry,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#ffffff',
+                    'fill-outline-color': '#B8B8B8',
+                    'fill-opacity': 1
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 10]]
+			});*/
 			map.addLayer({
 				'id': layerState,
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#ffdd00',
-                    'fill-outline-color': '#A38D00',
-                    'fill-opacity': .75
+                    'fill-color': '#ffc819',
+                    'fill-outline-color': '#8F6D00',
+                    'fill-opacity': .8
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -154,9 +169,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#bbe147',
-                    'fill-outline-color': '#8BAF1D',
-                    'fill-opacity': .75
+                    'fill-color': '#e89532',
+                    'fill-outline-color': '#814D0E',
+                    'fill-opacity': .8
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -168,9 +183,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#3477d5',
-                    'fill-outline-color': '#1C4987',
-                    'fill-opacity': .75
+                    'fill-color': '#63af4f',
+                    'fill-outline-color': '#2F5426',
+                    'fill-opacity': .8
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -183,8 +198,8 @@
 				'source': 'gml',
 				'paint': {
                     'fill-color': '#8c4877',
-                    'fill-outline-color': '#512A44',
-                    'fill-opacity': .75
+                    'fill-outline-color': '#361C2E',
+                    'fill-opacity': .8
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -197,8 +212,8 @@
 				'source': 'gml',
 				'paint': {
                     'fill-color': '#8c4877',
-                    'fill-outline-color': '#512A44',
-                    'fill-opacity': .75
+                    'fill-outline-color': '#361C2E',
+                    'fill-opacity': .8
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -210,9 +225,9 @@
 				'type': 'fill',
 				'source': 'gml',
 				'paint': {
-                    'fill-color': '#e41818',
-                    'fill-outline-color': '#941010',
-                    'fill-opacity': .75
+                    'fill-color': '#bf2026',
+                    'fill-outline-color': '#460C0E',
+                    'fill-opacity': .8
 				},
 				'layout': {
 					'visibility': 'visible'
@@ -230,19 +245,17 @@
 		});
 
 		function onSwitchState(link, layer) {
-			const visibility = map.getLayoutProperty(layer, 'visibility');
-
-			link.classList.remove('bg-info');
-			link.classList.remove('link-light');
-			link.classList.remove('link-info');
+			var div = link.parentElement;
+			var visibility = map.getLayoutProperty(layer, 'visibility');
 
 			if (visibility === 'visible') {
 				map.setLayoutProperty(layer, 'visibility', 'none');
-				link.classList.add('link-info');
+				div.style.marginLeft = '1rem';
+				div.style.borderLeftWidth = '0';
 			} else {
 				map.setLayoutProperty(layer, 'visibility', 'visible');
-				link.classList.add('bg-info');
-				link.classList.add('link-light');
+				div.style.marginLeft = '0';
+				div.style.borderLeftWidth = '1rem';
 			}
 		}
 

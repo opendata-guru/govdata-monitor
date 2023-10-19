@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="assets/icon-48x48.png" />
+
+	<title>115 Monitor</title>
+
+	<link href="assets/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<script src="https://unpkg.com/maplibre-gl@3/dist/maplibre-gl.js"></script>
+	<link href="https://unpkg.com/maplibre-gl@3/dist/maplibre-gl.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg d-block border-bottom border-1 border-secondary">
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav">
+						<li class="nav-item pt-1 pe-2 fs-4 d-none d-sm-block" style="line-height:1.5rem;">
+							115 Monitor
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content p-0">
+				<div class="container-fluid p-0">
+
+					<div class="row">
+						<div class="col bg-white" style="position:relative;">
+
+							<div id='map' style='width:100vw;height:calc(100vh - 3.75rem - 3.15rem);'></div>
+							<div class="bg-white bg-opacity-75" style="position:absolute;left:12px;top:0;">
+								<h1 class="fs-3 m-0 p-2" style="overflow-x: auto;white-space: nowrap;text-overflow: ellipsis;">The dissemination of service center</h1>
+							</div>
+							<div class="border border-info m-2 bg-white" style="position:absolute;right:12px;top:0;">
+								<div class="m-2">Layer</div>
+								<div class="ps-1" style="border-left:1rem solid #ffc819cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
+								<div class="ps-1" style="border-left:1rem solid #e89532cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
+								<div class="ps-1" style="border-left:1rem solid #63af4fcc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
+								<div class="ps-1" style="border-left:1rem solid #8c4877cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
+								<div class="ps-1" style="border-left:1rem solid #bf2026cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
+<!--								<div class="m-2">Background</div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json')">Color</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_top.json')">Relief</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json')">Gray</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_drk.json')">Beta: Dark</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json')">Beta: Binary</a></div>
+								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, '')">White</a></div> -->
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							Made by Thomas Tursics
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="https://www.tursics.de/imprint" target="_blank">Imprint</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="assets/app.js"></script>
+	<script>
+		var map = new maplibregl.Map({
+			center: [10, 51],
+			container: 'map',
+//			hash: true,
+//			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
+			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json',
+			zoom: 5
+		});
+		var offsetMinutes = 10;
+		var now = new Date();
+		now = new Date(now.getTime() - offsetMinutes * 60000);
+//        var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
+//		var year = date.split('-')[0];
+        var date = '2023-10-19';
+		var year = '2023';
+		var source = 'https://opendata.guru/govdata/assets/map-115-' + year + '/' + date + '.geojson';
+		var layerCountry = 'layer-country';
+		var layerState = 'layer-state';
+		var layerGovernmentRegion = 'layer-government-region';
+		var layerDistrict = 'layer-district';
+		var layerCollectiveMunicipality1 = 'layer-collective-municipality1';
+		var layerCollectiveMunicipality2 = 'layer-collective-municipality2';
+		var layerMunicipality = 'layer-municipality';
+
+		function addLayer() {
+/*			map.addLayer({
+				'id': layerCountry,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#ffffff',
+                    'fill-outline-color': '#B8B8B8',
+                    'fill-opacity': 1
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 10]]
+			});*/
+			map.addLayer({
+				'id': layerState,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#ffc819',
+                    'fill-outline-color': '#8F6D00',
+                    'fill-opacity': .8
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 20], ['<=', 'ibz', 23]]
+			});
+			map.addLayer({
+				'id': layerGovernmentRegion,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#e89532',
+                    'fill-outline-color': '#814D0E',
+                    'fill-opacity': .8
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 30]]
+			});
+			map.addLayer({
+				'id': layerDistrict,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#63af4f',
+                    'fill-outline-color': '#2F5426',
+                    'fill-opacity': .8
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 40], ['<=', 'ibz', 46]]
+			});
+			map.addLayer({
+				'id': layerCollectiveMunicipality1,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#8c4877',
+                    'fill-outline-color': '#361C2E',
+                    'fill-opacity': .8
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 50], ['<=', 'ibz', 56]]
+			});
+			map.addLayer({
+				'id': layerCollectiveMunicipality2,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#8c4877',
+                    'fill-outline-color': '#361C2E',
+                    'fill-opacity': .8
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 80], ['<=', 'ibz', 88]]
+			});
+			map.addLayer({
+				'id': layerMunicipality,
+				'type': 'fill',
+				'source': 'gml',
+				'paint': {
+                    'fill-color': '#bf2026',
+                    'fill-outline-color': '#460C0E',
+                    'fill-opacity': .8
+				},
+				'layout': {
+					'visibility': 'visible'
+				},
+	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]
+			});
+		}
+
+		map.on('load', function () {
+			map.addSource('gml', {
+				'type': 'geojson',
+				'data': source
+			});
+			addLayer();
+		});
+
+		function onSwitchState(link, layer) {
+			var div = link.parentElement;
+			var visibility = map.getLayoutProperty(layer, 'visibility');
+
+			if (visibility === 'visible') {
+				map.setLayoutProperty(layer, 'visibility', 'none');
+				div.style.marginLeft = '1rem';
+				div.style.borderLeftWidth = '0';
+			} else {
+				map.setLayoutProperty(layer, 'visibility', 'visible');
+				div.style.marginLeft = '0';
+				div.style.borderLeftWidth = '1rem';
+			}
+		}
+
+		function onSwitchBackground(link, style) {
+			if (style === '') {
+				map.setStyle({
+					version: 8,
+					sources: {},
+					layers: [
+						{
+							id: 'background',
+							type: 'background',
+							paint: { 
+								'background-color': 'white' 
+							}
+						}
+					]
+				});
+			} else {
+				map.setStyle(style);
+			}
+
+			map.fire(new Event('style.load')); 
+
+//			addLayer();
+//			map.setLayoutProperty('layerState', 'visibility', 'none');
+		}
+
+		function onTest() {
+			// ibz
+			// Linie: GMK Grenzmerkmal Küste/Meer
+			  // 7 = auf Meer (unübliche Darstellung)
+			  // 8 = ergänzend auf Meer (übliche Darstellung)
+			  // 9 = an Küste
+			  // 0 = ohne Merkmal
+			/* Fläche: ADE Administrative Ebene
+				Werteübersicht
+				1 = Staat
+				2 = Land
+				3 = Regierungsbezirk
+				4 = Kreis
+				5 = Verwaltungsgemeinschaft
+				6 = Gemeinde*/
+			// EWZ Einwohnerzahl
+			// KFL Katasterfläche in km²
+			// https://sg.geodatenzentrum.de/web_public/gdz/dokumentation/deu/verwaltungsgliederung_vg.pdf
+		}
+	</script>
+</body>
+
+</html>

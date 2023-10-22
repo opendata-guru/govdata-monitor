@@ -134,6 +134,37 @@
 		var layerCollectiveMunicipality1 = 'layer-collective-municipality1';
 		var layerCollectiveMunicipality2 = 'layer-collective-municipality2';
 		var layerMunicipality = 'layer-municipality';
+		var mouseHover = [];
+
+		function onClick(e) {
+			var html = '';
+			for (var m = 0; m < mouseHover.length; ++m) {
+				var item = mouseHover[m];
+				html += item.obj.bez + ': ' + item.title + '<br>';
+			}
+
+			new maplibregl.Popup()
+			    .setLngLat(e.lngLat)
+			    .setHTML(html)
+			    .addTo(map);
+		}
+
+		function onMouseMoveReset() {
+			mouseHover = [];
+		}
+
+		function onMouseMove(e) {
+			if (undefined !== e.features) {
+				for (var f = 0; f < e.features.length; ++f) {
+					var feat = e.features[f];
+					mouseHover.push({
+						layer: feat.layer.id,
+						obj: feat.properties,
+						title: feat.properties.gen
+					});
+				}
+			}
+		}
 
 		function addLayer() {
 /*			map.addLayer({
@@ -149,7 +180,10 @@
 					'visibility': 'visible'
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 10]]
-			});*/
+			});
+			map.on('click', layerCountry, onClick);
+			map.on('mousemove', layerCountry, onMouseMove);*/
+
 			map.addLayer({
 				'id': layerState,
 				'type': 'fill',
@@ -164,6 +198,9 @@
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 20], ['<=', 'ibz', 23]]
 			});
+			map.on('click', layerState, onClick);
+			map.on('mousemove', layerState, onMouseMove);
+
 			map.addLayer({
 				'id': layerGovernmentRegion,
 				'type': 'fill',
@@ -178,6 +215,9 @@
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 30]]
 			});
+			map.on('click', layerGovernmentRegion, onClick);
+			map.on('mousemove', layerGovernmentRegion, onMouseMove);
+
 			map.addLayer({
 				'id': layerDistrict,
 				'type': 'fill',
@@ -192,6 +232,9 @@
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 40], ['<=', 'ibz', 46]]
 			});
+			map.on('click', layerDistrict, onClick);
+			map.on('mousemove', layerDistrict, onMouseMove);
+
 			map.addLayer({
 				'id': layerCollectiveMunicipality1,
 				'type': 'fill',
@@ -206,6 +249,9 @@
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 50], ['<=', 'ibz', 56]]
 			});
+			map.on('click', layerCollectiveMunicipality1, onClick);
+			map.on('mousemove', layerCollectiveMunicipality1, onMouseMove);
+
 			map.addLayer({
 				'id': layerCollectiveMunicipality2,
 				'type': 'fill',
@@ -220,6 +266,9 @@
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 80], ['<=', 'ibz', 88]]
 			});
+			map.on('click', layerCollectiveMunicipality2, onClick);
+			map.on('mousemove', layerCollectiveMunicipality2, onMouseMove);
+
 			map.addLayer({
 				'id': layerMunicipality,
 				'type': 'fill',
@@ -234,6 +283,8 @@
 				},
 	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]
 			});
+			map.on('click', layerMunicipality, onClick);
+			map.on('mousemove', layerMunicipality, onMouseMove);
 		}
 
 		map.on('load', function () {
@@ -243,6 +294,7 @@
 			});
 			addLayer();
 		});
+		map.on('mousemove', onMouseMoveReset);
 
 		function onSwitchState(link, layer) {
 			var div = link.parentElement;

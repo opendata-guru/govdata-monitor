@@ -4,8 +4,6 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-//	include('../get/list-organizations/_semantic.php');
-
 	$filePath = '../assets/map-115-' . date('Y') . '/' . date('Y-m-d') . '.geojson';
 
 	function curl($url) {
@@ -19,18 +17,28 @@
 		return $ret;
 	}
 
-	function getGeoJSON($param) {
+	function getGeoJSON($rs) {
+		$arrayRS = [];
+		$arrayStatus = [];
+		foreach ($rs as $value) {
+			$arrayRS[] = $value->title;
+			$arrayStatus[] = $value->properties->status;
+		}
+		$paramRS = implode(',', $arrayRS);
+		$paramStatus = implode(',', $arrayStatus);
+
 		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
 		$uri = dirname(dirname($uri));
 
-		$encodedParams = str_replace('%2C', ',', urlencode($param));
+		$params = 'rs=' . str_replace('%2C', ',', urlencode($paramRS));
+		$params .= '&status=' . str_replace('%2C', ',', urlencode($paramStatus));
 		$uri .= '/get/rs-to-geojson.php';
 
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, $uri);
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, 'rs=' . $encodedParams);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 		$ret = curl_exec($ch);
@@ -41,13 +49,13 @@
 	}
 
 	function sortRS($a, $b) {
-		if (strlen($a) == strlen($b)) {
-			if ($a == $b) {
+		if (strlen($a->title) == strlen($b->title)) {
+			if ($a->title == $b->title) {
 				return 0;
 			}
-			return ($a < $b) ? -1 : 1;
+			return ($a->title < $b->title) ? -1 : 1;
 		}
-		return (strlen($a) < strlen($b)) ? -1 : 1;
+		return (strlen($a->title) < strlen($b->title)) ? -1 : 1;
 	}
 
 	function load115data($file, &$mapping) {
@@ -105,9 +113,19 @@
 			if ($line[$mappingRS]) {
 				$status = $line[$mappingStatus];
 				if ($status === '115-Teilnehmer') {
-					$ret[] = $line[$mappingRS];
+					$ret[] = (object) [
+						'title' => $line[$mappingRS],
+						'properties' => (object) [
+							'status' => $status
+						]
+					];
 				} else if ($status === 'Basisabdeckung') {
-					$ret[] = $line[$mappingRS];
+					$ret[] = (object) [
+						'title' => $line[$mappingRS],
+						'properties' => (object) [
+							'status' => $status
+						]
+					];
 				} else if ($status === 'Kein 115-Teilnehmer') {
 					// ignore me
 				} else if ($status === 'Informationsbereitsteller') {
@@ -123,7 +141,7 @@
 			}
 		}
 
-		$ret = array_unique($ret);
+		$ret = array_unique($ret, SORT_REGULAR);
 		return $ret;
 	}
 
@@ -134,8 +152,7 @@
 		$rs = getRSList();
 		usort($rs, 'sortRS');
 
-		$param = implode(',', $rs);
-		$data = getGeoJSON($param);
+		$data = getGeoJSON($rs);
 
 		file_put_contents($filePath, $data);
 	}

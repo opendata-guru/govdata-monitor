@@ -4,18 +4,31 @@ var map = (function () {
         map = null,
         mapCatalog = null,
         isMapLoaded = false,
-        isDataLoaded = false;
+        isDataLoaded = false,
+        layerCountryName = 'layer-country',
+        layerStateName = 'layer-state',
+        layerGovernmentRegionName = 'layer-government-region',
+        layerDistrictName = 'layer-district',
+        layerCollectiveMunicipalityName1 = 'layer-collective-municipality1',
+        layerCollectiveMunicipalityName2 = 'layer-collective-municipality2',
+        layerMunicipalityName = 'layer-municipality';
+    var eventListenerMapLoaded = [],
+        eventListenerMapClicked = [];
     var idMap = 'map',
+//        mapStyle = 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
+        mapStyle = 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json',
         idSource = 'gml';
+    var mouseHover = [];
 
     function init() {
         map = new maplibregl.Map({
             center: defaultCenter,
             container: idMap,
-            style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
+            style: mapStyle,
             zoom: defaultZoom
         });
 
+		map.on('mousemove', onMouseMoveReset);
         map.on('load', onMapLoaded);
     }
 
@@ -42,6 +55,63 @@ var map = (function () {
         return [ ...new Set(ret) ];
     }
 
+    function generateSingleLayer(idLayer, paint, filter) {
+        map.addLayer({
+            'id': idLayer,
+            'type': 'fill',
+            'source': idSource,
+            'paint': paint,
+            'layout': { 'visibility': 'visible' },
+            'filter': filter
+        });
+        map.on('click', idLayer, onClick);
+        map.on('mousemove', idLayer, onMouseMove);
+    }
+
+    function generateLayer() {
+/*        generateSingleLayer(layerCountryName, {
+            'fill-color': '#ffffff',
+            'fill-outline-color': '#B8B8B8',
+            'fill-opacity': 1
+        }, ['all', ['==', 'gf', 4], ['==', 'ibz', 10]]);*/
+
+        generateSingleLayer(layerStateName, {
+            'fill-color': '#ffc819',
+            'fill-outline-color': '#8F6D00',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 20], ['<=', 'ibz', 23]]);
+
+        generateSingleLayer(layerGovernmentRegionName, {
+            'fill-color': '#e89532',
+            'fill-outline-color': '#814D0E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['==', 'ibz', 30]]);
+
+        generateSingleLayer(layerDistrictName, {
+            'fill-color': '#63af4f',
+            'fill-outline-color': '#2F5426',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 40], ['<=', 'ibz', 46]]);
+
+        generateSingleLayer(layerCollectiveMunicipalityName1, {
+            'fill-color': '#8c4877',
+            'fill-outline-color': '#361C2E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 50], ['<=', 'ibz', 56]]);
+
+        generateSingleLayer(layerCollectiveMunicipalityName2, {
+            'fill-color': '#8c4877',
+            'fill-outline-color': '#361C2E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 80], ['<=', 'ibz', 88]]);
+
+        generateSingleLayer(layerMunicipalityName, {
+            'fill-color': '#bf2026',
+            'fill-outline-color': '#460C0E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]);
+    }
+
     function setLayer(source) {
         if (map.getSource(idSource)) {
             map.getSource(idSource).setData(source);
@@ -50,17 +120,8 @@ var map = (function () {
                 'type': 'geojson',
                 'data': source
             });
-            map.addLayer({
-                'id': 'gml-polygons',
-                'type': 'fill',
-                'source': idSource,
-                'paint': {
-                    'fill-color': '#f00',
-                    'fill-outline-color': '#800',
-                    'fill-opacity': .25
-                },
-	            'filter': ['==', 'gf', 4] // hide Ost- and Nordsee
-            });
+
+            generateLayer();
         }
     }
 
@@ -73,7 +134,15 @@ var map = (function () {
         });
     }
 
-    function loadLayer(path) {
+    function funcSetZoom(zoom) {
+        defaultZoom = zoom;
+
+        map.jumpTo({
+            zoom: defaultZoom
+        });
+    }
+
+    function funcLoadGeoJSON(path) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', path, true);
 
@@ -107,7 +176,7 @@ var map = (function () {
         if (rs === '') {
             setupLayerWithGeoJSON({'type':'FeatureCollection','features':[]});
         } else {
-            loadLayer('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
+            funcLoadGeoJSON('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
         }
     }
 
@@ -115,6 +184,29 @@ var map = (function () {
         isDataLoaded = true;
 
         setupLayer();
+
+        dispatchEventStartLoading();
+    }
+
+    function onClick(e) {
+        dispatchEventClickedOnMap(mouseHover, e.lngLat);
+    }
+
+    function onMouseMoveReset() {
+        mouseHover = [];
+    }
+
+    function onMouseMove(e) {
+        if (undefined !== e.features) {
+            for (var f = 0; f < e.features.length; ++f) {
+                var feat = e.features[f];
+                mouseHover.push({
+                    layer: feat.layer.id,
+                    obj: feat.properties,
+                    title: feat.properties.gen
+                });
+            }
+        }
     }
 
     function funcSetCatalog(catalogId) {
@@ -130,10 +222,55 @@ var map = (function () {
         funcSetCatalog(catalog.id);
     }
 
+    function funcPopup(html, lngLat) {
+        new maplibregl.Popup()
+            .setLngLat(lngLat)
+            .setHTML(html)
+            .addTo(map);
+    }
+
+    function funcGetLayoutProperty(layer, property) {
+        return map.getLayoutProperty(layer, property);
+    }
+
+    function funcSetLayoutProperty(layer, property, value) {
+        map.setLayoutProperty(layer, property, value);
+    }
+
+    function funcAddEventListenerMapLoaded(func) {
+        eventListenerMapLoaded.push(func);
+    }
+
+    function funcAddEventListenerMapClicked(func) {
+        eventListenerMapClicked.push(func);
+    }
+
+    function dispatchEventStartLoading() {
+        eventListenerMapLoaded.forEach(func => func());
+    }
+
+    function dispatchEventClickedOnMap(mouseHover, lngLat) {
+        eventListenerMapClicked.forEach(func => func(mouseHover, lngLat));
+    }
+
     init();
 
     return {
+        addEventListenerMapLoaded: funcAddEventListenerMapLoaded,
+        addEventListenerMapClicked: funcAddEventListenerMapClicked,
+        getLayoutProperty: funcGetLayoutProperty,
+        layerCountry: layerCountryName,
+        layerState: layerStateName,
+        layerGovernmentRegion: layerGovernmentRegionName,
+        layerDistrict: layerDistrictName,
+        layerCollectiveMunicipality1: layerCollectiveMunicipalityName1,
+        layerCollectiveMunicipality2: layerCollectiveMunicipalityName2,
+        layerMunicipality: layerMunicipalityName,
+        loadGeoJSON: funcLoadGeoJSON,
+        popup: funcPopup,
         setCatalog: funcSetCatalog,
+        setLayoutProperty: funcSetLayoutProperty,
+        setZoom: funcSetZoom,
         update: funcUpdate
     };
 }());

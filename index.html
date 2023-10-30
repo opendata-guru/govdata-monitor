@@ -19,6 +19,7 @@
 
 	<script src="https://unpkg.com/maplibre-gl@3/dist/maplibre-gl.js"></script>
 	<link href="https://unpkg.com/maplibre-gl@3/dist/maplibre-gl.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 </head>
 
 <body>
@@ -72,11 +73,11 @@
 							</div>
 							<div class="border border-info m-2 bg-white" style="position:absolute;right:12px;top:0;">
 								<div class="m-2">Layer</div>
-								<div class="ps-1" style="border-left:1rem solid #ffc819cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerState)">Land</a></div>
-								<div class="ps-1" style="border-left:1rem solid #e89532cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerGovernmentRegion)">Regierungsbezirk</a></div>
-								<div class="ps-1" style="border-left:1rem solid #63af4fcc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerDistrict)">Kreis</a></div>
-								<div class="ps-1" style="border-left:1rem solid #8c4877cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerCollectiveMunicipality1);onSwitchState(this,layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
-								<div class="ps-1" style="border-left:1rem solid #bf2026cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, layerMunicipality)">Stadt</a></div>
+								<div class="ps-1" style="border-left:1rem solid #ffc819cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, map.layerState)">Land</a></div>
+								<div class="ps-1" style="border-left:1rem solid #e89532cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, map.layerGovernmentRegion)">Regierungsbezirk</a></div>
+								<div class="ps-1" style="border-left:1rem solid #63af4fcc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, map.layerDistrict)">Kreis</a></div>
+								<div class="ps-1" style="border-left:1rem solid #8c4877cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, map.layerCollectiveMunicipality1);onSwitchState(this,map.layerCollectiveMunicipality2)">Amt / Verbandsgemeinde</a></div>
+								<div class="ps-1" style="border-left:1rem solid #bf2026cc;"><a class="p-2 link-info d-block" onclick="onSwitchState(this, map.layerMunicipality)">Stadt</a></div>
 <!--								<div class="m-2">Background</div>
 								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json')">Color</a></div>
 								<div><a class="p-2 d-block" onclick="onSwitchBackground(this, 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_top.json')">Relief</a></div>
@@ -112,189 +113,34 @@
 	</div>
 
 	<script src="assets/app.js"></script>
-	<script>
-		var map = new maplibregl.Map({
-			center: [10, 51],
-			container: 'map',
-//			hash: true,
-//			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_col.json',
-			style: 'https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json',
-			zoom: 5
-		});
-		var offsetMinutes = 10;
-		var now = new Date();
-		now = new Date(now.getTime() - offsetMinutes * 60000);
-        var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
-		var year = date.split('-')[0];
-		var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-de.geojson';
-		var layerCountry = 'layer-country';
-		var layerState = 'layer-state';
-		var layerGovernmentRegion = 'layer-government-region';
-		var layerDistrict = 'layer-district';
-		var layerCollectiveMunicipality1 = 'layer-collective-municipality1';
-		var layerCollectiveMunicipality2 = 'layer-collective-municipality2';
-		var layerMunicipality = 'layer-municipality';
-		var mouseHover = [];
+	<script src="assets/module.map.js"></script>
 
-		function onClick(e) {
+	<script>
+		map.addEventListenerMapLoaded(function() {
+			var offsetMinutes = 10;
+			var now = new Date();
+			now = new Date(now.getTime() - offsetMinutes * 60000);
+			var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
+			var year = date.split('-')[0];
+			var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-de.geojson';
+
+			map.loadGeoJSON(source);
+		});
+
+		map.addEventListenerMapClicked(function(layer, lngLat) {
 			var html = '';
-			for (var m = 0; m < mouseHover.length; ++m) {
-				var item = mouseHover[m];
+
+			if (undefined === layer) {
+				return;
+			}
+
+			for (var m = 0; m < layer.length; ++m) {
+				var item = layer[m];
 				html += item.obj.bez + ': ' + item.title + '<br>';
 			}
 
-			new maplibregl.Popup()
-			    .setLngLat(e.lngLat)
-			    .setHTML(html)
-			    .addTo(map);
-		}
-
-		function onMouseMoveReset() {
-			mouseHover = [];
-		}
-
-		function onMouseMove(e) {
-			if (undefined !== e.features) {
-				for (var f = 0; f < e.features.length; ++f) {
-					var feat = e.features[f];
-					mouseHover.push({
-						layer: feat.layer.id,
-						obj: feat.properties,
-						title: feat.properties.gen
-					});
-				}
-			}
-		}
-
-		function addLayer() {
-/*			map.addLayer({
-				'id': layerCountry,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#ffffff',
-                    'fill-outline-color': '#B8B8B8',
-                    'fill-opacity': 1
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 10]]
-			});
-			map.on('click', layerCountry, onClick);
-			map.on('mousemove', layerCountry, onMouseMove);*/
-
-			map.addLayer({
-				'id': layerState,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#ffc819',
-                    'fill-outline-color': '#8F6D00',
-                    'fill-opacity': .8
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 20], ['<=', 'ibz', 23]]
-			});
-			map.on('click', layerState, onClick);
-			map.on('mousemove', layerState, onMouseMove);
-
-			map.addLayer({
-				'id': layerGovernmentRegion,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#e89532',
-                    'fill-outline-color': '#814D0E',
-                    'fill-opacity': .8
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['==', 'ibz', 30]]
-			});
-			map.on('click', layerGovernmentRegion, onClick);
-			map.on('mousemove', layerGovernmentRegion, onMouseMove);
-
-			map.addLayer({
-				'id': layerDistrict,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#63af4f',
-                    'fill-outline-color': '#2F5426',
-                    'fill-opacity': .8
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 40], ['<=', 'ibz', 46]]
-			});
-			map.on('click', layerDistrict, onClick);
-			map.on('mousemove', layerDistrict, onMouseMove);
-
-			map.addLayer({
-				'id': layerCollectiveMunicipality1,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#8c4877',
-                    'fill-outline-color': '#361C2E',
-                    'fill-opacity': .8
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 50], ['<=', 'ibz', 56]]
-			});
-			map.on('click', layerCollectiveMunicipality1, onClick);
-			map.on('mousemove', layerCollectiveMunicipality1, onMouseMove);
-
-			map.addLayer({
-				'id': layerCollectiveMunicipality2,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#8c4877',
-                    'fill-outline-color': '#361C2E',
-                    'fill-opacity': .8
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 80], ['<=', 'ibz', 88]]
-			});
-			map.on('click', layerCollectiveMunicipality2, onClick);
-			map.on('mousemove', layerCollectiveMunicipality2, onMouseMove);
-
-			map.addLayer({
-				'id': layerMunicipality,
-				'type': 'fill',
-				'source': 'gml',
-				'paint': {
-                    'fill-color': '#bf2026',
-                    'fill-outline-color': '#460C0E',
-                    'fill-opacity': .8
-				},
-				'layout': {
-					'visibility': 'visible'
-				},
-	            'filter': ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]
-			});
-			map.on('click', layerMunicipality, onClick);
-			map.on('mousemove', layerMunicipality, onMouseMove);
-		}
-
-		map.on('load', function () {
-			map.addSource('gml', {
-				'type': 'geojson',
-				'data': source
-			});
-			addLayer();
+			map.popup(html, lngLat);
 		});
-		map.on('mousemove', onMouseMoveReset);
 
 		function onSwitchState(link, layer) {
 			var div = link.parentElement;
@@ -332,7 +178,7 @@
 
 			map.fire(new Event('style.load')); 
 
-//			addLayer();
+//			generateLayer();
 //			map.setLayoutProperty('layerState', 'visibility', 'none');
 		}
 

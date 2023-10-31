@@ -141,7 +141,7 @@ var system = (function () {
 //                document.getElementById(idImage3).src = images.length > 2 ? images[2] : '';
                 document.getElementById(idLogo1).src = logos.length > 0 ? logos[0] : '';
                 document.getElementById(idLogo2).src = logos.length > 1 ? logos[1] : '';
-                document.getElementById(idWikipedia).href = values.article.value;
+                document.getElementById(idWikipedia).href = values.article ? values.article.value : '';
             } else if (this.readyState == 4) {
                 document.getElementById(idImage1).src = '';
 //                document.getElementById(idImage2).src = '';

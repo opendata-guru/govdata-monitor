@@ -120,7 +120,7 @@ function monitorUpdateCatalogHistoryChart() {
             backgroundColor: gradient[c],
             borderColor: gradientBase[c],
             borderWidth: 2,
-            pointRadius: 0,
+            pointRadius: 1,
             data: monitor.chartLineData[c]
         });
     }

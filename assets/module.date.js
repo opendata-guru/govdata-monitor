@@ -83,7 +83,8 @@ var date = (function () {
             prevArrow: '<span title="Previous month">&laquo;</span>',
 
             enable: [function(theDate) {
-                var dateString = theDate.toISOString().split('T')[0];
+//                var dateString = theDate.toISOString().split('T')[0];
+                var dateString = theDate.toLocaleString('sv-SE').split(' ')[0];
                 return data.has(dateString);
             }],
         });

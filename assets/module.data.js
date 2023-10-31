@@ -263,7 +263,8 @@ var data = (function () {
     }
 
     function setLoadingDate(loadingDate) {
-        var dateString = loadingDate.toISOString().split('T')[0];
+//        var dateString = loadingDate.toISOString().split('T')[0];
+        var dateString = loadingDate.toLocaleString('sv-SE').split(' ')[0];
         var uri = baseURL + 'data-' + dateString.split('-')[0] + '/' + dateString + '-organizations.json';
 
         dateToLoad = dateString;

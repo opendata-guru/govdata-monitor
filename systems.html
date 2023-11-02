@@ -65,8 +65,23 @@
 			<main class="content p-0">
 				<div class="container-fluid p-0">
 
-					<div class="row">
-						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+					<div class="row bg-white">
+						<div class="col-12 col-md-12 col-xxl-12 position-relative overflow-hidden">
+
+							<div class="card-loading mb-0 p-3 border border-secondary position-absolute overflow-hidden text-nowrap" style="background:#a4e9f4;left:50%;transform:translateX(-50%);top:-3.5rem;transition:top ease-out 200ms">
+								<div class="card-body">
+									<div class="text-black">
+										<i class="text-black align-top me-1 rotate" data-feather="loader"></i>
+										<span id="loading-description"></span>
+									</div>
+								</div>
+							</div>
+
+							<div class="card-system p-3">
+								<div id="system-body" style="height: 10rem;">
+								</div>
+							</div>
+
 						</div>
 					</div>
 
@@ -93,6 +108,9 @@
 	</div>
 
 	<script src="assets/app.js"></script>
+	<script src="assets/page.systems.js"></script>
+	<script src="assets/module.data.js"></script>
+	<script src="assets/module.system.js"></script>
 </body>
 
 </html>

@@ -89,6 +89,15 @@ var catalog = (function () {
         return html;
     }
 
+    function funcUpdate() {
+        document.getElementById(idHistoryTitle).innerHTML = data.loadedDays + ' days history ' + getDownloadMenu();
+
+        if (data.loadedDays > data.initalDays) {
+            document.getElementById('removeLoadedDays').style.pointerEvents = '';
+            document.getElementById('removeLoadedDays').classList.add('text-dark');
+        }
+    }
+
     function funcSet(catalogId) {
         setId(catalogId);
 
@@ -101,8 +110,7 @@ var catalog = (function () {
             strCatalog = catalogObject.title;
         }
 
-        document.getElementById(idHistoryTitle).innerHTML = monitor.maxDays + ' days history ' + getDownloadMenu();
-
+        catalog.update();
         parents.update();
         date.update();
         data.emitFilterChanged();
@@ -115,5 +123,6 @@ var catalog = (function () {
         get: funcGet,
         getSameAs: funcGetSameAs,
         set: funcSet,
+        update: funcUpdate,
     };
 }());

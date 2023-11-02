@@ -38,14 +38,10 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
 }
 
 function monitorLoadMoreDays(days) {
-    document.getElementById('removeLoadedDays').style.pointerEvents = '';
-    document.getElementById('removeLoadedDays').classList.add('text-dark');
     data.loadMoreData(days);
 }
 
 function monitorRemoveLoadedDays() {
-    document.getElementById('removeLoadedDays').style.pointerEvents = 'none';
-    document.getElementById('removeLoadedDays').classList.remove('text-dark');
     data.removeLoadedData();
 }
 
@@ -318,24 +314,20 @@ function monitorUpdateCatalogPieChart() {
 // ----------------------------------------------------------------------------
 
 var idLoadingLabel = 'loading-description',
-classNameLoadingCard = 'card-loading',
-classNameParentsTitle = 'card-parents-and-catalog-title';
+classNameLoadingCard = 'card-loading';
 
 function showProgress(value) {
     var text = '';
     value = value || '';
-    text += '<span class="text-secondary">Loading data ... </span>';
-    text += '<span class="text-info"> <i class="mdi mdi-arrow-bottom-right"></i> ' + value + ' </span>';
+    text += '<span class="text-black">Loading data ... </span>';
+    text += '<span class="text-secondary"> <i class="mdi mdi-arrow-bottom-right"></i> ' + value + ' </span>';
 
     document.getElementById(idLoadingLabel).innerHTML = text;
-
-    document.getElementsByClassName(classNameParentsTitle)[0].style.display = 'none';
-    document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'block';
+    document.getElementsByClassName(classNameLoadingCard)[0].style.top = '-1px';
 }
 
 function hideProgress() {
-    document.getElementsByClassName(classNameLoadingCard)[0].style.display = 'none';
-    document.getElementsByClassName(classNameParentsTitle)[0].style.display = 'block';
+    document.getElementsByClassName(classNameLoadingCard)[0].style.top = '-3.5rem';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -343,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
     system.addEventListenerEndLoading(() => {
         hideProgress();
 
-        data.loadData();
+        data.loadData(monitor.maxDays);
     });
     data.addEventListenerStartLoading(showProgress);
     data.addEventListenerEndLoading(hideProgress);

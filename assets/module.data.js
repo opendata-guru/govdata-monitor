@@ -278,6 +278,8 @@ var data = (function () {
         if (data.loadedDays === 1) {
             setDate(dateToLoad);
             catalog.set(catalog.id); // <-  this is a hack
+        } else {
+            catalog.update();
         }
 
         var current = new Date(dateToLoad);
@@ -321,9 +323,10 @@ var data = (function () {
         }
     }
 
-    function funcLoadData() {
+    function funcLoadData(maxDays) {
         data.loadedDays = 0;
-        loadDays = monitor.maxDays;
+        data.initalDays = maxDays;
+        loadDays = maxDays;
 
         setLoadingDate(new Date(Date.now()));
         dispatchEventStartLoading(dateToLoad);
@@ -346,7 +349,7 @@ var data = (function () {
     }
 
     function funcRemoveLoadedData() {
-        while (Object.keys(assets).length > monitor.maxDays) {
+        while (Object.keys(assets).length > data.initalDays) {
             var current = new Date(dateToLoad);
             current.setDate(current.getDate() + 1);
             setLoadingDate(current);
@@ -357,6 +360,7 @@ var data = (function () {
         data.loadedDays = Object.keys(assets).length;
         loadDays = Object.keys(assets).length;
 
+        catalog.update();
         date.update();
         monitorUpdateCatalogHistoryChart();
     }
@@ -371,6 +375,7 @@ var data = (function () {
         getDate: funcGetDate,
         getTypeString: funcGetTypeString,
         has: funcHas,
+        initalDays: 0,
         layers: layers,
         loadData: funcLoadData,
         loadedDays: 0,

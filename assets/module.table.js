@@ -560,12 +560,6 @@ var table = (function () {
         menuCanvasList.forEach((menuCanvas) => {
             menuCanvas.addEventListener('click', onStopPropagation);
         });
-
-        monitorUpdateCatalogPieChart();
-        monitorUpdateCatalogHistoryChart();
-
-        map.update();
-        system.update();
     }
 
     install();

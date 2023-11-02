@@ -1,9 +1,21 @@
 var date = null,
     diff = null,
+    map = null,
     parents = null,
     table = null;
 
 function monitorUpdateCatalogHistoryChart() {}
+function monitorUpdateCatalogPieChart() {}
+
+function monitorFormatNumber(x) {
+  if (x === null) {
+      return '-';
+  }
+  if (x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+  return x;
+}
 
 // ----------------------------------------------------------------------------
 

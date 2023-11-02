@@ -251,6 +251,14 @@ var data = (function () {
         if (table) {
             table.update();
         }
+
+        monitorUpdateCatalogPieChart();
+        monitorUpdateCatalogHistoryChart();
+
+        if (map) {
+            map.update();
+        }
+        system.update();
     }
 
     function funcGet() {

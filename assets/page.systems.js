@@ -1,3 +1,10 @@
+var date = null,
+    diff = null,
+    parents = null,
+    table = null;
+
+function monitorUpdateCatalogHistoryChart() {}
+
 // ----------------------------------------------------------------------------
 
 var idLoadingLabel = 'loading-description',

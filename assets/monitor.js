@@ -5,7 +5,6 @@ var monitor = {
     chartLineData: [],
     chartLineRowDates: [],
     chartPie: null,
-    displayDate: '',
 };
 
 function monitorFormatNumber(x) {
@@ -71,7 +70,7 @@ function monitorUpdateCatalogHistoryChart() {
     gradient[gradient.length - 1].addColorStop(1, 'rgba(247, 208, 56, 0)');
 
     var sameAs = catalog.getSameAs(catalog.id);
-    var today = new Date(Date(monitor.displayDate));
+    var today = new Date(Date(data.getDisplayDate()));
     var dataObj = data.get();
 
     var title = 'Datasets';

@@ -90,7 +90,10 @@ var catalog = (function () {
     }
 
     function funcUpdate() {
-        document.getElementById(idHistoryTitle).innerHTML = data.loadedDays + ' days history ' + getDownloadMenu();
+        var elemHistory = document.getElementById(idHistoryTitle);
+        if (elemHistory) {
+            elemHistory.innerHTML = data.loadedDays + ' days history ' + getDownloadMenu();
+        }
 
         if (data.loadedDays > data.initalDays) {
             document.getElementById('removeLoadedDays').style.pointerEvents = '';
@@ -111,8 +114,12 @@ var catalog = (function () {
         }
 
         catalog.update();
-        parents.update();
-        date.update();
+        if (parents) {
+            parents.update();
+        }
+        if (date) {
+            date.update();
+        }
         data.emitFilterChanged();
     }
 

@@ -8,6 +8,7 @@ var data = (function () {
         view = [],
         viewHeader = [],
         loadDays = 0,
+        displayDate = '',
         layers = [];
 
     function init() {
@@ -53,7 +54,7 @@ var data = (function () {
             return true;
         }
 
-        if (table.flatten) {
+        if (table && table.flatten) {
             var sameAsPackageId = catalog.getSameAs(packageId);
 
             data.getDate(dateString).filter(item => -1 !== sameAsPackageId.indexOf(item.id)).forEach((row) => {
@@ -175,7 +176,7 @@ var data = (function () {
             });
         });
 
-        if (table.layers.length > 0) {
+        if (table && table.layers.length > 0) {
             var show = false;
             table.layers.forEach(layer => {
                 if (layer === table.layerNameOfUndefined) {
@@ -188,7 +189,7 @@ var data = (function () {
                 return;
             }
         }
-        if (diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {
+        if (diff && diff.hideEqual && (arrayData.length > 1) && (maxDiff < diff.threshold)) {
             return;
         }
 
@@ -209,12 +210,19 @@ var data = (function () {
         var arrayData = [],
             rows = [];
         var sameAs = catalog.getSameAs(catalog.id);
+        var selection = [];
+
+        if (date) {
+            selection = date.selection;
+        } else {
+            selection.push(data.getDisplayDate());
+        }
 
         view = [];
         viewHeader = [];
 
-        for (d = 0; d < date.selection.length; ++d) {
-            var selectedDate = date.selection[d];
+        for (d = 0; d < selection.length; ++d) {
+            var selectedDate = selection[d];
             viewHeader.push(selectedDate);
             arrayData.push(data.getDate(selectedDate));
 
@@ -240,25 +248,34 @@ var data = (function () {
     function funcEmitFilterChanged() {
         createView();
 
-        table.update();
+        if (table) {
+            table.update();
+        }
     }
 
     function funcGet() {
-        return assets[monitor.displayDate];
+        return assets[displayDate];
     }
 
     function funcGetDate(dateString) {
         return assets[dateString]
     }
 
+    function funcGetDisplayDate() {
+        return displayDate;
+    }
+
     function funcHas(dateString) {
         return assets[dateString] !== undefined;
     }
 
-    function setDate(displayDate) {
-        monitor.displayDate = displayDate;
+    function setDate(theDate) {
+        displayDate = theDate;
 
-        date.update();
+        if (date) {
+            date.update();
+        }
+
         data.emitFilterChanged();
     }
 
@@ -318,7 +335,9 @@ var data = (function () {
         } else {
             dispatchEventEndLoading();
 
-            date.update();
+            if (date) {
+                date.update();
+            }
             monitorUpdateCatalogHistoryChart();
         }
     }
@@ -373,6 +392,7 @@ var data = (function () {
         emitFilterChanged: funcEmitFilterChanged,
         get: funcGet,
         getDate: funcGetDate,
+        getDisplayDate: funcGetDisplayDate,
         getTypeString: funcGetTypeString,
         has: funcHas,
         initalDays: 0,

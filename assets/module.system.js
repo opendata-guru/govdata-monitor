@@ -5,6 +5,10 @@ var system = (function () {
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var idSystemBody = 'system-body',
+        idOtherSystemsHead = 'other-systems-thead',
+        idOtherSystemsBody = 'other-systems-tbody',
+        idCKANSystemsHead = 'ckan-systems-thead',
+        idCKANSystemsBody = 'ckan-systems-tbody',
         idImage1 = 'image-1',
 //        idImage2 = 'image-2',
 //        idImage3 = 'image-3',
@@ -185,6 +189,21 @@ var system = (function () {
         return ret;
     }
 
+    function getId(system) {
+        var dataObj = data.get();
+        var ret = null;
+
+        if (dataObj && system) {
+            dataObj.forEach((row) => {
+                if (row.link === system.link) {
+                    ret = row.id;
+                }
+            });
+        }
+
+        return ret;
+    }
+
     function format(key, value) {
         return '<div class="font-monospace"><span class="fw-bold">' + key + ':</span> ' + value + '</div>';
     }
@@ -256,11 +275,16 @@ var system = (function () {
         return ret;
     }
 
-    function funcUpdate() {
+    function updateSingleSystem() {
         if (systemId === catalog.id) {
             return;
         }
         systemId = catalog.id;
+
+        var elemBody = document.getElementById(idSystemBody);
+        if (!elemBody) {
+            return;
+        }
 
         var catalogObj = catalog.get(systemId);
         var sameAs = catalog.getSameAs(systemId);
@@ -315,7 +339,128 @@ var system = (function () {
             loadSPARQL(wikidata);
         }
 
-        document.getElementById(idSystemBody).innerHTML = body;
+        elemBody.innerHTML = body;
+    }
+
+    function getOtherSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>System</th>';
+        head += '<th>Version</th>';
+        head += '<th>API</th>';
+        head += '<th>Extensions</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getOtherSystemsRow(id) {
+        var catalogObj = catalog.get(id);
+        var sys = funcGet(id);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : '';
+
+        var cols = '';
+        cols += '<td>' + title + '</td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            cols += '<td class="align-middle">' + sys.server.system + '</td>';
+            cols += '<td class="align-middle">' + sys.server.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + JSON.stringify(sys.server.extensions) + '</td>';
+        } else {
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        return '<tr>' + cols + '</tr>';
+    }
+
+    function getCKANSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>CKAN Version</th>';
+        head += '<th>API</th>';
+        head += '<th>Extensions</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getCKANSystemsRow(id) {
+        var catalogObj = catalog.get(id);
+        var sys = funcGet(id);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : '';
+
+        var cols = '';
+        cols += '<td>' + title + '</td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            cols += '<td class="align-middle">' + sys.server.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + formatExtensions(sys.server.extensions) + '</td>';
+        } else {
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        return '<tr>' + cols + '</tr>';
+    }
+
+    function updateSystemTable() {
+        var otherTableHead = document.getElementById(idOtherSystemsHead);
+        var otherTableBody = document.getElementById(idOtherSystemsBody);
+        var ckanTableHead = document.getElementById(idCKANSystemsHead);
+        var ckanTableBody = document.getElementById(idCKANSystemsBody);
+
+        if (!otherTableHead) {
+            return;
+        }
+
+        var otherBody = '';
+        var ckanBody = '';
+
+        assets.forEach(sys => {
+            var id = getId(sys);
+            var system = '';
+            if (sys && sys.server) {
+                system = sys.server.system;
+            }
+
+            if ('CKAN' === system) {
+                ckanBody += getCKANSystemsRow(id);
+            } else {
+                otherBody += getOtherSystemsRow(id);
+            }
+        });
+
+        if (otherBody.length === 0) {
+            otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+        if (ckanBody.length === 0) {
+            ckanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+
+        otherTableHead.innerHTML = getOtherSystemsHead();
+        otherTableBody.innerHTML = otherBody;
+
+        ckanTableHead.innerHTML = getCKANSystemsHead();
+        ckanTableBody.innerHTML = ckanBody;
+    }
+
+    function funcUpdate() {
+        updateSingleSystem();
+        updateSystemTable();
     }
 
     init();

@@ -5,10 +5,14 @@ var system = (function () {
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var idSystemBody = 'system-body',
-        idOtherSystemsHead = 'other-systems-thead',
-        idOtherSystemsBody = 'other-systems-tbody',
         idCKANSystemsHead = 'ckan-systems-thead',
         idCKANSystemsBody = 'ckan-systems-tbody',
+        idPiveauSystemsHead = 'piveau-systems-thead',
+        idPiveauSystemsBody = 'piveau-systems-tbody',
+        idODSSystemsHead = 'ods-systems-thead',
+        idODSSystemsBody = 'ods-systems-tbody',
+        idOtherSystemsHead = 'other-systems-thead',
+        idOtherSystemsBody = 'other-systems-tbody',
         idImage1 = 'image-1',
 //        idImage2 = 'image-2',
 //        idImage3 = 'image-3',
@@ -226,48 +230,40 @@ var system = (function () {
 
         if (extensions.length > 0) {
             var arr = [];
-            var strBasics = '', strViews = '', strMaps = '', strDCAT = '';
+            var strBasics = '', strViews = '', strMaps = '', strMetadata = '';
 
             extensions.forEach(extension => {
-                // GovData:
-                //   activity, search_index_hook
-                //   govdatade, 
-                // Schleswig-Holstein:
-                //   qa, archiver, report, 
-                //   kiel_harvester, statistikamtnord_harvester, 
-                //   odsh, odsh_autocomplete, odsh_dcat_harvest, odsh_collections,
-                // Hamburg:
-                //   distributed_harvest, inforeg_metadata_api, no_groups, inforeg_solr_search, solr_highlighting, fast_search_solr_highlighting, file_proxy, log_proxy, request_logger,
-                //   hmdktoinforeg_harvester, zs_parladb_harvester, allris_CCEGOV_harvester, allris_bezirk__harvester, oktagon_harvester, bacom_harvester_new, workflow_harvester, imis_harvester, statistik_nord_harvester, 
-                //   hmbtg_template, hmbtg_helper, hmbtg_search, hmbtgdashboard, hmbtg_geo, hmbtg_feed
-                // NRW:
-                //   opennrw-ldb-harvester-dcat, opennrw-aachen-harvester-dcat, opennrw-dormagen-harvester-dcat, opennrw-offenesdatenportal-harvester-dcat, opennrw-meerbusch-harvester-dcat, opennrw-gelsenkirchen-harvester-dcat, opennrw-ignrw-harvester-dcat, opennrw-redesign-nrwmetadata-harvester-dcat, opennrw-fassaden-harvester-dcat, opennrw-neuss-harvester-dcat, opennrw-dortmund-harvester-dcat, opennrw-rvr-harvester-dcat, dortmund-arcgis-harvester-dcat, opennrw-oepnv-harvester-dcat, nrw-rdf-wuppertal-harvester, nrw-rdf-koeln-harvester, nrw-rdf-bonn-harvester, nrw-rdf-rheinerftrur-harvester, nrw-rdf-gelsenkirchen-harvester, nrw-rdf-duesseldorf-harvester, nrw-rdf-bielefeld-harvester, nrw-rdf-duisburg-harvester, nrw-rdf-muenster-harvester, nrw-rdf-essen-harvester, nrw-rdf-paderborn-harvester, nrw-rdf-neuss-harvester, nrw-rdf-rvr-harvester, nrw-rdf-ldb-harvester
-                //   opennrw-portal-zipharvester, nrw-rdf-harvester, 
-                // RP:
-                //   scheming_datasets, scheming_organizations, pages, 
-                //   rlp
-                // Niederrhein:
-                //   datastore, datapusher, showcase, 
-                //   krzn
-                // Regionalverband Ruhr:
-                //   envvars, datastore, datapusher, navigablemap, choroplethmap, pages, downloadall
-                //   rvr, rvr_spatial_query, 
-                // Aachen:
-                //   custom_theme, pages, showcase
-
                 if ((-1 !== extension.indexOf('_view')) && (extension.indexOf('_view') === (extension.length - 5))) {
-                    strViews += '<span title="' + extension + '">🎨</span>';
-                } else if (-1 !== ['spatial_metadata','spatial_query','spatial_harvest_metadata_api'].indexOf(extension)) {
-                    strMaps += '<span title="' + extension + '">🗺️</span>';
-                } else if (-1 !== ['harvest','ckan_harvester','stats','structured_data','resource_proxy'].indexOf(extension)) {
-                    strBasics += '<span title="' + extension + '">🧰</span>';
-                } else if (-1 !== ['dcat','dcatde','dcat_json_harvester','dcat_json_interface','dcat_rdf_harvester','dcatde_rdf_harvester'].indexOf(extension)) {
-                    strDCAT += '<span title="' + extension + '">*️⃣</span>';
+                    strViews += (strViews === '' ? '' : ', ') + extension;
+                } else if (extension.endsWith('theme')) {
+                    strViews = extension + (strViews === '' ? '' : ', ') + strViews;
+                } else if (-1 !== ['spatial_metadata','spatial_query','spatial_harvest_metadata_api','navigablemap','choroplethmap'].indexOf(extension)) {
+                    strMaps += (strMaps === '' ? '' : ', ') + extension;
+                } else if (-1 !== ['harvest','ckan_harvester','stats','structured_data','resource_proxy','pages','datastore','datapusher','xloader','showcase'].indexOf(extension)) {
+                    strBasics += (strBasics === '' ? '' : ', ') + extension;
+                } else if (-1 !== ['dcat','dcatde','hro_dcatapde','dcat_json_harvester','dcat_json_interface','dcat_rdf_harvester','dcatde_rdf_harvester','scheming_datasets','scheming_groups','scheming_organizations'].indexOf(extension)) {
+                    strMetadata += (strMetadata === '' ? '' : ', ') + extension;
                 } else {
                     arr.push(extension);
                 }
             });
-            ret = '<span style="font-size:1.5rem">' + strBasics + strViews + strMaps + strDCAT + '</span> ' + arr.join(', ');
+
+            ret = '';
+            if (strBasics !== '') {
+                ret += '<span style="font-size:1.5rem">🧰</span> ' + strBasics + '<br>';
+            }
+            if (strViews !== '') {
+                ret += '<span style="font-size:1.5rem">🎨</span> ' + strViews + '<br>';
+            }
+            if (strMaps !== '') {
+                ret += '<span style="font-size:1.5rem">🗺️</span> ' + strMaps + '<br>';
+            }
+            if (strMetadata !== '') {
+                ret += '<span style="font-size:1.5rem">*️⃣</span> ' + strMetadata + '<br>';
+            }
+            if (arr.length > 0) {
+                ret += '<span style="font-size:1.5rem">🏴‍☠️</span> ' + arr.join(', ');
+            }
         } else {
             ret += JSON.stringify(extensions);
         }
@@ -332,7 +328,7 @@ var system = (function () {
         if (sys && sys.server) {
             body += format('System', sys.server.system + ', version ' + sys.server.version);
             body += formatLink('API', sys.server.url, sys.server.url);
-            body += formatScroll('Extensions', formatExtensions(sys.server.extensions));
+            body += formatScroll('Extensions', (Array.isArray(sys.server.extensions) ? sys.server.extensions.length : 0));
         }
 
         if (wikidata) {
@@ -355,12 +351,11 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getOtherSystemsRow(id) {
+    function getOtherSystemsRow(id, sys) {
         var catalogObj = catalog.get(id);
-        var sys = funcGet(id);
 
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
-        var datasetCount = catalogObj ? catalogObj.datasetCount : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
 
         var cols = '';
         cols += '<td>' + title + '</td>';
@@ -393,12 +388,11 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getCKANSystemsRow(id) {
+    function getCKANSystemsRow(id, sys) {
         var catalogObj = catalog.get(id);
-        var sys = funcGet(id);
 
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
-        var datasetCount = catalogObj ? catalogObj.datasetCount : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
 
         var cols = '';
         cols += '<td>' + title + '</td>';
@@ -407,7 +401,7 @@ var system = (function () {
         if (sys && sys.server) {
             cols += '<td class="align-middle">' + sys.server.version + '</td>';
             cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + formatExtensions(sys.server.extensions) + '</td>';
+            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.server.extensions) + '</td>';
         } else {
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
@@ -417,18 +411,97 @@ var system = (function () {
         return '<tr>' + cols + '</tr>';
     }
 
+    function getPiveauSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>Search Version</th>';
+        head += '<th>Registry Version</th>';
+        head += '<th>MQA Version</th>';
+        head += '<th>SHACL Validator Version</th>';
+        head += '<th>API</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getPiveauSystemsRow(id, sys) {
+        var catalogObj = catalog.get(id);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+
+        var cols = '';
+        cols += '<td>' + title + '</td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            cols += '<td class="align-middle">' + (sys.server.extensions.search || '-') + '</td>';
+            cols += '<td class="align-middle">' + (sys.server.extensions.registry || '-') + '</td>';
+            cols += '<td class="align-middle">' + (sys.server.extensions.MQA || '-') + '</td>';
+            cols += '<td class="align-middle">' + (sys.server.extensions['SHACL metadata validation'] || '-') + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+        } else {
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        return '<tr>' + cols + '</tr>';
+    }
+
+    function getODSSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>ODS Version</th>';
+        head += '<th>API</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getODSSystemsRow(id, sys) {
+        var catalogObj = catalog.get(id);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+
+        var cols = '';
+        cols += '<td>' + title + '</td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            cols += '<td class="align-middle">' + sys.server.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+        } else {
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        return '<tr>' + cols + '</tr>';
+    }
+
     function updateSystemTable() {
-        var otherTableHead = document.getElementById(idOtherSystemsHead);
-        var otherTableBody = document.getElementById(idOtherSystemsBody);
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
         var ckanTableBody = document.getElementById(idCKANSystemsBody);
+        var piveauTableHead = document.getElementById(idPiveauSystemsHead);
+        var piveauTableBody = document.getElementById(idPiveauSystemsBody);
+        var odsTableHead = document.getElementById(idODSSystemsHead);
+        var odsTableBody = document.getElementById(idODSSystemsBody);
+        var otherTableHead = document.getElementById(idOtherSystemsHead);
+        var otherTableBody = document.getElementById(idOtherSystemsBody);
 
         if (!otherTableHead) {
             return;
         }
 
-        var otherBody = '';
         var ckanBody = '';
+        var piveauBody = '';
+        var odsBody = '';
+        var otherBody = '';
 
         assets.forEach(sys => {
             var id = getId(sys);
@@ -438,24 +511,37 @@ var system = (function () {
             }
 
             if ('CKAN' === system) {
-                ckanBody += getCKANSystemsRow(id);
+                ckanBody += getCKANSystemsRow(id, sys);
+            } else if ('Piveau' === system) {
+                piveauBody += getPiveauSystemsRow(id, sys);
+            } else if ('Opendatasoft' === system) {
+                odsBody += getODSSystemsRow(id, sys);
             } else {
-                otherBody += getOtherSystemsRow(id);
+                otherBody += getOtherSystemsRow(id, sys);
             }
         });
 
-        if (otherBody.length === 0) {
-            otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (ckanBody.length === 0) {
             ckanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
-
-        otherTableHead.innerHTML = getOtherSystemsHead();
-        otherTableBody.innerHTML = otherBody;
+        if (piveauBody.length === 0) {
+            piveauBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+        if (odsBody.length === 0) {
+            odsBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+        if (otherBody.length === 0) {
+            otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
 
         ckanTableHead.innerHTML = getCKANSystemsHead();
         ckanTableBody.innerHTML = ckanBody;
+        piveauTableHead.innerHTML = getPiveauSystemsHead();
+        piveauTableBody.innerHTML = piveauBody;
+        odsTableHead.innerHTML = getODSSystemsHead();
+        odsTableBody.innerHTML = odsBody;
+        otherTableHead.innerHTML = getOtherSystemsHead();
+        otherTableBody.innerHTML = otherBody;
     }
 
     function funcUpdate() {

@@ -367,9 +367,10 @@ var system = (function () {
             cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
             cols += '<td class="align-middle">' + JSON.stringify(sys.server.extensions) + '</td>';
         } else {
+            var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">' + url + '</td>';
             cols += '<td class="align-middle">-</td>';
         }
 

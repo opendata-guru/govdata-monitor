@@ -228,7 +228,7 @@ var system = (function () {
     function formatExtensions(extensions) {
         var ret = '';
 
-        if (extensions.length > 0) {
+        if (extensions && (extensions.length > 0)) {
             var arr = [];
             var strBasics = '', strViews = '', strMaps = '', strMetadata = '';
 

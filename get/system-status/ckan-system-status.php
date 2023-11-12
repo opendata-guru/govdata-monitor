@@ -25,7 +25,18 @@
 		$uriCKAN = substr($paramLink, 0, -strlen($groupListSuffix));
 	}
 
-	$json = json_decode(file_get_contents($uriCKAN . $statusShowSuffix));
+	function get_contents($url){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		$data = curl_exec($ch);
+		curl_close($ch);
+
+		return $data;
+	}
+
+//	$json = json_decode(file_get_contents($uriCKAN . $statusShowSuffix));
+	$json = json_decode(get_contents($uriCKAN . $statusShowSuffix));
 
 	if ($json) {
 		echo json_encode((object) array(

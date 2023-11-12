@@ -20,17 +20,29 @@
 		exit;
 	}
 
+	function get_contents($url){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		$data = curl_exec($ch);
+		curl_close($ch);
+
+		return $data;
+	}
+
 	$uriCKAN = substr($paramLink, 0, -strlen($orgaListSuffix));
 	$uri = $paramLink;
 //	$uriDomain = end(explode('/',$uriCKAN));
 	$uriDomain = explode('/',$uriCKAN)[2];
-	$json = json_decode(file_get_contents($uri));
+//	$json = json_decode(file_get_contents($uri));
+	$json = json_decode(get_contents($uri));
 
 	$data = [];
 
 	foreach($json->result as $orgaID) {
 		$uri = $uriCKAN . $orgaShowSuffix;
-		$json = json_decode(file_get_contents($uri . $orgaID));
+//		$json = json_decode(file_get_contents($uri . $orgaID));
+		$json = json_decode(get_contents($uri . $orgaID));
 		$uris = json_decode($json->result->extras[0]->value);
 		$title = $json->result->title;
 

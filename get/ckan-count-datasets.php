@@ -22,6 +22,16 @@
 		exit;
 	}
 
+	function get_contents($url){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		$data = curl_exec($ch);
+		curl_close($ch);
+
+		return $data;
+	}
+
 	function scrapeWebsite($uriCKAN) {
 		global $countWebsiteSuffix;
 
@@ -45,17 +55,20 @@
 		$uriCKAN = substr($paramLink, 0, -strlen($groupListSuffix));
 	}
 
-	$json = json_decode(file_get_contents($uriCKAN . $packageShowSuffix));
+//	$json = json_decode(file_get_contents($uriCKAN . $packageShowSuffix));
+	$json = json_decode(get_contents($uriCKAN . $packageShowSuffix));
 
 	if ($json) {
 		echo $json->result->count;
 	} else {
-		$json = json_decode(file_get_contents($uriCKAN . $packageShowAllSuffix));
+//		$json = json_decode(file_get_contents($uriCKAN . $packageShowAllSuffix));
+		$json = json_decode(get_contents($uriCKAN . $packageShowAllSuffix));
 
 		if ($json) {
 			echo $json->result->count;
 		} else {
-			$json = json_decode(file_get_contents($uriCKAN . $resourcesShowSuffix));
+//			$json = json_decode(file_get_contents($uriCKAN . $resourcesShowSuffix));
+			$json = json_decode(get_contents($uriCKAN . $resourcesShowSuffix));
 
 			if ($json) {
 				echo count($json->result[0]);

@@ -264,6 +264,8 @@ var system = (function () {
             if (arr.length > 0) {
                 ret += '<span style="font-size:1.5rem">🏴‍☠️</span> ' + arr.join(', ');
             }
+        } else if (extensions === null) {
+            ret += '-'
         } else {
             ret += JSON.stringify(extensions);
         }
@@ -400,8 +402,12 @@ var system = (function () {
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {
-            cols += '<td class="align-middle">' + sys.server.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + (sys.server.version || '-') + '</td>';
+            if (sys.server.url) {
+                cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            } else {
+                cols += '<td class="align-middle">-</td>';
+            }
             cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.server.extensions) + '</td>';
         } else {
             cols += '<td class="align-middle">-</td>';
@@ -409,7 +415,12 @@ var system = (function () {
             cols += '<td class="align-middle">-</td>';
         }
 
-        return '<tr>' + cols + '</tr>';
+        var cssClass = '';
+        if (datasetCount === null) {
+            cssClass ='bg-danger text-white';
+        }
+
+        return '<tr class="' + cssClass + '">' + cols + '</tr>';
     }
 
     function getPiveauSystemsHead() {

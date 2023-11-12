@@ -8,6 +8,7 @@
 
 	$piveauSuffix = '/api/hub/search/catalogues';
 	$catalogSuffix = '/';
+	$countSuffix = '/api/hub/search/search?q=&filter=dataset&facets={%22catalog%22:[%22###%22]}&limit=0';
 
 	$paramLink = htmlspecialchars($_GET['link']);
 	if ($paramLink == '') {
@@ -21,8 +22,8 @@
 	}
 
 	$uri = $paramLink;
-	$uriCKAN = substr($paramLink, 0, -strlen($piveauSuffix));
-	$uriDomain = end(explode('/', $uriCKAN));
+	$uriPiveau = substr($paramLink, 0, -strlen($piveauSuffix));
+	$uriDomain = end(explode('/', $uriPiveau));
 
 	$source = file_get_contents($uri);
 
@@ -35,12 +36,18 @@
 		$source = file_get_contents($catalogURI);
 		$catalog = json_decode($source);
 
+		$countURI = $uriPiveau . $countSuffix;
+		$countURI = str_replace('###', $catalog->result->id, $countURI);
+		$source = file_get_contents($countURI);
+		$countData = json_decode($source);
+
 		$title = $catalog->result->title;
 		$titleLang = array_keys((array)$title)[0];
 		$title = ((array)$title)[$titleLang];
 
 		$id = $catalog->result->id;
-		$count = $catalog->result->count;
+//		$count = $catalog->result->count;
+		$count = $countData->result->count;
 
 		$data[] = semanticContributor($uriDomain, array(
 			'id' => $id,

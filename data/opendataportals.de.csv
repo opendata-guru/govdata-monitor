@@ -152,6 +152,7 @@ Chemnitz - Amt 67 - Grünflächenamt,municipalityAgency,Stadt Chemnitz - Amt 67 
 Cochem,collectiveMunicipality,Verbandsgemeinde Cochem,daten.rlp.de|verbandsgemeinde_cochem,,,,https://daten.rlp.de/organization/verbandsgemeinde_cochem,,071355001,,Q511057,,,,,,2023-05-14
 Darmstadt-Dieburg,district,Landkreis Darmstadt-Dieburg,geoportal.de|LandkreisDarmstadtDieburg,,,,,,06432,,06432,,,,,,2023-07-28
 Dedenbach,municipality,Ortsgemeinde Dedenbach,daten.rlp.de|ortsgemeinde_dedenbach,,,,https://daten.rlp.de/organization/og_dedenbach,,071315004016,,Q569741,,,,,,2023-05-21
+Deggendorf,municipality,Stadt Deggendorf,Stadt Deggendorf,,,,,,092710119119,,Q16083,,,,,,2023-11-16
 Delbrück,municipality,Stadt Delbrück,geoportal.de|StadtDelbrck,,,,,,057740020020,,Q16146,,,,,,2023-08-13
 Deutsche Nationalbibliothek,other,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,,,,,,,Q27302,,,,,,
 Deutsche Rentenversicherung Bund,federalCooperation,Deutsche Rentenversicherung Bund,http://dcat-ap.de/def/contributors/deutscheRentenversicherungBund,,,,,,,,Q1203782,,,,,,2023-05-21
@@ -220,14 +221,13 @@ Föderale IT-Kooperation,federalCooperation,FITKO (Föderale IT-Kooperation),htt
 Föritztal,municipality,Gemeinde Föritztal,geoportal.de|GemeindeFritztal,,,,,,160720024024,,Q48781201,,,,,,2023-09-09
 Fürstenau,collectiveMunicipality,Samtgemeinde Fürstenau,geoportal.de|SamtgemeindeFrstenau,,,,,,034595403,,Q314976,,,,,,2023-07-28
 Galenberg,municipality,Ortsgemeinde Galenberg,daten.rlp.de|ortsgemeinde_galenberg,,,,https://daten.rlp.de/organization/ortsgemeinde_galenberg,,071315004204,,Q644473,,,,,,2023-05-23
-"🇩🇪 Deutschland, Geoportal",federalCooperation,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,,,https://www.gdi-de.org/,,,,Q1502855,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
 GDI-Saarland,stateAgency,GDI-Saarland,geoportal.de|GDISaarland,,,,,,,10,,,,,,,2023-10-12
 Geldern,municipality,Stadt Geldern,www.offenesdatenportal.de|stadt-geldern,geoportal.de|StadtGeldern,,,https://www.offenesdatenportal.de/organization/stadt-geldern,,051540012012,,Q16024,,,,,,2023-05-23
 Gelsenkirchen,municipality,Stadt Gelsenkirchen,open.nrw|gelsenkirchen,opendata.ruhr|gelsenkirchen,geoportal.de|StadtGelsenkirchen,mcloud.de|GovDataStadtGelsenkirchen,https://opendata.gelsenkirchen.de/,2017-05-23,055130000000,,Q2765,gkd-el,DKAN,https://opendata.gelsenkirchen.de/api/3/action/package_list,https://opendata.gelsenkirchen.de/api/3/action/group_list,,2023-08-19
 Generaldirektion Kulturelles Erbe Rheinland-Pfalz,stateAgency,Generaldirektion Kulturelles Erbe,daten.rlp.de|generaldirektion_kulturelles_erbe,,,,,,,07,Q1501748,,,,,,2023-07-18
 Generalzolldirektion,federalAgency,Generalzolldirektion,http://dcat-ap.de/def/contributors/generalzolldirektion,,,,,,,,Q18287062,,,,,,
 Geoportal Baden-Württemberg,stateAgency,Geoportal Baden-Württemberg,www.daten-bw.de|geoportal-baden-wurttemberg,,,,https://www.geoportal-bw.de/,,,08,,,,,https://www.geoportal-bw.de/,,2023-11-10
-Geoportal Bayern,stateAgency,Geoportal Bayern,opendata.bayern|geoportalbayern,,,,,,,09,,,,,,,2023-07-24
+Geoportal Bayern,stateAgency,Geoportal Bayern,opendata.bayern|geoportalbayern,opendata.bayern|geoportal,,,,,,09,,,,,,,2023-11-16
 Geoportal Ruhr,regionalNetwork,Geoportal Ruhr,opendata.ruhr|geoportal-ruhr,,,,,,,,,,,,,,2023-05-14
 GEOportal.NRW,stateAgency,Geoportal,open.nrw|geoportal,,,,,,,05,,,,,,,2023-05-14
 Georgenthal,collectiveMunicipality,Landgemeinde Georgenthal und der beauftragenden Gemeinden,geoportal.de|LandgemeindeGeorgenthalundderbeauftragendenGemeinden,,,,,,160675054,,Q567994,,,,,,2023-08-14
@@ -331,6 +331,7 @@ Ilmenau,municipality,Stadt Ilmenau,geoportal.de|StadtIlmenau,,,,,,160700029029,,
 Ilmtal-Weinstraße,municipality,Gemeinde Ilmtal-Weinstraße,geoportal.de|GemeindeIlmtalWeinstrae,,,,,,160710101101,,Q15403584,,,,,,2023-09-09
 Information und Technik Nordrhein-Westfalen,stateAgency,Information und Technik Nordrhein-Westfalen,geoportal.de|InformationundTechnikNordrheinWestfalen,,,,,,,05,Q1802131,,,,,,2023-08-16
 Informationstechnikzentrum Bund,federalAgency,ITZ-Bund,http://dcat-ap.de/def/contributors/itzBund,geoportal.de|InformationstechnikzentrumBundITZBund,geoportal.de|ITZBundInformationstechnikzentrumBundPoststelle,,,,,,Q23786362,,,,,,2023-08-17
+Ingolstadt,municipality,Stadt Ingolstadt,opendata.bayern|ingolstadt,,,,,,091610000000,,Q3004,,,,,,2023-11-16
 Iserlohn,municipality,Stadt Iserlohn,geoportal.de|StadtIserlohn,,,,,,059620024024,,Q1130,,,,,,2023-05-23
 Issum,municipality,Gemeinde Issum,geoportal.de|GemeindeIssum,,,,,,051540020020,,Q243337,,,,,,2023-09-09
 Itzehoe,municipality,Stadt Itzehoe,opendata.schleswig-holstein.de|itzehoe,geoportal.de|StadtItzehoe,,,,,010610046046,,Q16073,,,,,,2023-11-14
@@ -546,6 +547,7 @@ Ranis-Ziegenrück,collectiveMunicipality,Verwaltungsgemeinschaft Ranis - Ziegenr
 Recklinghausen,municipality,Recklinghausen,opendata.ruhr|recklinghausen,,,,https://opendata.ruhr/organization/recklinghausen,,055620032032,,Q3050,,,,,,2023-05-30
 Recklinghausen,district,Kreis Recklinghausen,geoportal.de|KreisverwaltungRecklinghausen,,,,https://geoserver4.kreis-re.de/geonetwork/,,05562,,Q6214,,,,https://geoserver4.kreis-re.de/geonetwork/,,2023-11-10
 Rees,municipality,Stadt Rees,geoportal.de|StadtRees,,,,,,051540044044,,Q243474,,,,,,2023-08-13
+Regensburg,district,Landkreis Regensburg,opendata.bayern|lk-regensburg,,,,,,09375,,Q10429,,,,,,2023-11-16
 Regierungsbezirk Arnsberg,governmentRegion,Bezirksregierung Arnsberg,geoportal.de|BezirksregierungArnsberg,,,,,,059,,Q7924,,,,,,2023-07-29
 Regierungsbezirk Detmold,governmentRegion,Bezirksregierung Detmold,geoportal.de|BezirksregierungDetmold,,,,,,057,,Q7923,,,,,,2023-07-29
 Regierungsbezirk Düsseldorf,governmentRegion,Bezirksregierung Düsseldorf,geoportal.de|BezirksregierungDsseldorf,,,,,,051,,Q7926,,,,,,2023-07-29
@@ -692,6 +694,7 @@ Vorpommern-Greifswald,district,Landkreis Vorpommern-Greifswald,geoportal.de|Land
 Vorpommern-Rügen,district,Landkreis Vorpommern-Rügen,mcloud.de|LandkreisVorpommernRgen,,,,,,13073,,Q2909,,,,,,2023-07-28
 Vreden,municipality,Stadt Vreden,geoportal.de|StadtVreden,,,,,,055540068068,,Q200528,,,,,,2023-06-19
 Wachtendonk,municipality,Gemeinde Wachtendonk,www.offenesdatenportal.de|gemeinde-wachtendonk,geoportal.de|GemeindeWachtendonk,,,https://www.offenesdatenportal.de/organization/gemeinde-wachtendonk,,051540060060,,Q243139,KRZN,CKAN,https://www.offenesdatenportal.de/api/3/action/organization_activity_list?id=gemeinde-wachtendonk,,,2023-06-19
+Wahlstedt,municipality,Stadt Wahlstedt,opendata.schleswig-holstein.de|wahlstedt,,,,,,010600092092,,Q536506,,,,,,2023-11-16
 Wallenhorst,municipality,Gemeinde Wallenhorst,geoportal.de|GemeindeWallenhorst,,,,,,034590033033,,Q628324,,,,,,2023-08-11
 Waltershausen,municipality,Stadt Waltershausen,geoportal.de|StadtWaltershausen,,,,,,160670072072,,Q506743,,,,,,2023-08-13
 Warendorf,district,Kreis Warendorf,geoportal.de|KreisWarendorf,,,,,,05570,,Q2839,,,,,,2023-07-28
@@ -737,10 +740,10 @@ Zwickau,district,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,,,14524,
 Zwickau,municipality,Stadt Zwickau,www.opendata.sachsen.de|StadtZwickau,,,,,,145240330330,,Q3778,,,,,,2023-08-13
 Zwönitz,municipality,Stadt Zwönitz,www.opendata.sachsen.de|StadtZwnitz,,,,,,145215140710,,Q58002,,,,,,2023-08-13
 🇩🇪 Deutschland,country,govdata - Datenportal für Deutschland,data.europa.eu|govdata,,,,https://www.govdata.de/,2016-01-17,,,Q183,SEITENBAU GmbH,CKAN+Liferay,https://ckan.govdata.de/api/3/action/package_list,https://ckan.govdata.de/api/3/action/organization_list,https://ckan.govdata.de/catalog.rdf,2023-04-18
+"🇩🇪 Deutschland, Geoportal",federalCooperation,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,,,https://www.gdi-de.org/,,,,Q1502855,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
 ,municipality,Altenburg,,,,,https://www.altenburg.eu/sixcms/detail.php?id=139875,,160770001001,,,,Website,,,,2019-08-10
 ,municipality,Emsdetten,,,,,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,055660008008,,,,,,,,2021-03-03
 ,municipality,Euskirchen,,,,,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03
-,municipality,Ingolstadt,,,,,https://www.ingolstadt.de/Service/Weitere-Themen/Open-Data/,,091610000000,,,,,,,,2021-03-04
 ,municipality,Kaarst,,,,,https://www.o-sp.de/kaarst/opendata,,051620016016,,,,,,,,2021-03-03
 ,municipality,Kamen,,,,,https://www.o-sp.de/kamen/opendata,,059780020020,,,,,,,,2021-03-03
 ,municipality,Lemgo,,,,,https://www.o-sp.de/lemgo/opendata,,057660044044,,,,,,,,2021-03-03

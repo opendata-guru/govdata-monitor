@@ -41,15 +41,26 @@
 			if($system->link && ($system->link !== '')) {
 				// done
 			} else {
-				$errors.push((object) array('object' => $system->title, 'message' => 'noLinkFound'));
+				$errors[] = (object) array('object' => $system->title, 'message' => 'noLinkFound');
 				continue;
 			}
 
+			$orga = [];
 			foreach($organisations as $organisation) {
                 if ($organisation->link === $system->link) {
-					var_dump($system->link, $organisation->datasetCount);
+					$orga[] = $system;
 				}
 			}
+
+			if (count($orga) === 0) {
+				$errors[] = (object) array('object' => $system->link, 'message' => 'noOrganisationFound');
+				continue;
+			} elseif (count($orga) > 1) {
+				$errors[] = (object) array('object' => $system->link, 'message' => 'duplicateOrganisationEntriesFound');
+				continue;
+			}
+
+			var_dump($orga[0]->datasetCount);
 		}
 	}
 

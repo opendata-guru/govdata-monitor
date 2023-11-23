@@ -551,7 +551,7 @@ Piesport,municipality,Ortsgemeinde Piesport,daten.rlp.de|ortsgemeinde_piesport,,
 Pinneberg,district,Kreis Pinneberg,opendata.schleswig-holstein.de|kreis-pinneberg,geoportal.de|KreisverwaltungPinneberg,,,https://opendata.schleswig-holstein.de/organization/kreis-pinneberg,,01056,,Q3006,,,,,,2023-05-08
 Pirna,municipality,Stadt Pirna,www.opendata.sachsen.de|StadtPirna,,,,,,146285229270,,Q6477,,,,,,2023-08-13
 Pleißenaue,collectiveMunicipality,Verwaltungsgemeinschaft Pleißenaue,geoportal.de|VerwaltungsgemeinschaftPleienaue,,,,,,160775004,,Q37658,,,,,,2023-09-19
-Potsdam,municipality,Landeshauptstadt Potsdam (LHP),datenadler.de|LandeshauptstadtPotsdamLHP,,,,https://opendata.potsdam.de/,2018-01-11,120540000000,,Q1711,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,https://opendata.potsdam.de/api/explore/v2.1/catalog/facets,,2023-08-27
+Potsdam,municipality,Landeshauptstadt Potsdam (LHP),datenadler.de|LandeshauptstadtPotsdamLHP,datenadler.de|LHP,,,https://opendata.potsdam.de/,2018-01-11,120540000000,,Q1711,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,https://opendata.potsdam.de/api/explore/v2.1/catalog/facets,,2023-11-21
 Prüm,collectiveMunicipality,Verbandsgemeinde Prüm,daten.rlp.de|verbandsgemeinde_pruem,,,,,,072325006,,Q822400,,,,,,2023-07-18
 Puderbach,collectiveMunicipality,Verbandsgemeinde Puderbach,daten.rlp.de|verbandsgemeinde_puderbach,,,,https://daten.rlp.de/organization/verbandsgemeinde_puderbach,,071385005,,Q519436,,,,,,2023-05-30
 Ranis-Ziegenrück,collectiveMunicipality,Verwaltungsgemeinschaft Ranis - Ziegenrück,geoportal.de|VerwaltungsgemeinschaftRanisZiegenrck,,,,,,160755013,,Q879883,,,,,,2023-09-19

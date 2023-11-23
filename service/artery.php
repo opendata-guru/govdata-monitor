@@ -36,9 +36,11 @@
 		if (call('get-and-store-ckan-organizations.php')) {
 			if (call('get-and-store-ckan-dataset-counts.php')) {
 				if (call('get-and-store-systems.php')) {
-					if (call('create-map.php')) {
-						echo json_encode(array('result' => 'done'));
-						return;
+					if (call('create-monitoring.php')) {
+						if (call('create-map.php')) {
+							echo json_encode(array('result' => 'done'));
+							return;
+						}
 					}
 				}
 			}

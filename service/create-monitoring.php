@@ -59,8 +59,16 @@
 				$errors[] = (object) array('object' => $system->link, 'message' => 'duplicateOrganisationEntriesFound');
 				continue;
 			}
+			$theOrga = $orga[0];
 
-			var_dump($orga[0]->datasetCount);
+			if($theOrga->datasetCount && ($theOrga->datasetCount !== '')) {
+				// done
+			} else {
+				$errors[] = (object) array('object' => $system->link, 'message' => 'couldNotCountDatasets');
+				continue;
+			}
+
+			// continue with more checks here
 		}
 	}
 
@@ -76,10 +84,8 @@
 		$data = (object) array(
 			'errors' => $errors,
 		);
-var_dump($data);
-exit;
 
-		file_put_contents($filePath, $data);
+		file_put_contents($filePath, json_encode($data));
 	}
 
 	echo json_encode(array('result' => 'done'));

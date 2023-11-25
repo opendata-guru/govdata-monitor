@@ -19,6 +19,12 @@ var system = (function () {
         idLogo1 = 'logo-1',
         idLogo2 = 'logo-2',
         idWikipedia = 'linkWikipedia';
+    var localDict = {
+        noLinkFound: 'No link found',
+        noOrganisationFound: 'No organisation found',
+        duplicateOrganisationEntriesFound: 'Duplicate organisation entries found',
+        couldNotCountDatasets: 'Could not count datasets',
+    };
     var assets = [];
 
     function init() {
@@ -355,9 +361,11 @@ var system = (function () {
 
     function getOtherSystemsRow(id, sys) {
         var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
 
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
 
         var cols = '';
         cols += '<td>' + title + '</td>';
@@ -376,7 +384,11 @@ var system = (function () {
             cols += '<td class="align-middle">-</td>';
         }
 
-        return '<tr>' + cols + '</tr>';
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
     }
 
     function getCKANSystemsHead() {
@@ -393,9 +405,11 @@ var system = (function () {
 
     function getCKANSystemsRow(id, sys) {
         var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
 
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
 
         var cols = '';
         cols += '<td>' + title + '</td>';
@@ -415,12 +429,17 @@ var system = (function () {
             cols += '<td class="align-middle">-</td>';
         }
 
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=4 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
         var cssClass = '';
         if (datasetCount === null) {
             cssClass ='bg-danger text-white';
         }
 
-        return '<tr class="' + cssClass + '">' + cols + '</tr>';
+        return '<tr class="' + cssClass + '">' + cols + '</tr>' + error;
+//        return '<tr>' + cols + '</tr>' + error;
     }
 
     function getPiveauSystemsHead() {
@@ -439,9 +458,11 @@ var system = (function () {
 
     function getPiveauSystemsRow(id, sys) {
         var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
 
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
 
         var cols = '';
         cols += '<td>' + title + '</td>';
@@ -461,7 +482,11 @@ var system = (function () {
             cols += '<td class="align-middle">-</td>';
         }
 
-        return '<tr>' + cols + '</tr>';
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
     }
 
     function getODSSystemsHead() {
@@ -477,9 +502,11 @@ var system = (function () {
 
     function getODSSystemsRow(id, sys) {
         var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
 
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
 
         var cols = '';
         cols += '<td>' + title + '</td>';
@@ -493,7 +520,11 @@ var system = (function () {
             cols += '<td class="align-middle">-</td>';
         }
 
-        return '<tr>' + cols + '</tr>';
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=3 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
     }
 
     function updateSystemTable() {

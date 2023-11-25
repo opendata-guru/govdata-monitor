@@ -37,16 +37,24 @@ function hideProgress() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  monitoring.addEventListenerStartLoading(showProgress);
+  monitoring.addEventListenerEndLoading(() => {
+      hideProgress();
+
+      system.loadData();
+    });
+
   system.addEventListenerStartLoading(showProgress);
   system.addEventListenerEndLoading(() => {
       hideProgress();
 
       data.loadData(1);
   });
+
   data.addEventListenerStartLoading(showProgress);
   data.addEventListenerEndLoading(hideProgress);
 
-  system.loadData();
+  monitoring.loadData();
 });
 
 // ----------------------------------------------------------------------------

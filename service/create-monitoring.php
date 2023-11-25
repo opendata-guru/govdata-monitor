@@ -48,7 +48,7 @@
 			$orga = [];
 			foreach($organisations as $organisation) {
                 if ($organisation->link === $system->link) {
-					$orga[] = $system;
+					$orga[] = $organisation;
 				}
 			}
 

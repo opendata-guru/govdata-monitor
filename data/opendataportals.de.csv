@@ -1,6 +1,6 @@
 title,type,portal_title,parent_and_id_1,parent_and_id_2,parent_and_id_3,parent_and_id_4,url,begin,rs,associated_rs,wikidata,hosting,technology,api,api_list_children,dcat_ap_de,last_check
 Aachen,municipality,Aachen,offenedaten.aachen.de|stadt-aachen,,,,https://offenedaten.aachen.de/organization/stadt-aachen,,053340002002,,Q1017,,,,,,2023-02-05
-Aachen (Portal),portal,Aachen,open.nrw|aachen,Open NRW: Aachen,,,https://offenedaten.aachen.de/,,,,Q97145394,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-08-11
+Aachen,municipalityPortal,Aachen,open.nrw|aachen,Open NRW: Aachen,,,https://offenedaten.aachen.de/,,,,Q97145394,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-08-11
 Adenau,collectiveMunicipality,Verbandsgemeinde Adenau,daten.rlp.de|verbandsgemeinde_adenau,,,,,,071315001,,Q559351,,,,,,2023-07-18
 Adendorf,municipality,Gemeinde Adendorf,geoportal.de|GemeindeAdendorf,,,,,,033550001001,,Q355913,,,,,,2023-09-19
 Aerzen,municipality,Gemeindeverwaltung Aerzen,geoportal.de|GemeindeverwaltungAerzen,,,,,,032520001001,,Q381811,,,,,,2023-11-28
@@ -251,7 +251,7 @@ Goch,municipality,Stadt Goch,www.offenesdatenportal.de|stadt-goch,geoportal.de|S
 Gornhausen,municipality,Ortsgemeinde Gornhausen,daten.rlp.de|ortsgemeinde_gornhausen,,,,,,072315001040,,Q646731,,,,,,2023-07-19
 Gotha,district,Landratsamt Gotha,geoportal.de|LandratsamtGotha,geoportal.de|LandkreisGotha,,,,,16067,,Q7869,,,,,,2023-07-27
 Gotha,municipality,Stadt Gotha,geoportal.de|StadtGotha,,,,,,160670029029,,Q6986,,,,,,2023-08-13
-GovData - Sonstige,portal,Sonstige,http://dcat-ap.de/def/contributors/govData,,,,,,,,,,,,,,2023-05-21
+GovData - Sonstige,other,Sonstige,http://dcat-ap.de/def/contributors/govData,,,,,,,,,,,,,,2023-05-21
 Graach an der Mosel,municipality,Ortsgemeinde Graach an der Mosel,daten.rlp.de|ortsgemeinde_graach_an_der_mosel,,,,,,072315001041,,Q648808,,,,,,2023-07-19
 Grabfeld,municipality,Gemeinde Grabfeld,geoportal.de|GemeindeGrabfeld,,,,,,160660094094,,Q532678,,,,,,2023-09-09
 Grafschaft,municipality,Gemeinde Grafschaft,daten.rlp.de|gemeinde_grafschaft,,,,https://daten.rlp.de/organization/gemeinde_grafschaft,,071310090090,,Q683790,,,,,,2023-05-23
@@ -449,7 +449,7 @@ Maring-Noviand,municipality,Ortsgemeinde Maring-Noviand,daten.rlp.de|ortsgemeind
 Masserberg,municipality,Gemeinde Masserberg,geoportal.de|GemeindeMasserberg,,,,,,160690061061,,Q559759,,,,,,2023-09-09
 Max Rubner-Institut,federalAgency,Max Rubner-Institut,http://dcat-ap.de/def/contributors/maxRubnerInstitut,,,,,,,,Q1319982,,,,,,
 Mayen,municipality,Stadt Mayen,daten.rlp.de|stadt_mayen,,,,https://daten.rlp.de/organization/stadt_mayen,,071370068068,,Q516611,,,,,,2023-05-30
-mCLOUD,portal,mCLOUD,http://dcat-ap.de/def/contributors/mCloud,,,,https://www.mcloud.de/,2016-05-18,,,Q63433362,ITZBund,InGRID,,https://www.mcloud.de/web/guest/suche/,https://www.mcloud.de/export/datasets?page=1&pageSize=10000,2023-02-13
+"Bundesministerium für Digitales und Verkehr",federalPortal,mCLOUD,http://dcat-ap.de/def/contributors/mCloud,,,,https://www.mcloud.de/,2016-05-18,,,Q63433362,ITZBund,InGRID,,https://www.mcloud.de/web/guest/suche/,https://www.mcloud.de/export/datasets?page=1&pageSize=10000,2023-02-13
 Mecklenburg-Vorpommern,state,Land Mecklenburg-Vorpommern,http://dcat-ap.de/def/contributors/mecklenburgVorpommern,,,,,,13,,Q1196,,,,,,2023-02-15
 Mecklenburgische Seenplatte,district,Landkreis Mecklenburgische Seenplatte,mcloud.de|LandkreisMecklenburgischeSeenplatte,,,,,,13071,,Q2902,,,,,,2023-07-28
 Meerbusch,municipality,Stadt Meerbusch,open.nrw|meerbusch,geoportal.de|StadtMeerbusch,,,,2017-02-11,051620022022,,Q4105,,,,,,2023-11-10
@@ -539,7 +539,7 @@ Odenwaldkreis,district,Odenwaldkreis,geoportal.de|Odenwaldkreis,,,,,,06437,,Q791
 Oelde,municipality,Stadt Oelde,geoportal.de|StadtOelde,,,,https://www.o-sp.de/oelde/opendata.php,,055700028028,,Q2752,,,,,,2023-05-30
 Ohrdruf,collectiveMunicipality,Stadt Ohrdruf und der beauftragenden Gemeinden,geoportal.de|StadtOhrdrufundderbeauftragendenGemeinden,,,,,,160675050,,Q502714,,,,,,2023-08-14
 Oldenburg,municipality,Stadt Oldenburg (Oldb),http://dcat-ap.de/def/contributors/stadtOldenburg,,,,,,034030000000,,Q2936,,,,,,
-Open Data Bund,portal,Open Data Bund,http://dcat-ap.de/def/contributors/openDataBund,,,,,,,,,,,,,,2023-05-21
+Open Data Bund,federalPortal,Open Data Bund,http://dcat-ap.de/def/contributors/openDataBund,,,,,,,,,,,,,,2023-05-21
 OpenAgrar,federalAgency,OpenAgrar Repositorium der Forschungseinrichtungen des BMEL,http://dcat-ap.de/def/contributors/openAgrarRepositoriumDerForschungseinrichtungenDesBMEL,,,,,,,,,,,,,,
 OpenData ÖPNV,other,OpenData-Plattform ÖPNV,open.nrw|opendata_oepnv,mcloud.de|OpenNRWOpenDataPNV,,,https://www.opendata-oepnv.de/,,,,,Verkehrsverbund Rhein-Ruhr AöR,CKAN,https://www.opendata-oepnv.de/api/3/action/package_list,https://www.opendata-oepnv.de/api/3/action/organization_list,,2023-07-15
 Oppurg,collectiveMunicipality,Verwaltungsgemeinschaft Oppurg,geoportal.de|VerwaltungsgemeinschaftOppurg,,,,,,160755005,,Q760906,,,,,,2023-09-19

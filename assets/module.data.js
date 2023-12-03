@@ -14,16 +14,19 @@ var data = (function () {
     function init() {
         layers['country'] = 'Staat';
         layers['federal'] = 'Bund';
+        layers['federalPortal'] = 'Bundesportal';
         layers['federalAgency'] = 'Bundesbehörde';
         layers['federalCooperation'] = 'Bund + Länder';
         layers['state'] = 'Land';
         layers['stateAgency'] = 'Landesamt';
         layers['governmentRegion'] = 'Regierungsbezirk';
         layers['regionalNetwork'] = 'Region';
+//        layers['regionalPortal'] = 'Regionales Portal';
         layers['district'] = 'Kreis';
         layers['districtAgency'] = 'Kreisverwaltung';
-        layers['collectiveMunicipality'] = 'Amt / Verbandsgemeinde';
+        layers['collectiveMunicipality'] = 'Gemeindeverband';
         layers['municipality'] = 'Stadt';
+        layers['municipalityPortal'] = 'Stadtportal';
         layers['municipalityAgency'] = 'Stadtverwaltung';
     }
 

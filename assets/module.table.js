@@ -31,6 +31,7 @@ var table = (function () {
         var html = '';
         var style = 'line-height:1.2rem;padding:.2rem .6rem;cursor:pointer;margin-top:.2rem;';
         var styleLeft = style + 'margin-right:0 !important;border-top-right-radius:0;border-bottom-right-radius:0;border-right:1px dashed #fff;';
+        var styleMiddle = style + 'margin-right:0 !important;border-radius:0;border-right:1px dashed #fff;';
         var styleRight = style + 'border-top-left-radius:0;border-bottom-left-radius:0;';
 
         html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
@@ -42,10 +43,11 @@ var table = (function () {
         html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>Undefined</span>';
         Object.keys(data.layers).forEach(key => {
             var isLeft = -1 !== ['federal','state','district','municipality'].indexOf(key);
+            var isMiddle = -1 !== ['federalPortal','municipalityPortal'].indexOf(key);
             var isRight = -1 !== ['federalAgency','stateAgency','districtAgency','municipalityAgency'].indexOf(key);
 
             html += isLeft ? '<br>' : '';
-            html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
+            html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isMiddle ? styleMiddle : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
         });
         html += '  </div>';
         html += '  <div class="text-muted text-center mt-2" style="font-size:.75rem">';

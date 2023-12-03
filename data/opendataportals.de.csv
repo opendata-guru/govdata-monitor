@@ -1,6 +1,6 @@
 title,type,portal_title,parent_and_id_1,parent_and_id_2,parent_and_id_3,parent_and_id_4,url,begin,rs,associated_rs,wikidata,hosting,technology,api,api_list_children,dcat_ap_de,last_check
 Aachen,municipality,Aachen,offenedaten.aachen.de|stadt-aachen,,,,https://offenedaten.aachen.de/organization/stadt-aachen,,053340002002,,Q1017,,,,,,2023-02-05
-Aachen,municipalityPortal,Aachen,open.nrw|aachen,Open NRW: Aachen,,,https://offenedaten.aachen.de/,,,,Q97145394,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-08-11
+Aachen,municipalityPortal,Aachen,open.nrw|aachen,,,,https://offenedaten.aachen.de/,,,053340002002,Q97145394,regio iT - gesellschaft für informationstechnologie mbH,CKAN,http://offenedaten.aachen.de/api/3/action/package_list,https://offenedaten.aachen.de/api/3/action/organization_list,,2023-08-11
 Adenau,collectiveMunicipality,Verbandsgemeinde Adenau,daten.rlp.de|verbandsgemeinde_adenau,,,,,,071315001,,Q559351,,,,,,2023-07-18
 Adendorf,municipality,Gemeinde Adendorf,geoportal.de|GemeindeAdendorf,,,,,,033550001001,,Q355913,,,,,,2023-09-19
 Aerzen,municipality,Gemeindeverwaltung Aerzen,geoportal.de|GemeindeverwaltungAerzen,,,,,,032520001001,,Q381811,,,,,,2023-11-28
@@ -449,7 +449,7 @@ Maring-Noviand,municipality,Ortsgemeinde Maring-Noviand,daten.rlp.de|ortsgemeind
 Masserberg,municipality,Gemeinde Masserberg,geoportal.de|GemeindeMasserberg,,,,,,160690061061,,Q559759,,,,,,2023-09-09
 Max Rubner-Institut,federalAgency,Max Rubner-Institut,http://dcat-ap.de/def/contributors/maxRubnerInstitut,,,,,,,,Q1319982,,,,,,
 Mayen,municipality,Stadt Mayen,daten.rlp.de|stadt_mayen,,,,https://daten.rlp.de/organization/stadt_mayen,,071370068068,,Q516611,,,,,,2023-05-30
-"Bundesministerium für Digitales und Verkehr",federalPortal,mCLOUD,http://dcat-ap.de/def/contributors/mCloud,,,,https://www.mcloud.de/,2016-05-18,,,Q63433362,ITZBund,InGRID,,https://www.mcloud.de/web/guest/suche/,https://www.mcloud.de/export/datasets?page=1&pageSize=10000,2023-02-13
+Bundesministerium für Digitales und Verkehr,federalPortal,mCLOUD,http://dcat-ap.de/def/contributors/mCloud,,,,https://www.mcloud.de/,2016-05-18,,,Q63433362,ITZBund,InGRID,,https://www.mcloud.de/web/guest/suche/,https://www.mcloud.de/export/datasets?page=1&pageSize=10000,2023-02-13
 Mecklenburg-Vorpommern,state,Land Mecklenburg-Vorpommern,http://dcat-ap.de/def/contributors/mecklenburgVorpommern,,,,,,13,,Q1196,,,,,,2023-02-15
 Mecklenburgische Seenplatte,district,Landkreis Mecklenburgische Seenplatte,mcloud.de|LandkreisMecklenburgischeSeenplatte,,,,,,13071,,Q2902,,,,,,2023-07-28
 Meerbusch,municipality,Stadt Meerbusch,open.nrw|meerbusch,geoportal.de|StadtMeerbusch,,,,2017-02-11,051620022022,,Q4105,,,,,,2023-11-10
@@ -675,7 +675,7 @@ Stolberg,municipality,Kupferstadt Stolberg,offenedaten.aachen.de|stadt-stolberg,
 Stormarn,district,Kreis Stormarn,opendata.schleswig-holstein.de|kreis-stormarn,geoportal.de|KreisStormarn,,,,,01062,,Q3003,,,,,,2023-07-28
 Straelen,municipality,Stadt Straelen,geoportal.de|StadtStraelen,,,,,,051540052052,,Q8856,,,,,,2023-08-13
 Straußfurt,collectiveMunicipality,Verwaltungsgemeinschaft Straußfurt,geoportal.de|VerwaltungsgemeinschaftStraufurt,,,,,,160685009,,Q240588,,,,,,2023-09-19
-Städteregion Aachen,regionalNetwork,Städteregion Aachen,offenedaten.aachen.de|stadteregion-aachen,,,,https://www.staedteregion-aachen.de,,,,Q6272,,,,,,2023-02-05
+Städteregion Aachen,regionalNetwork,Städteregion Aachen,offenedaten.aachen.de|stadteregion-aachen,,,,https://www.staedteregion-aachen.de,,05334,,Q6272,,,,,,2023-02-05
 Suhl,municipality,Stadt Suhl,geoportal.de|StadtSuhl,,,,,,160540000000,,Q14891,,,,,,2023-08-13
 Sulingen,municipality,Stadt Sulingen,geoportal.de|StadtSulingen,,,,,,032510040040,,Q268485,,,,,,2023-11-28
 Sächsische Schweiz-Osterzgebirge,district,Landratsamt Sächsische Schweiz-Osterzgebirge,geoportal.de|LandratsamtSchsischeSchweizOsterzgebirge,,,,,,14628,,Q6323,,,,,,2023-07-28

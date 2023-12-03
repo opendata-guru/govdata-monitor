@@ -385,7 +385,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -430,7 +430,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=4 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         var cssClass = '';
@@ -483,7 +483,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -521,7 +521,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=3 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">Error: ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;

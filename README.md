@@ -52,6 +52,7 @@ Get system status information:
 - https://opendata.guru/govdata/get/system-status.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
 - https://opendata.guru/govdata/get/system-status.php?link=https://data.europa.eu/api/hub/search/catalogues
 - https://opendata.guru/govdata/get/system-status.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
+- https://opendata.guru/govdata/get/system-status.php?link=https://www.opendata.sachsen.de
 
 Convert RS (Regionalschlüssel) to GEOJSON file:
 

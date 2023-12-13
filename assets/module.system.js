@@ -368,7 +368,7 @@ var system = (function () {
         var error = '';
 
         var cols = '';
-        cols += '<td>' + title + '</td>';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {
@@ -412,7 +412,7 @@ var system = (function () {
         var error = '';
 
         var cols = '';
-        cols += '<td>' + title + '</td>';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {
@@ -465,7 +465,7 @@ var system = (function () {
         var error = '';
 
         var cols = '';
-        cols += '<td>' + title + '</td>';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {
@@ -509,7 +509,7 @@ var system = (function () {
         var error = '';
 
         var cols = '';
-        cols += '<td>' + title + '</td>';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {

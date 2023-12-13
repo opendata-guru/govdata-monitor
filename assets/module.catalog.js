@@ -96,8 +96,10 @@ var catalog = (function () {
         }
 
         if (data.loadedDays > data.initalDays) {
-            document.getElementById('removeLoadedDays').style.pointerEvents = '';
-            document.getElementById('removeLoadedDays').classList.add('text-dark');
+            if (document.getElementById('removeLoadedDays')) {
+                document.getElementById('removeLoadedDays').style.pointerEvents = '';
+                document.getElementById('removeLoadedDays').classList.add('text-dark');
+            }
         }
     }
 

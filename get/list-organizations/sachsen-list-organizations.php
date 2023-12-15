@@ -72,12 +72,27 @@
 		$ressourceJSON = json_decode(file_get_contents($uri . $ressourceQuery));
 //		$ressourceJSON = file_get_contents($uri . $ressourceQuery);
 
+		$id = $name;
+		if ('urn:uuid' === substr($name, 0, 8)) {
+			$id = end(explode(':', $name));
+		} else if ('https://' === substr($name, 0, 8)) {
+			$store = explode('/store/', $name);
+			$resource = explode('/resource/', end($store));
+			if ((count($store) === 2) && (count($resource) === 2)) {
+				$id = implode('-', $resource);
+			} else {
+				$uriParts = explode('/', $name);
+				$id = implode('-', explode('.', $uriParts[2]));
+			}
+		}
+		$id = preg_replace('#[^a-z0-9-]#i', '', $id);
+
 		$metadata = $ressourceJSON->resource->children[0]->metadata;
 		$nameEntry = get_object_vars(reset($metadata))['http://xmlns.com/foaf/0.1/name'];
 		$title = $nameEntry[0]->value;
 
 		$data[] = semanticContributor($uriDomain, array(
-			'id' => $name,
+			'id' => $id,
 			'name' => $name,
 			'title' => $title,
 			'created' => '',

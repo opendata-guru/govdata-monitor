@@ -80,10 +80,14 @@
 			$store = explode('/store/', $name);
 			$resource = explode('/resource/', end($store));
 			if ((count($store) === 2) && (count($resource) === 2)) {
-				$id = implode('-', $resource);
+				$uriPortal = end(explode('/', $store[0]));
+				$uriPortal = preg_replace('#[^a-z0-9]#i', '', $uriPortal);
+				$id = $uriPortal . '-' . implode('-', $resource);
 			} else {
 				$uriParts = explode('/', $name);
-				$id = implode('-', explode('.', $uriParts[2]));
+				array_shift($uriParts);
+				array_shift($uriParts);
+				$id = implode('-', explode('.', implode('-', $uriParts)));
 			}
 		}
 		$id = preg_replace('#[^a-z0-9-]#i', '', $id);

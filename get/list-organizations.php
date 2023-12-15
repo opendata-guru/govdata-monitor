@@ -2,6 +2,7 @@
 	$link = htmlspecialchars($_GET['link']);
 	$groupEndpoint = '/group_list';
 	$piveauEndpoint = '/api/hub/search/catalogues';
+	$entryScapeSuffix = '/store/';
 	$opendatasoftEndpoint = '/api/v2/catalog/facets';
 	$opendatasoftEndpoint2_0 = '/api/explore/v2.0/catalog/facets';
 	$opendatasoftEndpoint2_1 = '/api/explore/v2.1/catalog/facets';
@@ -12,8 +13,8 @@
 		include 'list-organizations/adler-list-organizations.php';
 	} else if ('https://www.mcloud.de/web/guest/suche/' === $link) {
 		include 'list-organizations/mcloud-list-organizations.php';
-	} else if ('https://www.opendata.sachsen.de' === $link) {
-		include 'list-organizations/sachsen-list-organizations.php';
+	} else if (substr($link, -strlen($entryScapeSuffix)) === $entryScapeSuffix) {
+		include 'list-organizations/entryscape-list-organizations.php';
 	} else if ('https://ckan.open.nrw.de/api/3/action/organization_list' === $link) {
 		// for bug in NRW
 		include 'list-organizations/nrw-list-organizations.php';

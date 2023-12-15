@@ -21,7 +21,7 @@ title,parent_and_id_1,type,url,wikidata,api_list_children,last_check
 🇵🇹 Portugal,data.europa.eu|dados-gov-pt,country,https://dados.gov.pt/,Q45,,2023-09-21
 🇷🇴 Rumänien,data.europa.eu|data-gov-ro,country,https://data.gov.ro/,Q218,,2023-09-21
 "🇷🇴 Rumänien, Geodaten",data.europa.eu|inis,portal,,,,2023-09-21
-🇸🇪 Schweden,data.europa.eu|oppnadata,country,https://www.dataportal.se/,Q34,,2023-09-19
+🇸🇪 Schweden,data.europa.eu|oppnadata,country,https://www.dataportal.se/,Q34,https://admin.dataportal.se/store/,2023-09-19
 🇸🇮 Slowenien,data.europa.eu|odprti-podatki-slovenije,country,https://podatki.gov.si/,Q215,,2023-09-19
 "🇸🇮 Slowenien, Geodaten",data.europa.eu|metadata-si,portal,,,,2023-09-21
 🇸🇰 Slowakei,data.europa.eu|data-gov-sk,country,https://data.gov.sk/,Q214,,2023-09-21

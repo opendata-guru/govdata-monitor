@@ -4,8 +4,7 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	$sachsenSuffix = 'https://www.opendata.sachsen.de';
-	$baseURI = 'https://register.opendata.sachsen.de';
+	$entryScapeSuffix = '/store/';
 
 	$versionHackSuffix = '/theme/local.js';
 	$statusSuffix = '/store/management/status';
@@ -16,10 +15,12 @@
 		exit;
 	}
 
-	if ($sachsenSuffix != substr($paramLink, -strlen($sachsenSuffix))) {
-		echo 'Parameter "link" must end with "' . $sachsenSuffix . '"';
+	if ($entryScapeSuffix != substr($paramLink, -strlen($entryScapeSuffix))) {
+		echo 'Parameter "link" must end with "' . $entryScapeSuffix . '"';
 		exit;
 	}
+
+	$baseURI = substr($paramLink, 0, -strlen($entryScapeSuffix));
 
 	function get_contents($url){
 		$ch = curl_init();
@@ -63,23 +64,58 @@
 		$str = ltrim(strstr($str, '['), '[');
 		$str = strstr($str, ']', true);
 
-		$arr = explode(',', $str);
 		$ret = [];
 
-		foreach($arr as $item) {
-			$ret[] = trim(trim(trim($item), '\''), '"');
+		if ($str) {
+			$arr = explode(',', $str);
+
+			foreach($arr as $item) {
+				$ret[] = trim(trim(trim($item), '\''), '"');
+			}
 		}
 
 		return $ret;
 	}
 
+	function getDefaultBundles($str) {
+		$str = strstr($str, 'itemstore');
+		$str = strstr($str, '!defaultBundles');
+		$str = ltrim(strstr($str, '['), '[');
+		$str = strstr($str, ']', true);
+
+		$ret = [];
+
+		if ($str) {
+			$arr = explode(',', $str);
+
+			foreach($arr as $item) {
+				if ('//' === substr(trim($item), 0, 2)) {
+					$lines = explode("\n", $item);
+					foreach($lines as $line) {
+						$line = trim($line);
+						if ($line && ('//' !== substr($line, 0, 2))) {
+							$ret[] = trim(trim(trim($line), '\''), '"');
+						}
+					}
+					// nope
+				} else {
+					$item = trim($item);
+					if ($item) {
+						$ret[] = trim(trim($item, '\''), '"');
+					}
+				}
+			}
+		}
+
+		return $ret;
+	}
 //	$js = file_get_contents($baseURI . $versionHackSuffix);
 	$js = get_contents($baseURI . $versionHackSuffix);
 
 	if ($js) {
 		echo json_encode((object) array(
-			'extensions' => getBundles($js),
-			'system' => 'entrystore',
+			'extensions' => array_merge(getDefaultBundles($js), getBundles($js)),
+			'system' => 'entryscape',
 			'url' => getEntryStore($js),
 			'version' => getVersion($js),
 		));

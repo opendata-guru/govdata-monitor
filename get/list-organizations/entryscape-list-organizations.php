@@ -6,7 +6,7 @@
 
 	include('_semantic.php');
 
-	$sachsenSuffix = 'https://www.opendata.sachsen.de';
+	$entryScapeSuffix = '/store/';
 
 	$paramLink = htmlspecialchars($_GET['link']);
 	if ($paramLink == '') {
@@ -14,13 +14,14 @@
 		exit;
 	}
 
-	if ($sachsenSuffix != substr($paramLink, -strlen($sachsenSuffix))) {
-		echo 'Parameter "link" must end with "' . $sachsenSuffix . '"';
+	if ($entryScapeSuffix != substr($paramLink, -strlen($entryScapeSuffix))) {
+		echo 'Parameter "link" must end with "' . $entryScapeSuffix . '"';
 		exit;
 	}
 
-	$uri = 'https://register.opendata.sachsen.de/store/';
-	$uriDomain = end(explode('/', $sachsenSuffix));
+	$uriDomain = substr($paramLink, 0, -strlen($entryScapeSuffix));
+	$uriDomain = end(explode('/',$uriDomain));
+	$uri = $paramLink;
 
 	$query = 'search' .
 		'?type=solr' .

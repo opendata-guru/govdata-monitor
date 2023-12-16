@@ -146,17 +146,7 @@ Büchen,municipality,Gemeinde Büchen,opendata.schleswig-holstein.de|buechen,geo
 Bürgel,collectiveMunicipality,Stadt Bürgel und den zu erfüllenden Gemeinden,geoportal.de|StadtBrgelunddenzuerfllendenGemeinden,geoportal.de|StadtBrgelundderbeauftragendenGemeinden,,,,,160745051,,Q552624,,,,,,2023-08-14
 Celle,municipality,Stadt Celle,geoportal.de|StadtCelle,,,,,,033510006006,,Q3933,,,,,,2023-08-11
 Cham,district,Landkreis Cham,opendata.bayern|cham,,,,https://data-lra-cha.opendata.arcgis.com/,,09372,,Q10424,,ArcGIS,,https://data-lra-cha.opendata.arcgis.com/,,2023-07-15
-Chemnitz,municipality,Stadt Chemnitz,geoportal.de|StadtChemnitz,,,,https://portal-chemnitz.opendata.arcgis.com/,2017-03-07,145110000000,,Q2795,Amt für Informationsverarbeitung,ArcGIS,,https://portal-chemnitz.opendata.arcgis.com/,,2023-05-21
-Chemnitz - Amt 10 - Hauptamt,municipalityAgency,Stadt Chemnitz - Amt 10 - Hauptamt,www.opendata.sachsen.de|StadtChemnitzAmt10Hauptamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 18 - Amt für Informationsverarbeitung,municipalityAgency,Stadt Chemnitz - Amt 18 - Amt für Informationsverarbeitung,www.opendata.sachsen.de|StadtChemnitzAmt18AmtfrInformationsverarbeitung,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 36 - Umweltamt,municipalityAgency,Stadt Chemnitz - Amt 36 - Umweltamt,www.opendata.sachsen.de|StadtChemnitzAmt36Umweltamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 40 - Schulamt,municipalityAgency,Stadt Chemnitz - Amt 40 - Schulamt,www.opendata.sachsen.de|StadtChemnitzAmt40Schulamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 48 - Tierpark,municipalityAgency,Stadt Chemnitz - Amt 48 - Tierpark,www.opendata.sachsen.de|StadtChemnitzAmt48Tierpark,,,,,,,145110000000,Q1577839,,,,,,2023-05-21
-Chemnitz - Amt 51 - Jugendamt,municipalityAgency,Stadt Chemnitz - Amt 51 - Jugendamt,www.opendata.sachsen.de|StadtChemnitzAmt51Jugendamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 61 - Stadtplanungsamt,municipalityAgency,Stadt Chemnitz - Amt 61 - Stadtplanungsamt,www.opendata.sachsen.de|StadtChemnitzAmt61Stadtplanungsamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 62 - Städtisches Vermessungsamt,municipalityAgency,Stadt Chemnitz - Amt 62 - Städtisches Vermessungsamt,www.opendata.sachsen.de|StadtChemnitzAmt62StdtischesVermessungsamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 66 - Tiefbauamt,municipalityAgency,Stadt Chemnitz - Amt 66 - Tiefbauamt,www.opendata.sachsen.de|StadtChemnitzAmt66Tiefbauamt,,,,,,,145110000000,,,,,,,2023-05-21
-Chemnitz - Amt 67 - Grünflächenamt,municipalityAgency,Stadt Chemnitz - Amt 67 - Grünflächenamt,www.opendata.sachsen.de|StadtChemnitzAmt67Grnflchenamt,,,,,,,145110000000,,,,,,,2023-05-21
+Chemnitz,municipality,Stadt Chemnitz,geoportal.de|StadtChemnitz,register.opendata.sachsen.de|urn:uuid:300a439d-2ed6-6036-b22c-b7aa9c735b48,,,https://portal-chemnitz.opendata.arcgis.com/,2017-03-07,145110000000,,Q2795,Amt für Informationsverarbeitung,ArcGIS,,https://portal-chemnitz.opendata.arcgis.com/,,2023-12-16
 Cochem,collectiveMunicipality,Verbandsgemeinde Cochem,daten.rlp.de|verbandsgemeinde_cochem,,,,https://daten.rlp.de/organization/verbandsgemeinde_cochem,,071355001,,Q511057,,,,,,2023-05-14
 Darmstadt-Dieburg,district,Landkreis Darmstadt-Dieburg,geoportal.de|LandkreisDarmstadtDieburg,,,,,,06432,,06432,,,,,,2023-07-28
 Dedenbach,municipality,Ortsgemeinde Dedenbach,daten.rlp.de|ortsgemeinde_dedenbach,,,,https://daten.rlp.de/organization/og_dedenbach,,071315004016,,Q569741,,,,,,2023-05-21
@@ -178,7 +168,7 @@ Dormagen,municipality,Dormagen,open.nrw|dormagen,mcloud.de|OpenNRWDormagen,opend
 Dornburg-Camburg,collectiveMunicipality,Verwaltungsgemeinschaft Dornburg-Camburg,geoportal.de|VerwaltungsgemeinschaftDornburgCamburg,,,,,,160745015,,Q879514,,,,,,2023-09-19
 Dortmund,municipality,Dortmund,open.nrw|dortmund,opendata.ruhr|dortmund,,,https://opendata.dortmund.de/,2018-08-23,059130000000,,Q1295,,DUVA,,https://opendata.dortmund.de/duva2dcat/,,2023-11-04
 Drakenburg,municipality,Flecken Drakenburg,geoportal.de|FleckenDrakenburg,,,,,,032565402005,,Q603261,,,,,,2023-10-30
-Dresden,municipality,Stadt Dresden,www.opendata.sachsen.de|StadtDresden,geoportal.de|LandeshauptstadtDresden,mcloud.de|GovDataLandeshauptstadtDresden,,https://opendata.dresden.de,,146120000000,,Q1731,,DUVA,,https://opendata.dresden.de/duva2dcat/,,2023-11-04
+Dresden,municipality,Stadt Dresden,register.opendata.sachsen.de|https://register.opendata.sachsen.de/store/478/resource/9cb1a161d0460e7570855841fa396bd5,geoportal.de|LandeshauptstadtDresden,mcloud.de|GovDataLandeshauptstadtDresden,register.opendata.sachsen.de|https://www.dresden.de/,https://opendata.dresden.de,,146120000000,,Q1731,,DUVA,,https://opendata.dresden.de/duva2dcat/,,2023-12-16
 Drolshagen,municipality,Stadt Drolshagen,geoportal.de|StadtDrolshagen,,,,,,059660008008,,Q10890,,,,,,2023-08-13
 Duisburg,municipalityPortal,Duisburg,open.nrw|duisburg,opendata.ruhr|duisburg,geoportal.de|StadtDuisburg,mcloud.de|OpenNRWDuisburg,https://opendata-duisburg.de/,2019-03-19,,051120000000,,Stadt Köln,DKAN,https://opendata-duisburg.de/api/3/action/package_list,https://opendata-duisburg.de/api/3/action/group_list,https://opendata-duisburg.de/catalog.xml,2023-12-03
 Duisburg,municipality,Stadt Duisburg,opendata-duisburg.de|stadt-duisburg,,,,,,051120000000,,Q2100,,,,,,2023-12-03
@@ -274,7 +264,6 @@ Gronau,municipality,Stadt Gronau,geoportal.de|StadtGronau,,,,,,055540020020,,Q69
 Groß-Gerau,district,Kreis Groß-Gerau,geoportal.de|KreisGroGerau,,,,,,06433,,Q7914,,,,,,2023-07-26
 Großbreitenbach,municipality,Landgemeinde Großbreitenbach,geoportal.de|LandgemeindeGrobreitenbach,,,,,,160700058058,,Q32510020,,,,,,2023-08-11
 Görlitz,district,Landratsamt Görlitz,geoportal.de|LandratsamtGrlitz,,,,,,14626,,Q6317,,,,,,2023-07-27
-Görlitz - Untere Naturschutzbehörde,districtAgency,Landratsamt Görlitz Untere Naturschutzbehörde,www.opendata.sachsen.de|LandratsamtGrlitzUntereNaturschutzbehrde,,,,,,,14626,,,,,,,2023-07-27
 Göttingen,district,Landkreis Göttingen,geoportal.de|LandkreisGttingen,,,,,,03159,,Q6022,,,,,,2023-07-26
 Göttingen,municipality,Stadt Göttingen,geoportal.de|StadtGttingen,,,,,,031590016016,,Q3033,,,,,,2023-11-14
 Gütersloh,district,Kreis Gütersloh,geoportal.de|KreisGtersloh,,,,,,05754,,Q6218,,,,,,2023-07-15
@@ -570,7 +559,6 @@ Parchim,municipality,Stadt Parchim,geoportal.de|StadtParchim,,,,,,130760108108,,
 Parlamentsdatenbank Dokrates,stateAgency,DOKRATES,suche.transparenz.hamburg.de|dokrates,,,,,,,02,,,,,,,2023-07-24
 Piesport,municipality,Ortsgemeinde Piesport,daten.rlp.de|ortsgemeinde_piesport,,,,,,072315001105,,Q375762,,,,,,2023-07-19
 Pinneberg,district,Kreis Pinneberg,opendata.schleswig-holstein.de|kreis-pinneberg,geoportal.de|KreisverwaltungPinneberg,,,https://opendata.schleswig-holstein.de/organization/kreis-pinneberg,,01056,,Q3006,,,,,,2023-05-08
-Pirna,municipality,Stadt Pirna,www.opendata.sachsen.de|StadtPirna,,,,,,146285229270,,Q6477,,,,,,2023-08-13
 Pleißenaue,collectiveMunicipality,Verwaltungsgemeinschaft Pleißenaue,geoportal.de|VerwaltungsgemeinschaftPleienaue,,,,,,160775004,,Q37658,,,,,,2023-09-19
 Potsdam,municipality,Landeshauptstadt Potsdam (LHP),datenadler.de|LandeshauptstadtPotsdamLHP,datenadler.de|LHP,,,https://opendata.potsdam.de/,2018-01-11,120540000000,,Q1711,OpenDataSoft,OpenDataSoft,https://opendata.potsdam.de/api/v2/catalog/datasets,https://opendata.potsdam.de/api/explore/v2.1/catalog/facets,,2023-11-21
 Prüm,collectiveMunicipality,Verbandsgemeinde Prüm,daten.rlp.de|verbandsgemeinde_pruem,,,,,,072325006,,Q822400,,,,,,2023-07-18
@@ -779,8 +767,8 @@ Zella-Mehlis,municipality,Stadt Zella-Mehlis,geoportal.de|StadtZellaMehlis,,,,,,
 Zeltingen-Rachtig,municipality,Ortsgemeinde Zeltingen-Rachtig,daten.rlp.de|ortsgemeinde_zeltingen_rachtig,,,,,,072315001136,,Q189241,,,,,,2023-07-19
 Zeulenroda-Triebes,collectiveMunicipality,Stadt Zeulenroda-Triebes und der beauftragenden Gemeinden,geoportal.de|StadtZeulenrodaTriebesundderbeauftragendenGemeinden,,,,,,160765054,,Q62268,,,,,,2023-08-14
 Zwickau,district,Landratsamt Zwickau,geoportal.de|LandratsamtZwickau,,,,,,14524,,Q6330,,,,,,2023-07-28
-Zwickau,municipality,Stadt Zwickau,www.opendata.sachsen.de|StadtZwickau,,,,,,145240330330,,Q3778,,,,,,2023-08-13
-Zwönitz,municipality,Stadt Zwönitz,www.opendata.sachsen.de|StadtZwnitz,,,,,,145215140710,,Q58002,,,,,,2023-08-13
+Zwickau,municipality,Stadt Zwickau,register.opendata.sachsen.de|urn:uuid:ceb1e6a5-daab-351a-1bd2-2bede7e0963c,,,,,,145240330330,,Q3778,,,,,,2023-12-16
+Zwönitz,municipality,Stadt Zwönitz,register.opendata.sachsen.de|https://smartcity-zwoenitz.de/impressum/,,,,,,145215140710,,Q58002,,,,,,2023-12-16
 🇩🇪 Deutschland,country,govdata - Datenportal für Deutschland,data.europa.eu|govdata,,,,https://www.govdata.de/,2016-01-17,,,Q183,SEITENBAU GmbH,CKAN+Liferay,https://ckan.govdata.de/api/3/action/package_list,https://ckan.govdata.de/api/3/action/organization_list,https://ckan.govdata.de/catalog.rdf,2023-04-18
 "🇩🇪 Deutschland, Geoportal",federalCooperation,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,,,https://www.gdi-de.org/,,,,Q1502855,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
 ,municipality,Altenburg,,,,,https://www.altenburg.eu/sixcms/detail.php?id=139875,,160770001001,,,,Website,,,,2019-08-10

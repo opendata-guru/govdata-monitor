@@ -10,12 +10,12 @@ title,parent_and_id_1,type,url,wikidata,api_list_children,last_check
 🇪🇺 Europa,,root,https://data.europa.eu/api/hub/search/catalogues,Q458,,2023-11-14
 🇫🇷 Frankreich,data.europa.eu|plateforme-ouverte-des-donnees-publiques-francaises,country,https://www.data.gouv.fr/,Q142,,2023-09-19
 "🇫🇷 Frankreich, Geodaten",data.europa.eu|geocatalogue-fr,portal,,,,2023-09-21
-🇬🇧 Großbritannien,data.europa.eu|data-gov-uk,country,https://www.data.gov.uk/,Q145,,2023-09-19
-🇬🇷 Griechenland,data.europa.eu|data-gov-gr,country,https://data.gov.gr/,Q41,,2023-09-19
-🇮🇪 Irland,data.europa.eu|data-gov-ie,country,https://data.gov.ie/,Q27,,2023-09-19
-🇮🇹 Italien,data.europa.eu|dati-gov-it,country,http://dati.gov.it/,Q38,,2023-09-19
+🇬🇧 Großbritannien,data.europa.eu|data-gov-uk,country,https://www.data.gov.uk/,Q145,https://ckan.publishing.service.gov.uk/api/3/action/organization_list,2023-09-19
+🇬🇷 Griechenland,data.europa.eu|data-gov-gr,country,https://data.gov.gr/,Q41,https://repository.data.gov.gr/api/3/action/organization_list,2023-09-19
+🇮🇪 Irland,data.europa.eu|data-gov-ie,country,https://data.gov.ie/,Q27,https://data.gov.ie/api/3/action/organization_list,2023-09-19
+🇮🇹 Italien,data.europa.eu|dati-gov-it,country,http://dati.gov.it/,Q38,https://dati.gov.it/opendata/api/3/action/organization_list,2023-09-19
 "🇮🇹 Italien, Geodaten",data.europa.eu|rndt,portal,,,,2023-09-21
-🇳🇱 Niederlande,data.europa.eu|dataportaal-van-de-nederlandse-overheid,country,https://data.overheid.nl/,Q29999,,2023-09-19
+🇳🇱 Niederlande,data.europa.eu|dataportaal-van-de-nederlandse-overheid,country,https://data.overheid.nl/,Q29999,https://data.overheid.nl/data/api/3/action/organization_list,2023-09-19
 "🇳🇱 Niederlande, Geodaten",data.europa.eu|ngr-nl,portal,,,,2023-09-21
 "🇵🇱 Polen, Geodaten",data.europa.eu|podgik,portal,https://metadane.podgik.pl/,,,2023-11-14
 🇵🇹 Portugal,data.europa.eu|dados-gov-pt,country,https://dados.gov.pt/,Q45,,2023-09-21
@@ -26,4 +26,4 @@ title,parent_and_id_1,type,url,wikidata,api_list_children,last_check
 "🇸🇮 Slowenien, Geodaten",data.europa.eu|metadata-si,portal,,,,2023-09-21
 🇸🇰 Slowakei,data.europa.eu|data-gov-sk,country,https://data.gov.sk/,Q214,,2023-09-21
 "🇸🇰 Slowakei, Geodaten",data.europa.eu|csw-sk,portal,,,,2023-09-21
-🇺🇦 Ukraine,data.europa.eu|data-gov-ua,country,https://data.gov.ua/,Q212,,2023-09-19
+🇺🇦 Ukraine,data.europa.eu|data-gov-ua,country,https://data.gov.ua/,Q212,https://data.gov.ua/api/3/action/organization_list,2023-09-19

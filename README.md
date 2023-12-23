@@ -81,6 +81,12 @@ Regionalschlüssel:
 
 - https://www.dcat-ap.de/def/politicalGeocoding/regionalKey/
 
+## OpenAPI
+
+- CKAN: https://www.data.gv.at/api-hub/?schema=https://www.data.gv.at/katalog/schema.yml
+- DKAN: https://demo.getdkan.org/api
+- Piveau: https://open.bydata.de/api/hub/search/ and https://open.bydata.de/api/hub/repo/
+
 ## Ideas
 
 - https://codeberg.org/opengovtech/ars-tool/src/branch/main

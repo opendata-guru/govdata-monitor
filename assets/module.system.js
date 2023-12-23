@@ -265,7 +265,7 @@ var system = (function () {
                 ret += '<span style="font-size:1.5rem">🗺️</span> ' + strMaps + '<br>';
             }
             if (strMetadata !== '') {
-                ret += '<span style="font-size:1.5rem">*️⃣</span> ' + strMetadata + '<br>';
+                ret += '<span style="font-size:1.5rem">🗳️</span> ' + strMetadata + '<br>';
             }
             if (arr.length > 0) {
                 ret += '<span style="font-size:1.5rem">🏴‍☠️</span> ' + arr.join(', ');
@@ -367,6 +367,12 @@ var system = (function () {
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
 
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
+
         var cols = '';
         cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
@@ -410,6 +416,12 @@ var system = (function () {
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
 
         var cols = '';
         cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
@@ -464,6 +476,12 @@ var system = (function () {
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
 
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
+
         var cols = '';
         cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
@@ -507,6 +525,12 @@ var system = (function () {
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
 
         var cols = '';
         cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';

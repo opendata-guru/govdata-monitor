@@ -257,7 +257,10 @@ var data = (function () {
         }
 
         monitorUpdateCatalogPieChart();
-        monitorUpdateCatalogHistoryChart();
+
+        if (charthistory) {
+            charthistory.update();
+        }
 
         if (map) {
             map.update();
@@ -317,7 +320,10 @@ var data = (function () {
         setLoadingDate(current); 
 
         dispatchEventStartLoading(dateToLoad);
-        monitorUpdateCatalogHistoryChart();
+
+        if (charthistory) {
+            charthistory.update();
+        }
 
         load();
     }
@@ -333,7 +339,7 @@ var data = (function () {
                 dispatchEventEndLoading();
 
                 date.update();
-                monitorUpdateCatalogHistoryChart();
+                charthistory.update();
             }
         }
 
@@ -350,7 +356,9 @@ var data = (function () {
             if (date) {
                 date.update();
             }
-            monitorUpdateCatalogHistoryChart();
+            if (charthistory) {
+                charthistory.update();
+            }
         }
     }
 
@@ -393,7 +401,7 @@ var data = (function () {
 
         catalog.update();
         date.update();
-        monitorUpdateCatalogHistoryChart();
+        charthistory.update();
     }
 
     init();

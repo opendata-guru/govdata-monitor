@@ -1,10 +1,10 @@
 var date = null,
     diff = null,
+    charthistory = null;
     map = null,
     parents = null,
     table = null;
 
-function monitorUpdateCatalogHistoryChart() {}
 function monitorUpdateCatalogPieChart() {}
 
 function monitorFormatNumber(x) {

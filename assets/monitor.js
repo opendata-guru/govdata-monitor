@@ -1,9 +1,5 @@
 var monitor = {
     maxDays: 20,
-    chartLine: null,
-    chartLineHeader: [],
-    chartLineData: [],
-    chartLineRowDates: [],
     chartPie: null,
 };
 
@@ -44,154 +40,24 @@ function monitorRemoveLoadedDays() {
     data.removeLoadedData();
 }
 
-function monitorUpdateCatalogHistoryChart() {
-    var ctx = document.getElementById('dataset-history').getContext('2d');
-    var stepSize = 25000;
-    monitor.chartLineRowDates = [];
-    var gradient = [];
-    var gradientBase = [];
-
-    monitor.chartLineData = [];
-    monitor.chartLineHeader = [];
-
-    gradientBase.push('#34bbe6'); // blue
-    gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
-    gradient[gradient.length - 1].addColorStop(0, 'rgba(52, 187, 230, .3)');
-    gradient[gradient.length - 1].addColorStop(1, 'rgba(52, 187, 230, .2)');
-
-    gradientBase.push('#eb7532'); // orange
-    gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
-    gradient[gradient.length - 1].addColorStop(0, 'rgba(235, 117, 50, 1)');
-    gradient[gradient.length - 1].addColorStop(1, 'rgba(235, 117, 50, 0)');
-
-    gradientBase.push('#f7d038'); // yellow
-    gradient.push(ctx.createLinearGradient(0, 0, 0, 225));
-    gradient[gradient.length - 1].addColorStop(0, 'rgba(247, 208, 56, 1)');
-    gradient[gradient.length - 1].addColorStop(1, 'rgba(247, 208, 56, 0)');
-
-    var sameAs = catalog.getSameAs(catalog.id);
-    var today = new Date(Date(data.getDisplayDate()));
-    var dataObj = data.get();
-
-    var title = 'Datasets';
-    dataObj.filter(item => item.id === catalog.id).forEach((row) => {
-        title += ' in ' + row.title;
-    });
-
-    monitor.chartLineData.push([]);
-    monitor.chartLineHeader.push(title);
-    if (sameAs.length > 0) {
-        sameAs.forEach((id) => {
-            title = 'Datasets';
-            dataObj.filter(item => item.id === id).forEach((row) => {
-                title += ' of ' + row.title + ' in ' + row.packagesInPortal;
-            });
-        
-            monitor.chartLineData.push([]);
-            monitor.chartLineHeader.push(title);
-        });
-    }
-
-    for (d = 0; d < data.loadedDays; ++d) {
-        monitor.chartLineRowDates.unshift(today.toISOString().split('T')[0]);
-        monitor.chartLineData[0].unshift(monitorGetDatasetCountByDate(catalog.id, today.toISOString().split('T')[0], true));
-
-        if (sameAs.length > 0) {
-            var s = 1;
-            sameAs.forEach((same) => {
-                monitor.chartLineData[s].unshift(monitorGetDatasetCountByDate(same, today.toISOString().split('T')[0], false));
-                ++s;
-            });
-        }
-
-        today.setDate(today.getDate() - 1);
-    }
-
-    var datasets = [];
-    for (var c = 0; c < monitor.chartLineData.length; ++c) {
-        datasets.push({
-            label: monitor.chartLineHeader[c],
-            fill: c === 0,
-            backgroundColor: gradient[c],
-            borderColor: gradientBase[c],
-            borderWidth: 2,
-            pointRadius: 1,
-            data: monitor.chartLineData[c]
-        });
-    }
-
-    var historyData = {
-        labels: monitor.chartLineRowDates,
-        datasets: datasets,
-    };
-
-    if (monitor.chartLine !== null) {
-        monitor.chartLine.data = historyData;
-        monitor.chartLine.update();
-    } else {
-        monitor.chartLine = new Chart(document.getElementById('dataset-history'), {
-            type: 'line',
-            data: historyData,
-            options: {
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 0
-                },
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    intersect: false
-                },
-                hover: {
-                    intersect: true
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        reverse: true,
-                        gridLines: {
-                            color: 'transparent'
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            stepSize: stepSize
-                        },
-                        display: true,
-                        borderDash: [3, 3],
-                        gridLines: {
-                            color: 'transparent'
-                        }
-                    }]
-                }
-            }
-        });
-    }
-}
-
-function monitorGetAsCSV() {
+function monitorGetAsCSV(chartObject) {
     var ret = [];
-    var len = monitor.chartLineRowDates.length;
-    var col = monitor.chartLineHeader.length;
+    var len = chartObject.getRowTitles().length;
+    var col = chartObject.getColumnTitles().length;
 
     var header = [];
     header.push('date');
     for (var c = 0; c < col; ++c) {
-        header.push(monitor.chartLineHeader[c]);
+        header.push(chartObject.getColumnTitles()[c]);
     }
     ret.push(header);
 
     for (var l = 0; l < len; ++l) {
         var line = [];
-        line.push(monitor.chartLineRowDates[l]);
+        line.push(chartObject.getRowTitles()[l]);
 
         for (var c = 0; c < col; ++c) {
-            line.push(monitor.chartLineData[c][l]);
+            line.push(chartObject.getData()[c][l]);
         }
         ret.push(line);
     }
@@ -204,12 +70,13 @@ function monitorGetAsPNG() {
 }
 
 function monitorDownloadAsCSV() {
-    let csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV().map(e => e.join(',')).join("\n");
+    var chartObject = charthistory;
+    var csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV(chartObject).map(e => e.join(',')).join("\n");
 
     var encoded = encodeURI(csv);
     var link = document.createElement('a');
     link.setAttribute('href', encoded);
-    link.setAttribute('download', 'download.csv');
+    link.setAttribute('download', chartObject.getFileName() + '.csv');
     document.body.appendChild(link);
 
     link.click();

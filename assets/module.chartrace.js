@@ -9,12 +9,31 @@ var chartrace = (function () {
     function init() {
     }
 
+    function getColorSwatch() {
+        var swatch = [];
+
+//        swatch.push('#34bbe6'); // blue
+        swatch.push('#e63462'); // red (Split Complementary)
+        swatch.push('#e6b834'); // yellow (Split Complementary + Double Complementary Color)
+        swatch.push('#e634bb'); // pink (Triadic Color)
+        swatch.push('#3462e6'); // dark blue (Double Complementary Color)
+        swatch.push('#34bbe6'); // green (Tetrad/Square Color)
+        swatch.push('#e65f34'); // orange (Complimentary + Double Complementary Color + Tetrad/Square Color)
+        swatch.push('#bbe634'); // yellow green (Triadic Color)
+        swatch.push('#b834e6'); // purple (Tetrad/Square Color)
+
+        return swatch;
+    }
+
     function getDatasets() {
         var datasets = [];
+        var colors = getColorSwatch();
 
         for (var c = 0; c < chartData.length; ++c) {
             datasets.push({
                 label: columnTitles[c],
+                fill: false,
+                borderColor: colors[c],
                 borderWidth: 2,
                 pointRadius: 1,
                 data: chartData[c]

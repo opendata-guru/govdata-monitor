@@ -1,7 +1,8 @@
 var catalog = (function () {
     var initvalId = '',
         defaultId = 'govdata';
-    var idHistoryTitle = 'history-title';
+    var idCatalogHistoryTitle = 'catalog-history-title',
+        idSupplierHistoryTitle = 'supplier-history-title';
     var paramId = 'catalog';
 
     function init() {
@@ -69,13 +70,13 @@ var catalog = (function () {
         return ret;
     }
 
-    function getDownloadMenu() {
+    function getDownloadMenu(chartObjectName) {
         var html = '';
         html += '<a title="Options" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
         html += '<span>...</span>';
         html += '</a>';
         html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
-        html += '<a onclick="monitorDownloadAsCSV()" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV table</a>';
+        html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV table</a>';
 //        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">Download as PNG image</a>';
         html += '<div class="dropdown-divider"></div>';
         html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one week)</a>';
@@ -90,9 +91,14 @@ var catalog = (function () {
     }
 
     function funcUpdate() {
-        var elemHistory = document.getElementById(idHistoryTitle);
+        var elemHistory = document.getElementById(idCatalogHistoryTitle);
         if (elemHistory) {
-            elemHistory.innerHTML = data.loadedDays + ' days history ' + getDownloadMenu();
+            elemHistory.innerHTML = data.loadedDays + ' days catalog history ' + getDownloadMenu('charthistory');
+        }
+
+        elemHistory = document.getElementById(idSupplierHistoryTitle);
+        if (elemHistory) {
+            elemHistory.innerHTML = data.loadedDays + ' days supplier history ' + getDownloadMenu('chartrace');
         }
 
         if (data.loadedDays > data.initalDays) {

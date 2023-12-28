@@ -48,7 +48,7 @@ function monitorGetAsCSV(chartObject) {
     var header = [];
     header.push('date');
     for (var c = 0; c < col; ++c) {
-        header.push(chartObject.getColumnTitles()[c]);
+        header.push(chartObject.getColumnTitles()[c].replace(/,/g, ''));
     }
     ret.push(header);
 
@@ -69,8 +69,9 @@ function monitorGetAsPNG() {
     return monitor.chartPie.toBase64Image();
 }
 
-function monitorDownloadAsCSV() {
-    var chartObject = charthistory;
+function monitorDownloadAsCSV(chartObjectName) {
+    var objects = {charthistory, chartrace};
+    var chartObject = objects[chartObjectName];
     var csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV(chartObject).map(e => e.join(',')).join("\n");
 
     var encoded = encodeURI(csv);

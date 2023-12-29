@@ -4,6 +4,9 @@ var chartrace = (function () {
         rowTitles = [],
         chartData = [];
         fileName = '';
+    var showTop = false,
+        showFirst = 1,
+        showLast = 8;
     var idRaceChart = 'dataset-race';
 
     function init() {
@@ -67,17 +70,32 @@ var chartrace = (function () {
         var endDate = today.toISOString().split('T')[0];
         var startDate = endDate;
         for (d = 0; d < data.loadedDays; ++d) {
-            rowTitles.unshift(today.toISOString().split('T')[0]);
+            startDate = today.toISOString().split('T')[0];
+            rowTitles.unshift(startDate);
 
             if (data.view.length > 0) {
                 var s = 0;
+                var values = [];
                 data.view.forEach((view) => {
-                    chartData[s].unshift(monitorGetDatasetCountByDate(view.linkId, today.toISOString().split('T')[0], false));
+                    var val = monitorGetDatasetCountByDate(view.linkId, startDate, false);
+                    chartData[s].unshift(val);
+                    values.push(val);
                     ++s;
                 });
+
+                if (showTop) {
+                    var topValues = values.sort(function (a,b) {
+                        return b - a;
+                    }).slice(showFirst - 1, showFirst + showLast - 1); 
+
+                    chartData.forEach(elem => {
+                        if (-1 === topValues.indexOf(elem[0])) {
+                            elem[0] = undefined;
+                        }
+                    });
+                }
             }
 
-            startDate = today.toISOString().split('T')[0];
             today.setDate(today.getDate() - 1);
         }
 

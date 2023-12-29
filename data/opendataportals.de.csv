@@ -9,6 +9,7 @@ Altenahr,collectiveMunicipality,Verbandsgemeinde Altenahr,daten.rlp.de|verbandsg
 Altenberge,municipality,Gemeinde Altenberge,geoportal.de|GemeindeAltenberge,,,,https://www.o-sp.de/altenberge/opendata,,055660004004,,Q181809,,,,,,2023-05-21
 Altenburger Land,district,Landratsamt Altenburger Land,geoportal.de|LandratsamtAltenburgerLand,geoportal.de|LRAAltenburgerLand,,,,,16077,,Q7888,,,,,,2023-07-26
 Altenkirchen-Flammersfeld,collectiveMunicipality,Verbandsgemeinde Altenkirchen,daten.rlp.de|verbandsgemeinde_altenkirchen,,,,,,071325010,,Q56245020,,,,,,2023-05-14
+Altenkirchen-Flammersfeld,collectiveMunicipality,VG Altenkirchen-Flammersfeld,daten.rlp.de|verbandsgemeinde_altenkirchen_flammersfeld,,,,,,071325010,Q56245020,,,,,,,2023-12-21
 Am Brahmetal,collectiveMunicipality,Verwaltungsgemeinschaft Am Brahmetal,geoportal.de|VerwaltungsgemeinschaftAmBrahmetal,,,,,,160765008,,Q145628,,,,,,2023-09-19
 Am Ettersberg,collectiveMunicipality,Gemeinde Am Ettersberg und der beauftragenden Gemeinden,geoportal.de|GemeindeAmEttersbergundderbeauftragendenGemeinden,,,,,,160715053,,Q59775091,,,,,,2023-08-14
 Am Ohmberg,municipality,Gemeinde Am Ohmberg,geoportal.de|GemeindeAmOhmberg,,,,,,160610116116,,Q451378,,,,,,2023-09-09
@@ -16,6 +17,7 @@ Amberg,municipality,Stadt Amberg,opendata.bayern|amberg,,,,,,093610000000,,Q7042
 Ammerland,district,Landkreis Ammerland - Test,geoportal.de|LandkreisAmmerlandTest,,,,,,03451,,Q5947,,,,,,2023-07-26
 Ammersbek,municipality,Gemeinde Ammersbek,geoportal.de|GemeindeAmmersbek,opendata.schleswig-holstein.de|ammersbek,,,,,010620090090,,Q473175,,,,,,2023-09-19
 Amt Eidertal,collectiveMunicipality,Amt Eidertal,geoportal.de|AmtEidertal,opendata.schleswig-holstein.de|amt-eidertal,,,,,010585896,,Q113342498,,,,,,2023-09-19
+Amt Odervorland,collectiveMunicipality,Amt Odervorland,datenadler.de|AmtOdervorland,,,,,,120675706,Q316092,,,,,,,2023-12-28
 Amt Süderbrarup,collectiveMunicipality,Amt Süderbrarup,opendata.schleswig-holstein.de|amt-suederbrarup,mcloud.de|OpenDataSchleswigHolsteinAmtSderbrarup,,,https://opendata.schleswig-holstein.de/organization/amt-suederbrarup,,010595974,,Q316729,,,,,,2023-02-05
 Amt Wachsenburg,municipality,Gemeinde Amt Wachsenburg,geoportal.de|GemeindeAmtWachsenburg,,,,,,160700028028,,Q480107,,,,,,2023-09-09
 An der Schmücke,municipality,Stadt An der Schmücke,geoportal.de|StadtAnderSchmcke,,,,,,160655056088,,Q59775092,,,,,,2023-08-13
@@ -51,6 +53,7 @@ Bad Tennstedt,collectiveMunicipality,Verwaltungsgemeinschaft Bad Tennstedt,geopo
 Bad Zwischenahn,municipality,Bad Zwischenahn,geoportal.de|GemeindeBadZwischenahn,,,,,,034510002002,,Q504526,,,,,,2023-07-15
 Baden-Württemberg,state,Open Data Baden-Württemberg,http://dcat-ap.de/def/contributors/datenBW,,,,https://www.daten-bw.de/,2014-10-08,08,,Q985,,,,https://www.daten-bw.de/ckan/api/3/action/organization_list,,2023-08-09
 Baesweiler,municipality,Stadt Baesweiler,offenedaten.aachen.de|stadt-baesweiler,,,,,,053340008008,,Q200894,,,,,,2023-08-13
+Bamberg,municipality,Stadt Bamberg,opendata.bayern|bamberg,,,,,,094610000000,,Q3936,,,,,,2023-12-28
 Bassum,municipality,Stadt Bassum,geoportal.de|StadtBassum,,,,,,032510007007,,Q501865,,,,,,2023-11-14
 Bautzen,district,Landratsamt Bautzen,geoportal.de|LandratsamtBautzen,,,,,,14625,,Q571947,,,,,,2023-07-27
 Bayerisches Landesamt für Umwelt,stateAgency,Bayerisches Landesamt für Umwelt,geoportal.de|BayerischesLandesamtfrUmwelt,,,,,,,09,Q63088680,,,,,,2023-08-11
@@ -181,7 +184,7 @@ Eich,collectiveMunicipality,Verbandsgemeinde Eich,daten.rlp.de|verbandsgemeinde_
 Eichsfeld,district,Landratsamt Eichsfeld,geoportal.de|LandratsamtEichsfeld,,,,,,16061,,Q7861,,,,,,2023-07-26
 Eichsfeld-Wipperaue,collectiveMunicipality,Verwaltungsgemeinschaft „Eichsfeld-Wipperaue“,geoportal.de|VerwaltungsgemeinschaftEichsfeldWipperaue,,,,,,160615006,,Q459010,,,,,,2023-10-30
 Eisenbahn-Bundesamt,federalAgency,Eisenbahn-Bundesamt,mcloud.de|EisenbahnBundesamt,geoportal.de|EisenbahnBundesamtEBA,,,,,,,Q261760,,,,,,2023-08-12
-Eisenberg,collectiveMunicipality,Stadt Eisenberg und den zu erfüllenden Gemeinden,geoportal.de|StadtEisenbergunddenzuerfllendenGemeinden,,,,,,160745052,,Q486568,,,,,,2023-08-14
+Eisenberg,collectiveMunicipality,Stadt Eisenberg und den zu erfüllenden Gemeinden,geoportal.de|StadtEisenbergunddenzuerfllendenGemeinden,geoportal.de|StadtEisenbergundderbeauftragendenGemeinden,,,,,160745052,,Q486568,,,,,,2023-12-28
 Eisfeld,municipality,Stadt Eisfeld,geoportal.de|StadtEisfeld,,,,,,160690012012,,Q486795,,,,,,2023-08-13
 Ellrich,municipality,Stadt Ellrich,geoportal.de|StadtEllrich,,,,,,160620005005,,Q518240,,,,,,2023-08-13
 Elmshorn,municipality,Stadt Elmshorn,opendata.schleswig-holstein.de|elmshorn,geoportal.de|StadtElmshorn,mcloud.de|OpenDataSchleswigHolsteinStadtElmshorn,,,,010560015015,,Q6845,,,,,,2023-08-11
@@ -347,6 +350,7 @@ Kahla,municipality,Stadt Kahla,geoportal.de|StadtKahla,,,,,,160740044044,,Q55080
 Kaiserslautern,municipality,Stadt Kaiserslautern,daten.rlp.de|stadt_kaiserslautern,,,,,,073120000000,,Q3758,,,,,,2023-07-19
 Kalkar,municipality,Stadt Kalkar,geoportal.de|StadtKalkar,,,,,,051540024024,,Q243554,,,,,,2023-08-13
 Kall,municipality,Kall,offenedaten.kdvz-frechen.de|kall,offenedaten.kdvz.nrw|kall,,,https://offenedaten.kdvz.nrw/group/kall,2016-11-08,053660024024,,Q240887,Stadt Köln,DKAN,,,,2023-12-15
+Kappeln,municipality,Stadt Kappeln,opendata.schleswig-holstein.de|kappeln,,,,,,010590045045,,Q516567,,,,,,2023-12-28
 Karlsruhe,municipalityPortal,Stadt Karlsruhe,www.mobidata-bw.de|stadt-karlsruhe,www.daten-bw.de|stadt-karlsruhe,,,https://transparenz.karlsruhe.de/,2016-07-14,,082120000000,,Stadt Karlsruhe,CKAN,https://transparenz.karlsruhe.de/api/3/action/package_list,https://transparenz.karlsruhe.de/api/3/action/organization_list,,2023-12-03
 Karlsruhe,municipality,Stadt Karlsruhe,transparenz.karlsruhe.de|stadt-karlsruhe,,,,,,082120000000,,Q1040,,,,,,2023-12-03
 Kastellaun,collectiveMunicipality,Verbandsgemeide Kastellaun,daten.rlp.de|verbandsgemeinde_kastellaun,,,,https://daten.rlp.de/organization/verbandsgemeinde_kastellaun,,071405003,,Q560240,,,,,,2023-05-23
@@ -382,6 +386,7 @@ Kölleda,collectiveMunicipality,Verwaltungsgemeinschaft Kölleda,geoportal.de|Ve
 Köln,municipalityPortal,Köln,open.nrw|koeln,geoportal.de|StadtKln,mcloud.de|OpenNRWKln,,https://offenedaten-koeln.de/,2012,,053150000000,,Stadt Köln,DKAN,https://offenedaten-koeln.de/api/3/action/package_list,https://offenedaten-koeln.de/api/3/action/group_list,https://offenedaten-koeln.de/catalog.xml,2023-12-03
 Köln,municipality,Stadt Köln,offenedaten-koeln.de|stadt-köln,,,,,,053150000000,,Q365,,,,,,2023-12-03
 Königsfeld,municipality,Ortsgemeinde Königsfeld,daten.rlp.de|ortsgemeinde_koenigsfeld,,,,https://daten.rlp.de/organization/ortsgemeinde_koenigsfeld,,071315004041,,Q675574,,,,,,2023-05-23
+Lahr/Schwarzwald,municipality,Stadt Lahr,www.daten-bw.de|stadt-lahr,,,,,,083175007065,,Q7039,,,,,,2023-12-28
 Lambsheim,municipality,Ortsgemeinde Lambsheim,daten.rlp.de|ortsgemeinde_lambsheim,,,,,,073385006016,,Q22961,,,,,,2023-07-18
 Landau in der Pfalz - Stadtbauamt,municipalityAgency,Stadt Landau - Stadtbauamt,daten.rlp.de|stadt_landau,,,,https://daten.rlp.de/organization/stadt_landau,,,073130000000,Q7052,,,,,,2023-07-18
 "Landesamt für Bergbau, Geologie und Rohstoffe",stateAgency,"Landesamt für Bergbau, Geologie und Rohstoffe Brandenburg (LBGR)",geoportal.de|LandesamtfrBergbauGeologieundRohstoffeBrandenburgLBGR,,,,,,,12,Q1802046,,,,,,2023-11-17
@@ -560,6 +565,7 @@ Paderborn， Amt für Geoinformation， Kataster und Vermessung,districtAgency,K
 Papenburg,municipality,Stadt Papenburg,geoportal.de|StadtPapenburg,,,,,,034540041041,,Q14957,,,,,,2023-08-13
 Parchim,municipality,Stadt Parchim,geoportal.de|StadtParchim,,,,,,130760108108,,Q559010,,,,,,2023-08-13
 Parlamentsdatenbank Dokrates,stateAgency,DOKRATES,suche.transparenz.hamburg.de|dokrates,,,,,,,02,,,,,,,2023-07-24
+Petershagen/Eggersdorf,municipality,Gemeinde Petershagen/Eggersdorf,datenadler.de|GemeindePetershagenEggersdorf,,,,,,120640380380,,Q581905,,,,,,2023-12-28
 Piesport,municipality,Ortsgemeinde Piesport,daten.rlp.de|ortsgemeinde_piesport,,,,,,072315001105,,Q375762,,,,,,2023-07-19
 Pinneberg,district,Kreis Pinneberg,opendata.schleswig-holstein.de|kreis-pinneberg,geoportal.de|KreisverwaltungPinneberg,,,https://opendata.schleswig-holstein.de/organization/kreis-pinneberg,,01056,,Q3006,,,,,,2023-05-08
 Pleißenaue,collectiveMunicipality,Verwaltungsgemeinschaft Pleißenaue,geoportal.de|VerwaltungsgemeinschaftPleienaue,,,,,,160775004,,Q37658,,,,,,2023-09-19
@@ -654,7 +660,7 @@ Soest,district,Kreis Soest,geoportal.de|KreisSoest,,,,https://www.kreis-soest.de
 Soest,municipality,Stadt Soest,geoportal.de|StadtSoest,,,,,,059740040040,,Q6149,,,,,,2023-08-13
 Sollstedt,municipality,Gemeinde Sollstedt,geoportal.de|GemeindeSollstedt,,,,,,160620049049,,Q559775,,,,,,2023-09-09
 Sondershausen,municipality,Stadt Sondershausen,geoportal.de|StadtSondershausen,,,,,,160650067067,,Q517407,,,,,,2023-08-13
-Sonneberg,district,Landkreis Sonneberg,geoportal.de|LandkreisSonneberg,,,,,,16072,,Q7875,,,,,,2023-07-28
+Sonneberg,district,Landkreis Sonneberg,geoportal.de|LandkreisSonneberg,geoportal.de|LandratsamtLandkreisSonneberg,,,,,16072,,Q7875,,,,,,2023-07-28
 Sonneberg,municipality,Stadt Sonneberg,geoportal.de|StadtSonneberg,,,,,,160720018018,,Q499278,,,,,,2023-08-13
 Sonnenstein,municipality,Gemeinde Sonnenstein,geoportal.de|GemeindeSonnenstein,,,,,,160610117117,,Q558776,,,,,,2023-09-09
 Staatsbetrieb Geobasisinformation und Vermessung Sachsen,stateAgency,Landesamt für Geobasisinformation Sachsen (GeoSN),register.opendata.sachsen.de|urn:uuid:a27f321d-b0e8-a50a-df8f-801abb10a586,,,,,,,14,Q19309400,,,,,,2023-12-16
@@ -689,7 +695,7 @@ Sulingen,municipality,Stadt Sulingen,geoportal.de|StadtSulingen,,,,,,03251004004
 Sächsische Schweiz-Osterzgebirge,district,Landratsamt Sächsische Schweiz-Osterzgebirge,geoportal.de|LandratsamtSchsischeSchweizOsterzgebirge,,,,,,14628,,Q6323,,,,,,2023-07-28
 Sächsisches Oberbergamt,stateAgency,Sächsisches Oberbergamt,register.opendata.sachsen.de|urn:uuid:bc0dc618-7f74-e1ae-6a6b-db4cc2f93e96,,,,,,,14,Q376649,,,,,,2023-12-16
 Sächsisches Staatsministerium für Regionalentwicklung,stateAgency,Sächsisches Staatsministerium für Regionalentwicklung,register.opendata.sachsen.de|urn:uuid:ed4cc28f-133e-a45a-f038-72184973206a,,,,,,,14,Q79455349,,,,,,2023-12-16
-Sömmerda,district,Landkreis Sömmerda,geoportal.de|LandkreisSmmerda,,,,,,16068,,Q7865,,,,,,2023-07-28
+Sömmerda,district,Landkreis Sömmerda,geoportal.de|LandkreisSmmerda,geoportal.de|LandratsamtSmmerda,,,,,16068,,Q7865,,,,,,2023-12-28
 Sömmerda,municipality,Stadt Sömmerda,geoportal.de|StadtSmmerda,,,,,,160680051051,,Q530794,,,,,,2023-08-13
 Südeifel,collectiveMunicipality,Verbandsgemeinde Südeifel,daten.rlp.de|verbandsgemeinde_suedeifel,,,,,,072325005,,Q15852582,,,,,,2023-07-18
 Südliches Saaletal,collectiveMunicipality,Verwaltungsgemeinschaft Südliches Saaletal,geoportal.de|VerwaltungsgemeinschaftSdlichesSaaletal,,,,,,160745011,,Q314928,,,,,,2023-09-19
@@ -742,9 +748,10 @@ Wasungen-Amt Sand,collectiveMunicipality,Verwaltungsgemeinschaft Wasungen-Amt Sa
 Wedel,municipality,Stadt Wedel,opendata.schleswig-holstein.de|wedel,mcloud.de|OpenDataSchleswigHolsteinStadtWedel,,,,,010560050050,,Q4356,,,,,,2023-05-09
 Weeze,municipality,Gemeinde Weeze,geoportal.de|GemeindeWeeze,,,,,,051540064064,,Q243079,,,,,,2023-09-09
 Weida,municipality,Stadt Weida,geoportal.de|StadtWeida,,,,,,160765053079,,Q519751,,,,,,2023-08-13
+Weida,collectiveMunicipality,Stadt Weida und der beauftragenden Gemeinden,geoportal.de|StadtWeidaundderbeauftragendenGemeinden,,,,,,160765053,Q519751,,,,,,,2023-12-28
 Weilerbach,municipality,Ortsgemeinde Weilerbach,daten.rlp.de|ortsgemeinde_weilerbach,,,,https://daten.rlp.de/organization/ortsgemeinde_weilerbach,,073355009049,,Q553992,,,,,,2023-06-19
 Weimar,municipality,Stadt Weimar,geoportal.de|StadtWeimar,,,,,,160550000000,,Q3955,,,,,,2023-08-11
-Weimarer Land,district,Landkreis Weimarer Land,geoportal.de|LandkreisWeimarerLand,,,,,,16071,,Q7879,,,,,,2023-07-28
+Weimarer Land,district,Landkreis Weimarer Land,geoportal.de|LandkreisWeimarerLand,geoportal.de|LandratsamtWeimarerLand,,,,,16071,,Q7879,,,,,,2023-12-28
 Weißensee,municipality,Stadt Weißensee,geoportal.de|StadtWeiensee,,,,,,160680058058,,Q529798,,,,,,2023-08-13
 Weißenthurm,collectiveMunicipality,Verbandsgemeinde Weißenthurm,daten.rlp.de|verbandsgemeinde_weissenthurm,,,,,,071375008,,Q519426,,,,,,2023-05-14
 Wennigsen (Deister),municipality,Gemeinde Wennigsen (Deister),geoportal.de|GemeindeWennigsenDeister,,,,http://data.wennigsen.net/,,032410020020,,Q621469,,Website,,,,2023-06-19
@@ -781,7 +788,6 @@ Zwickau,municipality,Stadt Zwickau,register.opendata.sachsen.de|urn:uuid:ceb1e6a
 Zwönitz,municipality,Stadt Zwönitz,register.opendata.sachsen.de|https://smartcity-zwoenitz.de/impressum/,,,,,,145215140710,,Q58002,,,,,,2023-12-16
 🇩🇪 Deutschland,country,govdata - Datenportal für Deutschland,data.europa.eu|govdata,,,,https://www.govdata.de/,2016-01-17,,,Q183,SEITENBAU GmbH,CKAN+Liferay,https://ckan.govdata.de/api/3/action/package_list,https://ckan.govdata.de/api/3/action/organization_list,https://ckan.govdata.de/catalog.rdf,2023-04-18
 "🇩🇪 Deutschland, Geoportal",federalCooperation,Geodateninfrastruktur Deutschland,http://dcat-ap.de/def/contributors/gdiDE,data.europa.eu|gdi-de,,,https://www.gdi-de.org/,,,,Q1502855,Bundesamt für Kartographie und Geodäsie,,,https://geoportal.de,,2023-04-18
-Altenkirchen-Flammersfeld,collectiveMunicipality,VG Altenkirchen-Flammersfeld,daten.rlp.de|verbandsgemeinde_altenkirchen_flammersfeld,,,,,,071325010,,Q56245020,,,,,,2023-12-21
 ,municipality,Altenburg,,,,,https://www.altenburg.eu/sixcms/detail.php?id=139875,,160770001001,,,,Website,,,,2019-08-10
 ,municipality,Emsdetten,,,,,https://www.emsdetten.de/bauen-wohnen-umwelt-verkehr/planen/bauleitplanung-online/open-data-im-bereich-bauleitplanung-in-emsdetten/,,055660008008,,,,,,,,2021-03-03
 ,municipality,Euskirchen,,,,,https://www.o-sp.de/euskirchen/opendata.php,,053660016016,,,,,,,,2021-03-03

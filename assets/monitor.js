@@ -70,7 +70,7 @@ function monitorGetAsPNG() {
 }
 
 function monitorDownloadAsCSV(chartObjectName) {
-    var objects = {charthistory, chartrace};
+    var objects = {charthistory, chartsupplier};
     var chartObject = objects[chartObjectName];
     var csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV(chartObject).map(e => e.join(',')).join("\n");
 

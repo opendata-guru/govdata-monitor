@@ -98,7 +98,7 @@ var catalog = (function () {
 
         elemHistory = document.getElementById(idSupplierHistoryTitle);
         if (elemHistory) {
-            elemHistory.innerHTML = data.loadedDays + ' days supplier history ' + getDownloadMenu('chartrace');
+            elemHistory.innerHTML = data.loadedDays + ' days supplier history ' + getDownloadMenu('chartsupplier');
         }
 
         if (data.loadedDays > data.initalDays) {

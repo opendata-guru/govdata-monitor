@@ -189,7 +189,7 @@ var charthistory = (function () {
     function funcUpdate() {
         updateChart();
 
-        chartrace.update();
+        chartsupplier.update();
     }
 
     init();

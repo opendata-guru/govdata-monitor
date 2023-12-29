@@ -1,4 +1,4 @@
-var chartrace = (function () {
+var chartsupplier = (function () {
     var chartLine = null,
         columnTitles = [],
         rowTitles = [],
@@ -7,7 +7,7 @@ var chartrace = (function () {
     var showTop = false,
         showFirst = 1,
         showLast = 8;
-    var idRaceChart = 'dataset-race';
+    var idSupplierChart = 'dataset-supplier';
 
     function init() {
     }
@@ -126,18 +126,18 @@ var chartrace = (function () {
         clearData();
         fillData();
 
-        var raceData = {
+        var supplierData = {
             labels: rowTitles,
             datasets: getDatasets(),
         };
 
         if (chartLine !== null) {
-            chartLine.data = raceData;
+            chartLine.data = supplierData;
             chartLine.update();
         } else {
-            chartLine = new Chart(document.getElementById(idRaceChart), {
+            chartLine = new Chart(document.getElementById(idSupplierChart), {
                 type: 'line',
-                data: raceData,
+                data: supplierData,
                 options: {
                     maintainAspectRatio: false,
                     animation: {

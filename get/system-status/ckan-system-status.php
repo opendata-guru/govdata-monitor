@@ -4,6 +4,8 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
+	include('_cms.php');
+
 	$orgaListSuffix = '/api/3/action/organization_list';
 	$groupListSuffix = '/api/3/action/group_list';
 	$statusShowSuffix = '/api/3/action/status_show';
@@ -40,12 +42,20 @@
 
 	if ($json) {
 		echo json_encode((object) array(
+			'cms' => getCMS($uriCKAN),
 			'extensions' => $json->result->extensions,
 			'system' => 'CKAN',
 			'url' => $json->result->site_url,
 			'version' => $json->result->ckan_version,
 		));
 	} else {
-		echo 'error';
+		$cms = getCMS($uriCKAN);
+		echo json_encode((object) array(
+			'cms' => $cms,
+			'extensions' => null,
+			'system' => (substr($cms, 0, 6) === 'Drupal') ? 'DKAN' : null,
+			'url' => $uriCKAN,
+			'version' => null,
+		));
 	}
 ?>

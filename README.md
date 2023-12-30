@@ -85,6 +85,7 @@ Regionalschlüssel:
 
 - CKAN: https://www.data.gv.at/api-hub/?schema=https://www.data.gv.at/katalog/schema.yml
 - DKAN: https://demo.getdkan.org/api
+- DKAN: https://github.com/GetDKAN/dkan
 - Piveau: https://open.bydata.de/api/hub/search/ and https://open.bydata.de/api/hub/repo/
 
 ## Ideas

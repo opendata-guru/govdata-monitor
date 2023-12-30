@@ -48,12 +48,16 @@
 			}
 		}
 
+		if ($generator && ('ckan' === explode(' ', $generator)[0])) {
+			$generator = null;
+		}
+
 		if ((null === $generator) && (1 < count(explode(' Liferay ', $file)))) {
 			$generator = getLiferay();
 		}
 
 		if (null === $generator) {
-			$generator = (object)[];
+			$generator = '';
 		}
 
 		return $generator;

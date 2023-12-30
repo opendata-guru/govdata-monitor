@@ -7,6 +7,8 @@ var system = (function () {
     var idSystemBody = 'system-body',
         idCKANSystemsHead = 'ckan-systems-thead',
         idCKANSystemsBody = 'ckan-systems-tbody',
+        idDKANSystemsHead = 'dkan-systems-thead',
+        idDKANSystemsBody = 'dkan-systems-tbody',
         idPiveauSystemsHead = 'piveau-systems-thead',
         idPiveauSystemsBody = 'piveau-systems-tbody',
         idODSSystemsHead = 'ods-systems-thead',
@@ -355,6 +357,7 @@ var system = (function () {
         head += '<th>Version</th>';
         head += '<th>API</th>';
         head += '<th>Extensions</th>';
+        head += '<th>CMS</th>';
 
         return '<tr>' + head + '</tr>';
     }
@@ -378,20 +381,25 @@ var system = (function () {
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {
+            sys.server.version = sys.server.version === null ? '-' : sys.server.version;
+            sys.server.system = sys.server.system === null ? '-' : sys.server.system;
+            sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
             cols += '<td class="align-middle">' + sys.server.system + '</td>';
             cols += '<td class="align-middle">' + sys.server.version + '</td>';
             cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + JSON.stringify(sys.server.extensions) + '</td>';
+            cols += '<td class="align-middle">' + (sys.server.extensions ? JSON.stringify(sys.server.extensions) : '-') + '</td>';
+            cols += '<td class="align-middle">' + sys.server.cms + '</td>';
         } else {
             var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">' + url + '</td>';
             cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -405,6 +413,7 @@ var system = (function () {
         head += '<th>CKAN Version</th>';
         head += '<th>API</th>';
         head += '<th>Extensions</th>';
+        head += '<th>CMS</th>';
 
         return '<tr>' + head + '</tr>';
     }
@@ -428,6 +437,7 @@ var system = (function () {
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys && sys.server) {
+            sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
             cols += '<td class="align-middle">' + (sys.server.version || '-') + '</td>';
             if (sys.server.url) {
                 cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
@@ -435,14 +445,16 @@ var system = (function () {
                 cols += '<td class="align-middle">-</td>';
             }
             cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.server.extensions) + '</td>';
+            cols += '<td class="align-middle">' + sys.server.cms + '</td>';
         } else {
+            cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         var cssClass = '';
@@ -452,6 +464,52 @@ var system = (function () {
 
         return '<tr class="' + cssClass + '">' + cols + '</tr>' + error;
 //        return '<tr>' + cols + '</tr>' + error;
+    }
+
+    function getDKANSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>API</th>';
+        head += '<th>CMS</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getDKANSystemsRow(id, sys) {
+        var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
+
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
+
+        var cols = '';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + sys.server.cms + '</td>';
+        } else {
+            var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
+            cols += '<td class="align-middle">' + url + '</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
     }
 
     function getPiveauSystemsHead() {
@@ -554,6 +612,8 @@ var system = (function () {
     function updateSystemTable() {
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
         var ckanTableBody = document.getElementById(idCKANSystemsBody);
+        var dkanTableHead = document.getElementById(idDKANSystemsHead);
+        var dkanTableBody = document.getElementById(idDKANSystemsBody);
         var piveauTableHead = document.getElementById(idPiveauSystemsHead);
         var piveauTableBody = document.getElementById(idPiveauSystemsBody);
         var odsTableHead = document.getElementById(idODSSystemsHead);
@@ -566,6 +626,7 @@ var system = (function () {
         }
 
         var ckanBody = '';
+        var dkanBody = '';
         var piveauBody = '';
         var odsBody = '';
         var otherBody = '';
@@ -579,6 +640,8 @@ var system = (function () {
 
             if ('CKAN' === system) {
                 ckanBody += getCKANSystemsRow(id, sys);
+            } else if ('DKAN' === system) {
+                dkanBody += getDKANSystemsRow(id, sys);
             } else if ('Piveau' === system) {
                 piveauBody += getPiveauSystemsRow(id, sys);
             } else if ('Opendatasoft' === system) {
@@ -590,6 +653,9 @@ var system = (function () {
 
         if (ckanBody.length === 0) {
             ckanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+        if (dkanBody.length === 0) {
+            dkanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
         if (piveauBody.length === 0) {
             piveauBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
@@ -603,6 +669,8 @@ var system = (function () {
 
         ckanTableHead.innerHTML = getCKANSystemsHead();
         ckanTableBody.innerHTML = ckanBody;
+        dkanTableHead.innerHTML = getDKANSystemsHead();
+        dkanTableBody.innerHTML = dkanBody;
         piveauTableHead.innerHTML = getPiveauSystemsHead();
         piveauTableBody.innerHTML = piveauBody;
         odsTableHead.innerHTML = getODSSystemsHead();

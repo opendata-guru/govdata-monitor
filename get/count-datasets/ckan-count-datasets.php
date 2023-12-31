@@ -58,7 +58,7 @@
 //	$json = json_decode(file_get_contents($uriCKAN . $packageShowSuffix));
 	$json = json_decode(get_contents($uriCKAN . $packageShowSuffix));
 
-	if ($json) {
+	if ($json && $json->result) {
 		echo $json->result->count;
 	} else {
 //		$json = json_decode(file_get_contents($uriCKAN . $packageShowAllSuffix));

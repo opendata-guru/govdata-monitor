@@ -19,6 +19,6 @@
 	} else if ((substr($link, -strlen($opendatasoftEndpoint)) === $opendatasoftEndpoint) || (substr($link, -strlen($opendatasoftEndpoint2_0)) === $opendatasoftEndpoint2_0) || (substr($link, -strlen($opendatasoftEndpoint2_1)) === $opendatasoftEndpoint2_1)) {
 		include 'count-datasets/opendatasoft-count-datasets.php';
 	} else {
-		include 'ckan-count-datasets.php';
+		include 'count-datasets/ckan-count-datasets.php';
 	}
 ?>

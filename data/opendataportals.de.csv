@@ -31,7 +31,7 @@ Attendorn,municipality,Hansestadt Attendorn,geoportal.de|HansestadtAttendorn,,,,
 Auengrund,collectiveMunicipality,Gemeinde Auengrund und der beauftragenden Gemeinden,geoportal.de|GemeindeAuengrundundderbeauftragendenGemeinden,,,,,,160695051,,Q546627,,,,2023-08-14
 Augsburg,municipality,Stadt Augsburg,http://dcat-ap.de/def/contributors/stadtAugsburg,opendata.bayern|augsburg,,,,,097610000000,,Q2749,,,,2023-09-30
 Auma-Weidatal,municipality,Stadt Auma-Weidatal,geoportal.de|StadtAumaWeidatal,,,,,,160760092092,,Q4426,,,,2023-08-13
-Auswärtiges Amt,federal,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertigesAmt,,,,,,,,Q56034,,,,
+Auswärtiges Amt,federal,Auswärtiges Amt,http://dcat-ap.de/def/contributors/auswaertigesAmt,,,,,,,,Q56034,,https://www.auswaertiges-amt.de/de/open-data-schnittstelle/736118,,2024-01-02
 Autobahn GmbH,federalAgency,Die Autobahn GmbH des Bundes,mcloud.de|DieAutobahnGmbHdesBundes,,,,,,,,Q31840061,,,,2023-08-17
 AWSH - Abfallwirtschaft Südholstein GmbH,other,AWSH - Abfallwirtschaft Südholstein GmbH,opendata.schleswig-holstein.de|awsh-abfallwirtschaft-sudholstein-gmbh,,,,https://opendata.schleswig-holstein.de/organization/awsh-abfallwirtschaft-sudholstein-gmbh,,,,,,,,2023-02-05
 Bad Berka,municipality,Stadt Bad Berka,geoportal.de|StadtBadBerka,,,,,,160710003003,,Q630334,,,,2023-08-13
@@ -154,7 +154,7 @@ Darmstadt-Dieburg,district,Landkreis Darmstadt-Dieburg,geoportal.de|LandkreisDar
 Dedenbach,municipality,Ortsgemeinde Dedenbach,daten.rlp.de|ortsgemeinde_dedenbach,,,,https://daten.rlp.de/organization/og_dedenbach,,071315004016,,Q569741,,,,2023-05-21
 Deggendorf,municipality,Stadt Deggendorf,opendata.bayern|deggendorf,,,,,,092710119119,,Q16083,,,,2023-11-28
 Delbrück,municipality,Stadt Delbrück,geoportal.de|StadtDelbrck,,,,,,057740020020,,Q16146,,,,2023-08-13
-Deutsche Nationalbibliothek,other,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,,,,,,,Q27302,,,,
+Deutsche Nationalbibliothek,other,Deutsche Nationalbibliothek,http://dcat-ap.de/def/contributors/deutscheNationalbibliothek,,,,,,,,Q27302,,https://data.dnb.de/opendata/,,2024-01-02
 Deutsche Rentenversicherung Bund,federalCooperation,Deutsche Rentenversicherung Bund,http://dcat-ap.de/def/contributors/deutscheRentenversicherungBund,,,,,,,,Q1203782,,,,2023-05-21
 Deutscher Wetterdienst,federalAgency,Deutscher Wetterdienst,mcloud.de|DeutscherWetterdienst,geoportal.de|DeutscherWetterdienstDWD,geoportal.de|DeutscherWetterdienstDeutscherWetterdienst,,https://opendata.dwd.de/,,,,Q325859,,https://opendata.dwd.de/,,2023-11-04
 Deutsches Patent- und Markenamt,federalAgency,Deutsches Patent- und Markenamt,http://dcat-ap.de/def/contributors/deutschesPatentUndMarkenamt,,,,,,,,Q314296,,,,

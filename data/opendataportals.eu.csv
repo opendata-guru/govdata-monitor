@@ -26,12 +26,15 @@ title,parent_and_id_1,type,url,wikidata,api_list_children,last_check
 🇱🇻 Lettland,data.europa.eu|data-gov-lv,country,https://data.gov.lv/lv,Q211,https://data.gov.lv/dati/lv/api/3/action/organization_list,2023-12-22
 🇳🇱 Niederlande,data.europa.eu|dataportaal-van-de-nederlandse-overheid,country,https://data.overheid.nl/,Q29999,https://data.overheid.nl/data/api/3/action/organization_list,2023-09-19
 "🇳🇱 Niederlande, Geodaten",data.europa.eu|ngr-nl,portal,,,,2023-09-21
+🇳🇴 Norwegen,data.europa.eu|data-norge-no,country,https://data.norge.no/,Q20,,2024-01-02
 🇵🇱 Polen,data.europa.eu|dane-gov-pl,country,https://dane.gov.pl/,Q36,https://api.dane.gov.pl/institutions,2023-12-22
 "🇵🇱 Polen, Geodaten",data.europa.eu|podgik,portal,https://metadane.podgik.pl/,,,2023-11-14
 🇵🇹 Portugal,data.europa.eu|dados-gov-pt,country,https://dados.gov.pt/,Q45,,2023-09-21
 🇷🇴 Rumänien,data.europa.eu|data-gov-ro,country,https://data.gov.ro/,Q218,,2023-09-21
 "🇷🇴 Rumänien, Geodaten",data.europa.eu|inis,portal,,,,2023-09-21
+🇷🇸 Serbien,data.europa.eu|open-data-portal-serbia,country,https://data.gov.rs/,Q403,,2024-01-02
 🇸🇪 Schweden,data.europa.eu|oppnadata,country,https://www.dataportal.se/,Q34,https://admin.dataportal.se/store/,2023-09-19
+"🇸🇪 Schweden, Geodaten",data.europa.eu|geodata-se,portal,,,,2024-01-02
 🇸🇮 Slowenien,data.europa.eu|odprti-podatki-slovenije,country,https://podatki.gov.si/,Q215,,2023-09-19
 "🇸🇮 Slowenien, Geodaten",data.europa.eu|metadata-si,portal,,,,2023-09-21
 🇸🇰 Slowakei,data.europa.eu|data-gov-sk,country,https://data.gov.sk/,Q214,,2023-09-21

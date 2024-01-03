@@ -55,10 +55,10 @@
 			if (count($orga) === 0) {
 				$errors[] = (object) array('object' => $system->link, 'message' => 'noOrganisationFound');
 				continue;
-			} elseif (count($orga) > 1) {
-				$errors[] = (object) array('object' => $system->link, 'message' => 'duplicateOrganisationEntriesFound');
+			} /* elseif (count($orga) > 1) {
+				$errors[] = (object) array('object' => $system->link, 'message' => 'duplicateOrganisationEntriesFound', 'test' => $orga);
 				continue;
-			}
+			} */
 			$theOrga = $orga[0];
 
 			if($theOrga->datasetCount && ($theOrga->datasetCount !== '')) {

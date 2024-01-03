@@ -54,6 +54,7 @@ Get system status information:
 - https://opendata.guru/govdata/get/system-status.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
 - https://opendata.guru/govdata/get/system-status.php?link=https://register.opendata.sachsen.de/store/
 - https://opendata.guru/govdata/get/system-status.php?link=https://admin.dataportal.se/store/
+- https://opendata.guru/govdata/get/system-status.php?link=https://portal-chemnitz.opendata.arcgis.com/
 
 Convert RS (Regionalschlüssel) to GEOJSON file:
 

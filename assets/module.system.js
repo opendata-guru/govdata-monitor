@@ -13,6 +13,10 @@ var system = (function () {
         idPiveauSystemsBody = 'piveau-systems-tbody',
         idODSSystemsHead = 'ods-systems-thead',
         idODSSystemsBody = 'ods-systems-tbody',
+        idEntryScapeSystemsHead = 'entryscape-systems-thead',
+        idEntryScapeSystemsBody = 'entryscape-systems-tbody',
+        idArcGISHubSystemsHead = 'arcgishub-systems-thead',
+        idArcGISHubSystemsBody = 'arcgishub-systems-tbody',
         idOtherSystemsHead = 'other-systems-thead',
         idOtherSystemsBody = 'other-systems-tbody',
         idImage1 = 'image-1',
@@ -603,6 +607,97 @@ var system = (function () {
         return '<tr>' + cols + '</tr>' + error;
     }
 
+    function getEntryScapeSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>EntryScape Version</th>';
+        head += '<th>API</th>';
+        head += '<th>Extensions</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getEntryScapeSystemsRow(id, sys) {
+        var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
+
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
+
+        var cols = '';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            cols += '<td class="align-middle">' + sys.server.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.server.extensions) + '</td>';
+        } else {
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
+    }
+
+    function getArcGISHubSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>ArcGIS Hub Version</th>';
+        head += '<th>API</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getArcGISHubSystemsRow(id, sys) {
+        var catalogObj = catalog.get(id);
+        var monitoringObj = monitoring.get(sys.link);
+
+        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
+
+        if (title === '') {
+            var link = sys.link.split('/')[2];
+            var contributor = sys.contributor.split('/')[2];
+            title = contributor;
+        }
+
+        var cols = '';
+        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys && sys.server) {
+            cols += '<td class="align-middle">' + sys.server.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+        } else {
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        if (monitoringObj) {
+            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
+    }
+
     function updateSystemTable() {
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
         var ckanTableBody = document.getElementById(idCKANSystemsBody);
@@ -612,6 +707,10 @@ var system = (function () {
         var piveauTableBody = document.getElementById(idPiveauSystemsBody);
         var odsTableHead = document.getElementById(idODSSystemsHead);
         var odsTableBody = document.getElementById(idODSSystemsBody);
+        var entryScapeTableHead = document.getElementById(idEntryScapeSystemsHead);
+        var entryScapeTableBody = document.getElementById(idEntryScapeSystemsBody);
+        var arcGISHubTableHead = document.getElementById(idArcGISHubSystemsHead);
+        var arcGISHubTableBody = document.getElementById(idArcGISHubSystemsBody);
         var otherTableHead = document.getElementById(idOtherSystemsHead);
         var otherTableBody = document.getElementById(idOtherSystemsBody);
 
@@ -623,6 +722,8 @@ var system = (function () {
         var dkanBody = '';
         var piveauBody = '';
         var odsBody = '';
+        var entryScapeBody = '';
+        var arcGISHubBody = '';
         var otherBody = '';
 
         assets.forEach(sys => {
@@ -640,6 +741,10 @@ var system = (function () {
                 piveauBody += getPiveauSystemsRow(id, sys);
             } else if ('Opendatasoft' === system) {
                 odsBody += getODSSystemsRow(id, sys);
+            } else if ('entryscape' === system) {
+                entryScapeBody += getEntryScapeSystemsRow(id, sys);
+            } else if ('ArcGIS Hub' === system) {
+                arcGISHubBody += getArcGISHubSystemsRow(id, sys);
             } else {
                 otherBody += getOtherSystemsRow(id, sys);
             }
@@ -657,6 +762,12 @@ var system = (function () {
         if (odsBody.length === 0) {
             odsBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
+        if (entryScapeBody.length === 0) {
+            entryScapeBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+        if (arcGISHubBody.length === 0) {
+            arcGISHubBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
         if (otherBody.length === 0) {
             otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -669,6 +780,10 @@ var system = (function () {
         piveauTableBody.innerHTML = piveauBody;
         odsTableHead.innerHTML = getODSSystemsHead();
         odsTableBody.innerHTML = odsBody;
+        entryScapeTableHead.innerHTML = getEntryScapeSystemsHead();
+        entryScapeTableBody.innerHTML = entryScapeBody;
+        arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
+        arcGISHubTableBody.innerHTML = arcGISHubBody;
         otherTableHead.innerHTML = getOtherSystemsHead();
         otherTableBody.innerHTML = otherBody;
     }

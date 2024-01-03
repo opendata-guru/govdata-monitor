@@ -24,7 +24,7 @@ var system = (function () {
     var localDict = {
         noLinkFound: 'No link found',
         noOrganisationFound: 'No organisation found',
-        duplicateOrganisationEntriesFound: 'Duplicate organisation entries found',
+//        duplicateOrganisationEntriesFound: 'Duplicate organisation entries found',
         couldNotCountDatasets: 'Could not count datasets',
     };
     var assets = [];
@@ -457,13 +457,7 @@ var system = (function () {
             error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
-        var cssClass = '';
-        if (datasetCount === null) {
-            cssClass ='bg-danger text-white';
-        }
-
-        return '<tr class="' + cssClass + '">' + cols + '</tr>' + error;
-//        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + error;
     }
 
     function getDKANSystemsHead() {

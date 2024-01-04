@@ -7,18 +7,25 @@ var system = (function () {
     var idSystemBody = 'system-body',
         idCKANSystemsHead = 'ckan-systems-thead',
         idCKANSystemsBody = 'ckan-systems-tbody',
+        idCKANSystemsFoot = 'ckan-systems-tfoot',
         idDKANSystemsHead = 'dkan-systems-thead',
         idDKANSystemsBody = 'dkan-systems-tbody',
+        idDKANSystemsFoot = 'dkan-systems-tfoot',
         idPiveauSystemsHead = 'piveau-systems-thead',
         idPiveauSystemsBody = 'piveau-systems-tbody',
+        idPiveauSystemsFoot = 'piveau-systems-tfoot',
         idODSSystemsHead = 'ods-systems-thead',
         idODSSystemsBody = 'ods-systems-tbody',
+        idODSSystemsFoot = 'ods-systems-tfoot',
         idEntryScapeSystemsHead = 'entryscape-systems-thead',
         idEntryScapeSystemsBody = 'entryscape-systems-tbody',
+        idEntryScapeSystemsFoot = 'entryscape-systems-tfoot',
         idArcGISHubSystemsHead = 'arcgishub-systems-thead',
         idArcGISHubSystemsBody = 'arcgishub-systems-tbody',
+        idArcGISHubSystemsFoot = 'arcgishub-systems-tfoot',
         idOtherSystemsHead = 'other-systems-thead',
         idOtherSystemsBody = 'other-systems-tbody',
+        idOtherSystemsFoot = 'other-systems-tfoot',
         idImage1 = 'image-1',
 //        idImage2 = 'image-2',
 //        idImage3 = 'image-3',
@@ -261,6 +268,7 @@ var system = (function () {
             });
 
             ret = '';
+            ret += '<div class="ext-left"><a class="d-block" onclick="system.onExpandExtension(this)">Expand ' + extensions.length + ' extensions</a></div><div class="ext-right" style="display:none">';
             if (strBasics !== '') {
                 ret += '<span style="font-size:1.5rem">🧰</span> ' + strBasics + '<br>';
             }
@@ -276,6 +284,7 @@ var system = (function () {
             if (arr.length > 0) {
                 ret += '<span style="font-size:1.5rem">🏴‍☠️</span> ' + arr.join(', ');
             }
+            ret += '</div>';
         } else if (extensions === null) {
             ret += '-'
         } else {
@@ -403,7 +412,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -458,7 +467,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -504,7 +513,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -557,7 +566,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -601,7 +610,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -648,7 +657,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -692,7 +701,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -701,18 +710,25 @@ var system = (function () {
     function updateSystemTable() {
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
         var ckanTableBody = document.getElementById(idCKANSystemsBody);
+        var ckanTableFoot = document.getElementById(idCKANSystemsFoot);
         var dkanTableHead = document.getElementById(idDKANSystemsHead);
         var dkanTableBody = document.getElementById(idDKANSystemsBody);
+        var dkanTableFoot = document.getElementById(idDKANSystemsFoot);
         var piveauTableHead = document.getElementById(idPiveauSystemsHead);
         var piveauTableBody = document.getElementById(idPiveauSystemsBody);
+        var piveauTableFoot = document.getElementById(idPiveauSystemsFoot);
         var odsTableHead = document.getElementById(idODSSystemsHead);
         var odsTableBody = document.getElementById(idODSSystemsBody);
+        var odsTableFoot = document.getElementById(idODSSystemsFoot);
         var entryScapeTableHead = document.getElementById(idEntryScapeSystemsHead);
         var entryScapeTableBody = document.getElementById(idEntryScapeSystemsBody);
+        var entryScapeTableFoot = document.getElementById(idEntryScapeSystemsFoot);
         var arcGISHubTableHead = document.getElementById(idArcGISHubSystemsHead);
         var arcGISHubTableBody = document.getElementById(idArcGISHubSystemsBody);
+        var arcGISHubTableFoot = document.getElementById(idArcGISHubSystemsFoot);
         var otherTableHead = document.getElementById(idOtherSystemsHead);
         var otherTableBody = document.getElementById(idOtherSystemsBody);
+        var otherTableFoot = document.getElementById(idOtherSystemsFoot);
 
         if (!otherTableHead) {
             return;
@@ -774,18 +790,25 @@ var system = (function () {
 
         ckanTableHead.innerHTML = getCKANSystemsHead();
         ckanTableBody.innerHTML = ckanBody;
+        ckanTableFoot.innerHTML = '<tr><td style="border:none">' + (ckanBody.split('<tr>').length - 1) + ' systems</td></tr>';
         dkanTableHead.innerHTML = getDKANSystemsHead();
         dkanTableBody.innerHTML = dkanBody;
+        dkanTableFoot.innerHTML = '<tr><td style="border:none">' + (dkanBody.split('<tr>').length - 1) + ' systems</td></tr>';
         piveauTableHead.innerHTML = getPiveauSystemsHead();
         piveauTableBody.innerHTML = piveauBody;
+        piveauTableFoot.innerHTML = '<tr><td style="border:none">' + (piveauBody.split('<tr>').length - 1) + ' systems</td></tr>';
         odsTableHead.innerHTML = getODSSystemsHead();
         odsTableBody.innerHTML = odsBody;
+        odsTableFoot.innerHTML = '<tr><td style="border:none">' + (odsBody.split('<tr>').length - 1) + ' systems</td></tr>';
         entryScapeTableHead.innerHTML = getEntryScapeSystemsHead();
         entryScapeTableBody.innerHTML = entryScapeBody;
+        entryScapeTableFoot.innerHTML = '<tr><td style="border:none">' + (entryScapeBody.split('<tr>').length - 1) + ' systems</td></tr>';
         arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
         arcGISHubTableBody.innerHTML = arcGISHubBody;
+        arcGISHubTableFoot.innerHTML = '<tr><td style="border:none">' + (arcGISHubBody.split('<tr>').length - 1) + ' systems</td></tr>';
         otherTableHead.innerHTML = getOtherSystemsHead();
         otherTableBody.innerHTML = otherBody;
+        otherTableFoot.innerHTML = '<tr><td style="border:none">' + (otherBody.split('<tr>').length - 1) + ' systems</td></tr>';
     }
 
     function funcUpdate() {
@@ -795,11 +818,21 @@ var system = (function () {
 
     init();
 
+    function funcOnExpandExtension(link) {
+        var parent = link.parentElement.parentElement;
+        var divLeft = parent.getElementsByClassName('ext-left')[0];
+        var divRight = parent.getElementsByClassName('ext-right')[0];
+
+        divLeft.style.display = 'none';
+        divRight.style.display = 'block';
+    }
+
     return {
         addEventListenerStartLoading: funcAddEventListenerStartLoading,
         addEventListenerEndLoading: funcAddEventListenerEndLoading,
         get: funcGet,
         loadData: funcLoadData,
+        onExpandExtension: funcOnExpandExtension,
         update: funcUpdate,
     };
 }());

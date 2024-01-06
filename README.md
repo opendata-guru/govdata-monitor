@@ -17,6 +17,8 @@
 A monitoring dashboard:
 https://opendata.guru/govdata/index.html
 
+The OpenAPI description: /openapi.yaml
+
 Count all datasets:
 
 - https://opendata.guru/govdata/get/count-datasets.php
@@ -82,12 +84,13 @@ Regionalschlüssel:
 
 - https://www.dcat-ap.de/def/politicalGeocoding/regionalKey/
 
-## OpenAPI
+## API documentation
 
 - CKAN: https://www.data.gv.at/api-hub/?schema=https://www.data.gv.at/katalog/schema.yml
 - DKAN: https://demo.getdkan.org/api
 - DKAN: https://github.com/GetDKAN/dkan
 - Piveau: https://open.bydata.de/api/hub/search/ and https://open.bydata.de/api/hub/repo/
+- [Opendatasoft's Explore API Reference Documentation (v2.1)](https://help.opendatasoft.com/apis/ods-explore-v2/)
 
 ## Ideas
 
@@ -107,10 +110,6 @@ Quellenvermerk und Veränderungshinweis sind wie folgt zu gestalten. Bei der Dar
 einer Webseite ist der Quellenvermerk mit der URL "http://www.bkg.bund.de" zu verlinken.
 © GeoBasis-DE / BKG (Jahr des letzten Datenbezugs)
 © GeoBasis-DE / BKG (Jahr des letzten Datenbezugs) (Daten verändert)
-
-## API documentation
-
-- [Opendatasoft's Explore API Reference Documentation (v2.1)](https://help.opendatasoft.com/apis/ods-explore-v2/)
 
 ### Organisations
 

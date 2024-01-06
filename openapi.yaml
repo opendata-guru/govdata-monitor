@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: Unique Data Repository API
+  version: 1.0.0
+  description: API wrapper around different know data repositories
+  contact:
+    email: thomas@tursics.de
+    name: Thomas Tursics
+    url: https://www.tursics.de/
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit/
+servers:
+  - url: https://opendata.guru/govdata/get
+    variables: {}
+    description: The OpenData Guru endpoint
+paths:
+  /count-datasets.php:
+    get:
+      summary: Count all datasets
+      description: Count all datasets of given repository endpoint
+      operationId: countDatasets
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - live
+  /list-organizations.php:
+    get:
+      summary: Get a list of all contributors
+      description: Get a list of all contributors and some more meta data
+      operationId: getOrganisations
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - live
+  /list-datasets.php:
+    get:
+      summary: Get a list of all datasets
+      description: Get a list of all datasets
+      operationId: getDatasets
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - live
+  /system-status.php:
+    get:
+      summary: Get system status information
+      description: Get system status information
+      operationId: getSystem
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - live
+  /rs-to-geojson.php:
+    get:
+      summary: Convert RS to GEOJSON
+      description: Convert RS (Regionalschlüssel) to GEOJSON file
+      operationId: convertRStoGEOJSON
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - cached
+    post:
+      summary: Convert RS to GEOJSON
+      description: >-
+        Parameter length in GET method is limited to some KByte (depend on
+        Browser support). You can use `rs` as POST parameter to prevent this
+        limitation.
+      operationId: convertRStoGEOJSONwithPOST
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - cached
+  /govdata-startpage.svg:
+    get:
+      summary: Info box on start page
+      description: Info box on start page
+      operationId: getImageGovDataStartpage
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /govdata-datapage.svg:
+    get:
+      summary: Data counter on data page
+      description: Data counter on data page
+      operationId: getImageGovDataDatapage
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /govdata-sparql-countdatasets.svg:
+    get:
+      summary: Result of the SPARQL query count datasets
+      description: Result of the SPARQL query count datasets
+      operationId: getImageGovDataSPARQLCountDatasets
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /govdata-sparql-countdistributiondatasets.svg:
+    get:
+      summary: Result of the SPARQL query count distributon datasets
+      description: Result of the SPARQL query count distributon datasets
+      operationId: getImageGovDataSPARQLCountDistributionDatasets
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /govdata-ckan.svg:
+    get:
+      summary: Length of the dataset list on CKAN endpoint
+      description: Length of the dataset list on CKAN endpoint
+      operationId: getImageGovDataCKAN
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /govdata-dcatapde.svg:
+    get:
+      summary: Total items count of pagination info in DCAT-AP.de endpoint
+      description: >-
+        Total items count of pagination info in DCAT-AP.de endpoint and data
+        counter on this page
+      operationId: getImageGovDataDCATAP
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /eudata-datapage.svg:
+    get:
+      summary: Data counter for GovData on EU data portal
+      description: Data counter for GovData on EU data portal
+      operationId: getImageGovDataEUdataPortal
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+  /eudata-statistics.svg:
+    get:
+      summary: Data counter for GovData on the EU data portal statistic page
+      description: >-
+        Data counter for GovData on the EU data portal statistic page (updated
+        nearly monthly)
+      operationId: getImageGovDataEUdataStatistics
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - image
+tags:
+  - name: live
+    description: >-
+      The operation calls the source systems directly. Be patient on heavy
+      usage. There is no caching system.
+  - name: cached
+    description: Source data will be cached monthly.
+  - name: image
+    description: >-
+      A generated image with current live data. Cache time (for browsers) is 12
+      hours.

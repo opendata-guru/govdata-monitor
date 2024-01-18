@@ -90,7 +90,7 @@ Bottrop,municipality,Stadt Bottrop,opendata.ruhr|bottrop,www.offenesdatenportal.
 Bramsche,municipality,Stadt Bramsche,geoportal.de|StadtBramsche,,,,,,034590014014,,Q16109,,,,2023-08-11
 Brandenburg,state,Brandenburg,http://dcat-ap.de/def/contributors/landBrandenburg,,,,https://datenadler.de/,,12,,Q1208,,https://datenadler.de/publisher,,2023-02-05
 Brauneberg,municipality,Ortsgemeinde Brauneberg,daten.rlp.de|ortsgemeinde_brauneberg,,,,,,072315001012,,Q567156,,,,2023-07-19
-Braunschweig,municipality,Stadt Braunschweig,geoportal.de|StadtBraunschweig,,,,https://www.braunschweig.de/leben/stadtplanung_bauen/geoinformationen/opengeodata.php,,031010000000,,Q2773,,,,2023-12-15
+Braunschweig,municipality,Stadt Braunschweig,geoportal.de|StadtBraunschweig,,,,https://opendata.braunschweig.de/,,031010000000,,Q2773,,https://opendata.braunschweig.de/api/3/action/group_list,,2024-01-18
 Breitungen/Werra,collectiveMunicipality,Gemeinde Breitungen und der beauftragenden Gemeinden,geoportal.de|GemeindeBreitungenundderbeauftragendenGemeinden,,,,,,160665051,,Q312658,,,,2023-08-14
 Bremen,municipality+state,Freie Hansestadt Bremen,http://dcat-ap.de/def/contributors/transparenzportalBremen,,,,https://www.transparenz.bremen.de/,,04,,Q1209,,https://www.transparenz.bremen.de/sixcms/detail.php?gsid=kogis_tp_berlin01.c.85852.de&_article_id=1467&fulltext=,,2023-02-15
 Brenk,municipality,Ortsgemeinde Brenk,daten.rlp.de|ortsgemeinde_brenk,,,,,,071315004201,,Q645340,,,,2023-07-19

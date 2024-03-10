@@ -49,14 +49,62 @@
 //		$count = $catalog->result->count;
 		$count = $countData->result->count;
 
+		// new in Bavaria
+		$is_part_of = $catalog->result->is_part_of;
+		$has_part = $catalog->result->has_part;
+
 		$data[] = semanticContributor($uriDomain, array(
 			'id' => $id,
 			'name' => $id,
 			'title' => $title,
 			'created' => '',
 			'packages' => $count,
-			'uri' => ''
+			'uri' => '',
+			'is_part_of' => $is_part_of,
+			'has_part' => $has_part,
 		));
+	}
+
+	for ($d = 0; $d < count($data); ++$d) {
+		if ($data[$d]['is_part_of'] === null) {
+			unset($data[$d]['is_part_of']);
+		}
+		if ($data[$d]['has_part']) {
+			$data[$d]['part'] = array();
+			$reset = false;
+
+			for ($h = 0; $h < count($data[$d]['has_part']); ++$h) {
+				if ($data[$d]['id'] === $data[$d]['has_part'][$h]) {
+//					$data[$d]['part'][] = '!!! error - recursion';
+				} else {
+					for ($d2 = 0; $d2 < count($data); ++$d2) {
+						if ($data[$d2]['id'] === $data[$d]['has_part'][$h]) {
+							if ($data[$d2]['has_part'] === null) {
+								unset($data[$d2]['has_part']);
+							}
+							unset($data[$d2]['is_part_of']);
+
+							array_splice($data[$d]['has_part'], $h, 1);
+							$data[$d]['part'][] = $data[$d2];
+
+							array_splice($data, $d2, 1);
+							$reset = true;
+							$d2 = -1;
+						}
+					}
+				}
+			}
+
+			if (0 === count($data[$d]['has_part'])) {
+				$data[$d]['has_part'] = null;
+			}
+
+			if ($reset) {
+				$d = -1;
+			}
+		} else if ($data[$d]['has_part'] === null) {
+			unset($data[$d]['has_part']);
+		}
 	}
 
 	echo json_encode($data);

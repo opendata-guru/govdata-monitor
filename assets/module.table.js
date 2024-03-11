@@ -290,6 +290,11 @@ var table = (function () {
         if (row.linkId) {
             title = '<a href="#" onclick="catalog.set(\'' + row.linkId + '\')">' + title + '</a>';
         }
+        if (row.children.length > 0) {
+            var map = row.children.map((child) => child.id);
+
+            title += ' (+ ' + map.join(' + ') + ')';
+        }
         if (row.path && (row.path !== '')) {
             title += ' <span class="small text-info">' + row.path + '</span>';
         }

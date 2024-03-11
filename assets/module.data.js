@@ -130,6 +130,7 @@ var data = (function () {
         var datasetCount = undefined;
         var lastCount = undefined;
         var maxDiff = 0;
+        var parts = undefined;
 
         arrayData.forEach(processData => {
             var dataObj = processData ? processData.filter(item => item.id === id) : [];
@@ -146,6 +147,7 @@ var data = (function () {
                 typeStr = funcGetTypeString(type);
                 contributor = getContributor(processData, obj);
 
+                parts = obj.parts;
                 if (showBadge) {
                     datasetCount = obj.datasetCount ? obj.datasetCount : null;
                 }
@@ -198,6 +200,7 @@ var data = (function () {
         }
 
         view.push({
+            children: parts || [],
             cols: packages,
             contributor: contributor,
             datasetCount: datasetCount,

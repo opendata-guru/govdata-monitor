@@ -70,12 +70,14 @@
 			unset($data[$d]['is_part_of']);
 		}
 		if ($data[$d]['has_part']) {
-			$data[$d]['part'] = array();
+			if (!$data[$d]['parts']) {
+				$data[$d]['parts'] = array();
+			}
 			$reset = false;
 
 			for ($h = 0; $h < count($data[$d]['has_part']); ++$h) {
 				if ($data[$d]['id'] === $data[$d]['has_part'][$h]) {
-//					$data[$d]['part'][] = '!!! error - recursion';
+//					$data[$d]['parts'][] = '!!! error - recursion';
 				} else {
 					for ($d2 = 0; $d2 < count($data); ++$d2) {
 						if ($data[$d2]['id'] === $data[$d]['has_part'][$h]) {
@@ -83,9 +85,10 @@
 								unset($data[$d2]['has_part']);
 							}
 							unset($data[$d2]['is_part_of']);
+							$data[$d]['packages'] += $data[$d2]['packages'];
 
 							array_splice($data[$d]['has_part'], $h, 1);
-							$data[$d]['part'][] = $data[$d2];
+							$data[$d]['parts'][] = $data[$d2];
 
 							array_splice($data, $d2, 1);
 							$reset = true;

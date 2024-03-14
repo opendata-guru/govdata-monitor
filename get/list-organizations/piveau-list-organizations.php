@@ -31,7 +31,7 @@
 
 	$list = json_decode($source);
 
-	for ($l = 1; $l < count($list); ++$l) {
+	for ($l = 0; $l < count($list); ++$l) {
 		$catalogURI = $paramLink . $catalogSuffix . $list[$l];
 		$source = file_get_contents($catalogURI);
 		$catalog = json_decode($source);

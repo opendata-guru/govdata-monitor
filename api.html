@@ -17,17 +17,7 @@
 	<link href="assets/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-	<link rel=stylesheet type=text/css href=https://unpkg.com/peacock-user-ui@latest/dist/css/app.loadinganimation.css>
-	<script defer=defer src=https://unpkg.com/peacock-user-ui@latest/dist/js/vendors.js></script>
-	<script defer=defer src=https://unpkg.com/peacock-user-ui@latest/dist/js/app.js></script>
-	<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-	<link href=https://unpkg.com/peacock-user-ui@latest/dist/css/vendors.css rel=stylesheet>
-	<link href=https://unpkg.com/peacock-user-ui@latest/dist/css/app.css rel=stylesheet>
-	<style>
-		#app header, #app footer {
-			display: none;
-		}
-	</style>
+	<script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
 </head>
 
 <body>
@@ -54,7 +44,7 @@
 								<i class="align-middle" data-feather="shield"></i> <span class="align-middle">Systems</span>
 							</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item border-bottom border-4 border-info">
 							<a class="nav-link" href="api.html">
 								<i class="align-middle" data-feather="terminal"></i> <span class="align-middle">API</span>
 							</a>
@@ -64,7 +54,7 @@
 								<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Meter</span>
 							</a>
 						</li>
-						<li class="nav-item border-bottom border-4 border-info">
+						<li class="nav-item">
 							<a class="nav-link link-warning" href="datasets.html">
 								<i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Datasets</span>
 							</a>
@@ -79,15 +69,30 @@
 				</div>
 			</nav>
 
-			<main class="content p-0 pt-4">
+			<main class="content p-0">
 				<div class="container-fluid p-0">
 
 					<div class="row">
-						<div class="col">
+						<div class="col bg-white" style="position:relative;height: unset;">
 
-							<link rel=stylesheet type=text/css href=https://unpkg.com/peacock-user-ui@latest/dist/css/custom.css>
-							<div id=app><app><div class=spinner-container id=good><div class=spinner></div></div></app></div>
-
+							<rapi-doc
+								allow-authentication = 'false'
+								allow-schema-description-expand-toggle = 'false'
+								allow-server-selection = 'false'
+								load-fonts = 'false'
+								nav-bg-color = '#fff'
+								primary-color = '#17a2b8'
+								render-style = 'view'
+								show-curl-before-try = 'false'
+								show-header = 'false'
+								show-info = 'false'
+								show-method-in-nav-bar = 'as-colored-block'
+								spec-url = "https://opendata.guru/api/openapi.json"
+								theme = 'light'
+								update-route = 'false'
+								use-path-in-nav-bar	= 'false'
+							>
+							</rapi-doc>
 						</div>
 					</div>
 
@@ -114,7 +119,6 @@
 	</div>
 
 	<script src="assets/app.js"></script>
-	<script src="assets/page.datasets.js"></script>
 </body>
 
 </html>

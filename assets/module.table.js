@@ -293,7 +293,7 @@ var table = (function () {
         if (row.children.length > 0) {
             var map = row.children.map((child) => child.id);
 
-            title += ' (+ ' + map.join(' + ') + ')';
+            title += ' (incl. ' + map.join(' + ') + ')';
         }
         if (row.path && (row.path !== '')) {
             title += ' <span class="small text-info">' + row.path + '</span>';

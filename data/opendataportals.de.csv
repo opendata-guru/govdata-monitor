@@ -103,7 +103,8 @@ Brake,municipality,Stadt Brake,geoportal.de|StadtBrake,,,,,,034610002002,,Q50163
 Bramsche,municipality,Stadt Bramsche,geoportal.de|StadtBramsche,,,,,,034590014014,,Q16109,,,,2023-08-11
 Brandenburg,state,Brandenburg,http://dcat-ap.de/def/contributors/landBrandenburg,,,,https://datenadler.de/,,12,,Q1208,,https://datenadler.de/publisher,,2023-02-05
 Brauneberg,municipality,Ortsgemeinde Brauneberg,daten.rlp.de|ortsgemeinde_brauneberg,,,,,,072315001012,,Q567156,,,,2023-07-19
-Braunschweig,municipality,Stadt Braunschweig,geoportal.de|StadtBraunschweig,,,,https://opendata.braunschweig.de/,,031010000000,,Q2773,,https://opendata.braunschweig.de/api/3/action/group_list,,2024-01-18
+Braunschweig,municipalityPortal,Stadt Braunschweig,geoportal.de|StadtBraunschweig,,,,https://opendata.braunschweig.de/,,,031010000000,,,https://opendata.braunschweig.de/api/3/action/group_list,,2024-03-18
+Braunschweig,municipality,Stadt Braunschweig,opendata.braunschweig.de|stadt-braunschweig,,,,,,031010000000,,Q2773,,,,2024-03-18
 Breitungen/Werra,collectiveMunicipality,Gemeinde Breitungen und der beauftragenden Gemeinden,geoportal.de|GemeindeBreitungenundderbeauftragendenGemeinden,,,,,,160665051,,Q312658,,,,2023-08-14
 Bremen,municipality+state,Freie Hansestadt Bremen,http://dcat-ap.de/def/contributors/transparenzportalBremen,,,,https://www.transparenz.bremen.de/,,04,,Q1209,,https://www.transparenz.bremen.de/sixcms/detail.php?gsid=kogis_tp_berlin01.c.85852.de&_article_id=1467&fulltext=,,2023-02-15
 Brenk,municipality,Ortsgemeinde Brenk,daten.rlp.de|ortsgemeinde_brenk,,,,,,071315004201,,Q645340,,,,2023-07-19
@@ -188,7 +189,8 @@ Dolmar-Salzbr√ºcke,collectiveMunicipality,Verwaltungsgemeinschaft Dolmar-Salzbr√
 Dormagen,municipality,Dormagen,open.nrw|dormagen,mcloud.de|OpenNRWDormagen,opendata.rhein-kreis-neuss.de|StadtDormagen,,https://opendata.dormagen.de,2017-12-07,051620004004,,Q3978,https://opendata.dormagen.de/api/v2/catalog/datasets,https://dormagen.opendatasoft.com/api/explore/v2.1/catalog/facets,,2023-09-09
 Dornburg-Camburg,collectiveMunicipality,Verwaltungsgemeinschaft Dornburg-Camburg,geoportal.de|VerwaltungsgemeinschaftDornburgCamburg,,,,,,160745015,,Q879514,,,,2023-09-19
 Dornum,municipality,Gemeinde Dornum,geoportal.de|GemeindeDornum,,,,,,034520027027,,Q567381,,,,2024-03-14
-Dortmund,municipality,Dortmund,open.nrw|dortmund,opendata.ruhr|dortmund,,,https://open-data.dortmund.de/,2018-08-23,059130000000,,Q1295,,https://open-data.dortmund.de/api/explore/v2.1/catalog/facets,,2023-12-16
+Dortmund,municipalityPortal,Dortmund,open.nrw|dortmund,opendata.ruhr|dortmund,,,https://open-data.dortmund.de/,2018-08-23,,059130000000,,,https://open-data.dortmund.de/api/explore/v2.1/catalog/facets,,2024-03-18
+Dortmund,municipality,Stadt Dortmund,open-data.dortmund.de|StadtDortmund,,,,,,059130000000,,Q1295,,,,2024-03-18
 Drakenburg,municipality,Flecken Drakenburg,geoportal.de|FleckenDrakenburg,,,,,,032565402005,,Q603261,,,,2023-10-30
 Dresden,municipality,Stadt Dresden,register.opendata.sachsen.de|https://register.opendata.sachsen.de/store/478/resource/9cb1a161d0460e7570855841fa396bd5,geoportal.de|LandeshauptstadtDresden,mcloud.de|GovDataLandeshauptstadtDresden,register.opendata.sachsen.de|https://www.dresden.de/,https://opendata.dresden.de,,146120000000,,Q1731,,https://opendata.dresden.de/duva2dcat/,,2023-12-16
 Drolshagen,municipality,Stadt Drolshagen,geoportal.de|StadtDrolshagen,,,,,,059660008008,,Q10890,,,,2023-08-13

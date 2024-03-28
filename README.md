@@ -90,6 +90,7 @@ Regionalschlüssel:
 - DKAN: https://demo.getdkan.org/api
 - DKAN: https://github.com/GetDKAN/dkan
 - Piveau: https://open.bydata.de/api/hub/search/ and https://open.bydata.de/api/hub/repo/
+- EntryStore: https://entrystore.org/api/
 - [Opendatasoft's Explore API Reference Documentation (v2.1)](https://help.opendatasoft.com/apis/ods-explore-v2/)
 
 ## Ideas

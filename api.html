@@ -18,6 +18,22 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 	<script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+	<style>
+		rapi-doc::part(section-main-content) {
+			background: #fff;
+			margin: -1.5em 0 1.5em 0;
+		}
+		rapi-doc::part(section-endpoint-head-method) {
+			background: #a4e9f4;
+			border: 1px solid #17a2b8;
+			border-radius: .25rem;
+			color: #222;
+			padding: .25rem .5rem;
+		}
+		rapi-doc::part(btn) {
+			box-shadow: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -75,6 +91,7 @@
 					<div class="row">
 						<div class="col bg-white" style="position:relative;height: unset;">
 
+							<!-- https://rapidocweb.com/index.html -->
 							<rapi-doc
 								allow-authentication = 'false'
 								allow-schema-description-expand-toggle = 'false'
@@ -83,7 +100,7 @@
 								nav-bg-color = '#fff'
 								primary-color = '#17a2b8'
 								render-style = 'view'
-								show-curl-before-try = 'false'
+								show-curl-before-try = 'true'
 								show-header = 'false'
 								show-info = 'false'
 								show-method-in-nav-bar = 'as-colored-block'
@@ -93,6 +110,7 @@
 								use-path-in-nav-bar	= 'false'
 							>
 							</rapi-doc>
+
 						</div>
 					</div>
 

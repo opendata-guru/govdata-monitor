@@ -38,13 +38,19 @@
 	}
 
 	function getCKANData($link) {
-		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
-		$uri = dirname(dirname($uri));
-
-		$uri .= '/get/count-datasets.php?link=' . urlencode($link);
+		$uri = 'https://opendata.guru/api/2';
+		$uri .= '/datasets/count?link=' . urlencode($link);
 
 		$data = curl($uri);
-		return json_decode($data);
+		$json = json_decode($data);
+
+		if ($json->error) {
+			$json = null;
+		} else {
+			$json = $json->number;
+		}
+
+		return $json;
 	}
 
 	function getNextData($data) {

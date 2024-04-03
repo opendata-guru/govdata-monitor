@@ -21,14 +21,7 @@ The OpenAPI description: /openapi.yaml
 
 Count all datasets:
 
-- https://opendata.guru/govdata/get/count-datasets.php
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://datenadler.de/publisher
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://geoportal.de
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://www.mcloud.de/web/guest/suche/
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://register.opendata.sachsen.de/store/
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://data.europa.eu/api/hub/search/catalogues
-- https://opendata.guru/govdata/get/count-datasets.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
+- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
 
 Get a list of all contributors and some more meta data:
 
@@ -50,13 +43,7 @@ Get a list of all datasets:
 
 Get system status information:
 
-- https://opendata.guru/govdata/get/system-status.php
-- https://opendata.guru/govdata/get/system-status.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
-- https://opendata.guru/govdata/get/system-status.php?link=https://data.europa.eu/api/hub/search/catalogues
-- https://opendata.guru/govdata/get/system-status.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
-- https://opendata.guru/govdata/get/system-status.php?link=https://register.opendata.sachsen.de/store/
-- https://opendata.guru/govdata/get/system-status.php?link=https://admin.dataportal.se/store/
-- https://opendata.guru/govdata/get/system-status.php?link=https://portal-chemnitz.opendata.arcgis.com/
+- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
 
 Convert RS (Regionalschlüssel) to GEOJSON file:
 

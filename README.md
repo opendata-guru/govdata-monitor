@@ -25,16 +25,7 @@ Count all datasets:
 
 Get a list of all contributors and some more meta data:
 
-- https://opendata.guru/govdata/get/list-organizations.php
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://datenadler.de/publisher
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://geoportal.de
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://www.mcloud.de/web/guest/suche/
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://offenedaten.kdvz.nrw/api/3/action/group_list
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://register.opendata.sachsen.de/store/
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://data.europa.eu/api/hub/search/catalogues
-- for bug in NRW: https://opendata.guru/govdata/get/list-organizations/nrw-list-organizations.php?link=https://ckan.open.nrw.de/api/3/action/organization_list
-- https://opendata.guru/govdata/get/list-organizations.php?link=https://opendata.potsdam.de/api/v2/catalog/facets
+- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
 
 Get a list of all datasets:
 - https://opendata.guru/govdata/get/list-datasets.php
@@ -70,15 +61,6 @@ And service endpoints:
 Regionalschlüssel:
 
 - https://www.dcat-ap.de/def/politicalGeocoding/regionalKey/
-
-## API documentation
-
-- CKAN: https://www.data.gv.at/api-hub/?schema=https://www.data.gv.at/katalog/schema.yml
-- DKAN: https://demo.getdkan.org/api
-- DKAN: https://github.com/GetDKAN/dkan
-- Piveau: https://open.bydata.de/api/hub/search/ and https://open.bydata.de/api/hub/repo/
-- EntryStore: https://entrystore.org/api/
-- [Opendatasoft's Explore API Reference Documentation (v2.1)](https://help.opendatasoft.com/apis/ods-explore-v2/)
 
 ## Ideas
 

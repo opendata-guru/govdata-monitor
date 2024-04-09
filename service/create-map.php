@@ -4,8 +4,6 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	include('../get/list-organizations/_semantic.php');
-
 	$filePath = '../assets/map-' . date('Y') . '/' . date('Y-m-d') . '-de.geojson';
 
 	function curl($url) {
@@ -51,16 +49,20 @@
 	}
 
 	function getRSList() {
-		global $mapping, $mappingRS, $mappingAssociatedRS;
+		$uri = 'https://opendata.guru/api/2';
+		$uri .= '/data-providers';
+
+		$data = curl($uri);
+		$json = json_decode($data);
 
 		$ret = [];
 
-		foreach($mapping as $line) {
-			if ($line[$mappingRS]) {
-				$ret[] = $line[$mappingRS];
+		foreach($json as $line) {
+			if ($line->rs) {
+				$ret[] = $line->rs;
 			}
-			if ($line[$mappingAssociatedRS]) {
-				$ret[] = $line[$mappingAssociatedRS];
+			if ($line->associated_rs) {
+				$ret[] = $line->associated_rs;
 			}
 		}
 

@@ -4,8 +4,6 @@
     header('Access-Control-Allow-Headers: X-Requested-With');
 	header('Content-Type: application/json; charset=utf-8');
 
-	include('../get/list-organizations/_semantic.php');
-
 	$filePath = '../assets/data-' . date('Y') . '/' . date('Y-m-d') . '-systems.json';
 
 	function getWorkingData() {
@@ -54,7 +52,21 @@
 	}
 
 	function getStartData() {
-		return semanticGetAllPortals();
+		$uri = 'https://opendata.guru/api/2';
+		$uri .= '/data-providers';
+
+		$data = curl($uri);
+		$json = json_decode($data);
+
+		$ret = [];
+
+		foreach($json as $line) {
+			if ($line->link && ($line->link !== '')) {
+				$ret[] = $line;
+			}
+		}
+
+		return $ret;
 	}
 
 	function getNextData($data) {

@@ -377,7 +377,7 @@ var table = (function () {
         var cat = catalog.get(catName);
         var catLink = cat.link;
 
-        console.log('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id);
+        console.log('https://opendata.guru/api/2/datasets?link=' + catLink + '&sub_id=' + id);
         if (id === '') {
             console.log('/api/3/action/package_list');
         } else {
@@ -392,7 +392,7 @@ var table = (function () {
         //   limit + offset
         // package_search https://docs.ckan.org/en/2.8/api/index.html#ckan.logic.action.get.package_search
 
-        loadDatasetList('https://opendata.guru/govdata/get/list-datasets.php?link=' + catLink + '&id=' + id, elemHeader, elemBody);
+        loadDatasetList('https://opendata.guru/api/2/datasets?link=' + catLink + '&sub_id=' + id, elemHeader, elemBody);
     }
 
     function getCatalogMenu(catalogId) {

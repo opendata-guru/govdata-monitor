@@ -28,9 +28,8 @@ Get a list of all contributors and some more meta data:
 - use new OpenAPI documentation: https://opendata.guru/govdata/api.html
 
 Get a list of all datasets:
-- https://opendata.guru/govdata/get/list-datasets.php
-- https://opendata.guru/govdata/get/list-datasets.php?link=http://offenedaten.frankfurt.de/api/3/action/organization_list
-- https://opendata.guru/govdata/get/list-datasets.php?link=http://offenedaten.frankfurt.de/api/3/action/organization_list&id=buergeramt-statistik-und-wahlen
+
+- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
 
 Get system status information:
 

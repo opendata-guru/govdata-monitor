@@ -1,6 +1,7 @@
 var system = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         uriToLoad = '',
+        uriChangelogCKAN = 'https://opendata.guru/api/2/system/changelog?system=CKAN',
         systemId = null;
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
@@ -39,6 +40,7 @@ var system = (function () {
         couldNotCountDatasets: 'Could not count datasets',
     };
     var assets = [];
+    var assetsChangelogCKAN = [];
 
     function init() {
     }
@@ -66,19 +68,40 @@ var system = (function () {
         uriToLoad = uri;
     }
 
-    function store(payload) {
+    function storeSystemFile(payload) {
         assets = payload;
+
+        loadChangelog();
+    }
+
+    function storeChangelog(payload) {
+        assetsChangelogCKAN = payload;
 
         dispatchEventEndLoading();
     }
 
-    function load() {
+    function loadSystemFile() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', uriToLoad, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                store(JSON.parse(this.responseText));
+                storeSystemFile(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                dispatchEventEndLoading();
+            }
+        }
+
+        xhr.send();
+    }
+
+    function loadChangelog() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uriChangelogCKAN, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeChangelog(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
                 dispatchEventEndLoading();
             }
@@ -193,7 +216,7 @@ var system = (function () {
 
         dispatchEventStartLoading();
 
-        load();
+        loadSystemFile();
     }
 
     function funcGet(catalogId) {
@@ -451,7 +474,18 @@ var system = (function () {
 
         if (sys && sys.server) {
             sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
-            cols += '<td class="align-middle">' + (sys.server.version || '-') + '</td>';
+            if (sys.server.version) {
+                var version = sys.server.version;
+                assetsChangelogCKAN.history.forEach(item => {
+                    if (item.version === sys.server.version) {
+                        var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
+                        version += '<br><span class="badge ' + color + '">' + item.date + '</span>';
+                    }
+                });
+                cols += '<td class="align-middle">' + version + '</td>';
+            } else {
+                cols += '<td class="align-middle">-</td>';
+            }
             if (sys.server.url) {
                 cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
             } else {

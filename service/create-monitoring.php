@@ -52,7 +52,7 @@
 				}
 			}
 
-			if (count($orga) === 0) {
+			if ((count($orga) === 0) && ($system->type !== 'root')) {
 				$errors[] = (object) array('object' => $system->link, 'message' => 'noOrganisationFound');
 				continue;
 			} /* elseif (count($orga) > 1) {

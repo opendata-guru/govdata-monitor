@@ -19,7 +19,7 @@
 	}
 
 	function call($link) {
-		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
+		$uri = 'https://' . $_SERVER['HTTP_HOST'] . htmlspecialchars($_SERVER['REQUEST_URI']);
 		$uri = dirname($uri);
 		$uri .= '/' . $link;
 

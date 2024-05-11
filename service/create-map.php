@@ -18,7 +18,7 @@
 	}
 
 	function getGeoJSON($param) {
-		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
+		$uri = 'https://' . $_SERVER['HTTP_HOST'] . htmlspecialchars($_SERVER['REQUEST_URI']);
 		$uri = dirname(dirname($uri));
 
 		$encodedParams = str_replace('%2C', ',', urlencode($param));

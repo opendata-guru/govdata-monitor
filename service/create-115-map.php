@@ -27,7 +27,7 @@
 		$paramRS = implode(',', $arrayRS);
 		$paramStatus = implode(',', $arrayStatus);
 
-		$uri = 'https://' . $_SERVER[HTTP_HOST] . htmlspecialchars($_SERVER[REQUEST_URI]);
+		$uri = 'https://' . $_SERVER['HTTP_HOST'] . htmlspecialchars($_SERVER['REQUEST_URI']);
 		$uri = dirname(dirname($uri));
 
 		$params = 'rs=' . str_replace('%2C', ',', urlencode($paramRS));
@@ -105,7 +105,7 @@
 		$mappingParticipant = 4;
 		$mapping = [];
 
-		load115data('tbd.', $mapping);
+		load115data('../assets/115/2023-10-13-masterdata.csv', $mapping);
 
 		$ret = [];
 

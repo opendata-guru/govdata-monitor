@@ -9,7 +9,11 @@ var data = [{"date":"2021-03-26","total_count":42101},{"date":"2021-03-27","tota
 var chartLine = null,
   columnTitles = [],
   rowTitles = [],
-  chartData = [];
+  chartData = [],
+  days = 100,
+  loop = 0,
+  startIndex = 0,
+  endIndex = 0;
 
   function getGradient() {
     var ctx = document.getElementById(idRaceChart).getContext('2d');
@@ -40,6 +44,18 @@ function getGradientBase() {
     return gradientBase;
 }
 
+function tickChart() {
+    var minStart = 0;
+    var maxEnd = data.length - 1;
+
+    ++loop;
+
+    startIndex = Math.min(maxEnd - days, Math.max(minStart, loop));
+    endIndex = Math.min(maxEnd, loop + days);
+
+    updateChart();
+}
+
 function clearData() {
   columnTitles = [];
   rowTitles = [];
@@ -53,8 +69,6 @@ function fillData() {
   chartData.push([]);
   columnTitles.push(title);
 
-  var startIndex = 0;
-  var endIndex = dataObj.length - 1;
   for (d = startIndex; d < endIndex; ++d) {
       rowTitles.push(dataObj[d].date);
       chartData[0].push(dataObj[d].total_count);
@@ -140,7 +154,23 @@ function updateChart() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  updateChart();
+    var buttonPlay = document.getElementById('race-play');
+    var timer = null;
+
+    loop = -days;
+
+    updateChart();
+
+    buttonPlay.addEventListener('click', () => {
+        if (buttonPlay.classList.contains('bg-success')) {
+            timer = window.setInterval(tickChart, 10);
+        } else {
+            window.clearInterval(timer);
+        }
+
+        buttonPlay.classList.toggle('bg-success');
+        buttonPlay.classList.toggle('bg-secondary');
+    });
 });
 
 // ----------------------------------------------------------------------------

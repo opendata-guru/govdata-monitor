@@ -10,7 +10,7 @@ var chartLine = null,
   columnTitles = [],
   rowTitles = [],
   chartData = [],
-  days = 100,
+  days = 333,
   loop = 0,
   startIndex = 0,
   endIndex = 0;
@@ -44,6 +44,13 @@ function getGradientBase() {
     return gradientBase;
 }
 
+function resetChart() {
+    loop = -days;
+
+    updateChart();
+    tickChart();
+}
+
 function tickChart() {
     var minStart = 0;
     var maxEnd = data.length - 1;
@@ -73,6 +80,11 @@ function fillData() {
       rowTitles.push(dataObj[d].date);
       chartData[0].push(dataObj[d].total_count);
   }
+
+  while(rowTitles.length < days) {
+    rowTitles.unshift('');
+    chartData[0].unshift(undefined);
+  }
 }
 
 function getDatasets() {
@@ -88,11 +100,24 @@ function getDatasets() {
           borderColor: gradientBase[c],
           borderWidth: 2,
           pointRadius: 1,
-          data: chartData[c]
+          data: chartData[c],
+          image: 'assets/icon-48x48.png',
       });
   }
 
   return datasets;
+}
+
+function getPointStyle(datapoint) {
+    if (datapoint.dataIndex === (days - 1)) {
+        var image = new Image();
+        image.src = 'assets/govdata.svg';
+        image.height = 50;
+        image.width = 50;
+        return image;
+    }
+
+    return 'circle';
 }
 
 function updateChart() {
@@ -119,6 +144,12 @@ function updateChart() {
               legend: {
                   display: false
               },
+              layout: {
+                padding: {
+                    right: 25,
+                    top: 25
+                }
+              },
               tooltips: {
                   intersect: false
               },
@@ -130,23 +161,31 @@ function updateChart() {
                       propagate: false
                   }
               },
+              elements: {
+                point: {
+                    pointStyle: getPointStyle,
+                    radius: 3
+                },
+              },
               scales: {
                   xAxes: [{
-                      reverse: true,
+                    reverse: true,
                       gridLines: {
                           color: 'transparent'
                       }
                   }],
                   yAxes: [{
-/*                            ticks: {
-                          stepSize: stepSize
-                      },*/
+                      ticks: {
+                          stepSize: 10000,
+                          suggestedMin: 0,
+                          suggestedMax: 100000,
+                      },
                       display: true,
                       borderDash: [3, 3],
                       gridLines: {
-                          color: 'transparent'
-                      }
-                  }]
+                          color: '#ddd'
+                      },
+                  }],
               }
           }
       });
@@ -154,12 +193,11 @@ function updateChart() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    var buttonReset = document.getElementById('race-reset');
     var buttonPlay = document.getElementById('race-play');
     var timer = null;
 
-    loop = -days;
-
-    updateChart();
+    resetChart();
 
     buttonPlay.addEventListener('click', () => {
         if (buttonPlay.classList.contains('bg-success')) {
@@ -170,6 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         buttonPlay.classList.toggle('bg-success');
         buttonPlay.classList.toggle('bg-secondary');
+    });
+    buttonReset.addEventListener('click', () => {
+        resetChart();
     });
 });
 

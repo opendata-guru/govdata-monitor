@@ -77,12 +77,14 @@ function fillData() {
   columnTitles.push(title);
 
   for (d = startIndex; d < endIndex; ++d) {
-      rowTitles.push(dataObj[d].date);
-      chartData[0].push(dataObj[d].total_count);
+    rowTitles.push(dataObj[d].date);
+    chartData[0].push(dataObj[d].total_count);
   }
 
+  var yesterday = new Date(dataObj[startIndex].date);
   while(rowTitles.length < days) {
-    rowTitles.unshift('');
+    yesterday.setDate(yesterday.getDate() - 1);
+    rowTitles.unshift(yesterday);
     chartData[0].unshift(undefined);
   }
 }
@@ -101,7 +103,7 @@ function getDatasets() {
           borderWidth: 2,
           pointRadius: 1,
           data: chartData[c],
-          image: 'assets/icon-48x48.png',
+          image: 'assets-govdata/logo-govdata-1000x1000-white.png',
       });
   }
 
@@ -111,7 +113,7 @@ function getDatasets() {
 function getPointStyle(datapoint) {
     if (datapoint.dataIndex === (days - 1)) {
         var image = new Image();
-        image.src = 'assets/govdata.svg';
+        image.src = 'assets-govdata/logo-govdata-1000x1000-white.png';
         image.height = 50;
         image.width = 50;
         return image;
@@ -168,24 +170,40 @@ function updateChart() {
                 },
               },
               scales: {
-                  xAxes: [{
-                    reverse: true,
-                      gridLines: {
-                          color: 'transparent'
-                      }
-                  }],
-                  yAxes: [{
-                      ticks: {
-                          stepSize: 10000,
-                          suggestedMin: 0,
-                          suggestedMax: 100000,
-                      },
-                      display: true,
-                      borderDash: [3, 3],
-                      gridLines: {
-                          color: '#ddd'
-                      },
-                  }],
+                xAxes: [{
+                  reverse: true,
+                  gridLines: {
+                    display: false
+                  },
+                  type: 'time',
+                  time: {
+                    unit: 'month'
+                  },
+                  ticks: {
+                    callback: function(label, index, labels) {
+                        var month = label.split(' ')[0];
+                        switch (month) {
+                            case 'Mar': month = 'Mär'; break;
+                            case 'May': month = 'Mai'; break;
+                            case 'Oct': month = 'Okt'; break;
+                            case 'Dec': month = 'Dez'; break;
+                        }
+                        return month + ' ' + label.split(' ')[1];
+                    }
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    stepSize: 10000,
+                    suggestedMin: 0,
+                    suggestedMax: 100000,
+                  },
+                  display: true,
+                  borderDash: [3, 3],
+                  gridLines: {
+                    color: '#ddd'
+                  },
+                }],
               }
           }
       });

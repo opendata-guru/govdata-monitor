@@ -69,6 +69,11 @@ function tickChart() {
     endIndex = Math.min(maxEnd, loop + days);
 
     updateChart();
+
+    if (startIndex === (maxEnd - days)) {
+        var buttonPlay = document.getElementById('race-play');
+        buttonPlay.click();
+    }
 }
 
 function clearData() {

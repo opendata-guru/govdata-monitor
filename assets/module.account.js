@@ -1,8 +1,16 @@
 var account = (function () {
     var idUserUnknown = 'account-user-unknown',
         idUserKnown = 'account-user-known',
+        idCredentials = 'account-credentials',
+        idHello = 'account-hello',
         idLogin = 'account-login',
-        idLogout = 'account-logout';
+        idLogout = 'account-logout',
+        idName = 'account-name',
+        idPass = 'account-password';
+    var valName = '',
+        valPass = '';
+    var storageKeyName = 'username',
+        storageKeyPass = 'userpass';
 
     function install() {
         var html = '';
@@ -16,9 +24,14 @@ var account = (function () {
         html += '  </a>';
 
         html += '  <div class="dropdown-menu dropdown-menu-end">';
-        html += '    <div style="padding:.5rem 1rem;margin-top:-.5rem;background:#a4e9f4;text:#222">This menu is useless but looks great</div>'
+        html += '    <div style="padding:.5rem 1rem;margin-top:-.5rem;background:#a4e9f4;color:#222;font-size:.9em">This menu is useless but looks great</div>'
         html += '    <div class="dropdown-divider" style="margin-top:0"></div>';
-        html += '    <i class="align-middle me-1" data-feather="user"></i> Profile<br>';
+        html += '    <div id="' + idCredentials + '" style="padding:.5rem 1rem;margin-top:-.5rem">';
+        html += '      <label for="' + idName + '">Name:</label><input type="text" id="' + idName + '" name="' + idName + '">';
+        html += '      <br>';
+        html += '      <label for="' + idPass + '">Password:</label><input type="password" id="' + idPass + '" name="' + idPass + '">';
+        html += '    </div>'
+        html += '    <div id="' + idHello + '" style="padding:.5rem 1rem;margin-top:-.5rem" class="d-none"></div>';
         html += '    <div class="dropdown-divider"></div>';
         html += '    <a id="' + idLogin + '" class="dropdown-item" onclick="accountLogin()">Log in</a>';
         html += '    <a id="' + idLogout + '" class="dropdown-item d-none" onclick="accountLogout()">Log out</a>';
@@ -36,21 +49,61 @@ var account = (function () {
     }
 
     function init() {
-        console.log('account init');
+        valName = localStorage.getItem(storageKeyName) || '';
+        valPass = localStorage.getItem(storageKeyPass) || '';
+
+        document.getElementById(idName).value = valName;
+        document.getElementById(idPass).value = valPass;
+
+        funcLogin();
+    }
+
+    function rapidocLogin() {
+        var rapidoc = document.getElementsByTagName('rapi-doc')[0];
+
+        if (rapidoc) {
+            rapidoc.setAttribute('api-key-name', 'api_key');
+            rapidoc.setAttribute('api-key-location', 'header');
+            rapidoc.setAttribute('api-key-value', valPass);
+        }
     }
 
     function funcLogin() {
-        document.getElementById(idUserUnknown).classList.add('d-none');
-        document.getElementById(idUserKnown).classList.remove('d-none');
-        document.getElementById(idLogin).classList.add('d-none');
-        document.getElementById(idLogout).classList.remove('d-none');
+        valName = document.getElementById(idName).value;
+        valPass = document.getElementById(idPass).value;
+
+        if (valPass !== '') {
+            document.getElementById(idPass).value = '';
+            document.getElementById(idHello).innerHTML = 'Hello ' + valName;
+
+            localStorage.setItem(storageKeyName, valName);
+            localStorage.setItem(storageKeyPass, valPass);
+
+            document.getElementById(idUserUnknown).classList.add('d-none');
+            document.getElementById(idUserKnown).classList.remove('d-none');
+            document.getElementById(idLogin).classList.add('d-none');
+            document.getElementById(idLogout).classList.remove('d-none');
+            document.getElementById(idCredentials).classList.add('d-none');
+            document.getElementById(idHello).classList.remove('d-none');
+
+            rapidocLogin();
+        }
     }
 
     function funcLogout() {
+        valPass = '';
+        document.getElementById(idPass).value = '';
+
+        localStorage.removeItem(storageKeyPass);
+
         document.getElementById(idUserUnknown).classList.remove('d-none');
         document.getElementById(idUserKnown).classList.add('d-none');
         document.getElementById(idLogin).classList.remove('d-none');
         document.getElementById(idLogout).classList.add('d-none');
+        document.getElementById(idCredentials).classList.remove('d-none');
+        document.getElementById(idHello).classList.add('d-none');
+
+        rapidocLogin();
     }
 
     install();

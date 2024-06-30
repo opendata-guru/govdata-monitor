@@ -6,11 +6,11 @@ var account = (function () {
         idLogin = 'account-login',
         idLogout = 'account-logout',
         idName = 'account-name',
-        idPass = 'account-password';
+        idToken = 'account-token';
     var valName = '',
-        valPass = '';
+        valToken = '';
     var storageKeyName = 'username',
-        storageKeyPass = 'userpass';
+        storageKeyToken = 'usertoken';
 
     function install() {
         var html = '';
@@ -29,7 +29,7 @@ var account = (function () {
         html += '    <div id="' + idCredentials + '" style="padding:.5rem 1rem;margin-top:-.5rem">';
         html += '      <label for="' + idName + '">Name:</label><input type="text" id="' + idName + '" name="' + idName + '">';
         html += '      <br>';
-        html += '      <label for="' + idPass + '">Password:</label><input type="password" id="' + idPass + '" name="' + idPass + '">';
+        html += '      <label for="' + idToken + '">Token:</label><input type="password" id="' + idToken + '" name="' + idToken + '">';
         html += '    </div>'
         html += '    <div id="' + idHello + '" style="padding:.5rem 1rem;margin-top:-.5rem" class="d-none"></div>';
         html += '    <div class="dropdown-divider"></div>';
@@ -50,10 +50,10 @@ var account = (function () {
 
     function init() {
         valName = localStorage.getItem(storageKeyName) || '';
-        valPass = localStorage.getItem(storageKeyPass) || '';
+        valToken = localStorage.getItem(storageKeyToken) || '';
 
         document.getElementById(idName).value = valName;
-        document.getElementById(idPass).value = valPass;
+        document.getElementById(idToken).value = valToken;
 
         funcLogin();
     }
@@ -62,22 +62,22 @@ var account = (function () {
         var rapidoc = document.getElementsByTagName('rapi-doc')[0];
 
         if (rapidoc) {
-            rapidoc.setAttribute('api-key-name', 'api_key');
+            rapidoc.setAttribute('api-key-name', 'Authorization');
             rapidoc.setAttribute('api-key-location', 'header');
-            rapidoc.setAttribute('api-key-value', valPass);
+            rapidoc.setAttribute('api-key-value', 'Bearer ' + valToken);
         }
     }
 
     function funcLogin() {
         valName = document.getElementById(idName).value;
-        valPass = document.getElementById(idPass).value;
+        valToken = document.getElementById(idToken).value;
 
-        if (valPass !== '') {
-            document.getElementById(idPass).value = '';
+        if (valToken !== '') {
+            document.getElementById(idToken).value = '';
             document.getElementById(idHello).innerHTML = 'Hello ' + valName;
 
             localStorage.setItem(storageKeyName, valName);
-            localStorage.setItem(storageKeyPass, valPass);
+            localStorage.setItem(storageKeyToken, valToken);
 
             document.getElementById(idUserUnknown).classList.add('d-none');
             document.getElementById(idUserKnown).classList.remove('d-none');
@@ -91,10 +91,10 @@ var account = (function () {
     }
 
     function funcLogout() {
-        valPass = '';
-        document.getElementById(idPass).value = '';
+        valToken = '';
+        document.getElementById(idToken).value = '';
 
-        localStorage.removeItem(storageKeyPass);
+        localStorage.removeItem(storageKeyToken);
 
         document.getElementById(idUserUnknown).classList.remove('d-none');
         document.getElementById(idUserKnown).classList.add('d-none');

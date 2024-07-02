@@ -7,6 +7,7 @@ var account = (function () {
         idLogout = 'account-logout',
         idName = 'account-name',
         idToken = 'account-token';
+    var eventListenerLogin = [];
     var valName = '',
         valToken = '';
     var storageKeyName = 'username',
@@ -58,6 +59,14 @@ var account = (function () {
         funcLogin();
     }
 
+    function funcAddEventListenerLogin(func) {
+        eventListenerLogin.push(func);
+    }
+
+    function dispatchEventStartLoading() {
+        eventListenerLogin.forEach(func => func());
+    }
+
     function rapidocLogin() {
         var rapidoc = document.getElementsByTagName('rapi-doc')[0];
 
@@ -66,6 +75,10 @@ var account = (function () {
             rapidoc.setAttribute('api-key-location', 'header');
             rapidoc.setAttribute('api-key-value', 'Bearer ' + valToken);
         }
+    }
+
+    function funcIsLoggedIn() {
+        return valToken !== '';
     }
 
     function funcLogin() {
@@ -87,6 +100,7 @@ var account = (function () {
             document.getElementById(idHello).classList.remove('d-none');
 
             rapidocLogin();
+            dispatchEventStartLoading();
         }
     }
 
@@ -104,6 +118,7 @@ var account = (function () {
         document.getElementById(idHello).classList.add('d-none');
 
         rapidocLogin();
+        dispatchEventStartLoading();
     }
 
     install();
@@ -113,6 +128,8 @@ var account = (function () {
     });
 
     return {
+        addEventListenerLogin: funcAddEventListenerLogin,
+        isLoggedIn: funcIsLoggedIn,
         login: funcLogin,
         logout: funcLogout
     };

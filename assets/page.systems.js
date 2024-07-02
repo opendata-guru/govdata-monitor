@@ -54,6 +54,18 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerStartLoading(showProgress);
   data.addEventListenerEndLoading(hideProgress);
 
+  account.addEventListenerLogin(() => {
+    var elems = document.getElementsByClassName('d-loggedin');
+    for(var e = 0; e < elems.length; ++e) {
+      var elem = elems[e];
+      if (account.isLoggedIn()) {
+        elem.classList.remove('d-none');
+      } else {
+        elem.classList.add('d-none');
+      }
+    }
+  });
+
   monitoring.loadData();
 });
 

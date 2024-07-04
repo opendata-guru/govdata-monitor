@@ -36,6 +36,21 @@ function hideProgress() {
   document.getElementsByClassName(classNameLoadingCard)[0].style.top = '-3.5rem';
 }
 
+function onAddSystem() {
+  var url = document.getElementById('add-system-url');
+
+  document.getElementById('add-system-error').innerHTML = '';
+
+  account.sendRequest('https://opendata.guru/api/2/p', {
+    url: url.value
+  }, (result) => {
+    console.log(result);
+    document.getElementById('add-system-error').innerHTML = 'Yeah: ' + result.pid;
+  }, (error) => {
+    document.getElementById('add-system-error').innerHTML = error.error + ' ' + error.message;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   monitoring.addEventListenerStartLoading(showProgress);
   monitoring.addEventListenerEndLoading(() => {
@@ -54,17 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerStartLoading(showProgress);
   data.addEventListenerEndLoading(hideProgress);
 
-  account.addEventListenerLogin(() => {
-    var elems = document.getElementsByClassName('d-loggedin');
-    for(var e = 0; e < elems.length; ++e) {
-      var elem = elems[e];
-      if (account.isLoggedIn()) {
-        elem.classList.remove('d-none');
-      } else {
-        elem.classList.add('d-none');
-      }
-    }
-  });
+  document.getElementById('add-system-button').addEventListener('click', onAddSystem);
 
   monitoring.loadData();
 });

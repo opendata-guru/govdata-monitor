@@ -56,6 +56,19 @@ var account = (function () {
         document.getElementById(idName).value = valName;
         document.getElementById(idToken).value = valToken;
 
+        account.addEventListenerLogin(() => {
+            var elems = document.getElementsByClassName('d-loggedin');
+            for(var e = 0; e < elems.length; ++e) {
+                var elem = elems[e];
+
+                if (account.isLoggedIn()) {
+                    elem.classList.remove('d-none');
+                } else {
+                    elem.classList.add('d-none');
+                }
+            }
+        });
+
         funcLogin();
     }
 
@@ -121,6 +134,33 @@ var account = (function () {
         dispatchEventStartLoading();
     }
 
+    function funcSendRequest(url, params, successCB, errorCB) {
+        var query = [];
+        Object.keys(params).forEach((key) => {
+            query.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
+        });
+
+        var uri = url + '?' + query.join('&');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', uri, true);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + valToken);
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(this.responseText);
+				if (successCB) {
+					successCB(res);
+				}
+            } else if (this.readyState == 4) {
+				var error = JSON.parse(this.responseText);
+				if (errorCB) {
+					errorCB(error);
+				}
+            }
+        }
+
+        xhr.send();
+    }
+
     install();
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -131,7 +171,8 @@ var account = (function () {
         addEventListenerLogin: funcAddEventListenerLogin,
         isLoggedIn: funcIsLoggedIn,
         login: funcLogin,
-        logout: funcLogout
+        logout: funcLogout,
+        sendRequest: funcSendRequest
     };
 }());
 

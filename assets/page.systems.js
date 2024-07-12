@@ -4,6 +4,7 @@ var date = null,
     map = null,
     parents = null,
     table = null;
+var selectedModifySystemPID = '';
 
 function monitorUpdateCatalogPieChart() {}
 
@@ -51,6 +52,61 @@ function onAddSystem() {
   });
 }
 
+function onModifySystemPID(element) {
+  var pID = element.value;
+  var checked = element.checked;
+
+  var checkboxes = document.querySelectorAll('#modify-system-list input');
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked && (checkbox.value !== pID)) {
+      checkbox.checked = false;
+    }
+  });
+
+  selectedModifySystemPID = checked ? pID : '';
+}
+
+function loadPObjects(loadedCB, errorCB) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://opendata.guru/api/2/p', true);
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      loadedCB(JSON.parse(this.responseText));
+    } else if (this.readyState == 4) {
+      errorCB(JSON.parse(this.responseText));
+    }
+  }
+
+  xhr.send();
+}
+
+function fillModifyTable(pObjects) {
+  var listElem = document.getElementById('modify-system-list');
+  var list = '';
+
+  list += '<ul style="list-style:none;padding-left:.5em;">';
+  pObjects.forEach(pObject => {
+    list += '<li style="overflow-x: hidden;white-space: nowrap;">';
+    list += '<input type="checkbox" value="' + pObject.pid + '" onchange="onModifySystemPID(this)"> ' + pObject.sid + ' ' + pObject.url;
+    list += '</li>';
+  });
+  list += '</ul>';
+  listElem.innerHTML = list;
+}
+
+function onModifySystemTest() {
+  loadPObjects((result) => {
+    fillModifyTable(result);
+  }, (error) => {
+    fillModifyTable([]);
+
+    console.log(error);
+  });
+}
+
+// ----------------------------------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', function() {
   monitoring.addEventListenerStartLoading(showProgress);
   monitoring.addEventListenerEndLoading(() => {
@@ -70,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerEndLoading(hideProgress);
 
   document.getElementById('add-system-button').addEventListener('click', onAddSystem);
+  document.getElementById('modify-system-test-button').addEventListener('click', onModifySystemTest);
 
   monitoring.loadData();
 });

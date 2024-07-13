@@ -173,13 +173,28 @@
 								<div class="ps-4 border border-info border-2" style="border-style: dotted !important;">
 									<div class="mb-0 border border-info border-2 p-2" style="position: relative;border-style: dotted !important;border-top: none !important;border-right: none !important;border-bottom: none !important;">
 										<strong style="position: absolute;transform: rotate(90deg);left: -4.5em;top: 3em">Modify system</strong>
-										<div id="modify-system-scrollable" class="border border-1 border-info" style="height: 10em;overflow-y: scroll;">
-											<div id="modify-system-list" class="w-100"></div>
+										<div class="row">
+											<div class="col-12 col-md-6">
+												<div class="text-center">Providers</div>
+												<div class="border border-2 border-info" style="height: 10em;overflow-y: scroll;">
+													<div id="modify-system-pobjects" class="w-100 text-center">
+														<span id="modify-system-load-pobjects" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">
+															Load Provider List
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="text-center">Suppliers</div>
+												<div class="border border-2 border-info" style="height: 10em;overflow-y: scroll;">
+													<div id="modify-system-sobjects" class="w-100 text-center">
+														<span id="modify-system-load-sobjects" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">
+															Load Supplier List
+														</span>
+													</div>
+												</div>
+											</div>
 										</div>
-										<span id="modify-system-test-button" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">
-											Test
-										</span>
-										<br>
 										<label for="modify-system-url">Link to new system:</label>
 										<input type="string" id="modify-system-url" name="modify-system-url" class="border border-info flex-fill w-100">
 										<span id="modify-system-button" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">

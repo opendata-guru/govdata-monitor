@@ -4,7 +4,8 @@ var date = null,
     map = null,
     parents = null,
     table = null;
-var selectedModifySystemPID = '';
+var selectedModifySystemPID = '',
+    selectedModifySystemSID = '';
 
 function monitorUpdateCatalogPieChart() {}
 
@@ -56,7 +57,7 @@ function onModifySystemPID(element) {
   var pID = element.value;
   var checked = element.checked;
 
-  var checkboxes = document.querySelectorAll('#modify-system-list input');
+  var checkboxes = document.querySelectorAll('#modify-system-pobjects input');
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked && (checkbox.value !== pID)) {
       checkbox.checked = false;
@@ -64,6 +65,20 @@ function onModifySystemPID(element) {
   });
 
   selectedModifySystemPID = checked ? pID : '';
+}
+
+function onModifySystemSID(element) {
+  var sID = element.value;
+  var checked = element.checked;
+
+  var checkboxes = document.querySelectorAll('#modify-system-sobjects input');
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked && (checkbox.value !== sID)) {
+      checkbox.checked = false;
+    }
+  });
+
+  selectedModifySystemSID = checked ? sID : '';
 }
 
 function loadPObjects(loadedCB, errorCB) {
@@ -81,8 +96,23 @@ function loadPObjects(loadedCB, errorCB) {
   xhr.send();
 }
 
-function fillModifyTable(pObjects) {
-  var listElem = document.getElementById('modify-system-list');
+function loadSObjects(loadedCB, errorCB) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://opendata.guru/api/2/s', true);
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      loadedCB(JSON.parse(this.responseText));
+    } else if (this.readyState == 4) {
+      errorCB(JSON.parse(this.responseText));
+    }
+  }
+
+  xhr.send();
+}
+
+function fillModifyPObjectTable(pObjects) {
+  var listElem = document.getElementById('modify-system-pobjects');
   var list = '';
 
   list += '<ul style="list-style:none;padding-left:.5em;">';
@@ -92,16 +122,44 @@ function fillModifyTable(pObjects) {
     list += '</li>';
   });
   list += '</ul>';
+
+  listElem.classList.remove('text-center');
   listElem.innerHTML = list;
 }
 
-function onModifySystemTest() {
-  loadPObjects((result) => {
-    fillModifyTable(result);
-  }, (error) => {
-    fillModifyTable([]);
+function fillModifySObjectTable(sObjects) {
+  var listElem = document.getElementById('modify-system-sobjects');
+  var list = '';
 
-    console.log(error);
+  list += '<ul style="list-style:none;padding-left:.5em;">';
+  sObjects.forEach(sObject => {
+    list += '<li style="overflow-x: hidden;white-space: nowrap;">';
+    list += '<input type="checkbox" value="' + sObject.sid + '" onchange="onModifySystemSID(this)"> 🇬🇧' + sObject.title.en + ', 🇩🇪' + sObject.title.de;
+    list += '</li>';
+  });
+  list += '</ul>';
+
+  listElem.classList.remove('text-center');
+  listElem.innerHTML = list;
+}
+
+function onModifyLoadPObjects() {
+  loadPObjects((result) => {
+    fillModifyPObjectTable(result);
+  }, (error) => {
+    fillModifyPObjectTable([]);
+
+    console.warn(error);
+  });
+}
+
+function onModifyLoadSObjects() {
+  loadSObjects((result) => {
+    fillModifySObjectTable(result);
+  }, (error) => {
+    fillModifySObjectTable([]);
+
+    console.warn(error);
   });
 }
 
@@ -126,7 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerEndLoading(hideProgress);
 
   document.getElementById('add-system-button').addEventListener('click', onAddSystem);
-  document.getElementById('modify-system-test-button').addEventListener('click', onModifySystemTest);
+  document.getElementById('modify-system-load-pobjects').addEventListener('click', onModifyLoadPObjects);
+  document.getElementById('modify-system-load-sobjects').addEventListener('click', onModifyLoadSObjects);
 
   monitoring.loadData();
 });

@@ -91,8 +91,15 @@ function onModifySystem() {
   account.sendRequest(url, {
     sID: selectedModifySystemSID
   }, (result) => {
-    console.log(result);
-    document.getElementById('modify-system-error').innerHTML = 'Yeah: ' + result.sid;
+	if (selectedModifySystemSID === result.sid) {
+      selectedModifySystemPID = '';
+      enableModifySystemButton();
+      fillModifyPObjectTable([]);
+      onModifyLoadPObjects();
+	} else {
+      console.log(result);
+      document.getElementById('modify-system-error').innerHTML = 'Something went wrong';
+	}
   }, (error) => {
     document.getElementById('modify-system-error').innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
   });

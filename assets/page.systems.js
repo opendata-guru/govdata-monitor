@@ -46,10 +46,55 @@ function onAddSystem() {
   account.sendRequest('https://opendata.guru/api/2/p', {
     url: url.value
   }, (result) => {
-    console.log(result);
     document.getElementById('add-system-error').innerHTML = 'Yeah: ' + result.pid;
   }, (error) => {
-    document.getElementById('add-system-error').innerHTML = error.error + ' ' + error.message;
+    document.getElementById('add-system-error').innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+  });
+}
+
+function enableModifySystemButton() {
+  var button = document.getElementById('modify-system-button');
+  var text = 'Link';
+  var enable = false;
+
+  if ((selectedModifySystemPID !== '') && (selectedModifySystemSID !== '')) {
+    enable = true;
+    text += ' ' + selectedModifySystemPID + ' to ' + selectedModifySystemSID;
+  } else if (selectedModifySystemPID !== '') {
+    text += ' ' + selectedModifySystemPID + ' to -';
+  } else if (selectedModifySystemSID !== '') {
+    text += ' - to ' + selectedModifySystemSID;
+  }
+
+  button.innerHTML = text;
+
+  if (enable) {
+    button.classList.remove('bg-secondary');
+    button.classList.add('bg-info');
+  } else {
+    button.classList.add('bg-secondary');
+    button.classList.remove('bg-info');
+  }
+}
+
+function onModifySystem() {
+  var button = document.getElementById('modify-system-button');
+  if (button.classList.contains('bg-secondary')) {
+    // button is disabled
+    return;
+  }
+
+  document.getElementById('modify-system-error').innerHTML = '';
+
+  var url = 'https://opendata.guru/api/2/p/' + selectedModifySystemPID;
+
+  account.sendRequest(url, {
+    sID: selectedModifySystemSID
+  }, (result) => {
+    console.log(result);
+    document.getElementById('modify-system-error').innerHTML = 'Yeah: ' + result.sid;
+  }, (error) => {
+    document.getElementById('modify-system-error').innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
   });
 }
 
@@ -65,6 +110,7 @@ function onModifySystemPID(element) {
   });
 
   selectedModifySystemPID = checked ? pID : '';
+  enableModifySystemButton();
 }
 
 function onModifySystemSID(element) {
@@ -79,6 +125,7 @@ function onModifySystemSID(element) {
   });
 
   selectedModifySystemSID = checked ? sID : '';
+  enableModifySystemButton();
 }
 
 function loadPObjects(loadedCB, errorCB) {
@@ -133,8 +180,16 @@ function fillModifySObjectTable(sObjects) {
 
   list += '<ul style="list-style:none;padding-left:.5em;">';
   sObjects.forEach(sObject => {
+    var title = [];
+    if (sObject.title.en !== '') {
+      title.push('🇬🇧 ' + sObject.title.en);
+    }
+    if (sObject.title.de !== '') {
+      title.push('🇩🇪 ' + sObject.title.de);
+    }
+
     list += '<li style="overflow-x: hidden;white-space: nowrap;">';
-    list += '<input type="checkbox" value="' + sObject.sid + '" onchange="onModifySystemSID(this)"> 🇬🇧' + sObject.title.en + ', 🇩🇪' + sObject.title.de;
+    list += '<input type="checkbox" value="' + sObject.sid + '" onchange="onModifySystemSID(this)"> ' + title.join(', ');
     list += '</li>';
   });
   list += '</ul>';
@@ -184,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerEndLoading(hideProgress);
 
   document.getElementById('add-system-button').addEventListener('click', onAddSystem);
+  document.getElementById('modify-system-button').addEventListener('click', onModifySystem);
   document.getElementById('modify-system-load-pobjects').addEventListener('click', onModifyLoadPObjects);
   document.getElementById('modify-system-load-sobjects').addEventListener('click', onModifyLoadSObjects);
 

@@ -151,7 +151,11 @@ var account = (function () {
 					successCB(res);
 				}
             } else if (this.readyState == 4) {
-				var error = JSON.parse(this.responseText);
+				var error = '';
+                try {
+                    error = JSON.parse(this.responseText);
+                } catch(e) {
+                }
 				if (errorCB) {
 					errorCB(error);
 				}

@@ -95,7 +95,7 @@ function onModifySystem() {
   account.sendRequest(url, {
     sID: selectedModifySystemSID
   }, (result) => {
-	if (selectedModifySystemSID === result.sid) {
+	if (selectedModifySystemSID === result.sobject.sid) {
       selectedModifySystemPID = '';
       selectedModifySystemPName = '';
       enableModifySystemButton();

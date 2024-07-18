@@ -5,7 +5,9 @@ var date = null,
     parents = null,
     table = null;
 var selectedModifySystemPID = '',
-    selectedModifySystemSID = '';
+    selectedModifySystemPName = '',
+    selectedModifySystemSID = '',
+    selectedModifySystemSName = '';
 
 function monitorUpdateCatalogPieChart() {}
 
@@ -59,11 +61,11 @@ function enableModifySystemButton() {
 
   if ((selectedModifySystemPID !== '') && (selectedModifySystemSID !== '')) {
     enable = true;
-    text += ' ' + selectedModifySystemPID + ' to ' + selectedModifySystemSID;
+    text += ' ' + (selectedModifySystemPName != '' ? selectedModifySystemPName : selectedModifySystemPID) + ' to ' + (selectedModifySystemSName !== '' ? selectedModifySystemSName : selectedModifySystemSID);
   } else if (selectedModifySystemPID !== '') {
-    text += ' ' + selectedModifySystemPID + ' to -';
+    text += ' ' + (selectedModifySystemPName != '' ? selectedModifySystemPName : selectedModifySystemPID) + ' to -';
   } else if (selectedModifySystemSID !== '') {
-    text += ' - to ' + selectedModifySystemSID;
+    text += ' - to ' + (selectedModifySystemSName !== '' ? selectedModifySystemSName : selectedModifySystemSID);
   }
 
   button.innerHTML = text;
@@ -93,6 +95,7 @@ function onModifySystem() {
   }, (result) => {
 	if (selectedModifySystemSID === result.sid) {
       selectedModifySystemPID = '';
+      selectedModifySystemPName = '';
       enableModifySystemButton();
       fillModifyPObjectTable([]);
       onModifyLoadPObjects();
@@ -107,6 +110,7 @@ function onModifySystem() {
 
 function onModifySystemPID(element) {
   var pID = element.value;
+  var sName = element.name;
   var checked = element.checked;
 
   var checkboxes = document.querySelectorAll('#modify-system-pobjects input');
@@ -117,12 +121,15 @@ function onModifySystemPID(element) {
   });
 
   selectedModifySystemPID = checked ? pID : '';
+  selectedModifySystemPName = checked ? sName : '';
   enableModifySystemButton();
 }
 
 function onModifySystemSID(element) {
   var sID = element.value;
+  var sName = element.name;
   var checked = element.checked;
+console.log(element);
 
   var checkboxes = document.querySelectorAll('#modify-system-sobjects input');
   checkboxes.forEach((checkbox) => {
@@ -132,6 +139,7 @@ function onModifySystemSID(element) {
   });
 
   selectedModifySystemSID = checked ? sID : '';
+  selectedModifySystemSName = checked ? sName : '';
   enableModifySystemButton();
 }
 
@@ -171,8 +179,17 @@ function fillModifyPObjectTable(pObjects) {
 
   list += '<ul style="list-style:none;padding-left:.5em;">';
   pObjects.forEach(pObject => {
+    var title = '';
+    if (pObject.sobject) {
+      if (pObject.sobject.title.en !== '') {
+        title = pObject.sobject.title.en;
+      } else if (pObject.sobject.title.de !== '') {
+        title = pObject.sobject.title.de;
+      }
+    }
+
     list += '<li style="overflow-x: hidden;white-space: nowrap;">';
-    list += '<input type="checkbox" value="' + pObject.pid + '" onchange="onModifySystemPID(this)"> ' + pObject.sid + ' ' + pObject.url;
+    list += '<input type="checkbox" value="' + pObject.pid + '" name="' + (title != '' ? title : pObject.url) + '" onchange="onModifySystemPID(this)"> ' + title + ' ' + pObject.url;
     list += '</li>';
   });
   list += '</ul>';
@@ -196,7 +213,7 @@ function fillModifySObjectTable(sObjects) {
     }
 
     list += '<li style="overflow-x: hidden;white-space: nowrap;">';
-    list += '<input type="checkbox" value="' + sObject.sid + '" onchange="onModifySystemSID(this)"> ' + title.join(', ');
+    list += '<input type="checkbox" value="' + sObject.sid + '" name="' + title.join(', ') + '" onchange="onModifySystemSID(this)"> ' + title.join(', ');
     list += '</li>';
   });
   list += '</ul>';

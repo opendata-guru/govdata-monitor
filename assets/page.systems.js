@@ -4,11 +4,13 @@ var date = null,
     map = null,
     parents = null,
     loadedPObjects = [],
+    loadedSObjects = [],
     table = null;
 var selectedModifySystemPID = '',
     selectedModifySystemPName = '',
     selectedModifySystemSID = '',
     selectedModifySystemSName = '',
+    filterSObjects = '',
     showOnlyImperfectPObjects = true;
 
 function monitorUpdateCatalogPieChart() {}
@@ -152,6 +154,11 @@ function showOnlyImperfectProviderModifySystemButton(element) {
   fillModifyPObjectTable();
 }
 
+function filterModifySystemSObjects(element) {
+  filterSObjects = element.value;
+  fillModifySObjectTable();
+}
+
 function loadPObjects(loadedCB, errorCB) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://opendata.guru/api/2/p', true);
@@ -211,12 +218,13 @@ function fillModifyPObjectTable() {
   listElem.innerHTML = list;
 }
 
-function fillModifySObjectTable(sObjects) {
+function fillModifySObjectTable() {
   var listElem = document.getElementById('modify-system-sobjects');
   var list = '';
+  var lowerFilter = filterSObjects.toLocaleLowerCase();
 
   list += '<ul style="list-style:none;padding-left:.5em;">';
-  sObjects.forEach(sObject => {
+  loadedSObjects.forEach(sObject => {
     var title = [];
     if (sObject.title.en !== '') {
       title.push('🇬🇧 ' + sObject.title.en);
@@ -224,9 +232,14 @@ function fillModifySObjectTable(sObjects) {
     if (sObject.title.de !== '') {
       title.push('🇩🇪 ' + sObject.title.de);
     }
+    var strTitle = title.join(', ');
+
+    if ((lowerFilter !== '') && (-1 === strTitle.toLocaleLowerCase().indexOf(lowerFilter))) {
+      return;
+    }
 
     list += '<li style="overflow-x: hidden;white-space: nowrap;">';
-    list += '<input type="checkbox" value="' + sObject.sid + '" name="' + title.join(', ') + '" onchange="onModifySystemSID(this)"> ' + title.join(', ');
+    list += '<input type="checkbox" value="' + sObject.sid + '" name="' + strTitle + '" onchange="onModifySystemSID(this)"> ' + strTitle;
     list += '</li>';
   });
   list += '</ul>';
@@ -249,9 +262,11 @@ function onModifyLoadPObjects() {
 
 function onModifyLoadSObjects() {
   loadSObjects((result) => {
-    fillModifySObjectTable(result);
+    loadedSObjects = result;
+    fillModifySObjectTable();
   }, (error) => {
-    fillModifySObjectTable([]);
+    loadedSObjects = [];
+    fillModifySObjectTable();
 
     console.warn(error);
   });

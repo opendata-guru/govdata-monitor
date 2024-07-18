@@ -3,11 +3,13 @@ var date = null,
     charthistory = null;
     map = null,
     parents = null,
+    loadedPObjects = [],
     table = null;
 var selectedModifySystemPID = '',
     selectedModifySystemPName = '',
     selectedModifySystemSID = '',
-    selectedModifySystemSName = '';
+    selectedModifySystemSName = '',
+    showOnlyImperfectPObjects = true;
 
 function monitorUpdateCatalogPieChart() {}
 
@@ -97,7 +99,8 @@ function onModifySystem() {
       selectedModifySystemPID = '';
       selectedModifySystemPName = '';
       enableModifySystemButton();
-      fillModifyPObjectTable([]);
+      loadedPObjects = [];
+      fillModifyPObjectTable();
       onModifyLoadPObjects();
 	} else {
       console.log(result);
@@ -129,7 +132,6 @@ function onModifySystemSID(element) {
   var sID = element.value;
   var sName = element.name;
   var checked = element.checked;
-console.log(element);
 
   var checkboxes = document.querySelectorAll('#modify-system-sobjects input');
   checkboxes.forEach((checkbox) => {
@@ -141,6 +143,13 @@ console.log(element);
   selectedModifySystemSID = checked ? sID : '';
   selectedModifySystemSName = checked ? sName : '';
   enableModifySystemButton();
+}
+
+function showOnlyImperfectProviderModifySystemButton(element) {
+  var checked = element.checked;
+
+  showOnlyImperfectPObjects = checked;
+  fillModifyPObjectTable();
 }
 
 function loadPObjects(loadedCB, errorCB) {
@@ -173,12 +182,12 @@ function loadSObjects(loadedCB, errorCB) {
   xhr.send();
 }
 
-function fillModifyPObjectTable(pObjects) {
+function fillModifyPObjectTable() {
   var listElem = document.getElementById('modify-system-pobjects');
   var list = '';
 
   list += '<ul style="list-style:none;padding-left:.5em;">';
-  pObjects.forEach(pObject => {
+  loadedPObjects.forEach(pObject => {
     var title = '';
     if (pObject.sobject) {
       if (pObject.sobject.title.en !== '') {
@@ -186,6 +195,10 @@ function fillModifyPObjectTable(pObjects) {
       } else if (pObject.sobject.title.de !== '') {
         title = pObject.sobject.title.de;
       }
+    }
+
+    if (pObject.sobject && showOnlyImperfectPObjects) {
+      return;
     }
 
     list += '<li style="overflow-x: hidden;white-space: nowrap;">';
@@ -224,9 +237,11 @@ function fillModifySObjectTable(sObjects) {
 
 function onModifyLoadPObjects() {
   loadPObjects((result) => {
-    fillModifyPObjectTable(result);
+    loadedPObjects = result;
+    fillModifyPObjectTable();
   }, (error) => {
-    fillModifyPObjectTable([]);
+    loadedPObjects = [];
+    fillModifyPObjectTable();
 
     console.warn(error);
   });

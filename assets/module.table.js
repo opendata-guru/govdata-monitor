@@ -42,9 +42,9 @@ var table = (function () {
         html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>All</span>';
         html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>Undefined</span>';
         Object.keys(data.layers).forEach(key => {
-            var isLeft = -1 !== ['federal','state','regionalNetwork','district','municipality'].indexOf(key);
-            var isMiddle = -1 !== ['federalPortal','districtPortal','municipalityPortal'].indexOf(key);
-            var isRight = -1 !== ['federalAgency','stateAgency','regionalPortal','districtAgency','municipalityAgency'].indexOf(key);
+            var isLeft = -1 !== ['supranational','country','federal','state','regionalNetwork','district','municipality'].indexOf(key);
+            var isMiddle = -1 !== ['federalPortal','stateAgency','districtPortal','municipalityPortal'].indexOf(key);
+            var isRight = -1 !== ['supranationalAgency','countryAgency','federalAgency','state+municipality','regionalPortal','districtAgency','municipalityAgency'].indexOf(key);
 
             html += isLeft ? '<br>' : '';
             html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isMiddle ? styleMiddle : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
@@ -323,9 +323,11 @@ var table = (function () {
             if (0 === contributor.indexOf('www.mcloud.de')) {
                 contributor = contributor.slice(4);
             }
-            var copyTitle = '<button onclick="table.copyToClipboard(\'' + row.title + '\')" class="badge bg-success ms-1 border-0">Name</button>';
-            var copyPath = '<button onclick="table.copyToClipboard(\'' + contributor + '|' + row.name + '\')" class="badge bg-success ms-1 border-0">Path</button>';
-            return '<tr><td><span>' + title + '<span><span class="text-success text-sm">, copy'+ copyTitle + copyPath + '</span></td>' + cols + '</tr>';
+            var copyTitle = '<button onclick="table.copyToClipboard(\'' + row.title + '\')" class="badge bg-success ms-1 border-0">Title</button>';
+            var copyPath = '<button onclick="table.copyToClipboard(\'' + contributor + '|' + row.name + '\')" class="badge bg-danger ms-1 border-0">Path</button>';
+            var copySID = '<button onclick="table.copyToClipboard(\'' + row.sid + '\')" class="badge bg-success ms-1 border-0">SID</button>';
+            var copyName = '<button onclick="table.copyToClipboard(\'' + row.name + '\')" class="badge bg-success ms-1 border-0">Name</button>';
+            return '<tr><td><span>' + title + '<span><span class="text-success text-sm">, copy'+ copyTitle + copyPath + copySID + copyName + '</span></td>' + cols + '</tr>';
         }
 
         return '<tr><td><span>' + icon + title + '</span></td>' + cols + '</tr>';

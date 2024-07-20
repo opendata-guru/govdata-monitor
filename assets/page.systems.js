@@ -6,7 +6,13 @@ var date = null,
     loadedPObjects = [],
     loadedSObjects = [],
     table = null;
-var selectedModifySystemPID = '',
+var idButtonAddSupplier = 'modify-system-add-sobject',
+    idAddSupplierType = 'add-supplier-type',
+    idAddSupplierRelation = 'add-supplier-relation',
+    idAddSupplierSameAs = 'add-supplier-same-as',
+    idAddSupplierPartOf = 'add-supplier-part-of',
+    idAddSupplierWikidata = 'add-supplier-wikidata';
+  var selectedModifySystemPID = '',
     selectedModifySystemPName = '',
     selectedModifySystemSID = '',
     selectedModifySystemSName = '',
@@ -274,6 +280,68 @@ function onModifyLoadSObjects() {
 
 // ----------------------------------------------------------------------------
 
+function installButtonAddSupplier() {
+  var elem = document.getElementById(idButtonAddSupplier);
+  var html = '';
+
+  if (!elem) {
+    return
+  }
+
+  html += '<a class="badge mb-1 bg-info" href="#" data-bs-toggle="dropdown" style="line-height:1.3rem;padding:.2rem .6rem;">';
+  html += '  Add';
+  html += '</a>';
+
+  html += '<div class="dropdown-menu dropdown-menu-end">';
+  html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem;background:#a4e9f4;color:#222;font-size:.9em">';
+  html += '    Add a supplier';
+  html += '  </div>'
+  html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
+
+  html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem">';
+  html += '    <label for="' + idAddSupplierType + '">Choose a type:</label>';
+  html += '    <select name="' + idAddSupplierType + '" id="' + idAddSupplierType + '">';
+  Object.keys(data.layers).forEach((key) => {
+    html += '      <option value="' + key + '">' + data.layers[key] + '</option>';
+  });
+  html += '    </select>';
+  html += '  </div>';
+
+  html += '  <fieldset style="padding:.5rem 1rem;margin-top:-.5rem">';
+  html += '    <legend class="fs-5">Select a Wikidata relationship:</legend>';
+  html += '    <div class="ps-3">';
+  html += '      <input type="radio" id="' + idAddSupplierSameAs + '" name="' + idAddSupplierRelation + '" value="sameas" checked />';
+  html += '      <label for="' + idAddSupplierSameAs + '">Same as</label>';
+  html += '    </div>';
+  html += '    <div class="ps-3">';
+  html += '      <input type="radio" id="' + idAddSupplierPartOf + '" name="' + idAddSupplierRelation + '" value="partof" />';
+  html += '      <label for="' + idAddSupplierPartOf + '">Part of</label>';
+  html += '    </div>';
+  html += '  </fieldset>';
+
+  html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem">';
+  html += '    <label for="' + idAddSupplierWikidata + '">Choose Wikidata:</label>';
+  html += '    <select name="' + idAddSupplierWikidata + '" id="' + idAddSupplierWikidata + '">';
+  html += '    </select>';
+  html += '  </div>';
+
+/*  html += '    <div id="' + idCredentials + '" style="padding:.5rem 1rem;margin-top:-.5rem">';
+  html += '      <label for="' + idName + '">Name:</label><input type="text" id="' + idName + '" name="' + idName + '">';
+  html += '      <br>';
+  html += '      <label for="' + idToken + '">Token:</label><input type="password" id="' + idToken + '" name="' + idToken + '">';
+  html += '    </div>'
+  html += '    <div id="' + idHello + '" style="padding:.5rem 1rem;margin-top:-.5rem" class="d-none"></div>';
+  html += '    <div class="dropdown-divider"></div>';
+  html += '    <a id="' + idLogin + '" class="dropdown-item" onclick="accountLogin()">Log in</a>';
+  html += '    <a id="' + idLogout + '" class="dropdown-item d-none" onclick="accountLogout()">Log out</a>';*/
+  html += '</div>';
+
+  elem.classList.add('dropdown');
+  elem.innerHTML = html;
+}
+
+// ----------------------------------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', function() {
   monitoring.addEventListenerStartLoading(showProgress);
   monitoring.addEventListenerEndLoading(() => {
@@ -291,6 +359,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   data.addEventListenerStartLoading(showProgress);
   data.addEventListenerEndLoading(hideProgress);
+
+  installButtonAddSupplier();
 
   document.getElementById('add-system-button').addEventListener('click', onAddSystem);
   document.getElementById('modify-system-button').addEventListener('click', onModifySystem);

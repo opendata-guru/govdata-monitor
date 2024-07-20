@@ -12,13 +12,16 @@ var data = (function () {
         layers = [];
 
     function init() {
+        layers['supranational'] = 'Europa';
+        layers['supranationalAgency'] = 'Europäische Behörde';
         layers['country'] = 'Staat';
+        layers['countryAgency'] = 'Staatliche Behörde';
         layers['federal'] = 'Bund';
         layers['federalPortal'] = 'Bundesportal';
         layers['federalAgency'] = 'Bundesbehörde';
-        layers['federalCooperation'] = 'Bund + Länder';
         layers['state'] = 'Land';
         layers['stateAgency'] = 'Landesamt';
+        layers['state+municipality'] = 'Land und Stadt';
         layers['governmentRegion'] = 'Regierungsbezirk';
         layers['regionalNetwork'] = 'Region';
         layers['regionalPortal'] = 'Regionales Portal';
@@ -119,6 +122,7 @@ var data = (function () {
 
     function analyzeRow(arrayData, id) {
         var showBadge = arrayData.length === 1;
+        var sid = '';
         var str = '';
         var name = '';
         var path = '';
@@ -143,6 +147,7 @@ var data = (function () {
                 title = obj.title ? obj.title : title;
                 name = obj.name ? obj.name : name;
                 type = obj.type ? obj.type : type;
+                sid = obj.sid ? obj.sid : sid;
 
                 typeStr = funcGetTypeString(type);
                 contributor = getContributor(processData, obj);
@@ -207,6 +212,7 @@ var data = (function () {
             linkId: id,
             name: name,
             path: path,
+            sid: sid,
             title: title,
             type: type,
             typeDE: typeStr,

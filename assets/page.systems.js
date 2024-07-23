@@ -11,7 +11,8 @@ var idButtonAddSupplier = 'modify-system-add-sobject',
     idAddSupplierRelation = 'add-supplier-relation',
     idAddSupplierSameAs = 'add-supplier-same-as',
     idAddSupplierPartOf = 'add-supplier-part-of',
-    idAddSupplierWikidata = 'add-supplier-wikidata';
+    idAddSupplierWikidata = 'add-supplier-wikidata',
+    idAddSupplierButton = 'add-supplier-button';
   var selectedModifySystemPID = '',
     selectedModifySystemPName = '',
     selectedModifySystemSID = '',
@@ -89,6 +90,25 @@ function enableModifySystemButton() {
   }
 }
 
+function updateSelection() {
+  var element = document.getElementById('modify-system-selection');
+  var sObjects = Object.values(loadedSObjects).filter((sObject) => sObject.sid === selectedModifySystemSID);
+  var text = '';
+
+  if (sObjects.length > 0) {
+    var sObject = sObjects[0];
+
+    text += '<img src="' + sObject.image.url + '" style="height: 3em;display: block; margin: 0 auto;">';
+    text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
+    text += '<strong>type</strong>: ' + sObject.type + '<br>';
+    text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
+    text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
+    text += '<strong>geocoding</strong>: ' + sObject.geocoding.germanRegionalKey + '<br>';
+  }
+
+  element.innerHTML = text;
+}
+
 function onModifySystem() {
   var button = document.getElementById('modify-system-button');
   if (button.classList.contains('bg-secondary')) {
@@ -106,6 +126,7 @@ function onModifySystem() {
 	if (selectedModifySystemSID === result.sobject.sid) {
       selectedModifySystemPID = '';
       selectedModifySystemPName = '';
+      updateSelection();
       enableModifySystemButton();
       loadedPObjects = [];
       fillModifyPObjectTable();
@@ -133,6 +154,7 @@ function onModifySystemPID(element) {
 
   selectedModifySystemPID = checked ? pID : '';
   selectedModifySystemPName = checked ? sName : '';
+  updateSelection();
   enableModifySystemButton();
 }
 
@@ -150,6 +172,7 @@ function onModifySystemSID(element) {
 
   selectedModifySystemSID = checked ? sID : '';
   selectedModifySystemSName = checked ? sName : '';
+  updateSelection();
   enableModifySystemButton();
 }
 
@@ -320,24 +343,32 @@ function installButtonAddSupplier() {
   html += '  </fieldset>';
 
   html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem">';
-  html += '    <label for="' + idAddSupplierWikidata + '">Choose Wikidata:</label>';
-  html += '    <select name="' + idAddSupplierWikidata + '" id="' + idAddSupplierWikidata + '">';
-  html += '    </select>';
+  html += '    <label for="' + idAddSupplierWikidata + '">Set link to Wikidata:</label>';
+  html += '    <input type="text" id="' + idAddSupplierWikidata + '" name="' + idAddSupplierWikidata + '" value="" />';
   html += '  </div>';
 
-/*  html += '    <div id="' + idCredentials + '" style="padding:.5rem 1rem;margin-top:-.5rem">';
-  html += '      <label for="' + idName + '">Name:</label><input type="text" id="' + idName + '" name="' + idName + '">';
-  html += '      <br>';
-  html += '      <label for="' + idToken + '">Token:</label><input type="password" id="' + idToken + '" name="' + idToken + '">';
-  html += '    </div>'
-  html += '    <div id="' + idHello + '" style="padding:.5rem 1rem;margin-top:-.5rem" class="d-none"></div>';
-  html += '    <div class="dropdown-divider"></div>';
-  html += '    <a id="' + idLogin + '" class="dropdown-item" onclick="accountLogin()">Log in</a>';
-  html += '    <a id="' + idLogout + '" class="dropdown-item d-none" onclick="accountLogout()">Log out</a>';*/
+  html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
+  html += '  <div style="padding:0 1rem;text-align:center">';
+  html += '    <a id="' + idAddSupplierButton + '" class="badge mb-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;" onclick="onButtonAddSupplier()">Add</a>';
+  html += '  </div>'
+
   html += '</div>';
 
   elem.classList.add('dropdown');
   elem.innerHTML = html;
+}
+
+function onButtonAddSupplier() {
+  var elemType = document.getElementById(idAddSupplierType);
+  var elemSameAs = document.getElementById(idAddSupplierSameAs);
+  var elemWikidata = document.getElementById(idAddSupplierWikidata);
+  var type = elemType.value;
+  var sameAs = elemSameAs.checked;
+  var wikidata = elemWikidata.value;
+
+  console.log(type);
+  console.log(sameAs);
+  console.log(wikidata);
 }
 
 // ----------------------------------------------------------------------------

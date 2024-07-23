@@ -174,9 +174,9 @@
 									<div class="mb-0 border border-info border-2 p-2" style="position: relative;border-style: dotted !important;border-top: none !important;border-right: none !important;border-bottom: none !important;">
 										<strong style="position: absolute;transform: rotate(90deg);left: -4.5em;top: 3.5em">Modify system</strong>
 										<div class="row">
-											<div class="col-12 col-md-6">
+											<div class="col-12 col-md-4">
 												<div class="text-center">Providers</div>
-												<div class="text-end px-2 border border-2 border-info" style="border-style: dotted !important;border-bottom: 0 !important;">
+												<div class="text-end px-2 border border-2 border-info" style="border-style: dotted !important;border-bottom: 0 !important;min-height: 1.75em;">
 													<input type="checkbox" checked onchange="showOnlyImperfectProviderModifySystemButton(this)"> show only imperfect provider
 												</div>
 												<div class="border border-2 border-info" style="height: 10em;overflow-y: scroll;">
@@ -187,9 +187,9 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-12 col-md-6">
+											<div class="col-12 col-md-4">
 												<div class="text-center">Suppliers</div>
-												<div class="text-end px-2 border border-2 border-info" style="border-style: dotted !important;border-bottom: 0 !important;">
+												<div class="text-end px-2 border border-2 border-info" style="border-style: dotted !important;border-bottom: 0 !important;min-height: 1.75em;">
 													<input type="search" placeholder="Search" class="ps-2 border-info" style="border-top: none !important;border-right: none !important;border-bottom: none !important;border-style: dotted;" oninput="filterModifySystemSObjects(this)">
 													<i class="align-middle" data-feather="search"></i>
 												</div>
@@ -201,6 +201,15 @@
 													</div>
 												</div>
 												<div class="text-center px-2" id="modify-system-add-sobject"></div>
+											</div>
+											<div class="col-12 col-md-4">
+												<div class="text-center">Selection</div>
+												<div class="text-end px-2 border border-2 border-info" style="border-style: dotted !important;border-bottom: 0 !important;min-height: 1.75em;">
+												</div>
+												<div class="border border-2 border-info" style="height: 10em;overflow-y: scroll;">
+													<div id="modify-system-selection" class="w-100 p-2">
+													</div>
+												</div>
 											</div>
 										</div>
 										<span id="modify-system-button" class="badge mt-1 bg-secondary" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">

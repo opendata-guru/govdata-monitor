@@ -7,11 +7,13 @@ var date = null,
     loadedSObjects = [],
     table = null;
 var idButtonAddSupplier = 'modify-system-add-sobject',
+    idAddSupplierDropdown = 'add-supplier-dropdown',
     idAddSupplierType = 'add-supplier-type',
     idAddSupplierRelation = 'add-supplier-relation',
     idAddSupplierSameAs = 'add-supplier-same-as',
     idAddSupplierPartOf = 'add-supplier-part-of',
     idAddSupplierWikidata = 'add-supplier-wikidata',
+    idAddSupplierError = 'add-supplier-error',
     idAddSupplierButton = 'add-supplier-button';
   var selectedModifySystemPID = '',
     selectedModifySystemPName = '',
@@ -303,6 +305,10 @@ function onModifyLoadSObjects() {
 
 // ----------------------------------------------------------------------------
 
+function onStopPropagationSystem(event) {
+  event.stopPropagation();
+}
+
 function installButtonAddSupplier() {
   var elem = document.getElementById(idButtonAddSupplier);
   var html = '';
@@ -315,7 +321,7 @@ function installButtonAddSupplier() {
   html += '  Add';
   html += '</a>';
 
-  html += '<div class="dropdown-menu dropdown-menu-end">';
+  html += '<div id="' + idAddSupplierDropdown + '" class="dropdown-menu dropdown-menu-end">';
   html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem;background:#a4e9f4;color:#222;font-size:.9em">';
   html += '    Add a supplier';
   html += '  </div>'
@@ -348,6 +354,10 @@ function installButtonAddSupplier() {
   html += '  </div>';
 
   html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
+  html += '  <div id="' + idAddSupplierError + '" style="padding:0 1rem .5rem 1rem;color:red">';
+  html += '  </div>'
+
+  html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
   html += '  <div style="padding:0 1rem;text-align:center">';
   html += '    <a id="' + idAddSupplierButton + '" class="badge mb-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;" onclick="onButtonAddSupplier()">Add</a>';
   html += '  </div>'
@@ -356,19 +366,53 @@ function installButtonAddSupplier() {
 
   elem.classList.add('dropdown');
   elem.innerHTML = html;
+
+  document.getElementById(idAddSupplierDropdown).addEventListener('click', onStopPropagationSystem);
 }
 
 function onButtonAddSupplier() {
   var elemType = document.getElementById(idAddSupplierType);
+  var elemError = document.getElementById(idAddSupplierError);
   var elemSameAs = document.getElementById(idAddSupplierSameAs);
   var elemWikidata = document.getElementById(idAddSupplierWikidata);
   var type = elemType.value;
+  var error = '';
   var sameAs = elemSameAs.checked;
   var wikidata = elemWikidata.value;
 
-  console.log(type);
-  console.log(sameAs);
-  console.log(wikidata);
+  if (wikidata.split('/').slice(-1)[0].toLocaleLowerCase().indexOf('q') !== 0) {
+    error = 'Link to Wikidata is invalid';
+  }
+  elemError.innerHTML = error;
+
+  if (error === '') {
+    var url = 'https://opendata.guru/api/2/s';
+  
+    account.sendRequest(url, {
+      type: type,
+      sameaswikidata: sameAs ? wikidata : '',
+      partofwikidata: !sameAs ? wikidata : ''
+    }, (result) => {
+      if (type === result.type) {
+        elemError.innerHTML = 'Done: ' + result.sid;
+        elemWikidata.value = '';
+
+        selectedModifySystemPID = '';
+        selectedModifySystemPName = '';
+        updateSelection();
+        enableModifySystemButton();
+        loadedSObjects = [];
+        fillModifySObjectTable();
+
+        onModifyLoadSObjects();
+      } else {
+        console.log(result);
+        elemError.innerHTML = 'Something went wrong';
+      }
+    }, (error) => {
+      elemError.innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+    });
+  }
 }
 
 // ----------------------------------------------------------------------------

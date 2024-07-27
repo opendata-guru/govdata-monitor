@@ -6,26 +6,25 @@ var date = null,
     loadedPObjects = [],
     loadedSObjects = [],
     table = null;
-var idButtonAddSupplier = 'modify-system-add-sobject',
-    idAddSupplierDropdown = 'add-supplier-dropdown',
-    idAddSupplierType = 'add-supplier-type',
-    idAddSupplierRelation = 'add-supplier-relation',
-    idAddSupplierSameAs = 'add-supplier-same-as',
-    idAddSupplierPartOf = 'add-supplier-part-of',
-    idAddSupplierWikidata = 'add-supplier-wikidata',
-    idAddSupplierError = 'add-supplier-error',
-    idAddSupplierButton = 'add-supplier-button';
-var idInteractiveAddSystem = 'interactive-add-system',
+var idInteractiveAddSupplier = 'interactive-add-sobject',
+    idInteractiveAddSupplierType = 'add-supplier-type',
+    idInteractiveAddSupplierRelation = 'add-supplier-relation',
+    idInteractiveAddSupplierSameAs = 'add-supplier-same-as',
+    idInteractiveAddSupplierPartOf = 'add-supplier-part-of',
+    idInteractiveAddSupplierWikidata = 'add-supplier-wikidata',
+    idInteractiveAddSupplierError = 'add-supplier-error',
+    idInteractiveAddSupplierButton = 'add-supplier-button';
+var idInteractiveAddSystem = 'interactive-add-pobject',
     idInteractiveAddSystemURL = 'add-system-url',
     idInteractiveAddSystemButton = 'add-system-button',
     idInteractiveAddSystemError = 'add-system-error',
     classInteractiveHeader = 'ia-header';
 var selectedModifySystemPID = '',
-  selectedModifySystemPName = '',
-  selectedModifySystemSID = '',
-  selectedModifySystemSName = '',
-  filterSObjects = '',
-  showOnlyImperfectPObjects = true;
+    selectedModifySystemPName = '',
+    selectedModifySystemSID = '',
+    selectedModifySystemSName = '',
+    filterSObjects = '',
+    showOnlyImperfectPObjects = true;
 
 function monitorUpdateCatalogPieChart() {}
 
@@ -135,8 +134,7 @@ function onModifySystem() {
 	if (selectedModifySystemSID === result.sobject.sid) {
       selectedModifySystemPID = '';
       selectedModifySystemPName = '';
-      updateSelection();
-      enableModifySystemButton();
+
       reloadPObjects('');
 	} else {
       console.log(result);
@@ -148,19 +146,27 @@ function onModifySystem() {
 }
 
 function onModifySystemPID(element) {
-  var pID = element.value;
+  var pid = element.value;
   var sName = element.name;
   var checked = element.checked;
 
   var checkboxes = document.querySelectorAll('#modify-system-pobjects input');
   checkboxes.forEach((checkbox) => {
-    if (checkbox.checked && (checkbox.value !== pID)) {
+    if (checkbox.checked && (checkbox.value !== pid)) {
       checkbox.checked = false;
     }
   });
 
-  selectedModifySystemPID = checked ? pID : '';
+  selectedModifySystemPID = checked ? pid : '';
   selectedModifySystemPName = checked ? sName : '';
+
+  loadedPObjects.forEach(pObject => {
+    if ((pObject.pid === pid) && (pObject.sobject)) {
+      selectedModifySystemSID = pObject.sobject.sid;
+      selectedModifySystemSName = pObject.sobject.title.en ? pObject.sobject.title.en : pObject.sobject.title.de;
+    }
+  });
+
   updateSelection();
   enableModifySystemButton();
 }
@@ -288,6 +294,18 @@ function reloadPObjects(selectPID) {
   loadedPObjects = [];
   fillModifyPObjectTable();
   onModifyLoadPObjects();
+
+  updateSelection();
+  enableModifySystemButton();
+}
+
+function reloadSObjects(selectSID) {
+  loadedSObjects = [];
+  fillModifySObjectTable();
+  onModifyLoadSObjects();
+
+  updateSelection();
+  enableModifySystemButton();
 }
 
 function onModifyLoadPObjects() {
@@ -316,76 +334,11 @@ function onModifyLoadSObjects() {
 
 // ----------------------------------------------------------------------------
 
-function onStopPropagationSystem(event) {
-  event.stopPropagation();
-}
-
-function installButtonAddSupplier() {
-  var elem = document.getElementById(idButtonAddSupplier);
-  var html = '';
-
-  if (!elem) {
-    return
-  }
-
-  html += '<a class="badge mb-1 bg-info" href="#" data-bs-toggle="dropdown" style="line-height:1.3rem;padding:.2rem .6rem;">';
-  html += '  Add';
-  html += '</a>';
-
-  html += '<div id="' + idAddSupplierDropdown + '" class="dropdown-menu dropdown-menu-end">';
-  html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem;background:#a4e9f4;color:#222;font-size:.9em">';
-  html += '    Add a supplier';
-  html += '  </div>'
-  html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
-
-  html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem">';
-  html += '    <label for="' + idAddSupplierType + '">Choose a type:</label>';
-  html += '    <select name="' + idAddSupplierType + '" id="' + idAddSupplierType + '">';
-  Object.keys(data.layers).forEach((key) => {
-    html += '      <option value="' + key + '">' + data.layers[key] + '</option>';
-  });
-  html += '    </select>';
-  html += '  </div>';
-
-  html += '  <fieldset style="padding:.5rem 1rem;margin-top:-.5rem">';
-  html += '    <legend class="fs-5">Select a Wikidata relationship:</legend>';
-  html += '    <div class="ps-3">';
-  html += '      <input type="radio" id="' + idAddSupplierSameAs + '" name="' + idAddSupplierRelation + '" value="sameas" checked />';
-  html += '      <label for="' + idAddSupplierSameAs + '">Same as</label>';
-  html += '    </div>';
-  html += '    <div class="ps-3">';
-  html += '      <input type="radio" id="' + idAddSupplierPartOf + '" name="' + idAddSupplierRelation + '" value="partof" />';
-  html += '      <label for="' + idAddSupplierPartOf + '">Part of</label>';
-  html += '    </div>';
-  html += '  </fieldset>';
-
-  html += '  <div style="padding:.5rem 1rem;margin-top:-.5rem">';
-  html += '    <label for="' + idAddSupplierWikidata + '">Set link to Wikidata:</label>';
-  html += '    <input type="text" id="' + idAddSupplierWikidata + '" name="' + idAddSupplierWikidata + '" value="" />';
-  html += '  </div>';
-
-  html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
-  html += '  <div id="' + idAddSupplierError + '" style="padding:0 1rem .5rem 1rem;color:red">';
-  html += '  </div>'
-
-  html += '  <div class="dropdown-divider" style="margin-top:0"></div>';
-  html += '  <div style="padding:0 1rem;text-align:center">';
-  html += '    <a id="' + idAddSupplierButton + '" class="badge mb-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;" onclick="onButtonAddSupplier()">Add</a>';
-  html += '  </div>'
-
-  html += '</div>';
-
-  elem.classList.add('dropdown');
-  elem.innerHTML = html;
-
-  document.getElementById(idAddSupplierDropdown).addEventListener('click', onStopPropagationSystem);
-}
-
-function onButtonAddSupplier() {
-  var elemType = document.getElementById(idAddSupplierType);
-  var elemError = document.getElementById(idAddSupplierError);
-  var elemSameAs = document.getElementById(idAddSupplierSameAs);
-  var elemWikidata = document.getElementById(idAddSupplierWikidata);
+function onAddSupplier() {
+  var elemType = document.getElementById(idInteractiveAddSupplierType);
+  var elemError = document.getElementById(idInteractiveAddSupplierError);
+  var elemSameAs = document.getElementById(idInteractiveAddSupplierSameAs);
+  var elemWikidata = document.getElementById(idInteractiveAddSupplierWikidata);
   var type = elemType.value;
   var error = '';
   var sameAs = elemSameAs.checked;
@@ -412,16 +365,18 @@ function onButtonAddSupplier() {
         selectedModifySystemPName = '';
         updateSelection();
         enableModifySystemButton();
-        loadedSObjects = [];
-        fillModifySObjectTable();
 
-        onModifyLoadSObjects();
+        reloadSObjects(result.sid);
       } else {
         console.log(result);
         elemError.innerHTML = 'Something went wrong';
+
+        reloadSObjects('');
       }
     }, (error) => {
       elemError.innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+
+      reloadSObjects('');
     });
   }
 }
@@ -429,12 +384,19 @@ function onButtonAddSupplier() {
 // ----------------------------------------------------------------------------
 
 function installInteractiveArea() {
-  var elemAddSystem = document.getElementById(idInteractiveAddSystem);
+  var elemAddPObject = document.getElementById(idInteractiveAddSystem);
+  var elemAddSObject = document.getElementById(idInteractiveAddSupplier);
 
-  if (elemAddSystem) {
-    installAddSystem(elemAddSystem);
+  if (elemAddPObject) {
+    installAddSystem(elemAddPObject);
 
     document.getElementById(idInteractiveAddSystemButton).addEventListener('click', onAddSystem);
+  }
+
+  if (elemAddSObject) {
+    installAddSupplier(elemAddSObject);
+
+    document.getElementById(idInteractiveAddSupplierButton).addEventListener('click', onAddSupplier);
   }
 
   document.getElementById('modify-system-button').addEventListener('click', onModifySystem);
@@ -472,9 +434,57 @@ function installAddSystem(elem) {
   var str = '';
   str += '<div class="col-12 col-md-12">';
   str += '  <label for="' + idInteractiveAddSystemURL + '">Link to new system:</label>';
-  str += '  <input type="string" id="' + idInteractiveAddSystemURL + '" name="' + idInteractiveAddSystemURL + '" class="border border-info flex-fill w-100">';
+  str += '  <input type="string" id="' + idInteractiveAddSystemURL + '" name="' + idInteractiveAddSystemURL + '" class="flex-fill w-100">';
   str += '  <span id="' + idInteractiveAddSystemButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';
   str += '  <span id="' + idInteractiveAddSystemError + '" class="text-danger p-2"></span>';
+  str += '</div>';
+
+  row.innerHTML = str;
+}
+
+function installAddSupplier(elem) {
+  prepareInteracticeElem(elem);
+
+  var header = elem.getElementsByClassName(classInteractiveHeader)[0];
+  header.innerHTML = 'Add supplier';
+  header.style.left = '-4em';
+  header.style.top = '2.75em';
+
+  var row = elem.getElementsByClassName('row')[0];
+  var str = '';
+  str += '<div class="col-12 col-md-12">';
+
+  str += '  <div>';
+  str += '    <label for="' + idInteractiveAddSupplierType + '">Choose a type:</label>';
+  str += '    <select name="' + idInteractiveAddSupplierType + '" id="' + idInteractiveAddSupplierType + '">';
+  Object.keys(data.layers).forEach((key) => {
+    str += '      <option value="' + key + '">' + data.layers[key] + '</option>';
+  });
+  str += '    </select>';
+  str += '  </div>';
+
+  str += '  <fieldset>';
+  str += '    <legend class="fs-5 mb-0">Select a Wikidata relationship:</legend>';
+  str += '    <div class="ps-3">';
+  str += '      <input type="radio" id="' + idInteractiveAddSupplierSameAs + '" name="' + idInteractiveAddSupplierRelation + '" value="sameas" checked />';
+  str += '      <label for="' + idInteractiveAddSupplierSameAs + '">Same as</label>';
+  str += '    </div>';
+  str += '    <div class="ps-3">';
+  str += '      <input type="radio" id="' + idInteractiveAddSupplierPartOf + '" name="' + idInteractiveAddSupplierRelation + '" value="partof" />';
+  str += '      <label for="' + idInteractiveAddSupplierPartOf + '">Part of</label>';
+  str += '    </div>';
+  str += '  </fieldset>';
+
+  str += '  <div>';
+  str += '    <label for="' + idInteractiveAddSupplierWikidata + '">Set link to Wikidata:</label>';
+  str += '    <input type="text" id="' + idInteractiveAddSupplierWikidata + '" name="' + idInteractiveAddSupplierWikidata + '" value="" />';
+  str += '  </div>';
+
+  str += '  <div>';
+  str += '    <span id="' + idInteractiveAddSupplierButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';
+  str += '    <span id="' + idInteractiveAddSupplierError + '" class="text-danger p-2"></span>';
+  str += '  </div>';
+
   str += '</div>';
 
   row.innerHTML = str;
@@ -500,7 +510,6 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerStartLoading(showProgress);
   data.addEventListenerEndLoading(hideProgress);
 
-  installButtonAddSupplier();
   installInteractiveArea();
 
   monitoring.loadData();

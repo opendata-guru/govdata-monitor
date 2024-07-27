@@ -15,12 +15,17 @@ var idButtonAddSupplier = 'modify-system-add-sobject',
     idAddSupplierWikidata = 'add-supplier-wikidata',
     idAddSupplierError = 'add-supplier-error',
     idAddSupplierButton = 'add-supplier-button';
-  var selectedModifySystemPID = '',
-    selectedModifySystemPName = '',
-    selectedModifySystemSID = '',
-    selectedModifySystemSName = '',
-    filterSObjects = '',
-    showOnlyImperfectPObjects = true;
+var idInteractiveAddSystem = 'interactive-add-system',
+    idInteractiveAddSystemURL = 'add-system-url',
+    idInteractiveAddSystemButton = 'add-system-button',
+    idInteractiveAddSystemError = 'add-system-error',
+    classInteractiveHeader = 'ia-header';
+var selectedModifySystemPID = '',
+  selectedModifySystemPName = '',
+  selectedModifySystemSID = '',
+  selectedModifySystemSName = '',
+  filterSObjects = '',
+  showOnlyImperfectPObjects = true;
 
 function monitorUpdateCatalogPieChart() {}
 
@@ -54,16 +59,18 @@ function hideProgress() {
 }
 
 function onAddSystem() {
-  var url = document.getElementById('add-system-url');
+  var url = document.getElementById(idInteractiveAddSystemURL);
 
-  document.getElementById('add-system-error').innerHTML = '';
+  document.getElementById(idInteractiveAddSystemError).innerHTML = '';
 
   account.sendRequest('https://opendata.guru/api/2/p', {
     url: url.value
   }, (result) => {
-    document.getElementById('add-system-error').innerHTML = 'Yeah: ' + result.pid;
+    document.getElementById(idInteractiveAddSystemError).innerHTML = 'Yeah: ' + result.pid;
+    reloadPObjects(result.pid);
   }, (error) => {
-    document.getElementById('add-system-error').innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+    document.getElementById(idInteractiveAddSystemError).innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+    reloadPObjects('');
   });
 }
 
@@ -130,9 +137,7 @@ function onModifySystem() {
       selectedModifySystemPName = '';
       updateSelection();
       enableModifySystemButton();
-      loadedPObjects = [];
-      fillModifyPObjectTable();
-      onModifyLoadPObjects();
+      reloadPObjects('');
 	} else {
       console.log(result);
       document.getElementById('modify-system-error').innerHTML = 'Something went wrong';
@@ -279,6 +284,12 @@ function fillModifySObjectTable() {
   listElem.innerHTML = list;
 }
 
+function reloadPObjects(selectPID) {
+  loadedPObjects = [];
+  fillModifyPObjectTable();
+  onModifyLoadPObjects();
+}
+
 function onModifyLoadPObjects() {
   loadPObjects((result) => {
     loadedPObjects = result;
@@ -417,6 +428,60 @@ function onButtonAddSupplier() {
 
 // ----------------------------------------------------------------------------
 
+function installInteractiveArea() {
+  var elemAddSystem = document.getElementById(idInteractiveAddSystem);
+
+  if (elemAddSystem) {
+    installAddSystem(elemAddSystem);
+
+    document.getElementById(idInteractiveAddSystemButton).addEventListener('click', onAddSystem);
+  }
+
+  document.getElementById('modify-system-button').addEventListener('click', onModifySystem);
+  document.getElementById('modify-system-load-pobjects').addEventListener('click', onModifyLoadPObjects);
+  document.getElementById('modify-system-load-sobjects').addEventListener('click', onModifyLoadSObjects);
+}
+
+function prepareInteracticeElem(elem) {
+  elem.classList.add('flex-fill');
+  elem.classList.add('w-100');
+  elem.classList.add('p-3');
+  elem.classList.add('pt-0');
+  elem.classList.add('overflow-auto');
+
+  var str = '';
+  str += '<div class="ps-4 border border-info border-2 bg-info">';
+  str += '  <div class="mb-0 p-2 bg-white" style="position: relative;">';
+  str += '    <strong class="' + classInteractiveHeader + ' text-white" style="position: absolute;transform: rotate(90deg);left: 0;top: 0"></strong>';
+  str += '    <div class="row"></div>';
+  str += '  </div>';
+  str += '</div>';
+
+  elem.innerHTML = str;
+}
+
+function installAddSystem(elem) {
+  prepareInteracticeElem(elem);
+
+  var header = elem.getElementsByClassName(classInteractiveHeader)[0];
+  header.innerHTML = 'Add system';
+  header.style.left = '-3.75em';
+  header.style.top = '2.5em';
+
+  var row = elem.getElementsByClassName('row')[0];
+  var str = '';
+  str += '<div class="col-12 col-md-12">';
+  str += '  <label for="' + idInteractiveAddSystemURL + '">Link to new system:</label>';
+  str += '  <input type="string" id="' + idInteractiveAddSystemURL + '" name="' + idInteractiveAddSystemURL + '" class="border border-info flex-fill w-100">';
+  str += '  <span id="' + idInteractiveAddSystemButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';
+  str += '  <span id="' + idInteractiveAddSystemError + '" class="text-danger p-2"></span>';
+  str += '</div>';
+
+  row.innerHTML = str;
+}
+
+// ----------------------------------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', function() {
   monitoring.addEventListenerStartLoading(showProgress);
   monitoring.addEventListenerEndLoading(() => {
@@ -436,11 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
   data.addEventListenerEndLoading(hideProgress);
 
   installButtonAddSupplier();
-
-  document.getElementById('add-system-button').addEventListener('click', onAddSystem);
-  document.getElementById('modify-system-button').addEventListener('click', onModifySystem);
-  document.getElementById('modify-system-load-pobjects').addEventListener('click', onModifyLoadPObjects);
-  document.getElementById('modify-system-load-sobjects').addEventListener('click', onModifyLoadSObjects);
+  installInteractiveArea();
 
   monitoring.loadData();
 });

@@ -19,10 +19,18 @@ var idInteractiveAddSystem = 'interactive-add-pobject',
     idInteractiveAddSystemButton = 'add-system-button',
     idInteractiveAddSystemError = 'add-system-error',
     classInteractiveHeader = 'ia-header';
+var idInteractiveEditSystem = 'interactive-edit-pobject',
+    idInteractiveEditSystemPObject = 'edit-system-pobject',
+    idInteractiveEditSystemSObject = 'edit-system-sobject',
+    idInteractiveEditSystemPObjects = 'edit-system-pobjects',
+    idInteractiveEditSystemSObjects = 'edit-system-sobjects',
+    idInteractiveEditSystemSelection = 'edit-system-selection',
+    idInteractiveEditSystemLoadPObjects = 'edit-system-load-pobjects',
+    idInteractiveEditSystemLoadSObjects = 'edit-system-load-sobjects',
+    idInteractiveEditSystemButton = 'edit-system-button',
+    idInteractiveEditSystemError = 'edit-system-error';
 var selectedModifySystemPID = '',
-    selectedModifySystemPName = '',
     selectedModifySystemSID = '',
-    selectedModifySystemSName = '',
     filterSObjects = '',
     showOnlyImperfectPObjects = true;
 
@@ -74,17 +82,17 @@ function onAddSystem() {
 }
 
 function enableModifySystemButton() {
-  var button = document.getElementById('modify-system-button');
+  var button = document.getElementById(idInteractiveEditSystemButton);
   var text = 'Link';
   var enable = false;
 
   if ((selectedModifySystemPID !== '') && (selectedModifySystemSID !== '')) {
     enable = true;
-    text += ' ' + (selectedModifySystemPName != '' ? selectedModifySystemPName : selectedModifySystemPID) + ' to ' + (selectedModifySystemSName !== '' ? selectedModifySystemSName : selectedModifySystemSID);
+    text += ' provider to supplier';
   } else if (selectedModifySystemPID !== '') {
-    text += ' ' + (selectedModifySystemPName != '' ? selectedModifySystemPName : selectedModifySystemPID) + ' to -';
+    text += ' provider to -';
   } else if (selectedModifySystemSID !== '') {
-    text += ' - to ' + (selectedModifySystemSName !== '' ? selectedModifySystemSName : selectedModifySystemSID);
+    text += ' - to supplier';
   }
 
   button.innerHTML = text;
@@ -99,7 +107,7 @@ function enableModifySystemButton() {
 }
 
 function updateSelection() {
-  var element = document.getElementById('modify-system-selection');
+  var element = document.getElementById(idInteractiveEditSystemSelection);
   var sObjects = Object.values(loadedSObjects).filter((sObject) => sObject.sid === selectedModifySystemSID);
   var text = '';
 
@@ -118,13 +126,13 @@ function updateSelection() {
 }
 
 function onModifySystem() {
-  var button = document.getElementById('modify-system-button');
+  var button = document.getElementById(idInteractiveEditSystemButton);
   if (button.classList.contains('bg-secondary')) {
     // button is disabled
     return;
   }
 
-  document.getElementById('modify-system-error').innerHTML = '';
+  document.getElementById(idInteractiveEditSystemError).innerHTML = '';
 
   var url = 'https://opendata.guru/api/2/p/' + selectedModifySystemPID;
 
@@ -133,37 +141,26 @@ function onModifySystem() {
   }, (result) => {
 	if (selectedModifySystemSID === result.sobject.sid) {
       selectedModifySystemPID = '';
-      selectedModifySystemPName = '';
 
       reloadPObjects('');
 	} else {
       console.log(result);
-      document.getElementById('modify-system-error').innerHTML = 'Something went wrong';
+      document.getElementById(idInteractiveEditSystemError).innerHTML = 'Something went wrong';
 	}
   }, (error) => {
-    document.getElementById('modify-system-error').innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+    document.getElementById(idInteractiveEditSystemError).innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
   });
 }
 
-function onModifySystemPID(element) {
+function onModifySystemPID(event) {
+  var element = event.target;
   var pid = element.value;
-  var sName = element.name;
-  var checked = element.checked;
 
-  var checkboxes = document.querySelectorAll('#modify-system-pobjects input');
-  checkboxes.forEach((checkbox) => {
-    if (checkbox.checked && (checkbox.value !== pid)) {
-      checkbox.checked = false;
-    }
-  });
-
-  selectedModifySystemPID = checked ? pid : '';
-  selectedModifySystemPName = checked ? sName : '';
+  selectedModifySystemPID = pid;
 
   loadedPObjects.forEach(pObject => {
     if ((pObject.pid === pid) && (pObject.sobject)) {
       selectedModifySystemSID = pObject.sobject.sid;
-      selectedModifySystemSName = pObject.sobject.title.en ? pObject.sobject.title.en : pObject.sobject.title.de;
     }
   });
 
@@ -171,20 +168,12 @@ function onModifySystemPID(element) {
   enableModifySystemButton();
 }
 
-function onModifySystemSID(element) {
+function onModifySystemSID(event) {
+  var element = event.target;
   var sID = element.value;
-  var sName = element.name;
-  var checked = element.checked;
 
-  var checkboxes = document.querySelectorAll('#modify-system-sobjects input');
-  checkboxes.forEach((checkbox) => {
-    if (checkbox.checked && (checkbox.value !== sID)) {
-      checkbox.checked = false;
-    }
-  });
+  selectedModifySystemSID = sID;
 
-  selectedModifySystemSID = checked ? sID : '';
-  selectedModifySystemSName = checked ? sName : '';
   updateSelection();
   enableModifySystemButton();
 }
@@ -232,10 +221,11 @@ function loadSObjects(loadedCB, errorCB) {
 }
 
 function fillModifyPObjectTable() {
-  var listElem = document.getElementById('modify-system-pobjects');
+  var listElem = document.getElementById(idInteractiveEditSystemPObjects);
   var list = '';
+  var first = true;
 
-  list += '<ul style="list-style:none;padding-left:.5em;">';
+  list += '<fieldset>';
   loadedPObjects.forEach(pObject => {
     var title = '';
     if (pObject.sobject) {
@@ -250,22 +240,35 @@ function fillModifyPObjectTable() {
       return;
     }
 
-    list += '<li style="overflow-x: hidden;white-space: nowrap;">';
-    list += '<input type="checkbox" value="' + pObject.pid + '" name="' + (title != '' ? title : pObject.url) + '" onchange="onModifySystemPID(this)"> ' + title + ' ' + pObject.url;
-    list += '</li>';
+    list += '<div style="overflow-x: hidden;white-space: nowrap;">';
+    list += '<input type="radio" id="edit-system-pid-' + pObject.pid + '" value="' + pObject.pid + '" name="' + idInteractiveEditSystemPObject + '" class="mx-2" ' + (first ? 'checked' : '') + '>';
+    list += '<label for="edit-system-pid-' + pObject.pid + '">' + title + ' ' + pObject.url + '</label>';
+    list += '</div>';
+
+    first = false;
   });
-  list += '</ul>';
+  list += '</fieldset>';
 
   listElem.classList.remove('text-center');
   listElem.innerHTML = list;
+
+  document.querySelector('#' + idInteractiveEditSystemPObjects + ' fieldset').addEventListener('change', onModifySystemPID);
+
+  var selected = document.querySelector('#' + idInteractiveEditSystemPObjects + ' fieldset input:checked');
+  if (selected) {
+    onModifySystemPID({
+      target: selected
+    });
+  }
 }
 
 function fillModifySObjectTable() {
-  var listElem = document.getElementById('modify-system-sobjects');
+  var listElem = document.getElementById(idInteractiveEditSystemSObjects);
   var list = '';
+  var first = true;
   var lowerFilter = filterSObjects.toLocaleLowerCase();
 
-  list += '<ul style="list-style:none;padding-left:.5em;">';
+  list += '<fieldset>';
   loadedSObjects.forEach(sObject => {
     var title = [];
     if (sObject.title.en !== '') {
@@ -280,14 +283,26 @@ function fillModifySObjectTable() {
       return;
     }
 
-    list += '<li style="overflow-x: hidden;white-space: nowrap;">';
-    list += '<input type="checkbox" value="' + sObject.sid + '" name="' + strTitle + '" onchange="onModifySystemSID(this)"> ' + strTitle;
-    list += '</li>';
+    list += '<div style="overflow-x: hidden;white-space: nowrap;">';
+    list += '<input type="radio" id="edit-system-sid-' + sObject.sid + '" value="' + sObject.sid + '" name="' + idInteractiveEditSystemSObject + '" class="mx-2" ' + (first ? 'checked' : '') + '>';
+    list += '<label for="edit-system-sid-' + sObject.sid + '">' + strTitle + '</label>';
+    list += '</div>';
+
+    first = false;
   });
-  list += '</ul>';
+  list += '</fieldset>';
 
   listElem.classList.remove('text-center');
   listElem.innerHTML = list;
+
+  document.querySelector('#' + idInteractiveEditSystemSObjects + ' fieldset').addEventListener('change', onModifySystemSID);
+
+  var selected = document.querySelector('#' + idInteractiveEditSystemSObjects + ' fieldset input:checked');
+  if (selected) {
+    onModifySystemSID({
+      target: selected
+    });
+  }
 }
 
 function reloadPObjects(selectPID) {
@@ -362,7 +377,6 @@ function onAddSupplier() {
         elemWikidata.value = '';
 
         selectedModifySystemPID = '';
-        selectedModifySystemPName = '';
         updateSelection();
         enableModifySystemButton();
 
@@ -386,6 +400,7 @@ function onAddSupplier() {
 function installInteractiveArea() {
   var elemAddPObject = document.getElementById(idInteractiveAddSystem);
   var elemAddSObject = document.getElementById(idInteractiveAddSupplier);
+  var elemEditPObject = document.getElementById(idInteractiveEditSystem);
 
   if (elemAddPObject) {
     installAddSystem(elemAddPObject);
@@ -399,9 +414,13 @@ function installInteractiveArea() {
     document.getElementById(idInteractiveAddSupplierButton).addEventListener('click', onAddSupplier);
   }
 
-  document.getElementById('modify-system-button').addEventListener('click', onModifySystem);
-  document.getElementById('modify-system-load-pobjects').addEventListener('click', onModifyLoadPObjects);
-  document.getElementById('modify-system-load-sobjects').addEventListener('click', onModifyLoadSObjects);
+  if (elemEditPObject) {
+    installEditSystem(elemEditPObject);
+
+    document.getElementById(idInteractiveEditSystemButton).addEventListener('click', onModifySystem);
+    document.getElementById(idInteractiveEditSystemLoadPObjects).addEventListener('click', onModifyLoadPObjects);
+    document.getElementById(idInteractiveEditSystemLoadSObjects).addEventListener('click', onModifyLoadSObjects);
+  }
 }
 
 function prepareInteracticeElem(elem) {
@@ -485,6 +504,60 @@ function installAddSupplier(elem) {
   str += '    <span id="' + idInteractiveAddSupplierError + '" class="text-danger p-2"></span>';
   str += '  </div>';
 
+  str += '</div>';
+
+  row.innerHTML = str;
+}
+
+function installEditSystem(elem) {
+  prepareInteracticeElem(elem);
+
+  var header = elem.getElementsByClassName(classInteractiveHeader)[0];
+  header.innerHTML = 'Modify system';
+  header.style.left = '-4.5em';
+  header.style.top = '3.5em';
+
+  var row = elem.getElementsByClassName('row')[0];
+  var str = '';
+
+  str += '<div class="col-12 col-md-4">';
+  str += '  <div style="min-height: 2em;">';
+  str += '    <input type="checkbox" checked onchange="showOnlyImperfectProviderModifySystemButton(this)"> show only imperfect provider';
+  str += '  </div>';
+  str += '  <div class="border border-1 border-dark" style="height: 10em;overflow-y: scroll;">';
+  str += '    <div id="' + idInteractiveEditSystemPObjects + '" class="w-100 text-center">';
+  str += '      <span id="' + idInteractiveEditSystemLoadPObjects + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;margin-top:4.5em !important">';
+  str += '        Load Provider List';
+  str += '      </span>';
+  str += '    </div>';
+  str += '  </div>';
+  str += '</div>';
+
+  str += '<div class="col-12 col-md-4">';
+  str += '  <div style="min-height: 2em;">';
+  str += '    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+  str += '    <input type="search" placeholder="Search Supplier" class="ps-2 border border-1 border-dark" oninput="filterModifySystemSObjects(this)">';
+  str += '  </div>';
+  str += '  <div class="border border-1 border-dark" style="height: 10em;overflow-y: scroll;">';
+  str += '    <div id="' + idInteractiveEditSystemSObjects + '" class="w-100 text-center">';
+  str += '      <span id="' + idInteractiveEditSystemLoadSObjects + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;margin-top:4.5em !important">';
+  str += '        Load Supplier List';
+  str += '      </span>';
+  str += '    </div>';
+  str += '  </div>';
+  str += '  <div class="text-center px-2" id="modify-system-add-sobject"></div>';
+  str += '</div>';
+
+  str += '<div class="col-12 col-md-4">';
+  str += '  <div style="height: 12em;overflow-y: scroll;">';
+  str += '    <div id="' + idInteractiveEditSystemSelection + '" class="w-100 p-2">';
+  str += '    </div>';
+  str += '  </div>';
+  str += '</div>';
+
+  str += '<div class="col-12 col-md-12">';
+  str += '  <span id="' + idInteractiveEditSystemButton + '" class="badge mt-1 bg-secondary" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Link</span>';
+  str += '  <span id="' + idInteractiveEditSystemError + '" class="text-danger p-2"></span>';
   str += '</div>';
 
   row.innerHTML = str;

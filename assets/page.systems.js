@@ -114,8 +114,10 @@ function updateSelection() {
   if (sObjects.length > 0) {
     var sObject = sObjects[0];
 
-    text += '<img src="' + sObject.image.url + '" style="height: 3em;display: block; margin: 0 auto;">';
+    text += '<img src="' + sObject.image.url + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
     text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
+    text += '<strong>title</strong>: ' + sObject.title.en + '<br>';
+    text += '<strong>title</strong>: ' + sObject.title.de + '<br>';
     text += '<strong>type</strong>: ' + sObject.type + '<br>';
     text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
     text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
@@ -157,22 +159,36 @@ function onModifySystemPID(event) {
   var pid = element.value;
 
   selectedModifySystemPID = pid;
+  updateSelection();
+  enableModifySystemButton();
 
   loadedPObjects.forEach(pObject => {
     if ((pObject.pid === pid) && (pObject.sobject)) {
-      selectedModifySystemSID = pObject.sobject.sid;
+      selectModifySystemSID(pObject.sobject.sid);
     }
   });
-
-  updateSelection();
-  enableModifySystemButton();
 }
 
 function onModifySystemSID(event) {
   var element = event.target;
   var sID = element.value;
 
-  selectedModifySystemSID = sID;
+  selectModifySystemSID(sID);
+}
+
+function selectModifySystemSID(sid) {
+  if (selectedModifySystemSID === sid) {
+    return;
+  }
+
+  if (sid !== '') {
+    var selection = document.getElementById('edit-system-sid-' + sid);
+    if (selection) {
+      selectedModifySystemSID = sid;
+      selection.checked = true;
+      selection.scrollIntoView();
+    }
+  }
 
   updateSelection();
   enableModifySystemButton();
@@ -307,8 +323,8 @@ function fillModifySObjectTable() {
 
 function reloadPObjects(selectPID) {
   loadedPObjects = [];
-  fillModifyPObjectTable();
-  onModifyLoadPObjects();
+  fillModifyPObjectTable('');
+  onModifyLoadPObjects(selectPID);
 
   updateSelection();
   enableModifySystemButton();
@@ -316,32 +332,48 @@ function reloadPObjects(selectPID) {
 
 function reloadSObjects(selectSID) {
   loadedSObjects = [];
-  fillModifySObjectTable();
-  onModifyLoadSObjects();
+  fillModifySObjectTable('');
+  onModifyLoadSObjects(selectSID);
 
   updateSelection();
   enableModifySystemButton();
 }
 
-function onModifyLoadPObjects() {
+function onModifyLoadPObjects(selectPID) {
   loadPObjects((result) => {
     loadedPObjects = result;
-    fillModifyPObjectTable();
+    loadedPObjects.sort(function(a, b) {
+      var left = (a.sobject ? a.sobject.title.en : '') + a.url;
+      var right = (b.sobject ? b.sobject.title.en : '') + b.url;
+
+      if (left < right) return -1;
+      if (left > right) return 1;
+      return 0;
+    });
+    fillModifyPObjectTable(selectPID);
   }, (error) => {
     loadedPObjects = [];
-    fillModifyPObjectTable();
+    fillModifyPObjectTable('');
 
     console.warn(error);
   });
 }
 
-function onModifyLoadSObjects() {
+function onModifyLoadSObjects(selectSID) {
   loadSObjects((result) => {
     loadedSObjects = result;
-    fillModifySObjectTable();
+    loadedSObjects.sort(function(a, b) {
+      var left = a.title.en ? a.title.en : a.title.de;
+      var right = b.title.en ? b.title.en : b.title.de;
+
+      if (left < right) return -1;
+      if (left > right) return 1;
+      return 0;
+    });
+    fillModifySObjectTable(selectSID);
   }, (error) => {
     loadedSObjects = [];
-    fillModifySObjectTable();
+    fillModifySObjectTable('');
 
     console.warn(error);
   });

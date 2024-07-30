@@ -84,20 +84,34 @@ function onAddSystem() {
 function enableModifySystemButton() {
   var button = document.getElementById(idInteractiveEditSystemButton);
   var text = 'Link';
-  var enable = false;
 
-  if ((selectedModifySystemPID !== '') && (selectedModifySystemSID !== '')) {
-    enable = true;
-    text += ' provider to supplier';
-  } else if (selectedModifySystemPID !== '') {
-    text += ' provider to -';
-  } else if (selectedModifySystemSID !== '') {
-    text += ' - to supplier';
+  var pText = '-';
+  if (selectedModifySystemPID) {
+    loadedPObjects.forEach(pObject => {
+      if (pObject.pid === selectedModifySystemPID) {
+        if (pObject.sobject) {
+          pText = pObject.sobject.title.en; 
+        } else {
+          pText = pObject.url;
+        }
+      }
+    });
   }
+
+  var sText = '-';
+  if (selectedModifySystemSID) {
+    loadedSObjects.forEach(sObject => {
+      if (sObject.sid === selectedModifySystemSID) {
+        sText = sObject.title.en; 
+      }
+    });
+  }
+
+  text += ' ' + pText +  ' to ' + sText;
 
   button.innerHTML = text;
 
-  if (enable) {
+  if ((pText !== '-') && (sText !== '-')) {
     button.classList.remove('bg-secondary');
     button.classList.add('bg-info');
   } else {
@@ -142,8 +156,6 @@ function onModifySystem() {
     sID: selectedModifySystemSID
   }, (result) => {
 	if (selectedModifySystemSID === result.sobject.sid) {
-      selectedModifySystemPID = '';
-
       reloadPObjects('');
 	} else {
       console.log(result);
@@ -158,9 +170,7 @@ function onModifySystemPID(event) {
   var element = event.target;
   var pid = element.value;
 
-  selectedModifySystemPID = pid;
-  updateSelection();
-  enableModifySystemButton();
+  selectModifySystemPID(pid);
 
   loadedPObjects.forEach(pObject => {
     if ((pObject.pid === pid) && (pObject.sobject)) {
@@ -176,6 +186,24 @@ function onModifySystemSID(event) {
   selectModifySystemSID(sID);
 }
 
+function selectModifySystemPID(pid) {
+  if (selectedModifySystemPID === pid) {
+    return;
+  }
+
+  if (pid !== '') {
+    var selection = document.getElementById('edit-system-pid-' + pid);
+    if (selection) {
+      selectedModifySystemPID = pid;
+      selection.checked = true;
+      selection.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    }
+  }
+
+  updateSelection();
+  enableModifySystemButton();
+}
+
 function selectModifySystemSID(sid) {
   if (selectedModifySystemSID === sid) {
     return;
@@ -186,7 +214,7 @@ function selectModifySystemSID(sid) {
     if (selection) {
       selectedModifySystemSID = sid;
       selection.checked = true;
-      selection.scrollIntoView();
+      selection.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
     }
   }
 
@@ -323,7 +351,7 @@ function fillModifySObjectTable() {
 
 function reloadPObjects(selectPID) {
   loadedPObjects = [];
-  fillModifyPObjectTable('');
+  fillModifyPObjectTable();
   onModifyLoadPObjects(selectPID);
 
   updateSelection();
@@ -332,7 +360,7 @@ function reloadPObjects(selectPID) {
 
 function reloadSObjects(selectSID) {
   loadedSObjects = [];
-  fillModifySObjectTable('');
+  fillModifySObjectTable();
   onModifyLoadSObjects(selectSID);
 
   updateSelection();
@@ -350,10 +378,11 @@ function onModifyLoadPObjects(selectPID) {
       if (left > right) return 1;
       return 0;
     });
-    fillModifyPObjectTable(selectPID);
+    fillModifyPObjectTable();
+    selectModifySystemPID(selectPID);
   }, (error) => {
     loadedPObjects = [];
-    fillModifyPObjectTable('');
+    fillModifyPObjectTable();
 
     console.warn(error);
   });
@@ -370,10 +399,11 @@ function onModifyLoadSObjects(selectSID) {
       if (left > right) return 1;
       return 0;
     });
-    fillModifySObjectTable(selectSID);
+    fillModifySObjectTable();
+    selectModifySystemSID(selectSID);
   }, (error) => {
     loadedSObjects = [];
-    fillModifySObjectTable('');
+    fillModifySObjectTable();
 
     console.warn(error);
   });
@@ -407,10 +437,6 @@ function onAddSupplier() {
       if (type === result.type) {
         elemError.innerHTML = 'Done: ' + result.sid;
         elemWikidata.value = '';
-
-        selectedModifySystemPID = '';
-        updateSelection();
-        enableModifySystemButton();
 
         reloadSObjects(result.sid);
       } else {

@@ -13,10 +13,12 @@ var idInteractiveAddSupplier = 'interactive-add-sobject',
     idInteractiveAddSupplierPartOf = 'add-supplier-part-of',
     idInteractiveAddSupplierWikidata = 'add-supplier-wikidata',
     idInteractiveAddSupplierError = 'add-supplier-error',
-    idInteractiveAddSupplierButton = 'add-supplier-button';
+    idInteractiveAddSupplierButton = 'add-supplier-button',
+    idInteractiveAddSupplierButton2 = 'add-supplier-button-2';
 var idInteractiveAddSystem = 'interactive-add-pobject',
     idInteractiveAddSystemURL = 'add-system-url',
     idInteractiveAddSystemButton = 'add-system-button',
+    idInteractiveAddSystemButton2 = 'add-system-button-2',
     idInteractiveAddSystemError = 'add-system-error',
     classInteractiveHeader = 'ia-header';
 var idInteractiveEditSystem = 'interactive-edit-pobject',
@@ -28,6 +30,7 @@ var idInteractiveEditSystem = 'interactive-edit-pobject',
     idInteractiveEditSystemLoadPObjects = 'edit-system-load-pobjects',
     idInteractiveEditSystemLoadSObjects = 'edit-system-load-sobjects',
     idInteractiveEditSystemButton = 'edit-system-button',
+    idInteractiveEditSystemButton2 = 'edit-system-button-2',
     idInteractiveEditSystemError = 'edit-system-error';
 var selectedModifySystemPID = '',
     selectedModifySystemSID = '',
@@ -66,6 +69,18 @@ function hideProgress() {
 }
 
 function onAddSystem() {
+  var button = document.getElementById(idInteractiveAddSystemButton2);
+  button.classList.remove('d-none');
+
+  document.getElementById(idInteractiveAddSystemError).innerHTML = '';
+
+  setTimeout(() => {
+    button.classList.add('d-none');
+  }, 3000);
+}
+
+function onAddSystem2() {
+  document.getElementById(idInteractiveAddSystemButton2).classList.add('d-none');
   var url = document.getElementById(idInteractiveAddSystemURL);
 
   document.getElementById(idInteractiveAddSystemError).innerHTML = '';
@@ -142,12 +157,24 @@ function updateSelection() {
 }
 
 function onModifySystem() {
-  var button = document.getElementById(idInteractiveEditSystemButton);
-  if (button.classList.contains('bg-secondary')) {
+  var button1 = document.getElementById(idInteractiveEditSystemButton);
+  if (button1.classList.contains('bg-secondary')) {
     // button is disabled
     return;
   }
 
+  var button = document.getElementById(idInteractiveEditSystemButton2);
+  button.classList.remove('d-none');
+
+  document.getElementById(idInteractiveEditSystemError).innerHTML = '';
+
+  setTimeout(() => {
+    button.classList.add('d-none');
+  }, 3000);
+}
+
+function onModifySystem2() {
+  document.getElementById(idInteractiveEditSystemButton2).classList.add('d-none');
   document.getElementById(idInteractiveEditSystemError).innerHTML = '';
 
   var url = 'https://opendata.guru/api/2/p/' + selectedModifySystemPID;
@@ -412,6 +439,18 @@ function onModifyLoadSObjects(selectSID) {
 // ----------------------------------------------------------------------------
 
 function onAddSupplier() {
+  var button = document.getElementById(idInteractiveAddSupplierButton2);
+  button.classList.remove('d-none');
+
+  document.getElementById(idInteractiveAddSupplierError).innerHTML = '';
+
+  setTimeout(() => {
+    button.classList.add('d-none');
+  }, 3000);
+}
+
+function onAddSupplier2() {
+  document.getElementById(idInteractiveAddSupplierButton2).classList.add('d-none');
   var elemType = document.getElementById(idInteractiveAddSupplierType);
   var elemError = document.getElementById(idInteractiveAddSupplierError);
   var elemSameAs = document.getElementById(idInteractiveAddSupplierSameAs);
@@ -464,18 +503,21 @@ function installInteractiveArea() {
     installAddSystem(elemAddPObject);
 
     document.getElementById(idInteractiveAddSystemButton).addEventListener('click', onAddSystem);
+    document.getElementById(idInteractiveAddSystemButton2).addEventListener('click', onAddSystem2);
   }
 
   if (elemAddSObject) {
     installAddSupplier(elemAddSObject);
 
     document.getElementById(idInteractiveAddSupplierButton).addEventListener('click', onAddSupplier);
+    document.getElementById(idInteractiveAddSupplierButton2).addEventListener('click', onAddSupplier2);
   }
 
   if (elemEditPObject) {
     installEditSystem(elemEditPObject);
 
     document.getElementById(idInteractiveEditSystemButton).addEventListener('click', onModifySystem);
+    document.getElementById(idInteractiveEditSystemButton2).addEventListener('click', onModifySystem2);
     document.getElementById(idInteractiveEditSystemLoadPObjects).addEventListener('click', onModifyLoadPObjects);
     document.getElementById(idInteractiveEditSystemLoadSObjects).addEventListener('click', onModifyLoadSObjects);
   }
@@ -513,6 +555,7 @@ function installAddSystem(elem) {
   str += '  <label for="' + idInteractiveAddSystemURL + '">Link to new system:</label>';
   str += '  <input type="string" id="' + idInteractiveAddSystemURL + '" name="' + idInteractiveAddSystemURL + '" class="flex-fill w-100">';
   str += '  <span id="' + idInteractiveAddSystemButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';
+  str += '  <span id="' + idInteractiveAddSystemButton2 + '" class="badge mt-1 bg-warning text-black d-none" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Do it</span>';
   str += '  <span id="' + idInteractiveAddSystemError + '" class="text-danger p-2"></span>';
   str += '</div>';
 
@@ -559,6 +602,7 @@ function installAddSupplier(elem) {
 
   str += '  <div>';
   str += '    <span id="' + idInteractiveAddSupplierButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';
+  str += '    <span id="' + idInteractiveAddSupplierButton2 + '" class="badge mt-1 bg-warning text-black d-none" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Do it</span>';
   str += '    <span id="' + idInteractiveAddSupplierError + '" class="text-danger p-2"></span>';
   str += '  </div>';
 
@@ -615,6 +659,7 @@ function installEditSystem(elem) {
 
   str += '<div class="col-12 col-md-12">';
   str += '  <span id="' + idInteractiveEditSystemButton + '" class="badge mt-1 bg-secondary" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Link</span>';
+  str += '  <span id="' + idInteractiveEditSystemButton2 + '" class="badge mt-1 bg-warning text-black d-none" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Do it</span>';
   str += '  <span id="' + idInteractiveEditSystemError + '" class="text-danger p-2"></span>';
   str += '</div>';
 

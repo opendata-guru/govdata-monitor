@@ -12,6 +12,7 @@ var idInteractiveAddSupplier = 'interactive-add-sobject',
     idInteractiveAddSupplierSameAs = 'add-supplier-same-as',
     idInteractiveAddSupplierPartOf = 'add-supplier-part-of',
     idInteractiveAddSupplierWikidata = 'add-supplier-wikidata',
+    idInteractiveAddSupplierTitle = 'add-supplier-title',
     idInteractiveAddSupplierError = 'add-supplier-error',
     idInteractiveAddSupplierButton = 'add-supplier-button',
     idInteractiveAddSupplierButton2 = 'add-supplier-button-2';
@@ -453,14 +454,16 @@ function onAddSupplier2() {
   document.getElementById(idInteractiveAddSupplierButton2).classList.add('d-none');
   var elemType = document.getElementById(idInteractiveAddSupplierType);
   var elemError = document.getElementById(idInteractiveAddSupplierError);
+  var elemTitle = document.getElementById(idInteractiveAddSupplierTitle);
   var elemSameAs = document.getElementById(idInteractiveAddSupplierSameAs);
   var elemWikidata = document.getElementById(idInteractiveAddSupplierWikidata);
   var type = elemType.value;
   var error = '';
+  var title = elemTitle.value;
   var sameAs = elemSameAs.checked;
   var wikidata = elemWikidata.value;
 
-  if (wikidata.split('/').slice(-1)[0].toLocaleLowerCase().indexOf('q') !== 0) {
+  if ((title === '') && (wikidata.split('/').slice(-1)[0].toLocaleLowerCase().indexOf('q') !== 0)) {
     error = 'Link to Wikidata is invalid';
   }
   elemError.innerHTML = error;
@@ -470,6 +473,7 @@ function onAddSupplier2() {
   
     account.sendRequest(url, {
       type: type,
+      title: title,
       sameaswikidata: sameAs ? wikidata : '',
       partofwikidata: !sameAs ? wikidata : ''
     }, (result) => {
@@ -583,6 +587,9 @@ function installAddSupplier(elem) {
   str += '    </select>';
   str += '  </div>';
 
+  str += '</div>';
+  str += '<div class="col-12 col-md-6">';
+
   str += '  <fieldset>';
   str += '    <legend class="fs-5 mb-0">Select a Wikidata relationship:</legend>';
   str += '    <div class="ps-3">';
@@ -599,6 +606,17 @@ function installAddSupplier(elem) {
   str += '    <label for="' + idInteractiveAddSupplierWikidata + '">Set link to Wikidata:</label>';
   str += '    <input type="text" id="' + idInteractiveAddSupplierWikidata + '" name="' + idInteractiveAddSupplierWikidata + '" value="" />';
   str += '  </div>';
+
+  str += '</div>';
+  str += '<div class="col-12 col-md-6">';
+
+  str += '  <div>';
+  str += '    <label for="' + idInteractiveAddSupplierTitle + '">Or set title:</label>';
+  str += '    <input type="text" id="' + idInteractiveAddSupplierTitle + '" name="' + idInteractiveAddSupplierTitle + '" value="" />';
+  str += '  </div>';
+
+  str += '</div>';
+  str += '<div class="col-12 col-md-12">';
 
   str += '  <div>';
   str += '    <span id="' + idInteractiveAddSupplierButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';

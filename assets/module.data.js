@@ -12,26 +12,26 @@ var data = (function () {
         layers = [];
 
     function init() {
+        layers['international'] = 'International';
         layers['supranational'] = 'Europa';
         layers['supranationalAgency'] = 'Europäische Behörde';
         layers['country'] = 'Staat';
         layers['countryAgency'] = 'Staatliche Behörde';
         layers['federal'] = 'Bund';
-        layers['federalPortal'] = 'Bundesportal';
         layers['federalAgency'] = 'Bundesbehörde';
         layers['state'] = 'Land';
         layers['stateAgency'] = 'Landesamt';
         layers['state+municipality'] = 'Land und Stadt';
         layers['governmentRegion'] = 'Regierungsbezirk';
         layers['regionalNetwork'] = 'Region';
-        layers['regionalPortal'] = 'Regionales Portal';
         layers['district'] = 'Kreis';
-        layers['districtPortal'] = 'Kreisportal';
         layers['districtAgency'] = 'Kreisverwaltung';
         layers['collectiveMunicipality'] = 'Gemeindeverband';
         layers['municipality'] = 'Stadt';
-        layers['municipalityPortal'] = 'Stadtportal';
         layers['municipalityAgency'] = 'Stadtverwaltung';
+        layers['business'] = 'Unternehmen';
+        layers['civilSociety'] = 'Zivilgesellschaft';
+        layers['research'] = 'Forschung';
     }
 
     function funcAddEventListenerStartLoading(func) {
@@ -111,8 +111,8 @@ var data = (function () {
 
         if (type === 'municipality+state') {
             return 'Land + Stadt';
-        } else if (type === 'portal') {
-            return 'Portal';
+//        } else if (type === 'portal') {
+//            return 'Portal';
         } else if (type !== '') {
             return '?';
         }

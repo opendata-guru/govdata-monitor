@@ -43,8 +43,8 @@ var table = (function () {
         html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>Undefined</span>';
         Object.keys(data.layers).forEach(key => {
             var isLeft = -1 !== ['supranational','country','federal','state','regionalNetwork','district','municipality'].indexOf(key);
-            var isMiddle = -1 !== ['federalPortal','stateAgency','districtPortal','municipalityPortal'].indexOf(key);
-            var isRight = -1 !== ['supranationalAgency','countryAgency','federalAgency','state+municipality','regionalPortal','districtAgency','municipalityAgency'].indexOf(key);
+            var isMiddle = -1 !== ['stateAgency'].indexOf(key);
+            var isRight = -1 !== ['supranationalAgency','countryAgency','federalAgency','state+municipality','districtAgency','municipalityAgency'].indexOf(key);
 
             html += isLeft ? '<br>' : '';
             html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isMiddle ? styleMiddle : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';

@@ -331,6 +331,10 @@ function fillModifyPObjectTable() {
     onModifySystemPID({
       target: selected
     });
+  } else {
+    selectedModifySystemPID = '';
+    updateSelection();
+    enableModifySystemButton();
   }
 }
 
@@ -374,6 +378,10 @@ function fillModifySObjectTable() {
     onModifySystemSID({
       target: selected
     });
+  } else {
+    selectedModifySystemSID = '';
+    updateSelection();
+    enableModifySystemButton();
   }
 }
 

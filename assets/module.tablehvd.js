@@ -302,7 +302,7 @@ var tableHVD = (function () {
         var supplierFooter = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        supplierHeader += '<th>Data Suppliers</th>';
+        supplierHeader += '<th>HVD Suppliers</th>';
 
         for (var v = 0; v < dataHVD.viewHeader.length; ++v) {
             supplierHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
@@ -324,7 +324,7 @@ var tableHVD = (function () {
 
         if (dataHVD.view.length > 0) {
             dataHVD.view.forEach((row) => supplierRows += getRow(row));
-            supplierFooter += '<th>' + dataHVD.view.length + ' data suppliers</th>';
+            supplierFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
         } else {
             supplierRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             supplierFooter += '<th></th>';

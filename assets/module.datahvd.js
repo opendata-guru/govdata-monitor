@@ -123,6 +123,8 @@ var dataHVD = (function () {
             rows.forEach((catalogURI) => analyzeRow(arrayData, catalogURI));
         }
 
+        view = view.filter((item) => 0 < item.cols.reduce((partialSum, a) => partialSum + a.count, 0));
+
         view.sort((a, b) => {
             if (a.cols[0].count < b.cols[0].count) {
                 return 1;

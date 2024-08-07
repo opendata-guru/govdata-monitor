@@ -5,7 +5,7 @@ var hvdSettings = {
 var data = null;
 var diff = null;
 var catalog = {
-    id: null,
+    id: 'http://data.europa.eu/88u/catalogue/govdata',
     getSameAs: function() { return []; },
 };
 var chartsupplier = {
@@ -28,12 +28,8 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
 
     if (dataObj) {
         dataObj.forEach((row) => {
-            if (row.id === catalogId) {
-                if ((row.type === 'root') && !countDatasets) {
-                    return;
-                }
-
-                count = countDatasets ? row.datasetCount : row.packages;
+            if (row.catalogURI === catalogId) {
+                count = row.datasets;
             }
         });
     }

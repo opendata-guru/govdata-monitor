@@ -5,9 +5,15 @@ var tableHVD = (function () {
         defaultClipboard = false;
         initvalLayers = [],
         defaultLayers = [];
-    var idSupplierTableBody = 'supplier-table',
-        idSupplierTableHeader = 'supplier-table-header',
-        idSupplierTableFooter = 'supplier-table-footer',
+    var idDatasetsTableBody = 'datasets-table',
+        idDatasetsTableHeader = 'datasets-table-header',
+        idDatasetsTableFooter = 'datasets-table-footer',
+        idDistributionsTableBody = 'distributions-table',
+        idDistributionsTableHeader = 'distributions-table-header',
+        idDistributionsTableFooter = 'distributions-table-footer',
+        idDataservicesTableBody = 'dataservices-table',
+        idDataservicesTableHeader = 'dataservices-table-header',
+        idDataservicesTableFooter = 'dataservices-table-footer',
         idElement = 'tableDropdown',
         idMenu = 'table-menu',
         idReset = 'table-reset',
@@ -268,24 +274,68 @@ var tableHVD = (function () {
         return '';
     }
 
-    function getRow(row) {
+    function getDatasetRow(row) {
         var cols = '';
         var title = row.title;
 
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
                 var addClass = col.highlight ? ' bg-warning' : '';
-                cols += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(col.count) + '</td>';
+                cols += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(col.datasetCount) + '</td>';
             });
         }
 
-        if (row.datasetCount !== undefined) {
+/*        if (row.datasetCount !== undefined) {
             if (row.datasetCount) {
                 cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
             } else {
                 cols += '<td></td>';
             }
+        }*/
+
+        return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
+    }
+
+    function getDistributionRow(row) {
+        var cols = '';
+        var title = row.title;
+
+        if (row.cols.length > 0) {
+            row.cols.forEach(col => {
+                var addClass = col.highlight ? ' bg-warning' : '';
+                cols += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(col.distributionCount) + '</td>';
+            });
         }
+
+/*        if (row.datasetCount !== undefined) {
+            if (row.datasetCount) {
+                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
+            } else {
+                cols += '<td></td>';
+            }
+        }*/
+
+        return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
+    }
+
+    function getDataserviceRow(row) {
+        var cols = '';
+        var title = row.title;
+
+        if (row.cols.length > 0) {
+            row.cols.forEach(col => {
+                var addClass = col.highlight ? ' bg-warning' : '';
+                cols += '<td class="text-end align-middle' + addClass + '">' + monitorFormatNumber(col.dataServiceCount) + '</td>';
+            });
+        }
+
+/*        if (row.datasetCount !== undefined) {
+            if (row.datasetCount) {
+                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
+            } else {
+                cols += '<td></td>';
+            }
+        }*/
 
         return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
     }
@@ -297,15 +347,25 @@ var tableHVD = (function () {
     function funcUpdate() {
         var arrayData = [];
         var arrayIds = [];
-        var supplierHeader = '';
-        var supplierRows = '';
-        var supplierFooter = '';
+        var datasetHeader = '';
+        var datasetRows = '';
+        var datasetFooter = '';
+        var distributionHeader = '';
+        var distributionRows = '';
+        var distributionFooter = '';
+        var dataserviceHeader = '';
+        var dataserviceRows = '';
+        var dataserviceFooter = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        supplierHeader += '<th>HVD Suppliers</th>';
+        datasetHeader += '<th>HVD Datasets</th>';
+        distributionHeader += '<th>HVD Distributions</th>';
+        dataserviceHeader += '<th>HVD Data Services</th>';
 
         for (var v = 0; v < dataHVD.viewHeader.length; ++v) {
-            supplierHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
+            datasetHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
+            distributionHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
+            dataserviceHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
         }
 
         for (d = 0; d < date.selection.length; ++d) {
@@ -323,19 +383,37 @@ var tableHVD = (function () {
         }
 
         if (dataHVD.view.length > 0) {
-            dataHVD.view.forEach((row) => supplierRows += getRow(row));
-            supplierFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
+            dataHVD.view.forEach((row) => datasetRows += getDatasetRow(row));
+            dataHVD.view.forEach((row) => distributionRows += getDistributionRow(row));
+            dataHVD.view.forEach((row) => dataserviceRows += getDataserviceRow(row));
+            datasetFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
+            distributionFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
+            dataserviceFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
         } else {
-            supplierRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-            supplierFooter += '<th></th>';
+            datasetRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+            distributionRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+            dataserviceRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+            datasetFooter += '<th></th>';
+            distributionFooter += '<th></th>';
+            dataserviceFooter += '<th></th>';
         }
 
-        supplierHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + supplierHeader + '</tr>';
-        supplierFooter = '<tr style="border-top:1.5px solid #6C757D">' + supplierFooter + '</tr>';
+        datasetHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + datasetHeader + '</tr>';
+        distributionHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + distributionHeader + '</tr>';
+        dataserviceHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + dataserviceHeader + '</tr>';
+        datasetFooter = '<tr style="border-top:1.5px solid #6C757D">' + datasetFooter + '</tr>';
+        distributionFooter = '<tr style="border-top:1.5px solid #6C757D">' + distributionFooter + '</tr>';
+        dataserviceFooter = '<tr style="border-top:1.5px solid #6C757D">' + dataserviceFooter + '</tr>';
 
-        document.getElementById(idSupplierTableHeader).innerHTML = supplierHeader;
-        document.getElementById(idSupplierTableFooter).innerHTML = supplierFooter;
-        document.getElementById(idSupplierTableBody).innerHTML = supplierRows;
+        document.getElementById(idDatasetsTableHeader).innerHTML = datasetHeader;
+        document.getElementById(idDistributionsTableHeader).innerHTML = distributionHeader;
+        document.getElementById(idDataservicesTableHeader).innerHTML = dataserviceHeader;
+        document.getElementById(idDatasetsTableFooter).innerHTML = datasetFooter;
+        document.getElementById(idDistributionsTableFooter).innerHTML = distributionFooter;
+        document.getElementById(idDataservicesTableFooter).innerHTML = dataserviceFooter;
+        document.getElementById(idDatasetsTableBody).innerHTML = datasetRows;
+        document.getElementById(idDistributionsTableBody).innerHTML = distributionRows;
+        document.getElementById(idDataservicesTableBody).innerHTML = dataserviceRows;
 
         var menuCanvasList = document.querySelectorAll('.menu-canvas');
         menuCanvasList.forEach((menuCanvas) => {

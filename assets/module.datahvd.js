@@ -33,18 +33,20 @@ var dataHVD = (function () {
         var sid = null;
         var title = '';
         var packages = [];
-        var datasetCount = undefined;
-        var distributionCount = undefined;
-        var lastCount = undefined;
+        var lastDatasetCount = undefined;
         var maxDiff = 0;
 
         arrayData.forEach(processData => {
             var dataObj = processData ? processData.filter(item => item.catalogURI === catalogURI) : [];
+            var currentDistributionCount = null;
+            var currentDataServiceCount = null;
             var highlight = false;
 
             if (dataObj.length > 0) {
                 var obj = dataObj[0];
-                var currentCount = parseInt(obj.datasets ? obj.datasets : 0, 10);
+                var currentDatasetCount = parseInt(obj.datasets ? obj.datasets : 0, 10);
+                currentDistributionCount = parseInt(obj.distributions ? obj.distributions : 0, 10);
+                currentDataServiceCount = parseInt(obj.dataservices ? obj.dataservices : 0, 10);
 
                 if (obj.sObject) {
                     title = obj.sObject.title.en ? obj.sObject.title.en : obj.sObject.title.de;
@@ -53,27 +55,30 @@ var dataHVD = (function () {
                     title = obj.catalogURI.split('/').slice(-1)[0];
                 }
 
-                if (lastCount !== undefined) {
-                    var difference = lastCount === null ? currentCount : Math.abs(lastCount - currentCount);
+                if (lastDatasetCount !== undefined) {
+                    var difference = lastDatasetCount === null ? currentDatasetCount : Math.abs(lastDatasetCount - currentDatasetCount);
                     maxDiff = Math.max(maxDiff, difference);
 //                    highlight = diff.highlight && (difference >= diff.threshold);
                 }
 
-                lastCount = currentCount;
+                lastDatasetCount = currentDatasetCount;
             } else {
                 var highlight = false;
 
-                if ((lastCount !== undefined) && (lastCount !== null)) {
-                    var difference = lastCount;
+                if ((lastDatasetCount !== undefined) && (lastDatasetCount !== null)) {
+                    var difference = lastDatasetCount;
                     maxDiff = Math.max(maxDiff, difference);
 //                    highlight = diff.highlight && (difference >= diff.threshold);
                 }
 
-                lastCount = null;
+                lastDatasetCount = null;
             }
 
             packages.push({
-                count: lastCount,
+                count: lastDatasetCount, // depricated
+                datasetCount: lastDatasetCount,
+                distributionCount: currentDistributionCount,
+                dataServiceCount: currentDataServiceCount,
                 highlight: highlight
             });
         });
@@ -82,10 +87,12 @@ var dataHVD = (function () {
             return;
         }
 
+        var last = packages.slice(-1)[0];
         view.push({
             cols: packages,
-            datasetCount: datasetCount,
-            distributionCount: distributionCount,
+            datasetCount: last.datasetCount,
+            distributionCount: last.distributionCount,
+            dataServiceCount: last.dataServiceCount,
             sid: sid,
             title: title,
         });
@@ -123,12 +130,12 @@ var dataHVD = (function () {
             rows.forEach((catalogURI) => analyzeRow(arrayData, catalogURI));
         }
 
-        view = view.filter((item) => 0 < item.cols.reduce((partialSum, a) => partialSum + a.count, 0));
+        view = view.filter((item) => 0 < item.cols.reduce((partialSum, a) => partialSum + a.datasetCount + a.distributionCount + a.dataServiceCount, 0));
 
         view.sort((a, b) => {
-            if (a.cols[0].count < b.cols[0].count) {
+            if (a.datasetCount < b.datasetCount) {
                 return 1;
-            } else if (a.cols[0].count > b.cols[0].count) {
+            } else if (a.datasetCount > b.datasetCount) {
                 return -1;
             }
 

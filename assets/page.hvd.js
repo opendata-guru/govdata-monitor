@@ -2,7 +2,6 @@ var hvdSettings = {
     maxDays: 20,
 };
 
-var data = null;
 var diff = null;
 var catalog = {
     id: 'http://data.europa.eu/88u/catalogue/govdata',
@@ -23,7 +22,7 @@ function monitorFormatNumber(x) {
 }
 
 function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
-    var dataObj = dataHVD.getDate(dateString);
+    var dataObj = data.getDate(dateString);
     var count = undefined;
 
     if (dataObj) {
@@ -38,11 +37,11 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
 }
 
 function monitorLoadMoreDays(days) {
-    dataHVD.loadMoreData(days);
+    data.loadMoreData(days);
 }
 
 function monitorRemoveLoadedDays() {
-    dataHVD.removeLoadedData();
+    data.removeLoadedData();
 }
 
 function monitorGetAsCSV(chartObject) {
@@ -130,10 +129,10 @@ function hideProgress() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    dataHVD.addEventListenerStartLoading(showProgress);
-    dataHVD.addEventListenerEndLoading(hideProgress);
+    data.addEventListenerStartLoading(showProgress);
+    data.addEventListenerEndLoading(hideProgress);
 
-    dataHVD.loadData(hvdSettings.maxDays);
+    data.loadData(hvdSettings.maxDays);
 });
 
 // ----------------------------------------------------------------------------

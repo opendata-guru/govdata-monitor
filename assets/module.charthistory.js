@@ -64,12 +64,21 @@ var charthistory = (function () {
 
     function fillData() {
         var dataObj = data.get();
+        if (dataObj) {
+            if (dataObj.isHVD) {
+                dataObj.filter((item) => 0 < item.datasets).forEach((row) => {
+                    fileName = row.catalogURI.split('/').slice(-1)[0];
+                    title += ' in ' + row.catalogURI.split('/').slice(-1)[0];
+                });
+            } else {
+                dataObj.filter(item => item.id === catalog.id).forEach((row) => {
+                    fileName = row.title;
+                    title += ' in ' + row.title;
+                });
+            }
+        }
 
         var title = 'Datasets';
-        dataObj.filter(item => item.id === catalog.id).forEach((row) => {
-            fileName = row.title;
-            title += ' in ' + row.title;
-        });
         chartData.push([]);
         columnTitles.push(title);
 

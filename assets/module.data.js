@@ -425,6 +425,7 @@ var data = (function () {
         getTypeString: funcGetTypeString,
         has: funcHas,
         initalDays: 0,
+        isHVD: false,
         layers: layers,
         loadData: funcLoadData,
         loadedDays: 0,

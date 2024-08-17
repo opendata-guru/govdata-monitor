@@ -1,4 +1,4 @@
-var dataHVD = (function () {
+var data = (function () {
     var uriHVDStatistics = 'https://opendata.guru/api/2/hvd/statistics/',
         dateToLoad = '',
         uriToLoad = '';
@@ -106,7 +106,7 @@ var dataHVD = (function () {
         if (date) {
             selection = date.selection;
         } else {
-            selection.push(dataHVD.getDisplayDate());
+            selection.push(data.getDisplayDate());
         }
 
         view = [];
@@ -115,7 +115,7 @@ var dataHVD = (function () {
         for (d = 0; d < selection.length; ++d) {
             var selectedDate = selection[d];
             viewHeader.push(selectedDate);
-            arrayData.push(dataHVD.getDate(selectedDate));
+            arrayData.push(data.getDate(selectedDate));
 
             if (arrayData[d]) {
                 arrayData[d].forEach((row) => {
@@ -147,8 +147,8 @@ var dataHVD = (function () {
             return 0;
         });
 
-        dataHVD.view = view;
-        dataHVD.viewHeader = viewHeader;
+        data.view = view;
+        data.viewHeader = viewHeader;
     }
 
     function funcEmitFilterChanged() {
@@ -184,7 +184,7 @@ var dataHVD = (function () {
             date.update();
         }
 
-        dataHVD.emitFilterChanged();
+        data.emitFilterChanged();
     }
 
     function setLoadingDate(loadingDate) {
@@ -198,9 +198,9 @@ var dataHVD = (function () {
 
     function store(payload) {
         assets[dateToLoad] = payload;
-        dataHVD.loadedDays = Object.keys(assets).length;
+        data.loadedDays = Object.keys(assets).length;
 
-        if (dataHVD.loadedDays === 1) {
+        if (data.loadedDays === 1) {
             setDate(dateToLoad);
 //            catalog.set(catalog.id); // <-  this is a hack
         } else {
@@ -256,8 +256,8 @@ var dataHVD = (function () {
     }
 
     function funcLoadData(maxDays) {
-        dataHVD.loadedDays = 0;
-        dataHVD.initalDays = maxDays;
+        data.loadedDays = 0;
+        data.initalDays = maxDays;
         loadDays = maxDays;
 
         setLoadingDate(new Date(Date.now()));
@@ -267,7 +267,7 @@ var dataHVD = (function () {
     }
 
     function funcLoadMoreData(days) {
-        dataHVD.loadedDays = 0;
+        data.loadedDays = 0;
 
         var current = new Date(Date.now());
         current.setDate(current.getDate() - loadDays);
@@ -281,7 +281,7 @@ var dataHVD = (function () {
     }
 
     function funcRemoveLoadedData() {
-        while (Object.keys(assets).length > dataHVD.initalDays) {
+        while (Object.keys(assets).length > data.initalDays) {
             var current = new Date(dateToLoad);
             current.setDate(current.getDate() + 1);
             setLoadingDate(current);
@@ -289,7 +289,7 @@ var dataHVD = (function () {
             delete assets[dateToLoad];
         }
 
-        dataHVD.loadedDays = Object.keys(assets).length;
+        data.loadedDays = Object.keys(assets).length;
         loadDays = Object.keys(assets).length;
 
         catalog.update();
@@ -308,6 +308,7 @@ var dataHVD = (function () {
         getDisplayDate: funcGetDisplayDate,
         has: funcHas,
         initalDays: 0,
+        isHVD: true,
         loadData: funcLoadData,
         loadedDays: 0,
         loadMoreData: funcLoadMoreData,

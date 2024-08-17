@@ -159,7 +159,7 @@ var tableHVD = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        dataHVD.emitFilterChanged();
+        data.emitFilterChanged();
     }
 
     function onClickFlatten() {
@@ -175,7 +175,7 @@ var tableHVD = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        dataHVD.emitFilterChanged();
+        data.emitFilterChanged();
     }
 
     function onClickClipboard() {
@@ -191,7 +191,7 @@ var tableHVD = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        dataHVD.emitFilterChanged();
+        data.emitFilterChanged();
     }
 
     function onClickLayer(event) {
@@ -235,7 +235,7 @@ var tableHVD = (function () {
         window.history.pushState({}, '', `${location.pathname}?${params}`);
 
         updateIndicator();
-        dataHVD.emitFilterChanged();
+        data.emitFilterChanged();
     }
 
     function isParent(packageId, dateString, sameAs) {
@@ -250,7 +250,7 @@ var tableHVD = (function () {
         }
 
         if (initvalFlatten) {
-            dataHVD.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
+            data.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
                 if (row.packagesInId) {
                     found |= isParent(row.packagesInId, dateString, sameAs);
                 }
@@ -362,14 +362,14 @@ var tableHVD = (function () {
         distributionHeader += '<th>HVD Distributions</th>';
         dataserviceHeader += '<th>HVD Data Services</th>';
 
-        for (var v = 0; v < dataHVD.viewHeader.length; ++v) {
-            datasetHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
-            distributionHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
-            dataserviceHeader += '<th class="text-end">' + dataHVD.viewHeader[v] + '</th>';
+        for (var v = 0; v < data.viewHeader.length; ++v) {
+            datasetHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
+            distributionHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
+            dataserviceHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
         }
 
         for (d = 0; d < date.selection.length; ++d) {
-            arrayData.push(dataHVD.getDate(date.selection[d]));
+            arrayData.push(data.getDate(date.selection[d]));
     
             if (arrayData[arrayData.length - 1]) {
                 arrayData[arrayData.length - 1].forEach((row) => {
@@ -382,13 +382,13 @@ var tableHVD = (function () {
             }
         }
 
-        if (dataHVD.view.length > 0) {
-            dataHVD.view.forEach((row) => datasetRows += getDatasetRow(row));
-            dataHVD.view.forEach((row) => distributionRows += getDistributionRow(row));
-            dataHVD.view.forEach((row) => dataserviceRows += getDataserviceRow(row));
-            datasetFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
-            distributionFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
-            dataserviceFooter += '<th>' + dataHVD.view.length + ' HVD suppliers</th>';
+        if (data.view.length > 0) {
+            data.view.forEach((row) => datasetRows += getDatasetRow(row));
+            data.view.forEach((row) => distributionRows += getDistributionRow(row));
+            data.view.forEach((row) => dataserviceRows += getDataserviceRow(row));
+            datasetFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
+            distributionFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
+            dataserviceFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
         } else {
             datasetRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             distributionRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';

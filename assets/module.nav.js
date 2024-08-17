@@ -115,6 +115,9 @@ var nav = (function () {
             }
         });
 
+        var listItem = document.createElement('li');
+        listItem.classList.add('nav-item', 'dropdown');
+
         var html = '';
         html += '<a class="nav-link dropdown-toggle d-inline-block" href="#" data-bs-toggle="dropdown">';
         html += '  <i class="align-middle" data-feather="grid"></i> <span class="align-middle">' + navDict.moreApps[lang] + '</span>';
@@ -123,15 +126,20 @@ var nav = (function () {
         html += '<div class="dropdown-menu">';
         navigation.forEach(nav => {
             if (NAV_MENU === nav.position) {
-                html += '<a class="nav-link" href="' + nav.url + '">';
+//            if (NAV_TEST === nav.position) {
+                    var classes = ''; 
+                if (pathname === nav.url) {
+                    classes += 'border-start border-4 border-info';
+                    listItem.classList.add('border-bottom', 'border-4', 'border-info');
+                }
+
+                html += '<a class="nav-link ' + classes + '" href="' + nav.url + '">';
                 html += '  <i class="align-middle" data-feather="' + nav.icon + '"></i> <span class="align-middle">' + nav.title[lang] + '</span>';
                 html += '</a>';
             }
         });
         html += '</div>';
 
-        var listItem = document.createElement('li');
-        listItem.classList.add('nav-item', 'dropdown');
         listItem.innerHTML = html;
 
         navBar.appendChild(listItem);

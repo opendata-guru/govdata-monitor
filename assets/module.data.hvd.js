@@ -40,13 +40,16 @@ var data = (function () {
             var dataObj = processData ? processData.filter(item => item.catalogURI === catalogURI) : [];
             var currentDistributionCount = null;
             var currentDataServiceCount = null;
+            var currentLicenseCount = null;
             var highlight = false;
 
             if (dataObj.length > 0) {
                 var obj = dataObj[0];
+
                 var currentDatasetCount = parseInt(obj.datasets ? obj.datasets : 0, 10);
                 currentDistributionCount = parseInt(obj.distributions ? obj.distributions : 0, 10);
                 currentDataServiceCount = parseInt(obj.dataservices ? obj.dataservices : 0, 10);
+                currentLicenseCount = obj.licenses ? obj.licenses : {};
 
                 if (obj.sObject) {
                     title = obj.sObject.title.en ? obj.sObject.title.en : obj.sObject.title.de;
@@ -79,6 +82,7 @@ var data = (function () {
                 datasetCount: lastDatasetCount,
                 distributionCount: currentDistributionCount,
                 dataServiceCount: currentDataServiceCount,
+                licenseCount: currentLicenseCount,
                 highlight: highlight
             });
         });

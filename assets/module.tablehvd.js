@@ -14,6 +14,9 @@ var tableHVD = (function () {
         idDataservicesTableBody = 'dataservices-table',
         idDataservicesTableHeader = 'dataservices-table-header',
         idDataservicesTableFooter = 'dataservices-table-footer',
+        idLicensesTableBody = 'licenses-table',
+        idLicensesTableHeader = 'licenses-table-header',
+        idLicensesTableFooter = 'licenses-table-footer',
         idElement = 'tableDropdown',
         idMenu = 'table-menu',
         idReset = 'table-reset',
@@ -340,6 +343,39 @@ var tableHVD = (function () {
         return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
     }
 
+    function getLicenseRow(row) {
+        var cols = '';
+        var title = row.title;
+
+        if (row.cols.length > 0) {
+            row.cols.forEach(col => {
+                var str = '';
+                str += '<span class="badge bg-success" style="width:4em">' + col.licenseCount.cc_0 + '</span>';
+                str += '<span class="badge border border-success text-success" style="width:4em">' + col.licenseCount.cc_0_comparable + '</span>';
+                str += '<br>';
+                str += '<span class="badge bg-primary" style="width:4em">' + col.licenseCount.cc_by + '</span>';
+                str += '<span class="badge border border-primary text-primary" style="width:4em">' + col.licenseCount.cc_by_comparable + '</span>';
+                str += '<br>';
+                str += '<span class="badge bg-danger" style="width:8em">' + col.licenseCount.restrictive + '</span>';
+                str += '<br>';
+                str += '<span class="badge bg-secondary" style="width:8em">' + col.licenseCount.unknown + '</span>';
+
+                var addClass = col.highlight ? ' bg-warning' : '';
+                cols += '<td class="text-end align-middle' + addClass + '">' + str + '</td>';
+            });
+        }
+
+/*        if (row.datasetCount !== undefined) {
+            if (row.datasetCount) {
+                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
+            } else {
+                cols += '<td></td>';
+            }
+        }*/
+
+        return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
+    }
+
     function funcCopyToClipboard(value) {
         navigator.clipboard.writeText(value);
     }
@@ -356,16 +392,21 @@ var tableHVD = (function () {
         var dataserviceHeader = '';
         var dataserviceRows = '';
         var dataserviceFooter = '';
+        var licenseHeader = '';
+        var licenseRows = '';
+        var licenseFooter = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
         datasetHeader += '<th>HVD Datasets</th>';
         distributionHeader += '<th>HVD Distributions</th>';
         dataserviceHeader += '<th>HVD Data Services</th>';
+        licenseHeader += '<th>HVD Licenses</th>';
 
         for (var v = 0; v < data.viewHeader.length; ++v) {
             datasetHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
             distributionHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
             dataserviceHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
+            licenseHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
         }
 
         for (d = 0; d < date.selection.length; ++d) {
@@ -386,34 +427,54 @@ var tableHVD = (function () {
             data.view.forEach((row) => datasetRows += getDatasetRow(row));
             data.view.forEach((row) => distributionRows += getDistributionRow(row));
             data.view.forEach((row) => dataserviceRows += getDataserviceRow(row));
+            data.view.forEach((row) => licenseRows += getLicenseRow(row));
+
+            var str = '';
+            str += '<br>';
+            str += '<span class="badge bg-success">CC 0</span>';
+            str += '<span class="badge bg-primary ms-2">CC BY</span>';
+            str += '<span class="badge bg-danger ms-2">Restrictive</span>';
+            str += '<span class="badge bg-secondary ms-2">Unknown</span>';
+            str += '<br>';
+            str += '<span class="badge bg-success">CC license</span>';
+            str += '<span class="badge border border-success text-success ms-2">CC comparable license</span>';
+
             datasetFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
             distributionFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
             dataserviceFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
+            licenseFooter += '<th>' + data.view.length + ' HVD suppliers' + str + '</th>';
         } else {
             datasetRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             distributionRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             dataserviceRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+            licenseRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             datasetFooter += '<th></th>';
             distributionFooter += '<th></th>';
             dataserviceFooter += '<th></th>';
+            licenseFooter += '<th></th>';
         }
 
         datasetHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + datasetHeader + '</tr>';
         distributionHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + distributionHeader + '</tr>';
         dataserviceHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + dataserviceHeader + '</tr>';
+        licenseHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + licenseHeader + '</tr>';
         datasetFooter = '<tr style="border-top:1.5px solid #6C757D">' + datasetFooter + '</tr>';
         distributionFooter = '<tr style="border-top:1.5px solid #6C757D">' + distributionFooter + '</tr>';
         dataserviceFooter = '<tr style="border-top:1.5px solid #6C757D">' + dataserviceFooter + '</tr>';
+        licenseFooter = '<tr style="border-top:1.5px solid #6C757D">' + licenseFooter + '</tr>';
 
         document.getElementById(idDatasetsTableHeader).innerHTML = datasetHeader;
         document.getElementById(idDistributionsTableHeader).innerHTML = distributionHeader;
         document.getElementById(idDataservicesTableHeader).innerHTML = dataserviceHeader;
+        document.getElementById(idLicensesTableHeader).innerHTML = licenseHeader;
         document.getElementById(idDatasetsTableFooter).innerHTML = datasetFooter;
         document.getElementById(idDistributionsTableFooter).innerHTML = distributionFooter;
         document.getElementById(idDataservicesTableFooter).innerHTML = dataserviceFooter;
+        document.getElementById(idLicensesTableFooter).innerHTML = licenseFooter;
         document.getElementById(idDatasetsTableBody).innerHTML = datasetRows;
         document.getElementById(idDistributionsTableBody).innerHTML = distributionRows;
         document.getElementById(idDataservicesTableBody).innerHTML = dataserviceRows;
+        document.getElementById(idLicensesTableBody).innerHTML = licenseRows;
 
         var menuCanvasList = document.querySelectorAll('.menu-canvas');
         menuCanvasList.forEach((menuCanvas) => {

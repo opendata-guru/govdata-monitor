@@ -264,19 +264,6 @@ var tableHVD = (function () {
         return false;
     }
 
-    function getParentPath(dataObj, item) {
-        var itemParent = dataObj.filter(dataItem => dataItem.id === item.packagesInId);
-        if (itemParent.length > 0) {
-/*            var parent = '';
-            if (itemParent[0].packagesInId != catalog.id) {
-                parent = getParentPath(dataObj, itemParent[0]);
-            }*/
-            return ' (datasets in ' + itemParent[0].title + ' portal)';
-        }
-
-        return '';
-    }
-
     function getDatasetRow(row) {
         var cols = '';
         var title = row.title;
@@ -350,15 +337,17 @@ var tableHVD = (function () {
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
                 var str = '';
-                str += '<span class="badge bg-success" style="width:4em">' + col.licenseCount.cc_0 + '</span>';
+                var licenseless = parseInt(col.distributionCount, 10) - parseInt(col.licenseCount.cc_0, 10) - parseInt(col.licenseCount.cc_0_comparable, 10) - parseInt(col.licenseCount.cc_by, 10) - parseInt(col.licenseCount.cc_by_comparable, 10) - parseInt(col.licenseCount.restrictive, 10) - parseInt(col.licenseCount.unknown, 10);
+                str += '<span class="badge border border-success bg-success" style="width:4em">' + col.licenseCount.cc_0 + '</span>';
                 str += '<span class="badge border border-success text-success" style="width:4em">' + col.licenseCount.cc_0_comparable + '</span>';
                 str += '<br>';
-                str += '<span class="badge bg-primary" style="width:4em">' + col.licenseCount.cc_by + '</span>';
+                str += '<span class="badge border border-primary bg-primary" style="width:4em">' + col.licenseCount.cc_by + '</span>';
                 str += '<span class="badge border border-primary text-primary" style="width:4em">' + col.licenseCount.cc_by_comparable + '</span>';
                 str += '<br>';
-                str += '<span class="badge bg-danger" style="width:8em">' + col.licenseCount.restrictive + '</span>';
+                str += '<span class="badge border border-danger bg-danger" style="width:4em">' + col.licenseCount.restrictive + '</span>';
+                str += '<span class="badge border border-danger text-danger"" style="width:4em">' + licenseless + '</span>';
                 str += '<br>';
-                str += '<span class="badge bg-secondary" style="width:8em">' + col.licenseCount.unknown + '</span>';
+                str += '<span class="badge border border-secondary bg-secondary" style="width:8em">' + col.licenseCount.unknown + '</span>';
 
                 var addClass = col.highlight ? ' bg-warning' : '';
                 cols += '<td class="text-end align-middle' + addClass + '">' + str + '</td>';
@@ -431,13 +420,15 @@ var tableHVD = (function () {
 
             var str = '';
             str += '<br>';
-            str += '<span class="badge bg-success">CC 0</span>';
-            str += '<span class="badge bg-primary ms-2">CC BY</span>';
-            str += '<span class="badge bg-danger ms-2">Restrictive</span>';
-            str += '<span class="badge bg-secondary ms-2">Unknown</span>';
+            str += '<span class="badge border border-success bg-success">CC 0</span>';
+            str += '<span class="badge border border-success text-success ms-2">CC 0 comparable</span>';
+            str += '<span class="badge border border-primary bg-primary ms-2">CC BY</span>';
+            str += '<span class="badge border border-primary text-primary ms-2">CC BY comparable</span>';
             str += '<br>';
-            str += '<span class="badge bg-success">CC license</span>';
-            str += '<span class="badge border border-success text-success ms-2">CC comparable license</span>';
+            str += '<span class="badge border border-danger bg-danger">More restrictive</span>';
+            str += '<span class="badge border border-danger text-danger ms-2">Missing license</span>';
+            str += '<br>';
+            str += '<span class="badge border border-secondary bg-secondary">Unknown, parsing error</span>';
 
             datasetFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
             distributionFooter += '<th>' + data.view.length + ' HVD suppliers</th>';

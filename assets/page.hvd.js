@@ -6,10 +6,20 @@ var diff = null;
 var catalog = {
     id: 'http://data.europa.eu/88u/catalogue/govdata',
     getSameAs: function() { return []; },
+    set: catalogSet,
+    update: catalogUpdate,
 };
-var chartsupplier = {
-    update: function() {},
+var charthistory = {
+    update: function() {
+        chartsupplier.update();
+    },
 };
+
+// ----------------------------------------------------------------------------
+
+var idHistoryTitle = 'history-title';
+
+// ----------------------------------------------------------------------------
 
 function monitorFormatNumber(x) {
     if (x === null) {
@@ -107,6 +117,52 @@ function monitorZoomOut() {
 
     document.getElementById('history-chart').classList.remove('chart-lg');
     document.getElementById('history-chart').classList.add('chart-sm');
+}
+
+// ----------------------------------------------------------------------------
+
+function catalogGetDownloadMenu(chartObjectName) {
+    var html = '';
+    html += '<a title="Options" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
+    html += '<span>...</span>';
+    html += '</a>';
+    html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
+    html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV table</a>';
+//        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">Download as PNG image</a>';
+    html += '<div class="dropdown-divider"></div>';
+/*    html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one week)</a>';
+    html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one month)</a>';
+    html += '<a onclick="monitorRemoveLoadedDays()" id="removeLoadedDays" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">Remove loaded data</a>';
+    html += '<div class="dropdown-divider"></div>';*/
+    html += '<a onclick="monitorZoomIn()" id="historyZoomIn" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Maximize diagramm</a>';
+    html += '<a onclick="monitorZoomOut()" id="historyZoomOut" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">Minimize diagramm</a>';
+    html += '</div>';
+
+    return html;
+}
+
+function catalogSet(catalogId) {
+    window.scrollTo(0, 0);
+    catalog.update();
+
+    if (date) {
+        date.update();
+    }
+    data.emitFilterChanged();
+}
+
+function catalogUpdate() {
+    var elemHistory = document.getElementById(idHistoryTitle);
+    if (elemHistory) {
+        elemHistory.innerHTML = data.loadedDays + ' days HVD history ' + catalogGetDownloadMenu('chartsupplier');
+    }
+
+    if (data.loadedDays > data.initalDays) {
+        if (document.getElementById('removeLoadedDays')) {
+            document.getElementById('removeLoadedDays').style.pointerEvents = '';
+            document.getElementById('removeLoadedDays').classList.add('text-dark');
+        }
+    }
 }
 
 // ----------------------------------------------------------------------------

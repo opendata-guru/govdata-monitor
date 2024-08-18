@@ -10,6 +10,7 @@ var chartsupplier = (function () {
     var idSupplierChart = 'dataset-supplier';
 
     function init() {
+        // https://www.youtube.com/watch?v=MSbGvq7prB0
     }
 
     function getColorSwatch() {
@@ -55,9 +56,17 @@ var chartsupplier = (function () {
 
     function fillData() {
         var dataObj = data.get();
-        dataObj.filter(item => item.id === catalog.id).forEach((row) => {
-            fileName = row.title;
-        });
+        if (dataObj) {
+            if (data.isHVD) {
+                dataObj.filter((item) => 0 < item.datasets).forEach((row) => {
+                    fileName = row.catalogURI.split('/').slice(-1)[0];
+                });
+            } else {
+                dataObj.filter(item => item.id === catalog.id).forEach((row) => {
+                    fileName = row.title;
+                });
+            }
+        }
 
         if (data.view) {
             data.view.forEach((view) => {

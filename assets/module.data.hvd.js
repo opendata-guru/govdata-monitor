@@ -99,6 +99,7 @@ var data = (function () {
             dataServiceCount: last.dataServiceCount,
             sid: sid,
             title: title,
+            linkId: 'http://data.europa.eu/88u/catalogue/' + title, // temp for chartsupplier
         });
     }
 
@@ -206,9 +207,9 @@ var data = (function () {
 
         if (data.loadedDays === 1) {
             setDate(dateToLoad);
-//            catalog.set(catalog.id); // <-  this is a hack
+            catalog.set(catalog.id); // <-  this is a hack
         } else {
-//            catalog.update();
+            catalog.update();
         }
 
         var current = new Date(dateToLoad);

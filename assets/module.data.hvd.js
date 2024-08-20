@@ -234,6 +234,22 @@ var data = (function () {
             if (this.readyState == 4 && this.status == 200) {
                 store(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
+                if (data.loadedDays === 0) {
+                    var current = new Date(Date.now());
+                    var dateString = current.toLocaleString('sv-SE').split(' ')[0];
+
+                    if (dateString === dateToLoad) {
+                        // data of today not finished yet
+                        current.setDate(current.getDate() - 1);
+                        setLoadingDate(current); 
+                        dispatchEventStartLoading(dateToLoad);
+
+                        load();
+
+                        return;
+                    }
+                }
+
                 dispatchEventEndLoading();
 
                 date.update();

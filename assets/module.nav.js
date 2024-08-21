@@ -16,7 +16,7 @@ var nav = (function () {
                 de: 'Karte',
                 en: 'Map',
             },
-            url: 'index.html',
+            url: 'https://opendata.guru/govdata/index.html',
         },
         {
             icon: 'git-merge',
@@ -25,7 +25,7 @@ var nav = (function () {
                 de: 'Kataloge',
                 en: 'Catalogs',
             },
-            url: 'catalogs.html',
+            url: 'https://opendata.guru/govdata/catalogs.html',
         },
         {
             icon: 'shield',
@@ -34,7 +34,7 @@ var nav = (function () {
                 de: 'Systeme',
                 en: 'Systems',
             },
-            url: 'systems.html',
+            url: 'https://opendata.guru/govdata/systems.html',
         },
         {
             icon: 'terminal',
@@ -43,7 +43,7 @@ var nav = (function () {
                 de: 'API',
                 en: 'API',
             },
-            url: 'api.html',
+            url: 'https://opendata.guru/govdata/api.html',
         },
         {
             icon: 'activity',
@@ -52,7 +52,7 @@ var nav = (function () {
                 de: 'Metrik',
                 en: 'Meter',
             },
-            url: 'meter.html',
+            url: 'https://opendata.guru/govdata/meter.html',
         },
         {
             icon: 'inbox',
@@ -61,7 +61,7 @@ var nav = (function () {
                 de: 'Datensätze',
                 en: 'Datasets',
             },
-            url: 'datasets.html',
+            url: 'https://opendata.guru/govdata/datasets.html',
         },
         {
             icon: 'play',
@@ -70,7 +70,7 @@ var nav = (function () {
                 de: 'Daten-Rennen',
                 en: 'Chart Race',
             },
-            url: 'race.html',
+            url: 'https://opendata.guru/govdata/race.html',
         },
         {
             icon: 'crosshair',
@@ -79,7 +79,7 @@ var nav = (function () {
                 de: 'Verfolgen',
                 en: 'Trace',
             },
-            url: 'trace.html',
+            url: 'https://opendata.guru/govdata/trace.html',
         },
         {
             icon: 'sun',
@@ -88,7 +88,16 @@ var nav = (function () {
                 de: 'HVD',
                 en: 'HVD',
             },
-            url: 'hvd.html',
+            url: 'https://opendata.guru/govdata/hvd.html',
+        },
+        {
+            icon: 'shopping-cart',
+            position: NAV_TEST,
+            title: {
+                de: 'Fanartikel',
+                en: 'Merchandise',
+            },
+            url: 'https://opendata.guru/shop',
         },
     ];
 
@@ -106,7 +115,7 @@ var nav = (function () {
 
                 var listItem = document.createElement('li');
                 listItem.classList.add('nav-item');
-                if (pathname === nav.url) {
+                if (pathname === nav.url.split('/').splice(-1)[0]) {
                     listItem.classList.add('border-bottom', 'border-4', 'border-info');
                 }
                 listItem.innerHTML = html;
@@ -128,7 +137,7 @@ var nav = (function () {
             if (NAV_MENU === nav.position) {
 //            if (NAV_TEST === nav.position) {
                     var classes = ''; 
-                if (pathname === nav.url) {
+                if (pathname === nav.url.split('/').splice(-1)[0]) {
                     classes += 'border-start border-4 border-info';
                     listItem.classList.add('border-bottom', 'border-4', 'border-info');
                 }

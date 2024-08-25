@@ -46,6 +46,21 @@ var catalog = (function () {
         return obj;
     }
 
+    function funcGetBySID(sid) {
+        var dataObj = data.get();
+        var obj = undefined; 
+
+        if (dataObj && sid) {
+            dataObj.forEach((row) => {
+                if (row.sid === sid) {
+                    obj = row;
+                }
+            });
+        }
+
+        return obj;
+    }
+
     function funcGetSameAs(id) {
         var catalogObject = funcGet(id);
         var dataObj = data.get();
@@ -136,6 +151,7 @@ var catalog = (function () {
     return {
         id: initvalId,
         get: funcGet,
+        getBySID: funcGetBySID,
         getSameAs: funcGetSameAs,
         set: funcSet,
         update: funcUpdate,

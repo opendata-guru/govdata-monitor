@@ -1,6 +1,7 @@
 var system = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         uriToLoad = '',
+        uriPSystems = 'https://opendata.guru/api/2/p/systems/today',
         uriChangelogCKAN = 'https://opendata.guru/api/2/system/changelog?system=CKAN',
         systemId = null;
     var eventListenerStartLoading = [],
@@ -40,6 +41,7 @@ var system = (function () {
         couldNotCountDatasets: 'Could not count datasets',
     };
     var assets = [];
+    var pSystems = [];
     var assetsChangelogCKAN = [];
 
     function init() {
@@ -71,6 +73,12 @@ var system = (function () {
     function storeSystemFile(payload) {
         assets = payload;
 
+        loadPSystems();
+    }
+
+    function storePSystems(payload) {
+        pSystems = payload;
+
         loadChangelog();
     }
 
@@ -87,6 +95,21 @@ var system = (function () {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 storeSystemFile(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                dispatchEventEndLoading();
+            }
+        }
+
+        xhr.send();
+    }
+
+    function loadPSystems() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uriPSystems, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storePSystems(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
                 dispatchEventEndLoading();
             }
@@ -206,7 +229,7 @@ var system = (function () {
             document.getElementById(idLogo1).style.opacity = document.getElementById(idLogo1).getAttribute('src') == '' ? 0 : 1;
             document.getElementById(idLogo2).style.opacity = document.getElementById(idLogo2).getAttribute('src') == '' ? 0 : 1;
             document.getElementById(idWikipedia).style.display = document.getElementById(idWikipedia).getAttribute('href') == '' ? 'none' : 'inline-block';
-    }
+        }
 
         xhr.send();
     }
@@ -248,6 +271,10 @@ var system = (function () {
         }
 
         return ret;
+    }
+
+    function getSystemTitle(sys) {
+        return sys.sobject ? (sys.sobject.title.de ? sys.sobject.title.de : sys.sobject.title.en) : '';
     }
 
     function format(key, value) {
@@ -398,33 +425,32 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getOtherSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getOtherSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            sys.server.version = sys.server.version === null ? '-' : sys.server.version;
-            sys.server.system = sys.server.system === null ? '-' : sys.server.system;
-            sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
-            cols += '<td class="align-middle">' + sys.server.system + '</td>';
-            cols += '<td class="align-middle">' + sys.server.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + (sys.server.extensions ? JSON.stringify(sys.server.extensions) : '-') + '</td>';
-            cols += '<td class="align-middle">' + sys.server.cms + '</td>';
+        if (sys) {
+            sys.version = sys.version === null ? '-' : sys.version;
+            sys.system = sys.system === null ? '-' : sys.system;
+            sys.cms = sys.cms === null ? '-' : sys.cms;
+            cols += '<td class="align-middle">' + sys.system + '</td>';
+            cols += '<td class="align-middle">' + sys.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + (sys.extensions ? JSON.stringify(sys.extensions) : '-') + '</td>';
+            cols += '<td class="align-middle">' + sys.cms + '</td>';
         } else {
             var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
             cols += '<td class="align-middle">-</td>';
@@ -454,45 +480,44 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getCKANSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getCKANSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
-            if (sys.server.version) {
-                var version = sys.server.version;
+        if (sys) {
+            sys.cms = sys.cms === null ? '-' : sys.cms;
+            if (sys.version) {
+                var version = '<span style="display:inline-block;width:4em">' + sys.version + '</span>';
                 assetsChangelogCKAN.history.forEach(item => {
-                    if (item.version === sys.server.version) {
+                    if (item.version === sys.version) {
                         var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
-                        version += '<br><span class="badge ' + color + '">' + item.date + '</span>';
+                        version += '<span class="badge ' + color + '" style="width:7em">' + item.date + '</span>';
                     }
                 });
                 cols += '<td class="align-middle">' + version + '</td>';
             } else {
                 cols += '<td class="align-middle">-</td>';
             }
-            if (sys.server.url) {
-                cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+            if (sys.url) {
+                cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
             } else {
                 cols += '<td class="align-middle">-</td>';
             }
-            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.server.extensions) + '</td>';
-            cols += '<td class="align-middle">' + sys.server.cms + '</td>';
+            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
+            cols += '<td class="align-middle">' + sys.cms + '</td>';
         } else {
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
@@ -518,28 +543,27 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getDKANSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getDKANSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            sys.server.cms = sys.server.cms === null ? '-' : sys.server.cms;
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + sys.server.cms + '</td>';
+        if (sys) {
+            sys.cms = sys.cms === null ? '-' : sys.cms;
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + sys.cms + '</td>';
         } else {
             var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
             cols += '<td class="align-middle">' + url + '</td>';
@@ -567,30 +591,29 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getPiveauSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getPiveauSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            cols += '<td class="align-middle">' + (sys.server.extensions.search || '-') + '</td>';
-            cols += '<td class="align-middle">' + (sys.server.extensions.registry || '-') + '</td>';
-            cols += '<td class="align-middle">' + (sys.server.extensions.MQA || '-') + '</td>';
-            cols += '<td class="align-middle">' + (sys.server.extensions['SHACL metadata validation'] || '-') + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+        if (sys) {
+            cols += '<td class="align-middle">' + (sys.extensions.search || '-') + '</td>';
+            cols += '<td class="align-middle">' + (sys.extensions.registry || '-') + '</td>';
+            cols += '<td class="align-middle">' + (sys.extensions.MQA || '-') + '</td>';
+            cols += '<td class="align-middle">' + (sys.extensions['SHACL metadata validation'] || '-') + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
         } else {
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
@@ -600,7 +623,7 @@ var system = (function () {
         }
 
         if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
         }
 
         return '<tr>' + cols + '</tr>' + error;
@@ -617,27 +640,26 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getODSSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getODSSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            cols += '<td class="align-middle">' + sys.server.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+        if (sys) {
+            cols += '<td class="align-middle">' + sys.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
         } else {
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
@@ -662,28 +684,27 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getEntryScapeSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getEntryScapeSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            cols += '<td class="align-middle">' + sys.server.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.server.extensions) + '</td>';
+        if (sys) {
+            cols += '<td class="align-middle">' + sys.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
         } else {
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
@@ -708,27 +729,26 @@ var system = (function () {
         return '<tr>' + head + '</tr>';
     }
 
-    function getArcGISHubSystemsRow(id, sys) {
-        var catalogObj = catalog.get(id);
-        var monitoringObj = monitoring.get(sys.link);
+    function getArcGISHubSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
+        var title = getSystemTitle(sys);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            var link = sys.link.split('/')[2];
-            var contributor = sys.contributor.split('/')[2];
-            title = contributor;
+            title = sys.url;
         }
 
         var cols = '';
-        cols += '<td><a href="catalogs.html?catalog=' + id + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys && sys.server) {
-            cols += '<td class="align-middle">' + sys.server.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.server.url + '" target="_blank">API</a></td>';
+        if (sys) {
+            cols += '<td class="align-middle">' + sys.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
         } else {
             cols += '<td class="align-middle">-</td>';
             cols += '<td class="align-middle">-</td>';
@@ -776,27 +796,27 @@ var system = (function () {
         var arcGISHubBody = '';
         var otherBody = '';
 
-        assets.forEach(sys => {
-            var id = getId(sys);
-            var system = '';
-            if (sys && sys.server) {
-                system = sys.server.system;
-            }
+        pSystems.sort((a, b) => {
+            return getSystemTitle(a).localeCompare(getSystemTitle(b));
+        });
+
+        pSystems.forEach(sys => {
+            var system = sys.system;
 
             if ('CKAN' === system) {
-                ckanBody += getCKANSystemsRow(id, sys);
+                ckanBody += getCKANSystemsRow(sys);
             } else if ('DKAN' === system) {
-                dkanBody += getDKANSystemsRow(id, sys);
+                dkanBody += getDKANSystemsRow(sys);
             } else if ('Piveau' === system) {
-                piveauBody += getPiveauSystemsRow(id, sys);
+                piveauBody += getPiveauSystemsRow(sys);
             } else if ('Opendatasoft' === system) {
-                odsBody += getODSSystemsRow(id, sys);
+                odsBody += getODSSystemsRow(sys);
             } else if ('entryscape' === system) {
-                entryScapeBody += getEntryScapeSystemsRow(id, sys);
+                entryScapeBody += getEntryScapeSystemsRow(sys);
             } else if ('ArcGIS Hub' === system) {
-                arcGISHubBody += getArcGISHubSystemsRow(id, sys);
+                arcGISHubBody += getArcGISHubSystemsRow(sys);
             } else {
-                otherBody += getOtherSystemsRow(id, sys);
+                otherBody += getOtherSystemsRow(sys);
             }
         });
 

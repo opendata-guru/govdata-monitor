@@ -2,6 +2,7 @@ var system = (function () {
     var baseURL = 'https://opendata.guru/govdata/assets/',
         uriToLoad = '',
         uriPSystems = 'https://opendata.guru/api/2/p/systems/today',
+        uriPSystemsAlt = 'https://opendata.guru/api/2/p/systems/yesterday',
         uriChangelogCKAN = 'https://opendata.guru/api/2/system/changelog?system=CKAN',
         systemId = null;
     var eventListenerStartLoading = [],
@@ -25,6 +26,9 @@ var system = (function () {
         idArcGISHubSystemsHead = 'arcgishub-systems-thead',
         idArcGISHubSystemsBody = 'arcgishub-systems-tbody',
         idArcGISHubSystemsFoot = 'arcgishub-systems-tfoot',
+        idSPARQLSystemsHead = 'sparql-systems-thead',
+        idSPARQLSystemsBody = 'sparql-systems-tbody',
+        idSPARQLSystemsFoot = 'sparql-systems-tfoot',
         idOtherSystemsHead = 'other-systems-thead',
         idOtherSystemsBody = 'other-systems-tbody',
         idOtherSystemsFoot = 'other-systems-tfoot',
@@ -111,7 +115,12 @@ var system = (function () {
             if (this.readyState == 4 && this.status == 200) {
                 storePSystems(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                dispatchEventEndLoading();
+                if (uriPSystems === uriPSystemsAlt) {
+                    dispatchEventEndLoading();
+                } else {
+                    uriPSystems = uriPSystemsAlt;
+                    loadPSystems();
+                }
             }
         }
 
@@ -761,6 +770,63 @@ var system = (function () {
         return '<tr>' + cols + '</tr>' + error;
     }
 
+    function getSPARQLSystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>Datasets</th>';
+        head += '<th>System</th>';
+        head += '<th>Version</th>';
+        head += '<th>API</th>';
+        head += '<th>Build date</th>';
+        head += '<th>OS</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getSPARQLSystemsRow(sys) {
+        var monitoringObj = monitoring.get(sys.pobject.deepLink);
+        var catalogObj = catalog.getBySID(sys.sobject.sid);
+
+        var title = getSystemTitle(sys);
+        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
+        var error = '';
+        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+
+        if (title === '') {
+            title = sys.url;
+        }
+
+        var cols = '';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
+
+        if (sys) {
+            sys.version = sys.version === null ? '-' : sys.version;
+            sys.name = sys.name === null ? '-' : sys.name;
+            sys.build.os = sys.build.os === null ? '-' : sys.build.os;
+            sys.build.date = sys.build.date === null ? '-' : sys.build.date;
+            cols += '<td class="align-middle">' + sys.name + '</td>';
+            cols += '<td class="align-middle">' + sys.version + '</td>';
+            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
+            cols += '<td class="align-middle">' + sys.build.date + '</td>';
+            cols += '<td class="align-middle">' + sys.build.os + '</td>';
+        } else {
+            var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">' + url + '</td>';
+            cols += '<td class="align-middle">-</td>';
+            cols += '<td class="align-middle">-</td>';
+        }
+
+        if (monitoringObj) {
+            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
+        }
+
+        return '<tr>' + cols + '</tr>' + error;
+    }
+
     function updateSystemTable() {
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
         var ckanTableBody = document.getElementById(idCKANSystemsBody);
@@ -780,6 +846,9 @@ var system = (function () {
         var arcGISHubTableHead = document.getElementById(idArcGISHubSystemsHead);
         var arcGISHubTableBody = document.getElementById(idArcGISHubSystemsBody);
         var arcGISHubTableFoot = document.getElementById(idArcGISHubSystemsFoot);
+        var sparqlTableHead = document.getElementById(idSPARQLSystemsHead);
+        var sparqlTableBody = document.getElementById(idSPARQLSystemsBody);
+        var sparqlTableFoot = document.getElementById(idSPARQLSystemsFoot);
         var otherTableHead = document.getElementById(idOtherSystemsHead);
         var otherTableBody = document.getElementById(idOtherSystemsBody);
         var otherTableFoot = document.getElementById(idOtherSystemsFoot);
@@ -794,6 +863,7 @@ var system = (function () {
         var odsBody = '';
         var entryScapeBody = '';
         var arcGISHubBody = '';
+        var sparqlBody = '';
         var otherBody = '';
 
         pSystems.sort((a, b) => {
@@ -815,6 +885,8 @@ var system = (function () {
                 entryScapeBody += getEntryScapeSystemsRow(sys);
             } else if ('ArcGIS Hub' === system) {
                 arcGISHubBody += getArcGISHubSystemsRow(sys);
+            } else if ('SPARQL' === system) {
+                sparqlBody += getSPARQLSystemsRow(sys);
             } else {
                 otherBody += getOtherSystemsRow(sys);
             }
@@ -838,6 +910,9 @@ var system = (function () {
         if (arcGISHubBody.length === 0) {
             arcGISHubBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
+        if (sparqlBody.length === 0) {
+            sparqlBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
         if (otherBody.length === 0) {
             otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -860,6 +935,9 @@ var system = (function () {
         arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
         arcGISHubTableBody.innerHTML = arcGISHubBody;
         arcGISHubTableFoot.innerHTML = '<tr><td style="border:none">' + (arcGISHubBody.split('<tr>').length - 1) + ' systems</td></tr>';
+        sparqlTableHead.innerHTML = getSPARQLSystemsHead();
+        sparqlTableBody.innerHTML = sparqlBody;
+        sparqlTableFoot.innerHTML = '<tr><td style="border:none">' + (sparqlBody.split('<tr>').length - 1) + ' systems</td></tr>';
         otherTableHead.innerHTML = getOtherSystemsHead();
         otherTableBody.innerHTML = otherBody;
         otherTableFoot.innerHTML = '<tr><td style="border:none">' + (otherBody.split('<tr>').length - 1) + ' systems</td></tr>';

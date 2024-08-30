@@ -8,12 +8,17 @@
 	header('Content-Type: application/json; charset=utf-8');
 
 	function curl($url) {
-		$curl = curl_init($url);
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$headers = [
+			'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0',
+		];
 
-		$ret = curl_exec($curl);
-		curl_close($curl);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+		$ret = curl_exec($ch);
+		curl_close($ch);
 
 		return $ret;
 	}

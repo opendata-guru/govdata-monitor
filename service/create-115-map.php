@@ -7,9 +7,14 @@
 	$filePath = '../assets/map-115-' . date('Y') . '/' . date('Y-m-d') . '.geojson';
 
 	function curl($url) {
+		$headers = [
+			'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0',
+		];
+
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
 		$ret = curl_exec($curl);
 		curl_close($curl);
@@ -18,6 +23,10 @@
 	}
 
 	function getGeoJSON($rs) {
+		$headers = [
+			'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0',
+		];
+
 		$arrayRS = [];
 		$arrayStatus = [];
 		foreach ($rs as $value) {
@@ -40,6 +49,7 @@
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 		$ret = curl_exec($ch);
 

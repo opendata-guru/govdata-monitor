@@ -297,26 +297,26 @@ function getHVDRadarData() {
         {
             label: 'Datasets',
             data: [],
-            borderColor: '#0dc28a',
-            backgroundColor: '#0dc28a40',
+            borderColor: '#c28a0d',
+            backgroundColor: '#c28a0d40',
         },
         {
             label: 'Distributions',
+            data: [],
+            borderColor: '#2b67f1',
+            backgroundColor: '#2b67f140',
+        },
+        {
+            label: 'Data Services',
             data: [],
             borderColor: '#c20d44',
             backgroundColor: '#c20d4440',
         },
         {
-            label: 'Data Services',
+            label: 'Distributions with Licenses',
             data: [],
-            borderColor: '#c28a0d',
-            backgroundColor: '#c28a0d40',
-        },
-        {
-            label: 'Licenses',
-            data: [],
-            borderColor: '#2b67f1',
-            backgroundColor: '#2b67f140',
+            borderColor: '#0dc28a',
+            backgroundColor: '#0dc28a40',
         }
         ]
     };

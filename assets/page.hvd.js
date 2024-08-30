@@ -17,7 +17,11 @@ var charthistory = {
 
 // ----------------------------------------------------------------------------
 
-var idHistoryTitle = 'history-title';
+var idHistoryTitle = 'history-title',
+    idEUSummary = 'hvd-eu',
+    idRadarChart = 'dataset-hvd-radar',
+    radarChart = null,
+    radarEmptyStates = [];
 
 // ----------------------------------------------------------------------------
 
@@ -163,6 +167,201 @@ function catalogUpdate() {
             document.getElementById('removeLoadedDays').classList.add('text-dark');
         }
     }
+
+    if (data.loadedDays === 1) {
+        setRadarData();
+    }
+}
+
+// ----------------------------------------------------------------------------
+
+function getHVDRadarConfig(data) {
+    // https://www.chartjs.org/docs/2.7.3/axes/radial/linear.html#linear-radial-axis
+    return {
+        type: 'radar',
+        data: data,
+        options: {
+            legend: {
+                labels: {
+                    boxWidth: 12,
+                    fontColor: '#fff',
+                },
+                position: 'left',
+            },
+            responsive: true,
+            scale: {
+                gridLines: {
+                    color: '#ffffff30',
+                    lineWidth: 1,
+                },
+                pointLabels: {
+                    fontColor: '#fff',
+                    callback: (obj) => {
+                        if (-1 === radarEmptyStates.indexOf(obj)) {
+                            return obj;
+                        }
+
+                        return obj + ' 🚨';
+                    },
+                },
+                ticks: {
+                    backdropColor: '#ffffff30',
+                    backdropPaddingX: 5,
+                    backdropPaddingY: 2,
+                    beginAtZero: true,
+                    fontColor: '#ffffffa0',
+                    showLabelBackdrop: false,
+                },
+            },
+        },
+    };
+}
+
+function filterHVDRadarData() {
+    var dataObj = data.get();
+    var ret = [];
+
+    if (dataObj) {
+        dataObj.forEach((obj) => {
+            // obj.sObject
+            var datasets = parseInt(obj.datasets ? obj.datasets : 0, 10);
+            var distributions = parseInt(obj.distributions ? obj.distributions : 0, 10);
+            var dataservices = parseInt(obj.dataservices ? obj.dataservices : 0, 10);
+            var licenses = 0;
+            var title = '';
+
+            if (obj.licenses) {
+                licenses = obj.licenses.cc_0 +
+                    obj.licenses.cc_0_comparable +
+                    obj.licenses.cc_by +
+                    obj.licenses.cc_by_comparable +
+                    obj.licenses.restrictive +
+                    obj.licenses.unknown;
+            }
+
+            var name = obj.catalogURI.split('/').slice(-1)[0];
+            var sum = datasets + distributions + dataservices + licenses;
+            title = name;
+
+            if (sum > 0 ) {
+                ret.push({
+                    name,
+                    title,
+                    datasets,
+                    distributions,
+                    dataservices,
+                    licenses,
+                });
+            }
+        });
+    }
+
+    var mapping = {
+        'data-gv-at':'Austria', 'data-gov-be':'Belgium', 'bg':'Bulgaria','hr':'Croatia','cy':'Cyprus',
+        'cz':'Czechia', 'dk':'Denmark', 'ee':'Estonia', 'fi':'Finland',
+        'plateforme-ouverte-des-donnees-publiques-francaises':'France', 'govdata':'Germany',
+        'gr':'Greece', 'hu':'Hungary', 'ie':'Ireland', 'it':'Italy', 'lv':'Latvia', 'lt':'Lithuania',
+        'lu':'Luxembourg', 'mt':'Malta', 'nl':'Netherlands', 'pl':'Poland', 'pt':'Portugal',
+        'ro':'Romania', 'sk':'Slovakia', 'si':'Slovenia', 'es':'Spain', 'oppnadata':'Sweden'
+    };
+    ret.forEach((obj) => {
+        var title = mapping[obj.name];
+        if (title) {
+            obj.title = title;
+            mapping[obj.name] = null;
+        }
+    });
+
+    radarEmptyStates = [];
+    Object.keys(mapping).forEach((country) => {
+        if (mapping[country]) {
+            radarEmptyStates.push(mapping[country]);
+            ret.push({
+                name: country,
+                title: mapping[country],
+                datasets: null,
+                distributions: null,
+                dataservices: null,
+                licenses: null,
+            });
+        }
+    });
+
+    return ret;
+}
+
+function getHVDRadarData() {
+    return {
+        labels: ['please','wait','while','loading','data'],
+        datasets: [
+        {
+            label: 'Datasets',
+            data: [],
+            borderColor: '#0dc28a',
+            backgroundColor: '#0dc28a40',
+        },
+        {
+            label: 'Distributions',
+            data: [],
+            borderColor: '#c20d44',
+            backgroundColor: '#c20d4440',
+        },
+        {
+            label: 'Data Services',
+            data: [],
+            borderColor: '#c28a0d',
+            backgroundColor: '#c28a0d40',
+        },
+        {
+            label: 'Licenses',
+            data: [],
+            borderColor: '#2b67f1',
+            backgroundColor: '#2b67f140',
+        }
+        ]
+    };
+}
+
+function setRadarData() {
+    var radarData = filterHVDRadarData();
+
+    radarData.sort((a, b) => {
+        if (a.datasets === b.datasets) return 0;
+        return a.datasets < b.datasets ? 1 : -1;
+    });
+
+    var data = radarChart.data;
+    if (radarData && (data.datasets.length > 0)) {
+        data.labels = [];
+
+        radarData.forEach((entry) => {
+            data.labels.push(entry.title);
+
+            data.datasets[0].data.push(entry.datasets);
+            data.datasets[1].data.push(entry.distributions);
+            data.datasets[2].data.push(entry.dataservices);
+            data.datasets[3].data.push(entry.licenses);
+
+        });
+
+        radarChart.update();
+    }
+}
+
+function initHVDSummary() {
+    var text = '';
+    text += '<div class="col-12 p-4" style="background:#082b7a;color:#fff;">';
+    text += '<div>This is what the HVD’s EU reporting could look like</div>';
+
+    text += '<div id="hvd-radar-chart" class="chart chart-sm">';
+    text += '<canvas id="' + idRadarChart + '"></canvas>';
+    text += '</div>';
+
+    text += '</div>'
+
+    document.getElementById(idEUSummary).innerHTML += text;
+
+    radarChart = new Chart(document.getElementById(idRadarChart), getHVDRadarConfig(getHVDRadarData()));
 }
 
 // ----------------------------------------------------------------------------
@@ -190,5 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     data.loadData(hvdSettings.maxDays);
 });
+
+initHVDSummary();
 
 // ----------------------------------------------------------------------------

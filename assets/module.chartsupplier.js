@@ -1,13 +1,19 @@
 var chartsupplier = (function () {
-    var chartLine = null,
+    var chartLine1 = null,
+        chartLine2 = null,
+        chartLine3 = null,
         columnTitles = [],
         rowTitles = [],
-        chartData = [];
+        chartData1 = [];
+        chartData2 = [];
+        chartData3 = [];
         fileName = '';
     var showTop = false,
         showFirst = 1,
         showLast = 8;
-    var idSupplierChart = 'dataset-supplier';
+    var idSupplierChart1 = 'dataset-supplier',
+        idSupplierChart2 = 'dataset-supplier-2',
+        idSupplierChart3 = 'dataset-supplier-3';
 
     function init() {
         // https://www.youtube.com/watch?v=MSbGvq7prB0
@@ -29,18 +35,54 @@ var chartsupplier = (function () {
         return swatch;
     }
 
-    function getDatasets() {
+    function getDatasets1() {
         var datasets = [];
         var colors = getColorSwatch();
 
-        for (var c = 0; c < chartData.length; ++c) {
+        for (var c = 0; c < chartData1.length; ++c) {
             datasets.push({
                 label: columnTitles[c],
                 fill: false,
                 borderColor: colors[c],
                 borderWidth: 2,
                 pointRadius: 1,
-                data: chartData[c]
+                data: chartData1[c]
+            });
+        }
+
+        return datasets;
+    }
+
+    function getDatasets2() {
+        var datasets = [];
+        var colors = getColorSwatch();
+
+        for (var c = 0; c < chartData2.length; ++c) {
+            datasets.push({
+                label: columnTitles[c],
+                fill: false,
+                borderColor: colors[c],
+                borderWidth: 2,
+                pointRadius: 1,
+                data: chartData2[c]
+            });
+        }
+
+        return datasets;
+    }
+
+    function getDatasets3() {
+        var datasets = [];
+        var colors = getColorSwatch();
+
+        for (var c = 0; c < chartData3.length; ++c) {
+            datasets.push({
+                label: columnTitles[c],
+                fill: false,
+                borderColor: colors[c],
+                borderWidth: 2,
+                pointRadius: 1,
+                data: chartData3[c]
             });
         }
 
@@ -50,7 +92,9 @@ var chartsupplier = (function () {
     function clearData() {
         columnTitles = [];
         rowTitles = [];
-        chartData = [];
+        chartData1 = [];
+        chartData2 = [];
+        chartData3 = [];
         fileName = '';
     }
 
@@ -70,7 +114,9 @@ var chartsupplier = (function () {
 
         if (data.view) {
             data.view.forEach((view) => {
-                chartData.push([]);
+                chartData1.push([]);
+                chartData2.push([]);
+                chartData3.push([]);
                 columnTitles.push(view.title);
             });
         }
@@ -86,9 +132,15 @@ var chartsupplier = (function () {
                 var s = 0;
                 var values = [];
                 data.view.forEach((view) => {
-                    var val = monitorGetDatasetCountByDate(view.linkId, startDate, false);
-                    chartData[s].unshift(val);
-                    values.push(val);
+                    var val1 = monitorGetDatasetCountByDate(view.linkId, startDate, false);
+                    var val2 = monitorGetDatasetCount2ByDate(view.linkId, startDate, false);
+                    var val3 = monitorGetDatasetCount3ByDate(view.linkId, startDate, false);
+
+                    chartData1[s].unshift(val1);
+                    chartData2[s].unshift(val2);
+                    chartData3[s].unshift(val3);
+
+                    values.push(val1);
                     ++s;
                 });
 
@@ -97,7 +149,7 @@ var chartsupplier = (function () {
                         return b - a;
                     }).slice(showFirst - 1, showFirst + showLast - 1); 
 
-                    chartData.forEach(elem => {
+                    chartData1.forEach(elem => {
                         if (-1 === topValues.indexOf(elem[0])) {
                             elem[0] = undefined;
                         }
@@ -124,68 +176,109 @@ var chartsupplier = (function () {
     }
 
     function funcGetData() {
-        return chartData;
+        return chartData1;
     }
 
     function funcUpdate() {
         updateChart();
     }
 
+    function getOptions() {
+        return {
+            maintainAspectRatio: false,
+            animation: {
+                duration: 0
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                intersect: false
+            },
+            hover: {
+                intersect: true
+            },
+            plugins: {
+                filler: {
+                    propagate: false
+                }
+            },
+            scales: {
+                xAxes: [{
+                    reverse: true,
+                    gridLines: {
+                        color: 'transparent'
+                    }
+                }],
+                yAxes: [{
+/*                    ticks: {
+                        stepSize: stepSize
+                    },*/
+                    display: true,
+                    borderDash: [3, 3],
+                    gridLines: {
+                        color: 'transparent'
+                    }
+                }]
+            }
+        };
+    }
+
     function updateChart() {
         clearData();
         fillData();
 
-        var supplierData = {
+        var supplierData1 = {
             labels: rowTitles,
-            datasets: getDatasets(),
+            datasets: getDatasets1(),
+        };
+        var supplierData2 = {
+            labels: rowTitles,
+            datasets: getDatasets2(),
+        };
+        var supplierData3 = {
+            labels: rowTitles,
+            datasets: getDatasets3(),
         };
 
-        if (chartLine !== null) {
-            chartLine.data = supplierData;
-            chartLine.update();
+        if (chartLine1 !== null) {
+            chartLine1.data = supplierData1;
+            chartLine1.update();
+
+            if (chartLine2 !== null) {
+                chartLine2.data = supplierData2;
+                chartLine2.update();
+            }    
+            if (chartLine3 !== null) {
+                chartLine3.data = supplierData3;
+                chartLine3.update();
+            }    
         } else {
-            chartLine = new Chart(document.getElementById(idSupplierChart), {
+            var elem1 = document.getElementById(idSupplierChart1);
+            var elem2 = document.getElementById(idSupplierChart2);
+            var elem3 = document.getElementById(idSupplierChart3);
+
+            chartLine1 = new Chart(elem1, {
                 type: 'line',
-                data: supplierData,
-                options: {
-                    maintainAspectRatio: false,
-                    animation: {
-                        duration: 0
-                    },
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        intersect: false
-                    },
-                    hover: {
-                        intersect: true
-                    },
-                    plugins: {
-                        filler: {
-                            propagate: false
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            reverse: true,
-                            gridLines: {
-                                color: 'transparent'
-                            }
-                        }],
-                        yAxes: [{
-/*                            ticks: {
-                                stepSize: stepSize
-                            },*/
-                            display: true,
-                            borderDash: [3, 3],
-                            gridLines: {
-                                color: 'transparent'
-                            }
-                        }]
-                    }
-                }
+                data: supplierData1,
+                options: getOptions(),
             });
+
+            if (elem2) {
+                chartLine2 = new Chart(elem2, {
+                    type: 'line',
+                    data: supplierData2,
+                    options: getOptions(),
+                });
+            }
+
+            if (elem3) {
+                chartLine3 = new Chart(elem3, {
+                    type: 'line',
+                    data: supplierData3,
+                    options: getOptions(),
+                });
+            }
         }
     }
 

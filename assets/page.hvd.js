@@ -17,7 +17,9 @@ var charthistory = {
 
 // ----------------------------------------------------------------------------
 
-var idHistoryTitle = 'history-title',
+var idHistoryDatasets = 'history-datasets',
+    idHistoryDistributions = 'history-distributions',
+    idHistoryDataservices = 'history-dataservices',
     idEUSummary = 'hvd-eu',
     idRadarChart = 'dataset-hvd-radar',
     radarChart = null,
@@ -43,6 +45,36 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
         dataObj.forEach((row) => {
             if (row.catalogURI === catalogId) {
                 count = row.datasets;
+            }
+        });
+    }
+
+    return count;
+}
+
+function monitorGetDatasetCount2ByDate(catalogId, dateString, countDatasets) {
+    var dataObj = data.getDate(dateString);
+    var count = undefined;
+
+    if (dataObj) {
+        dataObj.forEach((row) => {
+            if (row.catalogURI === catalogId) {
+                count = row.distributions;
+            }
+        });
+    }
+
+    return count;
+}
+
+function monitorGetDatasetCount3ByDate(catalogId, dateString, countDatasets) {
+    var dataObj = data.getDate(dateString);
+    var count = undefined;
+
+    if (dataObj) {
+        dataObj.forEach((row) => {
+            if (row.catalogURI === catalogId) {
+                count = row.dataservices;
             }
         });
     }
@@ -99,6 +131,8 @@ function monitorDownloadAsCSV(chartObjectName) {
 
 function monitorZoomIn() {
     document.getElementById('columnLeft').className = 'col-12';
+    document.getElementById('columnMiddle').className = 'col-12';
+    document.getElementById('columnRight').className = 'col-12';
 
     document.getElementById('historyZoomIn').style.pointerEvents = 'none';
     document.getElementById('historyZoomIn').classList.remove('text-dark');
@@ -111,7 +145,9 @@ function monitorZoomIn() {
 }
 
 function monitorZoomOut() {
-    document.getElementById('columnLeft').className = 'col-12 col-sm-6 col-md-7 col-xl-7';
+    document.getElementById('columnLeft').className = 'col-12 col-sm-6 col-md-4 col-xl-4';
+    document.getElementById('columnMiddle').className = 'col-12 col-sm-6 col-md-4 col-xl-4';
+    document.getElementById('columnRight').className = 'col-12 col-sm-6 col-md-4 col-xl-4';
 
     document.getElementById('historyZoomIn').style.pointerEvents = '';
     document.getElementById('historyZoomIn').classList.add('text-dark');
@@ -156,9 +192,19 @@ function catalogSet(catalogId) {
 }
 
 function catalogUpdate() {
-    var elemHistory = document.getElementById(idHistoryTitle);
-    if (elemHistory) {
-        elemHistory.innerHTML = data.loadedDays + ' days HVD history ' + catalogGetDownloadMenu('chartsupplier');
+    var elemDatasets = document.getElementById(idHistoryDatasets);
+    if (elemDatasets) {
+        elemDatasets.innerHTML = data.loadedDays + ' days dataset history ' + catalogGetDownloadMenu('chartsupplier');
+    }
+
+    var elemDistributions = document.getElementById(idHistoryDistributions);
+    if (elemDistributions) {
+        elemDistributions.innerHTML = data.loadedDays + ' days distribution history ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
+    }
+
+    var elemDataservices = document.getElementById(idHistoryDataservices);
+    if (elemDataservices) {
+        elemDataservices.innerHTML = data.loadedDays + ' days data service history ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
     }
 
     if (data.loadedDays > data.initalDays) {
@@ -190,8 +236,12 @@ function getHVDRadarConfig(data) {
             },
             responsive: true,
             scale: {
+                angleLines: {
+                    color: '#ffffff10',
+                    lineWidth: 1,
+                },
                 gridLines: {
-                    color: '#ffffff30',
+                    color: '#ffffff40',
                     lineWidth: 1,
                 },
                 pointLabels: {

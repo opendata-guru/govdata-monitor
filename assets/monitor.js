@@ -32,6 +32,14 @@ function monitorGetDatasetCountByDate(catalogId, dateString, countDatasets) {
     return count;
 }
 
+function monitorGetDatasetCount2ByDate(catalogId, dateString, countDatasets) {
+    return undefined;
+}
+
+function monitorGetDatasetCount3ByDate(catalogId, dateString, countDatasets) {
+    return undefined;
+}
+
 function monitorLoadMoreDays(days) {
     data.loadMoreData(days);
 }

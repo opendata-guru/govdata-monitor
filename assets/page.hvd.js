@@ -1,6 +1,7 @@
 var hvdSettings = {
     maxDays: 20,
     lang: 'en',
+//    lang: 'de',
     dict: {
         de: {
             historyDataset: 'Tage-Verlauf für Datensätze',
@@ -441,8 +442,15 @@ function setRadarData() {
     var radarData = filterHVDRadarData();
 
     radarData.sort((a, b) => {
-        if (a.datasets === b.datasets) return a.title.localeCompare(b.title);
-        return a.datasets < b.datasets ? 1 : -1;
+        if (a.distributions === b.distributions) {
+            if (a.datasets === b.datasets) return a.title.localeCompare(b.title);
+
+            return a.datasets < b.datasets ? 1 : -1;
+        }
+
+        if (a.distributions === null) return 1;
+        if (b.distributions === null) return -1;
+        return a.distributions < b.distributions ? 1 : -1;
     });
 
     var data = radarChart.data;

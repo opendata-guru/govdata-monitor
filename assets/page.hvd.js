@@ -1,5 +1,48 @@
 var hvdSettings = {
     maxDays: 20,
+    lang: 'en',
+    dict: {
+        de: {
+            historyDataset: 'Tage-Verlauf für Datensätze',
+            historyDistribution: 'Tage-Verlauf für Distributionen',
+            historyDataService: 'Tage-Verlauf für Datendienste',
+            hvdEUTitle: 'So könnte die EU-Berichterstattung für HVD\'s aussehen',
+            legendDataServices: 'Datendienste',
+            legendDatasets: 'Datensätze',
+            legendDistributions: 'Distributionen',
+            legendDistributionsLicenses: 'Distributionen mit Lizenzen',
+            loading: 'Einen Moment bitte Daten werden geladen',
+            optionsDownloadCSV: 'Herunterladen als CSV-Tabelle',
+            optionsDownloadPNG: 'Herunterladen als PNG-Bild',
+            optionsLoadMonth: 'Daten nachladen (ein Monat)',
+            optionsLoadWeek: 'Daten nachladen (eine Woche)',
+            optionsMaximize: 'Grafik vergrößern',
+            optionsMenu: 'Optionen',
+            optionsMinimize: 'Grafik verkleinern',
+            optionsRemoveLoaded: 'Entferne nachgeladene Daten',
+            progressLoading: 'Daten werden geladen ...',
+        },
+        en: {
+            historyDataset: 'days dataset history',
+            historyDistribution: 'days distribution history',
+            historyDataService: 'days data service history',
+            hvdEUTitle: 'This is what the HVD\'s EU reporting could look like',
+            legendDataServices: 'Data Services',
+            legendDatasets: 'Datasets',
+            legendDistributions: 'Distributions',
+            legendDistributionsLicenses: 'Distributions with Licenses',
+            loading: 'please wait while loading data',
+            optionsDownloadCSV: 'Download as CSV table',
+            optionsDownloadPNG: 'Download as PNG image',
+            optionsLoadMonth: 'Load more data (one month)',
+            optionsLoadWeek: 'Load more data (one week)',
+            optionsMaximize: 'Maximize chart',
+            optionsMenu: 'Options',
+            optionsMinimize: 'Minimize chart',
+            optionsRemoveLoaded: 'Remove loaded data',
+            progressLoading: 'Loading data ...',
+        },
+    },
 };
 
 var diff = null;
@@ -15,6 +58,7 @@ var charthistory = {
     },
 };
 
+// ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 
 var idHistoryDatasets = 'history-datasets',
@@ -163,19 +207,19 @@ function monitorZoomOut() {
 
 function catalogGetDownloadMenu(chartObjectName) {
     var html = '';
-    html += '<a title="Options" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
+    html += '<a title="' + hvdSettings.dict[hvdSettings.lang].optionsMenu + '" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
     html += '<span>...</span>';
     html += '</a>';
     html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
-    html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV table</a>';
-//        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">Download as PNG image</a>';
+    html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsDownloadCSV + '</a>';
+//        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsDownloadPNG + '</a>';
     html += '<div class="dropdown-divider"></div>';
-/*    html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one week)</a>';
-    html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">Load more data (one month)</a>';
-    html += '<a onclick="monitorRemoveLoadedDays()" id="removeLoadedDays" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">Remove loaded data</a>';
+/*    html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsLoadWeek + '</a>';
+    html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsLoadMonth + '</a>';
+    html += '<a onclick="monitorRemoveLoadedDays()" id="removeLoadedDays" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">' + hvdSettings.dict[hvdSettings.lang].optionsRemoveLoaded + '</a>';
     html += '<div class="dropdown-divider"></div>';*/
-    html += '<a onclick="monitorZoomIn()" id="historyZoomIn" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">Maximize diagramm</a>';
-    html += '<a onclick="monitorZoomOut()" id="historyZoomOut" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">Minimize diagramm</a>';
+    html += '<a onclick="monitorZoomIn()" id="historyZoomIn" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">' + hvdSettings.dict[hvdSettings.lang].optionsMaximize + '</a>';
+    html += '<a onclick="monitorZoomOut()" id="historyZoomOut" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">' + hvdSettings.dict[hvdSettings.lang].optionsMinimize + '</a>';
     html += '</div>';
 
     return html;
@@ -194,17 +238,17 @@ function catalogSet(catalogId) {
 function catalogUpdate() {
     var elemDatasets = document.getElementById(idHistoryDatasets);
     if (elemDatasets) {
-        elemDatasets.innerHTML = data.loadedDays + ' days dataset history ' + catalogGetDownloadMenu('chartsupplier');
+        elemDatasets.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[hvdSettings.lang].historyDataset + ' ' + catalogGetDownloadMenu('chartsupplier');
     }
 
     var elemDistributions = document.getElementById(idHistoryDistributions);
     if (elemDistributions) {
-        elemDistributions.innerHTML = data.loadedDays + ' days distribution history ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
+        elemDistributions.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[hvdSettings.lang].historyDistribution + ' ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
     }
 
     var elemDataservices = document.getElementById(idHistoryDataservices);
     if (elemDataservices) {
-        elemDataservices.innerHTML = data.loadedDays + ' days data service history ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
+        elemDataservices.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[hvdSettings.lang].historyDataService + ' ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
     }
 
     if (data.loadedDays > data.initalDays) {
@@ -307,17 +351,38 @@ function filterHVDRadarData() {
     }
 
     var mapping = {
-        'data-gv-at':'Austria', 'data-gov-be':'Belgium', 'bg':'Bulgaria','hr':'Croatia','cy':'Cyprus',
-        'cz':'Czechia', 'dk':'Denmark', 'ee':'Estonia', 'fi':'Finland',
-        'plateforme-ouverte-des-donnees-publiques-francaises':'France', 'govdata':'Germany',
-        'gr':'Greece', 'hu':'Hungary', 'ie':'Ireland', 'it':'Italy', 'lv':'Latvia', 'lt':'Lithuania',
-        'lu':'Luxembourg', 'mt':'Malta', 'nl':'Netherlands', 'pl':'Poland', 'pt':'Portugal',
-        'ro':'Romania', 'sk':'Slovakia', 'si':'Slovenia', 'es':'Spain', 'oppnadata':'Sweden'
+        'data-gv-at':{de: 'Österreich', en: 'Austria'},
+        'data-gov-be':{de: 'Belgien', en: 'Belgium'},
+        'bg':{de: 'Bulgarien', en: 'Bulgaria'},
+        'hr':{de: 'Kroatien', en: 'Croatia'},
+        'cy':{de: 'Zypern', en: 'Cyprus'},
+        'nkod-opendata-cz':{de: 'Tschechien', en: 'Czechia'},
+        'dk':{de: 'Dänemark', en: 'Denmark'},
+        'ee':{de: 'Estland', en: 'Estonia'},
+        'fi':{de: 'Finnland', en: 'Finland'},
+        'plateforme-ouverte-des-donnees-publiques-francaises':{de: 'Frankreich', en: 'France'},
+        'govdata':{de: 'Deutschland', en: 'Germany'},
+        'gr':{de: 'Griechenland', en: 'Greece'},
+        'hu':{de: 'Ungarn', en: 'Hungary'},
+        'ie':{de: 'Irland', en: 'Ireland'},
+        'it':{de: 'Italien', en: 'Italy'},
+        'lv':{de: 'Lettland', en: 'Latvia'},
+        'lt':{de: 'Litauen', en: 'Lithuania'},
+        'lu':{de: 'Luxemburg', en: 'Luxembourg'},
+        'mt':{de: 'Malta', en: 'Malta'},
+        'nl':{de: 'Niederlande', en: 'Netherlands'},
+        'pl':{de: 'Polen', en: 'Poland'},
+        'pt':{de: 'Portugal', en: 'Portugal'},
+        'ro':{de: 'Rumänien', en: 'Romania'},
+        'sk':{de: 'Slowakei', en: 'Slovakia'},
+        'si':{de: 'Slowenien', en: 'Slovenia'},
+        'es':{de: 'Spanien', en: 'Spain'},
+        'oppnadata':{de: 'Schweden', en: 'Sweden'},
     };
     ret.forEach((obj) => {
         var title = mapping[obj.name];
         if (title) {
-            obj.title = title;
+            obj.title = title[hvdSettings.lang];
             mapping[obj.name] = null;
         }
     });
@@ -325,10 +390,10 @@ function filterHVDRadarData() {
     radarEmptyStates = [];
     Object.keys(mapping).forEach((country) => {
         if (mapping[country]) {
-            radarEmptyStates.push(mapping[country]);
+            radarEmptyStates.push(mapping[country][hvdSettings.lang]);
             ret.push({
                 name: country,
-                title: mapping[country],
+                title: mapping[country][hvdSettings.lang],
                 datasets: null,
                 distributions: null,
                 dataservices: null,
@@ -342,28 +407,28 @@ function filterHVDRadarData() {
 
 function getHVDRadarData() {
     return {
-        labels: ['please','wait','while','loading','data'],
+        labels: hvdSettings.dict[hvdSettings.lang].loading.split(' '),
         datasets: [
         {
-            label: 'Datasets',
+            label: hvdSettings.dict[hvdSettings.lang].legendDatasets,
             data: [],
             borderColor: '#c28a0d',
             backgroundColor: '#c28a0d40',
         },
         {
-            label: 'Distributions',
+            label: hvdSettings.dict[hvdSettings.lang].legendDistributions,
             data: [],
             borderColor: '#2b67f1',
             backgroundColor: '#2b67f140',
         },
         {
-            label: 'Data Services',
+            label: hvdSettings.dict[hvdSettings.lang].legendDataServices,
             data: [],
             borderColor: '#c20d44',
             backgroundColor: '#c20d4440',
         },
         {
-            label: 'Distributions with Licenses',
+            label: hvdSettings.dict[hvdSettings.lang].legendDistributionsLicenses,
             data: [],
             borderColor: '#0dc28a',
             backgroundColor: '#0dc28a40',
@@ -376,7 +441,7 @@ function setRadarData() {
     var radarData = filterHVDRadarData();
 
     radarData.sort((a, b) => {
-        if (a.datasets === b.datasets) return 0;
+        if (a.datasets === b.datasets) return a.title.localeCompare(b.title);
         return a.datasets < b.datasets ? 1 : -1;
     });
 
@@ -401,7 +466,7 @@ function setRadarData() {
 function initHVDSummary() {
     var text = '';
     text += '<div class="col-12 p-4" style="background:#082b7a;color:#fff;">';
-    text += '<div>This is what the HVD’s EU reporting could look like</div>';
+    text += '<div>' + hvdSettings.dict[hvdSettings.lang].hvdEUTitle + '</div>';
 
     text += '<div id="hvd-radar-chart" class="chart chart-sm">';
     text += '<canvas id="' + idRadarChart + '"></canvas>';
@@ -422,7 +487,7 @@ classNameLoadingCard = 'card-loading';
 function showProgress(value) {
     var text = '';
     value = value || '';
-    text += '<span class="text-black">Loading data ... </span>';
+    text += '<span class="text-black">' + hvdSettings.dict[hvdSettings.lang].progressLoading + '</span>';
     text += '<span class="text-secondary"> <i class="mdi mdi-arrow-bottom-right"></i> ' + value + ' </span>';
 
     document.getElementById(idLoadingLabel).innerHTML = text;

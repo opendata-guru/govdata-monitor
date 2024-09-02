@@ -71,8 +71,8 @@
 
 					</div>
 
-					<div class="row">
-						<div class="col-12 p-3" style="background:#082b7a50;border:1em solid #082b7a;">
+					<div class="row bg-white">
+						<div class="col-12 p-4" style="border-bottom:.25em solid #082b7a;">
 							The EU's official HVD reporting is currently being coordinated and has not been published.
 							What is known so far is that the metadata will be automatically evaluated using SPARQL.
 							<br><br>
@@ -81,6 +81,42 @@
 							<br><br>
 							In the meantime, I'm using some queries shown at the SEMIC "Reporting High Value Datasets using DCAT-AP HVD and DEU" event on 2024-06-04.
 							The queries can also be <a href="https://github.com/opendata-guru/data-universal-repository-api/blob/main/api/cronjob/cronjob-hvd-queries.php" target="_blank">read here</a>.
+						</div>
+					</div>
+
+					<div class="row bg-white">
+						<div class="col-12 p-4" style="border-bottom:.25em solid #082b7a;">
+							<table style="border-spacing:.25em;border-collapse:separate;">
+								<thead>
+									<tr>
+										<td>Reporting status</td>
+										<td class="p-2 text-white" style="background:#082b7a"><strong>EU reporting</strong></td>
+										<td class="p-2 text-white" style="background:#082b7a"><strong>Own reporting</strong></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="p-2 text-white" style="background:#082b7a"><strong>Analyse metadata</strong><br>(e.g. license info)</td>
+										<td class="bg-warning text-center">partially</td>
+										<td class="bg-warning text-center">partially</td>
+									</tr>
+									<tr>
+										<td class="p-2 text-white" style="background:#082b7a"><strong>Analyse data</strong><br>(e.g. values for street names)</td>
+										<td class="bg-danger text-center text-white">nay</td>
+										<td class="bg-danger text-center text-white">nay</td>
+									</tr>
+									<tr>
+										<td class="p-2 text-white" style="background:#082b7a"><strong>Analyse service</strong><br>(e.g. data update frequency)</td>
+										<td class="bg-danger text-center text-white">nay</td>
+										<td class="bg-danger text-center text-white">nay</td>
+									</tr>
+									<tr>
+										<td class="p-2 text-white" style="background:#082b7a"><strong>Analyse saturation</strong><br>(e.g. available in entire Germany)</td>
+										<td class="bg-danger text-center text-white">nay</td>
+										<td class="bg-danger text-center text-white">nay</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 

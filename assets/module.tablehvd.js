@@ -33,6 +33,50 @@ var tableHVD = (function () {
         return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check align-middle" style="margin:0 .2rem 0 -.2rem"><polyline points="20 6 9 17 4 12"></polyline></svg>';
     }
 
+    function getSPARQLcountEUlicensesByCatalog(msCat) {
+		var sparql = 
+`prefix dct: <http://purl.org/dc/terms/>
+prefix r5r: <http://data.europa.eu/r5r/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+
+select ?license (count(?license) as ?count) ?mapped where {
+  <?MSCat?> ?cp ?d.
+  ?d r5r:applicableLegislation <http://data.europa.eu/eli/reg_impl/2023/138/oj>.
+  ?d a dcat:Dataset.
+  ?d dcat:distribution ?dist.
+  ?dist r5r:applicableLegislation <http://data.europa.eu/eli/reg_impl/2023/138/oj>.
+  OPTIONAL { ?dist dct:license ?license.
+    OPTIONAL { ?license ?skos ?mapped.
+      FILTER ( ?skos IN ( <http://www.w3.org/2004/02/skos/core#exactMatch>,
+                          <http://www.w3.org/2004/02/skos/core#narrowMatch>,
+                          <http://www.w3.org/2004/02/skos/core#broadMatch> ))
+    }
+  }
+}`;
+
+		return sparql.replace('?MSCat?', msCat);
+    }
+
+    function getPortalLink(title, query) {
+        var baseURL = 'https://data.europa.eu/data/sparql';
+        var endpoint = 'https://data.europa.eu/sparql';
+        var ret = '';
+
+        ret += baseURL;
+        ret += '?locale=en';
+        ret += '#query=' + encodeURIComponent(query);
+        ret += '&endpoint=' + encodeURIComponent(endpoint);
+        ret += '&requestMethod=' + encodeURIComponent('POST');
+        ret += '&tabTitle=' + encodeURIComponent(title);
+        ret += '&headers=' + encodeURIComponent('{}');
+        ret += '&contentTypeConstruct=' + encodeURIComponent('application/n-triples,*/*;q=0.9');
+        ret += '&contentTypeSelect=' + encodeURIComponent('application/sparql-results+json,*/*;q=0.9');
+        ret += '&locale=' + encodeURIComponent('en');
+        ret += '&outputFormat=' + encodeURIComponent('table');
+
+        return ret;
+    }
+
     function install() {
         var html = '';
         var style = 'line-height:1.2rem;padding:.2rem .6rem;cursor:pointer;margin-top:.2rem;';
@@ -353,6 +397,8 @@ var tableHVD = (function () {
                 cols += '<td class="text-end align-middle' + addClass + '">' + str + '</td>';
             });
         }
+
+        title += ' (<a href="' + getPortalLink(title, getSPARQLcountEUlicensesByCatalog(row.linkId)) + '" target="_blank">show query</a>)';
 
 /*        if (row.datasetCount !== undefined) {
             if (row.datasetCount) {

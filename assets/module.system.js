@@ -144,8 +144,6 @@ var system = (function () {
 
     function loadSPARQL(qid) {
         var endpointUrl = 'https://query.wikidata.org/sparql';
-//        var lang = 'en';
-        var lang = 'de';
         var sparqlQuery = 'SELECT ' +
             '?item ' +
             '(SAMPLE(?photo1) as ?photo1) ' +
@@ -187,8 +185,8 @@ var system = (function () {
             '' +
             '  OPTIONAL {' +
             '    ?article schema:about ?item .' +
-            '    ?article schema:inLanguage "' + lang + '" .' +
-            '    ?article schema:isPartOf <https://' + lang + '.wikipedia.org/> .' +
+            '    ?article schema:inLanguage "' + nav.lang + '" .' +
+            '    ?article schema:isPartOf <https://' + nav.lang + '.wikipedia.org/> .' +
             '  }' +
             '}' +
             'GROUP BY ?item';
@@ -282,8 +280,18 @@ var system = (function () {
         return ret;
     }
 
-    function getSystemTitle(sys) {
-        return sys.sobject ? (sys.sobject.title.de ? sys.sobject.title.de : sys.sobject.title.en) : '';
+    function getSystemTitle(sobject) {
+        if (sobject && sobject.title) {
+            if (sobject.title[nav.lang]) {
+                return sobject.title[nav.lang];
+            }
+            if (sobject.title.en) {
+                return sobject.title.en;
+            }
+            return sobject.title[Object.keys(sobject.title)[0]];
+        }
+
+        return '';
     }
 
     function format(key, value) {
@@ -438,7 +446,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -493,7 +501,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -556,7 +564,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -604,7 +612,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -653,7 +661,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -697,7 +705,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -742,7 +750,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -788,7 +796,7 @@ var system = (function () {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
         var catalogObj = catalog.getBySID(sys.sobject.sid);
 
-        var title = getSystemTitle(sys);
+        var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
         var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
@@ -867,7 +875,7 @@ var system = (function () {
         var otherBody = '';
 
         pSystems.sort((a, b) => {
-            return getSystemTitle(a).localeCompare(getSystemTitle(b));
+            return getSystemTitle(a.sobject).localeCompare(getSystemTitle(b.sobject));
         });
 
         pSystems.forEach(sys => {
@@ -963,6 +971,7 @@ var system = (function () {
         addEventListenerStartLoading: funcAddEventListenerStartLoading,
         addEventListenerEndLoading: funcAddEventListenerEndLoading,
         get: funcGet,
+        getTitle: getSystemTitle,
         loadData: funcLoadData,
         onExpandExtension: funcOnExpandExtension,
         update: funcUpdate,

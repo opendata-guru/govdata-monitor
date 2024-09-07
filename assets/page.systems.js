@@ -106,7 +106,7 @@ function enableModifySystemButton() {
     loadedPObjects.forEach(pObject => {
       if (pObject.pid === selectedModifySystemPID) {
         if (pObject.sobject) {
-          pText = pObject.sobject.title.en; 
+          pText = system.getTitle(pObject.sobject); 
         } else {
           pText = pObject.url;
         }
@@ -118,7 +118,7 @@ function enableModifySystemButton() {
   if (selectedModifySystemSID) {
     loadedSObjects.forEach(sObject => {
       if (sObject.sid === selectedModifySystemSID) {
-        sText = sObject.title.en; 
+        sText = system.getTitle(sObject); 
       }
     });
   }
@@ -146,8 +146,7 @@ function updateSelection() {
 
     text += '<img src="' + sObject.image.url + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
     text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
-    text += '<strong>title</strong>: ' + sObject.title.en + '<br>';
-    text += '<strong>title</strong>: ' + sObject.title.de + '<br>';
+    text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
     text += '<strong>type</strong>: ' + sObject.type + '<br>';
     text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
     text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
@@ -299,18 +298,11 @@ function fillModifyPObjectTable() {
 
   list += '<fieldset>';
   loadedPObjects.forEach(pObject => {
-    var title = '';
-    if (pObject.sobject) {
-      if (pObject.sobject.title.en !== '') {
-        title = pObject.sobject.title.en;
-      } else if (pObject.sobject.title.de !== '') {
-        title = pObject.sobject.title.de;
-      }
-    }
-
     if (pObject.sobject && showOnlyImperfectPObjects) {
       return;
     }
+
+    var title = system.getTitle(pObject.sobject);
 
     list += '<div style="overflow-x: hidden;white-space: nowrap;">';
     list += '<input type="radio" id="edit-system-pid-' + pObject.pid + '" value="' + pObject.pid + '" name="' + idInteractiveEditSystemPObject + '" class="mx-2" ' + (first ? 'checked' : '') + '>';
@@ -346,22 +338,15 @@ function fillModifySObjectTable() {
 
   list += '<fieldset>';
   loadedSObjects.forEach(sObject => {
-    var title = [];
-    if (sObject.title.en !== '') {
-      title.push('🇬🇧 ' + sObject.title.en);
-    }
-    if (sObject.title.de !== '') {
-      title.push('🇩🇪 ' + sObject.title.de);
-    }
-    var strTitle = title.join(', ');
+    var title = system.getTitle(sObject);
 
-    if ((lowerFilter !== '') && (-1 === strTitle.toLocaleLowerCase().indexOf(lowerFilter))) {
+    if ((lowerFilter !== '') && (-1 === title.toLocaleLowerCase().indexOf(lowerFilter))) {
       return;
     }
 
     list += '<div style="overflow-x: hidden;white-space: nowrap;">';
     list += '<input type="radio" id="edit-system-sid-' + sObject.sid + '" value="' + sObject.sid + '" name="' + idInteractiveEditSystemSObject + '" class="mx-2" ' + (first ? 'checked' : '') + '>';
-    list += '<label for="edit-system-sid-' + sObject.sid + '">' + strTitle + '</label>';
+    list += '<label for="edit-system-sid-' + sObject.sid + '">' + title + '</label>';
     list += '</div>';
 
     first = false;
@@ -407,12 +392,7 @@ function onModifyLoadPObjects(selectPID) {
   loadPObjects((result) => {
     loadedPObjects = result;
     loadedPObjects.sort(function(a, b) {
-      var left = (a.sobject ? a.sobject.title.en : '') + a.url;
-      var right = (b.sobject ? b.sobject.title.en : '') + b.url;
-
-      if (left < right) return -1;
-      if (left > right) return 1;
-      return 0;
+      return system.getTitle(a.sobject).localeCompare(system.getTitle(b.sobject));
     });
     fillModifyPObjectTable();
     selectModifySystemPID(selectPID);
@@ -428,12 +408,7 @@ function onModifyLoadSObjects(selectSID) {
   loadSObjects((result) => {
     loadedSObjects = result;
     loadedSObjects.sort(function(a, b) {
-      var left = a.title.en ? a.title.en : a.title.de;
-      var right = b.title.en ? b.title.en : b.title.de;
-
-      if (left < right) return -1;
-      if (left > right) return 1;
-      return 0;
+      return system.getTitle(a).localeCompare(system.getTitle(b));
     });
     fillModifySObjectTable();
     selectModifySystemSID(selectSID);

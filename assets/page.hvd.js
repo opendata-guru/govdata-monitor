@@ -1,7 +1,5 @@
 var hvdSettings = {
     maxDays: 20,
-    lang: 'en',
-//    lang: 'de',
     dict: {
         de: {
             historyDataset: 'Tage-Verlauf für Datensätze',
@@ -208,19 +206,19 @@ function monitorZoomOut() {
 
 function catalogGetDownloadMenu(chartObjectName) {
     var html = '';
-    html += '<a title="' + hvdSettings.dict[hvdSettings.lang].optionsMenu + '" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
+    html += '<a title="' + hvdSettings.dict[nav.lang].optionsMenu + '" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
     html += '<span>...</span>';
     html += '</a>';
     html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
-    html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsDownloadCSV + '</a>';
-//        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsDownloadPNG + '</a>';
+    html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[nav.lang].optionsDownloadCSV + '</a>';
+//        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[nav.lang].optionsDownloadPNG + '</a>';
     html += '<div class="dropdown-divider"></div>';
-/*    html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsLoadWeek + '</a>';
-    html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[hvdSettings.lang].optionsLoadMonth + '</a>';
-    html += '<a onclick="monitorRemoveLoadedDays()" id="removeLoadedDays" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">' + hvdSettings.dict[hvdSettings.lang].optionsRemoveLoaded + '</a>';
+/*    html += '<a onclick="monitorLoadMoreDays(7)" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[nav.lang].optionsLoadWeek + '</a>';
+    html += '<a onclick="monitorLoadMoreDays(30)" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[nav.lang].optionsLoadMonth + '</a>';
+    html += '<a onclick="monitorRemoveLoadedDays()" id="removeLoadedDays" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">' + hvdSettings.dict[nav.lang].optionsRemoveLoaded + '</a>';
     html += '<div class="dropdown-divider"></div>';*/
-    html += '<a onclick="monitorZoomIn()" id="historyZoomIn" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">' + hvdSettings.dict[hvdSettings.lang].optionsMaximize + '</a>';
-    html += '<a onclick="monitorZoomOut()" id="historyZoomOut" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">' + hvdSettings.dict[hvdSettings.lang].optionsMinimize + '</a>';
+    html += '<a onclick="monitorZoomIn()" id="historyZoomIn" class="d-block px-3 py-1 text-dark fw-normal" style="color:#ccc">' + hvdSettings.dict[nav.lang].optionsMaximize + '</a>';
+    html += '<a onclick="monitorZoomOut()" id="historyZoomOut" class="d-block px-3 py-1 fw-normal" style="color:#ccc;pointer-events:none">' + hvdSettings.dict[nav.lang].optionsMinimize + '</a>';
     html += '</div>';
 
     return html;
@@ -239,17 +237,17 @@ function catalogSet(catalogId) {
 function catalogUpdate() {
     var elemDatasets = document.getElementById(idHistoryDatasets);
     if (elemDatasets) {
-        elemDatasets.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[hvdSettings.lang].historyDataset + ' ' + catalogGetDownloadMenu('chartsupplier');
+        elemDatasets.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[nav.lang].historyDataset + ' ' + catalogGetDownloadMenu('chartsupplier');
     }
 
     var elemDistributions = document.getElementById(idHistoryDistributions);
     if (elemDistributions) {
-        elemDistributions.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[hvdSettings.lang].historyDistribution + ' ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
+        elemDistributions.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[nav.lang].historyDistribution + ' ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
     }
 
     var elemDataservices = document.getElementById(idHistoryDataservices);
     if (elemDataservices) {
-        elemDataservices.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[hvdSettings.lang].historyDataService + ' ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
+        elemDataservices.innerHTML = data.loadedDays + ' ' + hvdSettings.dict[nav.lang].historyDataService + ' ' /*+ catalogGetDownloadMenu('chartsupplier')*/;
     }
 
     if (data.loadedDays > data.initalDays) {
@@ -383,7 +381,7 @@ function filterHVDRadarData() {
     ret.forEach((obj) => {
         var title = mapping[obj.name];
         if (title) {
-            obj.title = title[hvdSettings.lang];
+            obj.title = title[nav.lang];
             mapping[obj.name] = null;
         }
     });
@@ -391,10 +389,10 @@ function filterHVDRadarData() {
     radarEmptyStates = [];
     Object.keys(mapping).forEach((country) => {
         if (mapping[country]) {
-            radarEmptyStates.push(mapping[country][hvdSettings.lang]);
+            radarEmptyStates.push(mapping[country][nav.lang]);
             ret.push({
                 name: country,
-                title: mapping[country][hvdSettings.lang],
+                title: mapping[country][nav.lang],
                 datasets: null,
                 distributions: null,
                 dataservices: null,
@@ -408,28 +406,28 @@ function filterHVDRadarData() {
 
 function getHVDRadarData() {
     return {
-        labels: hvdSettings.dict[hvdSettings.lang].loading.split(' '),
+        labels: hvdSettings.dict[nav.lang].loading.split(' '),
         datasets: [
         {
-            label: hvdSettings.dict[hvdSettings.lang].legendDatasets,
+            label: hvdSettings.dict[nav.lang].legendDatasets,
             data: [],
             borderColor: '#c28a0d',
             backgroundColor: '#c28a0d40',
         },
         {
-            label: hvdSettings.dict[hvdSettings.lang].legendDistributions,
+            label: hvdSettings.dict[nav.lang].legendDistributions,
             data: [],
             borderColor: '#2b67f1',
             backgroundColor: '#2b67f140',
         },
         {
-            label: hvdSettings.dict[hvdSettings.lang].legendDataServices,
+            label: hvdSettings.dict[nav.lang].legendDataServices,
             data: [],
             borderColor: '#c20d44',
             backgroundColor: '#c20d4440',
         },
         {
-            label: hvdSettings.dict[hvdSettings.lang].legendDistributionsLicenses,
+            label: hvdSettings.dict[nav.lang].legendDistributionsLicenses,
             data: [],
             borderColor: '#0dc28a',
             backgroundColor: '#0dc28a40',
@@ -474,7 +472,7 @@ function setRadarData() {
 function initHVDSummary() {
     var text = '';
     text += '<div class="col-12 p-4" style="background:#082b7a;color:#fff;">';
-    text += '<div>' + hvdSettings.dict[hvdSettings.lang].hvdEUTitle + '</div>';
+    text += '<div>' + hvdSettings.dict[nav.lang].hvdEUTitle + '</div>';
 
     text += '<div id="hvd-radar-chart" class="chart chart-sm">';
     text += '<canvas id="' + idRadarChart + '"></canvas>';
@@ -495,7 +493,7 @@ classNameLoadingCard = 'card-loading';
 function showProgress(value) {
     var text = '';
     value = value || '';
-    text += '<span class="text-black">' + hvdSettings.dict[hvdSettings.lang].progressLoading + '</span>';
+    text += '<span class="text-black">' + hvdSettings.dict[nav.lang].progressLoading + '</span>';
     text += '<span class="text-secondary"> <i class="mdi mdi-arrow-bottom-right"></i> ' + value + ' </span>';
 
     document.getElementById(idLoadingLabel).innerHTML = text;

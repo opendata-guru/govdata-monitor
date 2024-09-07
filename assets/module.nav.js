@@ -1,13 +1,30 @@
 var nav = (function () {
+    var lang = '',
+        langParam = '',
+        defaultLang = 'en';
+    var paramLang = 'lang';
     var NAV_MAIN = 'MAIN',
         NAV_MENU = 'MENU',
         NAV_TEST = 'TEST',
+        NAV_BASE_URL = 'https://opendata.guru/govdata/',
         navDict = {
             moreApps: {
                 de: 'Mehr Apps',
                 en: 'More Apps',
             },
         };
+        languages = [
+        {
+            code: 'en',
+            image: 'https://opendata.guru/api-data/assets/svqE0.svg',
+            title: 'English',
+        },
+        {
+            code: 'de',
+            image: 'https://opendata.guru/api-data/assets/smZ1A.svg',
+            title: 'Deutsch',
+        },
+        ],
         navigation = [
         {
             icon: 'map-pin',
@@ -16,7 +33,7 @@ var nav = (function () {
                 de: 'Karte',
                 en: 'Map',
             },
-            url: 'https://opendata.guru/govdata/index.html',
+            url: 'index.html',
         },
         {
             icon: 'git-merge',
@@ -25,7 +42,7 @@ var nav = (function () {
                 de: 'Kataloge',
                 en: 'Catalogs',
             },
-            url: 'https://opendata.guru/govdata/catalogs.html',
+            url: 'catalogs.html',
         },
         {
             icon: 'shield',
@@ -34,7 +51,7 @@ var nav = (function () {
                 de: 'Systeme',
                 en: 'Systems',
             },
-            url: 'https://opendata.guru/govdata/systems.html',
+            url: 'systems.html',
         },
         {
             icon: 'terminal',
@@ -43,7 +60,7 @@ var nav = (function () {
                 de: 'API',
                 en: 'API',
             },
-            url: 'https://opendata.guru/govdata/api.html',
+            url: 'api.html',
         },
         {
             icon: 'activity',
@@ -52,7 +69,7 @@ var nav = (function () {
                 de: 'Metrik',
                 en: 'Meter',
             },
-            url: 'https://opendata.guru/govdata/meter.html',
+            url: 'meter.html',
         },
         {
             icon: 'inbox',
@@ -61,7 +78,7 @@ var nav = (function () {
                 de: 'Datensätze',
                 en: 'Datasets',
             },
-            url: 'https://opendata.guru/govdata/datasets.html',
+            url: 'datasets.html',
         },
         {
             icon: 'play',
@@ -70,7 +87,7 @@ var nav = (function () {
                 de: 'Daten-Rennen',
                 en: 'Chart Race',
             },
-            url: 'https://opendata.guru/govdata/race.html',
+            url: 'race.html',
         },
         {
             icon: 'crosshair',
@@ -79,7 +96,7 @@ var nav = (function () {
                 de: 'Verfolgen',
                 en: 'Trace',
             },
-            url: 'https://opendata.guru/govdata/trace.html',
+            url: 'trace.html',
         },
         {
             icon: 'sun',
@@ -88,7 +105,7 @@ var nav = (function () {
                 de: 'HVD',
                 en: 'HVD',
             },
-            url: 'https://opendata.guru/govdata/hvd.html',
+            url: 'hvd.html',
         },
         {
             icon: 'shopping-cart',
@@ -104,28 +121,45 @@ var nav = (function () {
     function install() {
         var navBar = document.getElementsByClassName('navbar-nav')[0];
         var pathname = document.location.pathname.split('/').splice(-1)[0];
-        var lang = 'en';
+        var submenu = '';
+
+        var submenuItem = document.createElement('li');
+        submenuItem.classList.add('nav-item', 'dropdown');
 
         navigation.forEach(nav => {
+            var url = (window.location.protocol === 'file:' ? '' : NAV_BASE_URL) + nav.url;
+            var page = url.split('/').splice(-1)[0];
+            if (langParam !== '') {
+                url += '?' + langParam;
+            }
+
             if (NAV_MAIN === nav.position) {
                 var html = '';
-                html += '<a class="nav-link" href="' + nav.url + '">';
+                html += '<a class="nav-link" href="' + url + '">';
                 html += '  <i class="align-middle" data-feather="' + nav.icon + '"></i> <span class="align-middle">' + nav.title[lang] + '</span>';
                 html += '</a>';
 
                 var listItem = document.createElement('li');
                 listItem.classList.add('nav-item');
-                if (pathname === nav.url.split('/').splice(-1)[0]) {
+                if (pathname === page) {
                     listItem.classList.add('border-bottom', 'border-4', 'border-info');
                 }
                 listItem.innerHTML = html;
 
                 navBar.appendChild(listItem);
+            } else if (NAV_MENU === nav.position) {
+                var classes = ''; 
+                if (pathname === page) {
+                    classes += 'border-start border-4 border-info';
+                    submenuItem.classList.add('border-bottom', 'border-4', 'border-info');
+                }
+
+                submenu += '<a class="nav-link ' + classes + '" href="' + url + '">';
+                submenu += '  <i class="align-middle" data-feather="' + nav.icon + '"></i> <span class="align-middle">' + nav.title[lang] + '</span>';
+                submenu += '</a>';
+            } else if (NAV_TEST === nav.position) {
             }
         });
-
-        var listItem = document.createElement('li');
-        listItem.classList.add('nav-item', 'dropdown');
 
         var html = '';
         html += '<a class="nav-link dropdown-toggle d-inline-block" href="#" data-bs-toggle="dropdown">';
@@ -133,36 +167,70 @@ var nav = (function () {
         html += '</a>';
 
         html += '<div class="dropdown-menu">';
-        navigation.forEach(nav => {
-            if (NAV_MENU === nav.position) {
-//            if (NAV_TEST === nav.position) {
-                    var classes = ''; 
-                if (pathname === nav.url.split('/').splice(-1)[0]) {
-                    classes += 'border-start border-4 border-info';
-                    listItem.classList.add('border-bottom', 'border-4', 'border-info');
-                }
-
-                html += '<a class="nav-link ' + classes + '" href="' + nav.url + '">';
-                html += '  <i class="align-middle" data-feather="' + nav.icon + '"></i> <span class="align-middle">' + nav.title[lang] + '</span>';
-                html += '</a>';
-            }
+        html += submenu;
+        html += '<div class="dropdown-divider"></div>';
+        html += '<div class="text-center">';
+        languages.forEach(language => {
+            html += '<a href="#" onclick="nav.setLanguage(\'' + language.code + '\')" style="margin:0 .5em">';
+            html += '<img src="' + language.image + '" style="height:1.4em" alt="' + language.title + '" title="' + language.title + '">';
+            html += '</a>';
         });
         html += '</div>';
+        html += '</div>';
 
-        listItem.innerHTML = html;
+        submenuItem.innerHTML = html;
 
-        navBar.appendChild(listItem);
+        navBar.appendChild(submenuItem);
     }
 
     function init() {
     }
 
+    function initLanguage() {
+        var params = new URLSearchParams(window.location.search);
+
+        if (params.has(paramLang)) {
+            lang = params.get(paramLang);
+        } else {
+            lang = defaultLang;
+        }
+        langParam = (lang === defaultLang ? '' : 'lang=' + encodeURIComponent(lang));
+    }
+
+    initLanguage();
     install();
+
+    function funcSetLanguage(language) {
+        if (lang === language) {
+            return;
+        }
+
+        lang = language;
+        langParam = (lang === defaultLang ? '' : 'lang=' + encodeURIComponent(lang));
+
+        if (nav) {
+            nav.lang = lang;
+            nav.langAsURLParam = langParam;
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        if (lang === defaultLang) {
+            params.delete(paramLang);
+        } else {
+            params.set(paramLang, lang);
+        }
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
+
+        window.location.reload();
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         init();
     });
 
     return {
+        lang: lang,
+        langAsURLParam: langParam,
+        setLanguage: funcSetLanguage,
     };
 }());

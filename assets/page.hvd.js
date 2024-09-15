@@ -324,7 +324,7 @@ function setDistributionChanges(diff) {
     diff.added.forEach((obj) => {
         var file = obj.distributionAccessURL.split('/').splice(-1)[0];
         str += obj.datasetIdentifier + ': ';
-        str += '<a href="https://' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+        str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
     });
     str += '</td></tr>';
 
@@ -332,7 +332,7 @@ function setDistributionChanges(diff) {
     diff.removed.forEach((obj) => {
         var file = obj.distributionAccessURL.split('/').splice(-1)[0];
         str += obj.datasetIdentifier + ': ';
-        str += '<a href="https://' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+        str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
     });
     str += '</td></tr>';
 

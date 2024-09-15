@@ -2,6 +2,16 @@ var hvdSettings = {
     maxDays: 20,
     dict: {
         de: {
+            diffInfoDataToday: 'Diese Änderungen in den HVD-Datensätzen sind seit gestern aufgetreten.',
+            diffTableAdded: 'Neue Links',
+            diffTableCount: 'Anzahl',
+            diffTableDetail: 'Detail',
+            diffTableHostsAdded: 'Neue Links von diesen Hosts',
+            diffTableHostsDeleted: 'Hosts, die jetzt keine Links mehr haben',
+            diffTableHostsNew: 'Bisher unbekannte Hosts',
+            diffTableHostsRemoved: 'Links von diesen Hosts entfernt',
+            diffTableRemoved: 'Links entfernt',
+            diffTitle: 'Übersicht der Distributionen aus Deutschland',
             historyDataset: 'Tage-Verlauf für Datensätze',
             historyDistribution: 'Tage-Verlauf für Distributionen',
             historyDataService: 'Tage-Verlauf für Datendienste',
@@ -22,6 +32,16 @@ var hvdSettings = {
             progressLoading: 'Daten werden geladen ...',
         },
         en: {
+            diffInfoDataToday: 'These changes in the HVD records occurred since yesterday.',
+            diffTableAdded: 'New links',
+            diffTableCount: 'Count',
+            diffTableDetail: 'Detail',
+            diffTableHostsAdded: 'New links in these hosts',
+            diffTableHostsDeleted: 'Hosts who now no longer have links',
+            diffTableHostsNew: 'Previously unknown hosts',
+            diffTableHostsRemoved: 'Removed links in these hosts',
+            diffTableRemoved: 'Removed links',
+            diffTitle: 'Overview of distributions from Germany',
             historyDataset: 'days dataset history',
             historyDistribution: 'days distribution history',
             historyDataService: 'days data service history',
@@ -65,6 +85,7 @@ var idHistoryDatasets = 'history-datasets',
     idHistoryDataservices = 'history-dataservices',
     idEUSummary = 'hvd-eu',
     idRadarChart = 'dataset-hvd-radar',
+    idDiffDistributions = 'diffDistributions',
     radarChart = null,
     radarEmptyStates = [];
 
@@ -260,6 +281,66 @@ function catalogUpdate() {
     if (data.loadedDays === 1) {
         setRadarData();
     }
+}
+
+// ----------------------------------------------------------------------------
+
+function setDistributionChanges(diff) {
+    var elemDiff = document.getElementById(idDiffDistributions);
+    var str = '';
+
+    str += '<h2>' + hvdSettings.dict[nav.lang].diffTitle + '</h2>';
+    str += '<div>' + hvdSettings.dict[nav.lang].diffInfoDataToday + '</div>';
+
+    str += '<table class="mt-3">';
+    str += '<thead><tr><td></td><td><strong>' + hvdSettings.dict[nav.lang].diffTableCount + '</strong></td><td><strong>' + hvdSettings.dict[nav.lang].diffTableDetail + '</strong></td></tr></thead>'
+    str += '<tbody style="vertical-align:top">';
+
+    str += '<tr style="background:#1cbb8c54"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsNew + '</strong></td><td class="text-center">' + diff.hostsNew.length + '</td><td>';
+    diff.hostsNew.forEach((host) => {
+        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+    });
+    str += '</td></tr>';
+
+    str += '<tr style="background:#dc354554"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsDeleted + '</strong></td><td class="text-center">' + diff.hostsDeleted.length + '</td><td>';
+    diff.hostsDeleted.forEach((host) => {
+        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+    });
+    str += '</td></tr>';
+
+    str += '<tr style="background:#1cbb8c54"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsAdded + '</strong></td><td class="text-center">' + diff.hostsAdded.length + '</td><td>';
+    diff.hostsAdded.forEach((host) => {
+        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+    });
+    str += '</td></tr>';
+
+    str += '<tr style="background:#dc354554"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsRemoved + '</strong></td><td class="text-center">' + diff.hostsRemoved.length + '</td><td>';
+    diff.hostsRemoved.forEach((host) => {
+        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+    });
+    str += '</td></tr>';
+
+    str += '<tr style="background:#1cbb8c54"><td><strong>' + hvdSettings.dict[nav.lang].diffTableAdded + '</strong></td><td class="text-center">' + diff.added.length + '</td><td>';
+    diff.added.forEach((obj) => {
+        var file = obj.distributionAccessURL.split('/').splice(-1)[0];
+        str += obj.datasetIdentifier + ': ';
+        str += '<a href="https://' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+    });
+    str += '</td></tr>';
+
+    str += '<tr style="background:#dc354554"><td><strong>' + hvdSettings.dict[nav.lang].diffTableRemoved + '</strong></td><td class="text-center">' + diff.removed.length + '</td><td>';
+    diff.removed.forEach((obj) => {
+        var file = obj.distributionAccessURL.split('/').splice(-1)[0];
+        str += obj.datasetIdentifier + ': ';
+        str += '<a href="https://' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+    });
+    str += '</td></tr>';
+
+    str += '</tbody>';
+    str += '</table>';
+
+    elemDiff.innerHTML = str;
+    console.log(diff);
 }
 
 // ----------------------------------------------------------------------------
@@ -502,6 +583,8 @@ function showProgress(value) {
 
 function hideProgress() {
     document.getElementsByClassName(classNameLoadingCard)[0].style.top = '-3.5rem';
+
+    setDistributionChanges(data.getChanges());
 }
 
 document.addEventListener('DOMContentLoaded', function() {

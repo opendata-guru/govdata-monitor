@@ -1,10 +1,12 @@
 var data = (function () {
     var uriHVDStatistics = 'https://opendata.guru/api/2/hvd/statistics/',
+        uriHVDChanges = 'https://opendata.guru/api/2/hvd/accessurls/today/change',
         dateToLoad = '',
         uriToLoad = '';
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var assets = [],
+        assetsChange = [],
         view = [],
         viewHeader = [],
         loadDays = 0,
@@ -178,6 +180,10 @@ var data = (function () {
         return displayDate;
     }
 
+    function funcGetChanges() {
+        return assetsChange;
+    }
+
     function funcHas(dateString) {
         return assets[dateString] !== undefined;
     }
@@ -226,6 +232,10 @@ var data = (function () {
         load();
     }
 
+    function storeChanges(payload) {
+        assetsChange = payload;
+    }
+
     function load() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', uriToLoad, true);
@@ -250,7 +260,7 @@ var data = (function () {
                     }
                 }
 
-                dispatchEventEndLoading();
+                loadChanges();
 
                 date.update();
                 charthistory.update();
@@ -265,7 +275,7 @@ var data = (function () {
         if (days <= loadDays) {
             xhr.send();
         } else {
-            dispatchEventEndLoading();
+            loadChanges();
 
             if (date) {
                 date.update();
@@ -274,6 +284,22 @@ var data = (function () {
                 charthistory.update();
             }
         }
+    }
+
+    function loadChanges() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uriHVDChanges, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeChanges(JSON.parse(this.responseText));
+                dispatchEventEndLoading();
+            } else if (this.readyState == 4) {
+                dispatchEventEndLoading();
+            }
+        }
+
+        xhr.send();
     }
 
     function funcLoadData(maxDays) {
@@ -327,6 +353,7 @@ var data = (function () {
         get: funcGet,
         getDate: funcGetDate,
         getDisplayDate: funcGetDisplayDate,
+        getChanges: funcGetChanges,
         has: funcHas,
         initalDays: 0,
         isHVD: true,

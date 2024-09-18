@@ -461,7 +461,7 @@ function filterHVDRadarData() {
         'ie':{de: 'Irland', en: 'Ireland'},
         'it':{de: 'Italien', en: 'Italy'},
         'lv':{de: 'Lettland', en: 'Latvia'},
-        'lt':{de: 'Litauen', en: 'Lithuania'},
+        'data-gov-lt':{de: 'Litauen', en: 'Lithuania'},
         'lu':{de: 'Luxemburg', en: 'Luxembourg'},
         'mt':{de: 'Malta', en: 'Malta'},
         'nl':{de: 'Niederlande', en: 'Netherlands'},

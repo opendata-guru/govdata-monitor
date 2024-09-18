@@ -444,19 +444,19 @@ var system = (function () {
 
     function getOtherSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
@@ -499,19 +499,19 @@ var system = (function () {
 
     function getCKANSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
@@ -562,19 +562,19 @@ var system = (function () {
 
     function getDKANSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
@@ -610,19 +610,19 @@ var system = (function () {
 
     function getPiveauSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
@@ -659,19 +659,19 @@ var system = (function () {
 
     function getODSSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
@@ -703,19 +703,19 @@ var system = (function () {
 
     function getEntryScapeSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
@@ -794,19 +794,19 @@ var system = (function () {
 
     function getSPARQLSystemsRow(sys) {
         var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject.sid);
+        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
 
         var title = getSystemTitle(sys.sobject);
         var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
         var error = '';
-        var image = (sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
             title = sys.url;
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + sys.sobject.sid + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
         cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {

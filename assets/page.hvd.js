@@ -4,8 +4,6 @@ var hvdSettings = {
         de: {
             diffInfoDataToday: 'Diese Änderungen in den HVD-Datensätzen sind seit gestern aufgetreten.',
             diffTableAdded: 'Neue Links',
-            diffTableCount: 'Anzahl',
-            diffTableDetail: 'Detail',
             diffTableHostsAdded: 'Neue Links von diesen Hosts',
             diffTableHostsDeleted: 'Hosts, die jetzt keine Links mehr haben',
             diffTableHostsNew: 'Bisher unbekannte Hosts',
@@ -41,8 +39,6 @@ var hvdSettings = {
         en: {
             diffInfoDataToday: 'These changes in the HVD records occurred since yesterday.',
             diffTableAdded: 'New links',
-            diffTableCount: 'Count',
-            diffTableDetail: 'Detail',
             diffTableHostsAdded: 'New links in these hosts',
             diffTableHostsDeleted: 'Hosts who now no longer have links',
             diffTableHostsNew: 'Previously unknown hosts',
@@ -307,50 +303,90 @@ function setDistributionChanges(diff) {
     str += '<h2>' + hvdSettings.dict[nav.lang].diffTitle + '</h2>';
     str += '<div>' + hvdSettings.dict[nav.lang].diffInfoDataToday + '</div>';
 
-    str += '<table class="mt-3">';
-    str += '<thead><tr><td></td><td><strong>' + hvdSettings.dict[nav.lang].diffTableCount + '</strong></td><td><strong>' + hvdSettings.dict[nav.lang].diffTableDetail + '</strong></td></tr></thead>'
+    str += '<table class="mt-3 w-100">';
+    str += '<thead><tr>';
+    str += '<td class="w-50 text-center border-bottom border-3 border-success"><strong>' + hvdSettings.dict[nav.lang].diffTableHostsNew + '</strong></td>';
+    str += '<td class="text-center border-bottom border-3 border-danger"><strong>' + hvdSettings.dict[nav.lang].diffTableHostsDeleted + '</strong>';
+    str += '</td></tr></thead>'
     str += '<tbody style="vertical-align:top">';
-
-    str += '<tr style="background:#1cbb8c54"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsNew + '</strong></td><td class="text-center">' + diff.hostsNew.length + '</td><td>';
-    diff.hostsNew.forEach((host) => {
-        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
-    });
+    str += '<tr><td>';
+    if (diff.hostsNew.length > 0) {
+        diff.hostsNew.forEach((host) => {
+            str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+        });
+    } else {
+        str += '-';
+    }
+    str += '</td><td>';
+    if (diff.hostsDeleted.length > 0) {
+        diff.hostsDeleted.forEach((host) => {
+            str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+        });
+    } else {
+        str += '-';
+    }
     str += '</td></tr>';
+    str += '</tbody>';
+    str += '</table>';
 
-    str += '<tr style="background:#dc354554"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsDeleted + '</strong></td><td class="text-center">' + diff.hostsDeleted.length + '</td><td>';
-    diff.hostsDeleted.forEach((host) => {
-        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
-    });
+    str += '<table class="mt-3 w-100">';
+    str += '<thead><tr>';
+    str += '<td class="w-50 text-center border-bottom border-3 border-success"><strong>' + hvdSettings.dict[nav.lang].diffTableHostsAdded + '</strong></td>';
+    str += '<td class="text-center border-bottom border-3 border-danger"><strong>' + hvdSettings.dict[nav.lang].diffTableHostsRemoved + '</strong>';
+    str += '</td></tr></thead>'
+    str += '<tbody style="vertical-align:top">';
+    str += '<tr><td>';
+    if (diff.hostsAdded.length > 0) {
+        diff.hostsAdded.forEach((host) => {
+            str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+        });
+    } else {
+        str += '-';
+    }
+    str += '</td><td>';
+    if (diff.hostsRemoved.length > 0) {
+        diff.hostsRemoved.forEach((host) => {
+            str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
+        });
+    } else {
+        str += '-';
+    }
     str += '</td></tr>';
+    str += '</tbody>';
+    str += '</table>';
 
-    str += '<tr style="background:#1cbb8c54"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsAdded + '</strong></td><td class="text-center">' + diff.hostsAdded.length + '</td><td>';
-    diff.hostsAdded.forEach((host) => {
-        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
-    });
+    str += '<table class="mt-3 w-100">';
+    str += '<thead><tr>';
+    str += '<td class="w-100 text-center border-bottom border-3 border-success"><strong>' + hvdSettings.dict[nav.lang].diffTableAdded + '</strong></td>';
+    str += '</td></tr></thead>'
+    str += '<tbody style="vertical-align:top">';
+    str += '<tr><td>';
+    if (diff.added.length > 0) {
+        diff.added.forEach((obj) => {
+            var file = obj.distributionAccessURL.split('/').splice(-1)[0];
+            str += obj.datasetIdentifier + ': ';
+            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+        });
+    } else {
+        str += '-';
+    }
     str += '</td></tr>';
-
-    str += '<tr style="background:#dc354554"><td><strong>' + hvdSettings.dict[nav.lang].diffTableHostsRemoved + '</strong></td><td class="text-center">' + diff.hostsRemoved.length + '</td><td>';
-    diff.hostsRemoved.forEach((host) => {
-        str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
-    });
+    str += '</tbody>';
+    str += '<thead><tr>';
+    str += '<td class="text-center border-bottom border-3 border-danger"><strong>' + hvdSettings.dict[nav.lang].diffTableRemoved + '</strong>';
+    str += '</td></tr></thead>'
+    str += '<tbody style="vertical-align:top">';
+    str += '<tr><td>';
+    if (diff.removed.length > 0) {
+        diff.removed.forEach((obj) => {
+            var file = obj.distributionAccessURL.split('/').splice(-1)[0];
+            str += obj.datasetIdentifier + ': ';
+            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+        });
+    } else {
+        str += '-';
+    }
     str += '</td></tr>';
-
-    str += '<tr style="background:#1cbb8c54"><td><strong>' + hvdSettings.dict[nav.lang].diffTableAdded + '</strong></td><td class="text-center">' + diff.added.length + '</td><td>';
-    diff.added.forEach((obj) => {
-        var file = obj.distributionAccessURL.split('/').splice(-1)[0];
-        str += obj.datasetIdentifier + ': ';
-        str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
-    });
-    str += '</td></tr>';
-
-    str += '<tr style="background:#dc354554"><td><strong>' + hvdSettings.dict[nav.lang].diffTableRemoved + '</strong></td><td class="text-center">' + diff.removed.length + '</td><td>';
-    diff.removed.forEach((obj) => {
-        var file = obj.distributionAccessURL.split('/').splice(-1)[0];
-        str += obj.datasetIdentifier + ': ';
-        str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
-    });
-    str += '</td></tr>';
-
     str += '</tbody>';
     str += '</table>';
 

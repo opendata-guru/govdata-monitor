@@ -22,7 +22,31 @@ var table = (function () {
     var paramFlatten = 'flatten',
         paramClipboard = 'clipboard',
         paramLayers = 'layers';
-
+    var dict = {
+        de: {
+            subMenuSettings: 'Einstellungen',
+            subMenuTableCopy: 'Schaltflächen „In die Zwischenablage kopieren“ anzeigen',
+            subMenuTableFlatten: 'Alle Portale flach darstellen',
+            subMenuTableLayer: 'Ebene',
+            subMenuTableLayerAll: 'Alle',
+            subMenuTableLayerUndefined: 'Nicht definiert',
+            subMenuTableMultipleLayers: 'Verwende „Strg + Klick“, um mehrere Ebenen auszuwählen',
+            subMenuTableReset: 'Tabelleneinstellungen zurücksetzen',
+            subMenuTableTitle: 'Tabelle',
+        },
+        en: {
+            subMenuSettings: 'Settings',
+            subMenuTableCopy: 'Show "copy to clipboard" buttons',
+            subMenuTableFlatten: 'Flatten all portals',
+            subMenuTableLayer: 'Layer',
+            subMenuTableLayerAll: 'All',
+            subMenuTableLayerUndefined: 'Undefined',
+            subMenuTableMultipleLayers: 'Use "Ctrl + Click" to select multiple layers',
+            subMenuTableReset: 'Reset table settings',
+            subMenuTableTitle: 'Table',
+        },
+    };
+    
     function getCheckIcon() {
         return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check align-middle" style="margin:0 .2rem 0 -.2rem"><polyline points="20 6 9 17 4 12"></polyline></svg>';
     }
@@ -35,12 +59,10 @@ var table = (function () {
         var styleRight = style + 'border-top-left-radius:0;border-bottom-left-radius:0;';
 
         html += '<div class="list-group" style="padding: .5rem 1rem 0 1rem">';
-        html += '  <div>';
-        html += '    Layer:';
-        html += '  </div>';
+        html += '  <div>' + dict[nav.lang].subMenuTableLayer + ':</div>';
         html += '  <div style="padding-left:1.4rem">';
-        html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>All</span>';
-        html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>Undefined</span>';
+        html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>' + dict[nav.lang].subMenuTableLayerAll + '</span>';
+        html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>' + dict[nav.lang].subMenuTableLayerUndefined + '</span>';
         Object.keys(data.layers).forEach(key => {
             var isLeft = -1 !== ['supranational','country','federal','state','regionalNetwork','district','municipality'].indexOf(key);
             var isMiddle = -1 !== ['stateAgency'].indexOf(key);
@@ -50,9 +72,7 @@ var table = (function () {
             html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isMiddle ? styleMiddle : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
         });
         html += '  </div>';
-        html += '  <div class="text-muted text-center mt-2" style="font-size:.75rem">';
-        html += '    Use "Ctrl + Click" to select multiple layers';
-        html += '  </div>';
+        html += '  <div class="text-muted text-center mt-2" style="font-size:.75rem">' + dict[nav.lang].subMenuTableMultipleLayers + '</div>';
         html += '</div>';
 
         html += '<div class="dropdown-divider"></div>';
@@ -60,22 +80,18 @@ var table = (function () {
         html += '<div class="list-group" style="padding: 0 1rem">';
         html += '  <label class="form-check">';
         html += '    <input id="' + idFlatten + '" class="form-check-input" value="" type="checkbox">';
-        html += '    <span class="form-check-label">';
-        html += '      Flatten all portals';
-        html += '    </span>';
+        html += '    <span class="form-check-label">' + dict[nav.lang].subMenuTableFlatten + '</span>';
         html += '  </label>';
         html += '  <label class="form-check">';
         html += '    <input id="' + idClipboard + '" class="form-check-input" value="" type="checkbox">';
-        html += '    <span class="form-check-label">';
-        html += '      Show "copy to clipboard" buttons';
-        html += '    </span>';
+        html += '    <span class="form-check-label">' + dict[nav.lang].subMenuTableCopy + '</span>';
         html += '  </label>';
         html += '</div>';
 
         html += '<div class="dropdown-divider"></div>';
 
         html += '<div class="dropdown-menu-footer pt-0">';
-        html += '<a id="' + idReset + '" href="#" class="text-muted">Reset table settings</a>';
+        html += '<a id="' + idReset + '" href="#" class="text-muted">' + dict[nav.lang].subMenuTableReset + '</a>';
         html += '</div>';
 
         document.getElementById(idMenu).innerHTML = html;
@@ -135,6 +151,12 @@ var table = (function () {
 
         document.getElementById(idFlatten).checked = initvalFlatten;
         document.getElementById(idClipboard).checked = initvalClipboard;
+
+        var elem;
+        elem = document.querySelector('.main nav.navbar > div:nth-child(2) li.nav-item.text-secondary');
+        elem.innerHTML = dict[nav.lang].subMenuSettings + ':';
+        elem = document.querySelector('#' + idElement + ' > span');
+        elem.innerHTML = dict[nav.lang].subMenuTableTitle;
 
         document.querySelector('[aria-labelledby="' + idElement + '"]').addEventListener('click', onStopPropagation);
         document.getElementById(idReset).addEventListener('click', onClickReset);

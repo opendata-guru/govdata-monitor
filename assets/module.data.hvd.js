@@ -1,8 +1,10 @@
 var data = (function () {
     var uriHVDStatistics = 'https://opendata.guru/api/2/hvd/statistics/',
-        uriHVDChanges = 'https://opendata.guru/api/2/hvd/accessurls/today/change',
+        uriHVDChanges = 'https://opendata.guru/api/2/hvd/accessurls/{date}/change',
         dateToLoad = '',
+        dateToLoadChanges = '',
         uriToLoad = '';
+        uriToLoadChanges = '';
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var assets = [],
@@ -13,6 +15,7 @@ var data = (function () {
         displayDate = '';
 
     function init() {
+        setLoadingDateChanges(new Date(Date.now()));
     }
 
     function funcAddEventListenerStartLoading(func) {
@@ -176,6 +179,10 @@ var data = (function () {
         return assets[dateString]
     }
 
+    function funcGetChangesDate() {
+        return dateToLoadChanges;
+    }
+
     function funcGetDisplayDate() {
         return displayDate;
     }
@@ -205,6 +212,21 @@ var data = (function () {
 
         dateToLoad = dateString;
         uriToLoad = uri;
+    }
+
+    function funcAddChangesDate(diff) {
+        var current = new Date(dateToLoadChanges);
+        current.setDate(current.getDate() + diff);
+
+        setLoadingDateChanges(current);
+    }
+
+    function setLoadingDateChanges(loadingDate) {
+        var dateString = loadingDate.toLocaleString('sv-SE').split(' ')[0];
+        var uri = uriHVDChanges.replace('{date}', dateString);
+
+        dateToLoadChanges = dateString;
+        uriToLoadChanges = uri;
     }
 
     function store(payload) {
@@ -288,7 +310,7 @@ var data = (function () {
 
     function loadChanges() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', uriHVDChanges, true);
+        xhr.open('GET', uriToLoadChanges, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -347,11 +369,13 @@ var data = (function () {
     init();
 
     return {
+        addChangesDate: funcAddChangesDate,
         addEventListenerStartLoading: funcAddEventListenerStartLoading,
         addEventListenerEndLoading: funcAddEventListenerEndLoading,
         emitFilterChanged: funcEmitFilterChanged,
         get: funcGet,
         getDate: funcGetDate,
+        getChangesDate: funcGetChangesDate,
         getDisplayDate: funcGetDisplayDate,
         getChanges: funcGetChanges,
         has: funcHas,
@@ -360,6 +384,7 @@ var data = (function () {
         loadData: funcLoadData,
         loadedDays: 0,
         loadMoreData: funcLoadMoreData,
+        loadMoreChangesDate: loadChanges,
         removeLoadedData: funcRemoveLoadedData,
         view: view,
         viewHeader: viewHeader,

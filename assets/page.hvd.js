@@ -296,12 +296,47 @@ function catalogUpdate() {
 
 // ----------------------------------------------------------------------------
 
-function setDistributionChanges(diff) {
+function hvdChanges(diff) {
+    data.addChangesDate(diff);
+    setDistributionChangesHeader(data.getChangesDate());
+
+    var elemDiff = document.getElementById(idDiffDistributions);
+    var str = elemDiff.innerHTML;
+
+    str += '<div class="mt-5">';
+    str += '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader text-black align-top me-1 rotate"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>';
+    str += hvdSettings.dict[nav.lang].progressLoading + '</div>';
+
+    elemDiff.innerHTML = str;
+
+    if (diff !== 0) {
+        data.loadMoreChangesDate();
+    }
+}
+
+function setDistributionChangesHeader(diffDate) {
     var elemDiff = document.getElementById(idDiffDistributions);
     var str = '';
 
     str += '<h2>' + hvdSettings.dict[nav.lang].diffTitle + '</h2>';
     str += '<div>' + hvdSettings.dict[nav.lang].diffInfoDataToday + '</div>';
+
+    var current = new Date(diffDate);
+    var currentStr = current.toLocaleDateString(nav.lang);
+    str += '<div>';
+    str += '<a onclick="hvdChanges(-1)"><span class="badge bg-info me-2 p-2">&lt;</span></a>';
+    str += currentStr;
+    str += '<a onclick="hvdChanges(1)"><span class="badge bg-info ms-2 p-2">&gt;</span></a>';
+    str += '</div>';
+
+    elemDiff.innerHTML = str;
+}
+
+function setDistributionChanges(diff, diffDate) {
+    setDistributionChangesHeader(diffDate);
+
+    var elemDiff = document.getElementById(idDiffDistributions);
+    var str = elemDiff.innerHTML;
 
     str += '<table class="mt-3 w-100">';
     str += '<thead><tr>';
@@ -626,6 +661,8 @@ function initHVDSummary() {
     document.getElementById(idOfficial).innerHTML = text;
 
     radarChart = new Chart(document.getElementById(idRadarChart), getHVDRadarConfig(getHVDRadarData()));
+
+    hvdChanges(0);
 }
 
 // ----------------------------------------------------------------------------
@@ -646,7 +683,7 @@ function showProgress(value) {
 function hideProgress() {
     document.getElementsByClassName(classNameLoadingCard)[0].style.top = '-3.5rem';
 
-    setDistributionChanges(data.getChanges());
+    setDistributionChanges(data.getChanges(), data.getChangesDate());
 }
 
 document.addEventListener('DOMContentLoaded', function() {

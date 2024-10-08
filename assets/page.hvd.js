@@ -13,13 +13,11 @@ var hvdSettings = {
             historyDataset: 'Tage-Verlauf für Datensätze',
             historyDistribution: 'Tage-Verlauf für Distributionen',
             historyDataService: 'Tage-Verlauf für Datendienste',
-            hvdEUNotPublished: 'Die offizielle HVD-Berichterstattung der EU wird derzeit koordiniert und wurde noch nicht veröffentlicht. Bisher ist bekannt, dass die Metadaten automatisch mit SPARQL ausgewertet werden.',
-            hvdEUSPARQLFuture: 'In Zukunft werden sie wahrscheinlich',
-            hvdEUSPARQLFutureHere: 'hier verfügbar sein',
-            hvdEUSPARQLMeantime: 'In der Zwischenzeit verwende ich einige Abfragen, die bei der SEMIC-Veranstaltung „Reporting High Value Datasets using DCAT-AP HVD and DEU“ am 04.06.2024 gezeigt wurden. Die Abfragen können auch',
+            hvdEUNotPublished: 'Die offizielle HVD-Berichterstattung der EU wird derzeit vorbereitet. Sie wird auf der Auswertung von Metadaten basieren (bestehend aus SPARQL-Abfragen und SHACL-Regeln).',
+            hvdEUSPARQLMeantime: 'Das offizielle Reporting startet erst im Februar 2025. In der Zwischenzeit baue ich ein eigenes auf, damit ich Veränderungen erkennen kann. Meine Abfragen können auch',
             hvdEUSPARQLMeantimeHere: 'hier gelesen werden.',
-            hvdEUSPARQLPublished: 'Bisher veröffentlichte SPARQL-Abfragen:',
-            hvdEUSPARQLPublishedNone: 'keine',
+            hvdEUSPARQLPublished: 'Die SPARQL-Abfragen und SHACL-Regeln',
+            hvdEUSPARQLPublishedHere: 'wurden hier veröffentlicht',
             hvdEUTitle: 'So könnte die EU-Berichterstattung für HVD\'s aussehen',
             legendDataServices: 'Datendienste',
             legendDatasets: 'Datensätze',
@@ -48,13 +46,11 @@ var hvdSettings = {
             historyDataset: 'days dataset history',
             historyDistribution: 'days distribution history',
             historyDataService: 'days data service history',
-            hvdEUNotPublished: 'The EU\'s official HVD reporting is currently being coordinated and has not been published. What is known so far is that the metadata will be automatically evaluated using SPARQL.',
-            hvdEUSPARQLFuture: 'In the future they will probably be',
-            hvdEUSPARQLFutureHere: 'available here',
-            hvdEUSPARQLMeantime: 'In the meantime, I\'m using some queries shown at the SEMIC "Reporting High Value Datasets using DCAT-AP HVD and DEU" event on 2024-06-04. The queries can also be',
+            hvdEUNotPublished: 'The EU\'s official HVD reporting is currently being prepared. It will be based on metadata evaluation (consisting of SPARQL queries and SHACL rules).',
+            hvdEUSPARQLMeantime: 'Official reporting doesn\'t start until February 2025. In the meantime, I\'m setting up my own so that I can identify changes. My queries can also be',
             hvdEUSPARQLMeantimeHere: 'read here',
-            hvdEUSPARQLPublished: 'SPARQL queries published so far:',
-            hvdEUSPARQLPublishedNone: 'none',
+            hvdEUSPARQLPublished: 'The SPARQL queries and SHACL rules',
+            hvdEUSPARQLPublishedHere: 'have been published here',
             hvdEUTitle: 'This is what the HVD\'s EU reporting could look like',
             legendDataServices: 'Data Services',
             legendDatasets: 'Datasets',
@@ -652,8 +648,7 @@ function initHVDSummary() {
     text += '<div class="col-12 p-4" style="border-bottom:.25em solid #082b7a;">';
     text += hvdSettings.dict[nav.lang].hvdEUNotPublished;
     text += '<br><br>';
-    text += hvdSettings.dict[nav.lang].hvdEUSPARQLPublished + ' <span style="background:darkmagenta;color:#fff;padding: .25em .5em;">' + hvdSettings.dict[nav.lang].hvdEUSPARQLPublishedNone + '</span>. ';
-    text += hvdSettings.dict[nav.lang].hvdEUSPARQLFuture + ' <a href="https://dataeuropa.gitlab.io/data-provider-manual/hvd/sparql/" target="_blank">' + hvdSettings.dict[nav.lang].hvdEUSPARQLFutureHere + '</a>.';
+    text += hvdSettings.dict[nav.lang].hvdEUSPARQLPublished + ' <a href="https://dataeuropa.gitlab.io/data-provider-manual/hvd/Reporting_guidelines_for_HVDs/" target="_blank">' + hvdSettings.dict[nav.lang].hvdEUSPARQLPublishedHere + '</a>.';
     text += '<br><br>';
     text += hvdSettings.dict[nav.lang].hvdEUSPARQLMeantime +' <a href="https://github.com/opendata-guru/data-universal-repository-api/blob/main/api/cronjob/cronjob-hvd-queries.php" target="_blank">' + hvdSettings.dict[nav.lang].hvdEUSPARQLMeantimeHere + '</a>.';
     text += '</div>';

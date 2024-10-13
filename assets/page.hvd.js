@@ -19,6 +19,7 @@ var hvdSettings = {
             hvdEUSPARQLPublished: 'Die SPARQL-Abfragen und SHACL-Regeln',
             hvdEUSPARQLPublishedHere: 'wurden hier veröffentlicht',
             hvdEUTitle: 'So könnte die EU-Berichterstattung für HVD\'s aussehen',
+            hvdDiscover: 'entdecken',
             legendDataServices: 'Datendienste',
             legendDatasets: 'Datensätze',
             legendDistributions: 'Distributionen',
@@ -52,6 +53,7 @@ var hvdSettings = {
             hvdEUSPARQLPublished: 'The SPARQL queries and SHACL rules',
             hvdEUSPARQLPublishedHere: 'have been published here',
             hvdEUTitle: 'This is what the HVD\'s EU reporting could look like',
+            hvdDiscover: 'discover',
             legendDataServices: 'Data Services',
             legendDatasets: 'Datasets',
             legendDistributions: 'Distributions',
@@ -396,11 +398,16 @@ function setDistributionChanges(diff, diffDate) {
         diff.added.forEach((obj) => {
             var file = obj.distributionAccessURL.split('/').splice(-1)[0];
             str += obj.datasetIdentifier + ': ';
-            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a>';
+            str += ' <a class="link-info" href="#" onclick="selectHVD(this)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + obj.distributionAccessURL + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
+            str += '<br>';
         });
     } else {
         str += '-';
     }
+    str += '<div class="menu-canvas dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" id="hvdDiscovery" style="background:#222831;color:#a2c11c;">';
+    str += '</div>';
+
     str += '</td></tr>';
     str += '</tbody>';
     str += '<thead><tr>';
@@ -422,6 +429,52 @@ function setDistributionChanges(diff, diffDate) {
     str += '</table>';
 
     elemDiff.innerHTML = str;
+}
+
+// ----------------------------------------------------------------------------
+
+function loadLiveInsights(path) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', path, true);
+
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            obj = obj.passes[0];
+
+            var code = JSON.stringify(obj, null, '  ');
+            var textArea = document.createElement('textarea');
+            textArea.innerText = code;
+            code = textArea.innerHTML;
+
+            var str = '';
+            str += '<div class="menu-body p-1" style="height:75vh;overflow:auto;">';
+            str += '<pre>' + code + '</pre>';
+            str += '</div>';
+
+            var elem = document.getElementById('hvdDiscovery');
+            elem.innerHTML = str;
+        } else if (this.readyState == 4) {
+            elemHeader.innerHTML = 'Error';
+            elemBody.innerHTML = '';
+        }
+    }
+
+    xhr.send();
+}
+
+function selectHVD(elemButton) {
+    var selectedDatasetIdentifier = elemButton.dataset.dataset;
+    var selectedDistributionAccessURL = elemButton.dataset.accessurl;
+
+    var str = '';
+    str += '<div class="menu-body px-3 py-2" style="height:75vh;overflow:auto;">' + hvdSettings.dict[nav.lang].loading + '</div>';
+
+    var elem = document.getElementById('hvdDiscovery');
+    elem.innerHTML = str;
+
+    var url = 'https://opendata.guru/api/2/live/insights?url=' + encodeURIComponent(selectedDistributionAccessURL);
+    loadLiveInsights(url);
 }
 
 // ----------------------------------------------------------------------------

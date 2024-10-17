@@ -343,7 +343,7 @@ function setDistributionChanges(diff, diffDate) {
     str += '</td></tr></thead>'
     str += '<tbody style="vertical-align:top">';
     str += '<tr><td>';
-    if (diff.hostsNew.length > 0) {
+    if (diff.hostsNew && diff.hostsNew.length > 0) {
         diff.hostsNew.forEach((host) => {
             str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
         });
@@ -351,7 +351,7 @@ function setDistributionChanges(diff, diffDate) {
         str += '-';
     }
     str += '</td><td>';
-    if (diff.hostsDeleted.length > 0) {
+    if (diff.hostsDeleted && diff.hostsDeleted.length > 0) {
         diff.hostsDeleted.forEach((host) => {
             str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
         });
@@ -369,7 +369,7 @@ function setDistributionChanges(diff, diffDate) {
     str += '</td></tr></thead>'
     str += '<tbody style="vertical-align:top">';
     str += '<tr><td>';
-    if (diff.hostsAdded.length > 0) {
+    if (diff.hostsAdded && diff.hostsAdded.length > 0) {
         diff.hostsAdded.forEach((host) => {
             str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
         });
@@ -377,7 +377,7 @@ function setDistributionChanges(diff, diffDate) {
         str += '-';
     }
     str += '</td><td>';
-    if (diff.hostsRemoved.length > 0) {
+    if (diff.hostsRemoved && diff.hostsRemoved.length > 0) {
         diff.hostsRemoved.forEach((host) => {
             str += '<a href="https://' + host + '" target="_blank">' + host + '</a><br>';
         });
@@ -394,9 +394,12 @@ function setDistributionChanges(diff, diffDate) {
     str += '</td></tr></thead>'
     str += '<tbody style="vertical-align:top">';
     str += '<tr><td>';
-    if (diff.added.length > 0) {
+    if (diff.added && diff.added.length > 0) {
         diff.added.forEach((obj) => {
             var file = obj.distributionAccessURL.split('/').splice(-1)[0];
+            if (-1 !== file.indexOf('?')) {
+                file = file.split('?')[0] + '?...';
+            }
             str += obj.datasetIdentifier + ': ';
             str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a>';
             str += ' <a class="link-info" href="#" onclick="selectHVD(this)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + obj.distributionAccessURL + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
@@ -415,7 +418,7 @@ function setDistributionChanges(diff, diffDate) {
     str += '</td></tr></thead>'
     str += '<tbody style="vertical-align:top">';
     str += '<tr><td>';
-    if (diff.removed.length > 0) {
+    if (diff.removed && diff.removed.length > 0) {
         diff.removed.forEach((obj) => {
             var file = obj.distributionAccessURL.split('/').splice(-1)[0];
             str += obj.datasetIdentifier + ': ';
@@ -454,9 +457,18 @@ function loadLiveInsights(path) {
 
             var elem = document.getElementById('hvdDiscovery');
             elem.innerHTML = str;
+            window.scrollBy({top: 1});
+            window.scrollBy({top: -1});
         } else if (this.readyState == 4) {
-            elemHeader.innerHTML = 'Error';
-            elemBody.innerHTML = '';
+            var str = '';
+            str += '<div class="menu-body p-1" style="height:75vh;overflow:auto;">';
+            str += 'Error';
+            str += '</div>';
+
+            var elem = document.getElementById('hvdDiscovery');
+            elem.innerHTML = str;
+            window.scrollBy({top: 1});
+            window.scrollBy({top: -1});
         }
     }
 

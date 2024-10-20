@@ -402,13 +402,13 @@ function setDistributionChanges(diff, diffDate) {
             }
             str += obj.datasetIdentifier + ': ';
             str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a>';
-            str += ' <a class="link-info" href="#" onclick="selectHVD(this)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + obj.distributionAccessURL + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
+            str += ' <a class="link-info" href="#" onclick="selectHVD(this, 1)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + obj.distributionAccessURL + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
             str += '<br>';
         });
     } else {
         str += '-';
     }
-    str += '<div class="menu-canvas dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" id="hvdDiscovery" style="background:#222831;color:#a2c11c;">';
+    str += '<div class="menu-canvas dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" id="hvdDiscovery1" style="background:#222831;color:#a2c11c;">';
     str += '</div>';
 
     str += '</td></tr>';
@@ -421,12 +421,20 @@ function setDistributionChanges(diff, diffDate) {
     if (diff.removed && diff.removed.length > 0) {
         diff.removed.forEach((obj) => {
             var file = obj.distributionAccessURL.split('/').splice(-1)[0];
+            if (-1 !== file.indexOf('?')) {
+                file = file.split('?')[0] + '?...';
+            }
             str += obj.datasetIdentifier + ': ';
-            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a><br>';
+            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a>';
+            str += ' <a class="link-info" href="#" onclick="selectHVD(this, 2)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + obj.distributionAccessURL + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
+            str += '<br>';
         });
     } else {
         str += '-';
     }
+    str += '<div class="menu-canvas dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" id="hvdDiscovery2" style="background:#222831;color:#a2c11c;">';
+    str += '</div>';
+
     str += '</td></tr>';
     str += '</tbody>';
     str += '</table>';
@@ -436,7 +444,7 @@ function setDistributionChanges(diff, diffDate) {
 
 // ----------------------------------------------------------------------------
 
-function loadLiveInsights(path) {
+function loadLiveInsights(path, elemID) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', path, true);
 
@@ -455,7 +463,7 @@ function loadLiveInsights(path) {
             str += '<pre>' + code + '</pre>';
             str += '</div>';
 
-            var elem = document.getElementById('hvdDiscovery');
+            var elem = document.getElementById(elemID);
             elem.innerHTML = str;
             window.scrollBy({top: 1});
             window.scrollBy({top: -1});
@@ -465,7 +473,7 @@ function loadLiveInsights(path) {
             str += 'Error';
             str += '</div>';
 
-            var elem = document.getElementById('hvdDiscovery');
+            var elem = document.getElementById(elemID);
             elem.innerHTML = str;
             window.scrollBy({top: 1});
             window.scrollBy({top: -1});
@@ -475,18 +483,19 @@ function loadLiveInsights(path) {
     xhr.send();
 }
 
-function selectHVD(elemButton) {
+function selectHVD(elemButton, num) {
+    var elemID = 'hvdDiscovery' + num;
     var selectedDatasetIdentifier = elemButton.dataset.dataset;
     var selectedDistributionAccessURL = elemButton.dataset.accessurl;
 
     var str = '';
     str += '<div class="menu-body px-3 py-2" style="height:75vh;overflow:auto;">' + hvdSettings.dict[nav.lang].loading + '</div>';
 
-    var elem = document.getElementById('hvdDiscovery');
+    var elem = document.getElementById(elemID);
     elem.innerHTML = str;
 
     var url = 'https://opendata.guru/api/2/live/insights?url=' + encodeURIComponent(selectedDistributionAccessURL);
-    loadLiveInsights(url);
+    loadLiveInsights(url, elemID);
 }
 
 // ----------------------------------------------------------------------------

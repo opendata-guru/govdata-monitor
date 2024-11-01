@@ -36,14 +36,28 @@
 
 	$now = microtime(true);
 	$count = 0;
+	$level = 'root';
 
 	do {
+		$level = 'ckan-organizations';
 		if (call('get-and-store-ckan-organizations.php')) {
+
+			$level = 'ckan-dataset-counts';
 			if (call('get-and-store-ckan-dataset-counts.php')) {
+
+				$level = 'systems';
 				if (call('get-and-store-systems.php')) {
+
+					$level = 'providers';
 					if (call('../../api/cronjob/cronjob-providers.php')) {
+
+						$level = 'hvd';
 						if (call('../../api/cronjob/cronjob-hvd.php')) {
+
+							$level = 'monitoring';
 							if (call('create-monitoring.php')) {
+
+								$level = 'create-map';
 								if (call('create-map.php')) {
 									echo json_encode(array('result' => 'done'));
 									return;
@@ -61,5 +75,5 @@
 		++$count;
 	} while($repeatArtery && ($duration < $repeatSeconds));
 
-	echo json_encode(array('result' => 'in progress (' . $count . ' actions in ' . $duration . ' seconds)'));
+	echo json_encode(array('result' => 'in progress (' . $count . ' actions in ' . $duration . ' seconds on level `' . $level . '`)'));
 ?>

@@ -39,6 +39,11 @@ var tableHVD = (function () {
             subMenuTableMultipleLayers: 'Verwende „Strg + Klick“, um mehrere Ebenen auszuwählen',
             subMenuTableReset: 'Tabelleneinstellungen zurücksetzen',
             subMenuTableTitle: 'Tabelle',
+            tableDataServices: 'HVD Datendienste',
+            tableDatasets: 'HVD Datensätze',
+            tableDistributions: 'HVD Distributionen',
+            tableFooter: 'Staaten',
+            tableLicenses: 'HVD Lizenzen',
         },
         en: {
             subMenuSettings: 'Settings',
@@ -50,6 +55,11 @@ var tableHVD = (function () {
             subMenuTableMultipleLayers: 'Use "Ctrl + Click" to select multiple layers',
             subMenuTableReset: 'Reset table settings',
             subMenuTableTitle: 'Table',
+            tableDataServices: 'HVD Data Services',
+            tableDatasets: 'HVD Datasets',
+            tableDistributions: 'HVD Distributions',
+            tableFooter: 'countries',
+            tableLicenses: 'HVD Licenses',
         },
     };
 
@@ -333,7 +343,7 @@ select ?license (count(?license) as ?count) ?mapped where {
 
     function getDatasetRow(row) {
         var cols = '';
-        var title = row.title;
+        var title = data.getPortalTitle(row.title);
 
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
@@ -342,20 +352,12 @@ select ?license (count(?license) as ?count) ?mapped where {
             });
         }
 
-/*        if (row.datasetCount !== undefined) {
-            if (row.datasetCount) {
-                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
-            } else {
-                cols += '<td></td>';
-            }
-        }*/
-
         return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
     }
 
     function getDistributionRow(row) {
         var cols = '';
-        var title = row.title;
+        var title = data.getPortalTitle(row.title);
 
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
@@ -364,20 +366,12 @@ select ?license (count(?license) as ?count) ?mapped where {
             });
         }
 
-/*        if (row.datasetCount !== undefined) {
-            if (row.datasetCount) {
-                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
-            } else {
-                cols += '<td></td>';
-            }
-        }*/
-
         return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
     }
 
     function getDataserviceRow(row) {
         var cols = '';
-        var title = row.title;
+        var title = data.getPortalTitle(row.title);
 
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
@@ -386,20 +380,12 @@ select ?license (count(?license) as ?count) ?mapped where {
             });
         }
 
-/*        if (row.datasetCount !== undefined) {
-            if (row.datasetCount) {
-                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
-            } else {
-                cols += '<td></td>';
-            }
-        }*/
-
         return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
     }
 
     function getLicenseRow(row) {
         var cols = '';
-        var title = row.title;
+        var title = data.getPortalTitle(row.title);
 
         if (row.cols.length > 0) {
             row.cols.forEach(col => {
@@ -422,14 +408,6 @@ select ?license (count(?license) as ?count) ?mapped where {
         }
 
         title += ' (<a href="' + getPortalLink(title, getSPARQLcountEUlicensesByCatalog(row.linkId)) + '" target="_blank">show query</a>)';
-
-/*        if (row.datasetCount !== undefined) {
-            if (row.datasetCount) {
-                cols += '<td class="text-end align-middle"><span class="badge bg-info">' + monitorFormatNumber(row.datasetCount) + '</span></td>';
-            } else {
-                cols += '<td></td>';
-            }
-        }*/
 
         return '<tr><td><span>' + title + '</span></td>' + cols + '</tr>';
     }
@@ -455,10 +433,10 @@ select ?license (count(?license) as ?count) ?mapped where {
         var licenseFooter = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        datasetHeader += '<th>HVD Datasets</th>';
-        distributionHeader += '<th>HVD Distributions</th>';
-        dataserviceHeader += '<th>HVD Data Services</th>';
-        licenseHeader += '<th>HVD Licenses</th>';
+        datasetHeader += '<th>' + dict[nav.lang].tableDatasets + '</th>';
+        distributionHeader += '<th>' + dict[nav.lang].tableDistributions + '</th>';
+        dataserviceHeader += '<th>' + dict[nav.lang].tableDataServices + '</th>';
+        licenseHeader += '<th>' + dict[nav.lang].tableLicenses + '</th>';
 
         for (var v = 0; v < data.viewHeader.length; ++v) {
             datasetHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
@@ -482,10 +460,15 @@ select ?license (count(?license) as ?count) ?mapped where {
         }
 
         if (data.view.length > 0) {
+            data.sortByDatasets();
             data.view.forEach((row) => datasetRows += getDatasetRow(row));
+            data.sortByDistributions();
             data.view.forEach((row) => distributionRows += getDistributionRow(row));
+            data.sortByDataServices();
             data.view.forEach((row) => dataserviceRows += getDataserviceRow(row));
+            data.sortByDistributions();
             data.view.forEach((row) => licenseRows += getLicenseRow(row));
+            data.sortByDatasets();
 
             var str = '';
             str += '<br>';
@@ -499,10 +482,10 @@ select ?license (count(?license) as ?count) ?mapped where {
             str += '<br>';
             str += '<span class="badge border border-secondary bg-secondary">Unknown, parsing error</span>';
 
-            datasetFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
-            distributionFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
-            dataserviceFooter += '<th>' + data.view.length + ' HVD suppliers</th>';
-            licenseFooter += '<th>' + data.view.length + ' HVD suppliers' + str + '</th>';
+            datasetFooter += '<th>' + data.view.length + ' ' + dict[nav.lang].tableFooter + '</th>';
+            distributionFooter += '<th>' + data.view.length + ' ' + dict[nav.lang].tableFooter + '</th>';
+            dataserviceFooter += '<th>' + data.view.length + ' ' + dict[nav.lang].tableFooter + '</th>';
+            licenseFooter += '<th>' + data.view.length + ' ' + dict[nav.lang].tableFooter + str + '</th>';
         } else {
             datasetRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
             distributionRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';

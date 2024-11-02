@@ -595,35 +595,7 @@ function filterHVDRadarData() {
         });
     }
 
-    var mapping = {
-        'data-gv-at':{de: 'Österreich', en: 'Austria'},
-        'data-gov-be':{de: 'Belgien', en: 'Belgium'},
-        'bg':{de: 'Bulgarien', en: 'Bulgaria'},
-        'hr':{de: 'Kroatien', en: 'Croatia'},
-        'cy':{de: 'Zypern', en: 'Cyprus'},
-        'nkod-opendata-cz':{de: 'Tschechien', en: 'Czechia'},
-        'dk':{de: 'Dänemark', en: 'Denmark'},
-        'ee':{de: 'Estland', en: 'Estonia'},
-        'fi':{de: 'Finnland', en: 'Finland'},
-        'plateforme-ouverte-des-donnees-publiques-francaises':{de: 'Frankreich', en: 'France'},
-        'govdata':{de: 'Deutschland', en: 'Germany'},
-        'gr':{de: 'Griechenland', en: 'Greece'},
-        'hu':{de: 'Ungarn', en: 'Hungary'},
-        'ie':{de: 'Irland', en: 'Ireland'},
-        'it':{de: 'Italien', en: 'Italy'},
-        'lv':{de: 'Lettland', en: 'Latvia'},
-        'data-gov-lt':{de: 'Litauen', en: 'Lithuania'},
-        'lu':{de: 'Luxemburg', en: 'Luxembourg'},
-        'mt':{de: 'Malta', en: 'Malta'},
-        'nl':{de: 'Niederlande', en: 'Netherlands'},
-        'pl':{de: 'Polen', en: 'Poland'},
-        'pt':{de: 'Portugal', en: 'Portugal'},
-        'ro':{de: 'Rumänien', en: 'Romania'},
-        'sk':{de: 'Slowakei', en: 'Slovakia'},
-        'si':{de: 'Slowenien', en: 'Slovenia'},
-        'es':{de: 'Spanien', en: 'Spain'},
-        'oppnadata':{de: 'Schweden', en: 'Sweden'},
-    };
+    var mapping = data.getPortalTitleList();
     ret.forEach((obj) => {
         var title = mapping[obj.name];
         if (title) {

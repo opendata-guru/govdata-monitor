@@ -13,6 +13,35 @@ var data = (function () {
         viewHeader = [],
         loadDays = 0,
         displayDate = '';
+    var portalMapping = {
+        'data-gv-at':        {de: 'Österreich',  en: 'Austria'},
+        'data-gov-be':       {de: 'Belgien',     en: 'Belgium'},
+        'bg':{de: 'Bulgarien', en: 'Bulgaria'},
+        'hr':{de: 'Kroatien', en: 'Croatia'},
+        'cy':{de: 'Zypern', en: 'Cyprus'},
+        'nkod-opendata-cz':  {de: 'Tschechien',  en: 'Czechia'},
+        'dk':{de: 'Dänemark', en: 'Denmark'},
+        'ee':{de: 'Estland', en: 'Estonia'},
+        'fi':{de: 'Finnland', en: 'Finland'},
+        'plateforme-ouverte-des-donnees-publiques-francaises':{de: 'Frankreich', en: 'France'},
+        'govdata':           {de: 'Deutschland', en: 'Germany'},
+        'gr':{de: 'Griechenland', en: 'Greece'},
+        'hu':{de: 'Ungarn', en: 'Hungary'},
+        'data-gov-ie':       {de: 'Irland',      en: 'Ireland'},
+        'it':{de: 'Italien', en: 'Italy'},
+        'lv':{de: 'Lettland', en: 'Latvia'},
+        'data-gov-lt':       {de: 'Litauen',     en: 'Lithuania'},
+        'lu':{de: 'Luxemburg', en: 'Luxembourg'},
+        'mt':{de: 'Malta', en: 'Malta'},
+        'nl':{de: 'Niederlande', en: 'Netherlands'},
+        'pl':{de: 'Polen', en: 'Poland'},
+        'pt':{de: 'Portugal', en: 'Portugal'},
+        'ro':{de: 'Rumänien', en: 'Romania'},
+        'sk':{de: 'Slowakei', en: 'Slovakia'},
+        'si':{de: 'Slowenien', en: 'Slovenia'},
+        'es':{de: 'Spanien', en: 'Spain'},
+        'oppnadata':         {de: 'Schweden',    en: 'Sweden'},
+    };
 
     function init() {
         setLoadingDateChanges(new Date(Date.now()));
@@ -142,7 +171,14 @@ var data = (function () {
 
         view = view.filter((item) => 0 < item.cols.reduce((partialSum, a) => partialSum + a.datasetCount + a.distributionCount + a.dataServiceCount, 0));
 
-        view.sort((a, b) => {
+        data.view = view;
+        data.viewHeader = viewHeader;
+
+        funcSortByDatasets();
+    }
+
+    function funcSortByDatasets() {
+        data.view.sort((a, b) => {
             if (a.datasetCount < b.datasetCount) {
                 return 1;
             } else if (a.datasetCount > b.datasetCount) {
@@ -156,9 +192,40 @@ var data = (function () {
             }
             return 0;
         });
+    }
 
-        data.view = view;
-        data.viewHeader = viewHeader;
+    function funcSortByDistributions() {
+        data.view.sort((a, b) => {
+            if (a.distributionCount < b.distributionCount) {
+                return 1;
+            } else if (a.distributionCount > b.distributionCount) {
+                return -1;
+            }
+
+            if (a.title < b.title) {
+                return -1;
+            } else if (a.title > b.title) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+
+    function funcSortByDataServices() {
+        data.view.sort((a, b) => {
+            if (a.distributionCount < b.distributionCount) {
+                return 1;
+            } else if (a.distributionCount > b.distributionCount) {
+                return -1;
+            }
+
+            if (a.title < b.title) {
+                return -1;
+            } else if (a.title > b.title) {
+                return 1;
+            }
+            return 0;
+        });
     }
 
     function funcEmitFilterChanged() {
@@ -366,6 +433,19 @@ var data = (function () {
         charthistory.update();
     }
 
+    function funcGetPortalTitle(id) {
+        var title = portalMapping[id];
+        if (title) {
+            return title[nav.lang];
+        }
+
+        return id;
+    }
+
+    function funcGetPortalTitleList() {
+        return JSON.parse(JSON.stringify(portalMapping));
+    }
+
     init();
 
     return {
@@ -378,6 +458,8 @@ var data = (function () {
         getChangesDate: funcGetChangesDate,
         getDisplayDate: funcGetDisplayDate,
         getChanges: funcGetChanges,
+        getPortalTitle: funcGetPortalTitle,
+        getPortalTitleList: funcGetPortalTitleList,
         has: funcHas,
         initalDays: 0,
         isHVD: true,
@@ -386,6 +468,9 @@ var data = (function () {
         loadMoreData: funcLoadMoreData,
         loadMoreChangesDate: loadChanges,
         removeLoadedData: funcRemoveLoadedData,
+        sortByDataServices: funcSortByDataServices,
+        sortByDatasets: funcSortByDatasets,
+        sortByDistributions: funcSortByDistributions,
         view: view,
         viewHeader: viewHeader,
     };

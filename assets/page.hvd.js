@@ -396,13 +396,15 @@ function setDistributionChanges(diff, diffDate) {
     str += '<tr><td>';
     if (diff.added && diff.added.length > 0) {
         diff.added.forEach((obj) => {
-            var url = '';
+            var url = obj.distributionAccessURL;
             var contentType = 'unknown';
+            var assets = [];
             if (obj.distribution) {
                 url = obj.distribution.url;
 
                 if (obj.distribution.insights) {
                     contentType = obj.distribution.insights.contentType;
+                    assets = obj.distribution.insights.assets;
                 }
             }
 

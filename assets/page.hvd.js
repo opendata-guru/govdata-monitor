@@ -399,11 +399,15 @@ function setDistributionChanges(diff, diffDate) {
             var url = obj.distributionAccessURL;
             var contentType = 'unknown';
             var assets = [];
+            var error = null;
+            var iid = '';
             if (obj.distribution) {
+                iid = obj.distribution.iid;
                 url = obj.distribution.url;
 
                 if (obj.distribution.insights) {
                     contentType = obj.distribution.insights.contentType;
+                    error = obj.distribution.insights.error;
                     assets = obj.distribution.insights.assets;
                 }
             }
@@ -412,7 +416,14 @@ function setDistributionChanges(diff, diffDate) {
             if (-1 !== file.indexOf('?')) {
                 file = file.split('?')[0] + '?...';
             }
-            str += contentType + ' | ' + obj.datasetIdentifier + ': ';
+
+            if (error) {
+                str += '<span class="text-danger">' + error + '</span>';
+            } else {
+                str += contentType;
+            }
+
+            str += ' | ' + iid + ' | ' + obj.datasetIdentifier + ': ';
             str += '<a href="' + url + '" target="_blank">' + file + '</a>';
             str += ' <a class="link-info" href="#" onclick="selectHVD(this, 1)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + url + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
             str += '<br>';

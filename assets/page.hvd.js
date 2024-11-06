@@ -330,6 +330,54 @@ function setDistributionChangesHeader(diffDate) {
     elemDiff.innerHTML = str;
 }
 
+function getDistributionSnippet(obj) {
+    var url = obj.distributionAccessURL;
+    var contentType = 'unknown';
+    var assets = [];
+    var error = null;
+    var iid = '';
+    var str = '';
+
+    if (obj.distribution) {
+        iid = obj.distribution.iid;
+        url = obj.distribution.url;
+
+        if (obj.distribution.insights) {
+            contentType = obj.distribution.insights.contentType;
+            error = obj.distribution.insights.error;
+            assets = obj.distribution.insights.assets;
+        }
+    }
+
+    var file = url.split('/').splice(-1)[0];
+    if (-1 !== file.indexOf('?')) {
+        file = file.split('?')[0] + '?...';
+    }
+
+    str += contentType;
+
+    str += ' | ' + iid + ' | ' + obj.datasetIdentifier + ': ';
+    str += '<a href="' + url + '" target="_blank">' + file + '</a>';
+    str += ' <a class="link-info" href="#" onclick="selectHVD(this, 1)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + url + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
+    str += '<br>';
+
+    if (error) {
+        error = error.replace(/\</g, "&lt;");
+        str += '<div class="text-danger" style="margin:0 0 0 1em">';
+        str += '- ' + error;
+        str += '</div>';
+}
+    if (assets && (assets.length > 0)) {
+        assets.forEach((item) => {
+            str += '<div style="margin:0 0 0 1em;font-style:italic">';
+            str += '- ' + item.title[nav.lang];
+            str += '</div>';
+        });
+    }
+
+    return str;
+}
+
 function setDistributionChanges(diff, diffDate) {
     setDistributionChangesHeader(diffDate);
 
@@ -396,37 +444,7 @@ function setDistributionChanges(diff, diffDate) {
     str += '<tr><td>';
     if (diff.added && diff.added.length > 0) {
         diff.added.forEach((obj) => {
-            var url = obj.distributionAccessURL;
-            var contentType = 'unknown';
-            var assets = [];
-            var error = null;
-            var iid = '';
-            if (obj.distribution) {
-                iid = obj.distribution.iid;
-                url = obj.distribution.url;
-
-                if (obj.distribution.insights) {
-                    contentType = obj.distribution.insights.contentType;
-                    error = obj.distribution.insights.error;
-                    assets = obj.distribution.insights.assets;
-                }
-            }
-
-            var file = url.split('/').splice(-1)[0];
-            if (-1 !== file.indexOf('?')) {
-                file = file.split('?')[0] + '?...';
-            }
-
-            if (error) {
-                str += '<span class="text-danger">' + error + '</span>';
-            } else {
-                str += contentType;
-            }
-
-            str += ' | ' + iid + ' | ' + obj.datasetIdentifier + ': ';
-            str += '<a href="' + url + '" target="_blank">' + file + '</a>';
-            str += ' <a class="link-info" href="#" onclick="selectHVD(this, 1)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + url + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
-            str += '<br>';
+            str += getDistributionSnippet(obj);
         });
     } else {
         str += '-';
@@ -443,14 +461,7 @@ function setDistributionChanges(diff, diffDate) {
     str += '<tr><td>';
     if (diff.removed && diff.removed.length > 0) {
         diff.removed.forEach((obj) => {
-            var file = obj.distributionAccessURL.split('/').splice(-1)[0];
-            if (-1 !== file.indexOf('?')) {
-                file = file.split('?')[0] + '?...';
-            }
-            str += obj.datasetIdentifier + ': ';
-            str += '<a href="' + obj.distributionAccessURL + '" target="_blank">' + file + '</a>';
-            str += ' <a class="link-info" href="#" onclick="selectHVD(this, 2)" data-bs-toggle="dropdown" data-dataset="' + obj.datasetIdentifier + '" data-accessurl="' + obj.distributionAccessURL + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a>';
-            str += '<br>';
+            str += getDistributionSnippet(obj);
         });
     } else {
         str += '-';

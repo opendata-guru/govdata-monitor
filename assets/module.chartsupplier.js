@@ -103,11 +103,11 @@ var chartsupplier = (function () {
         if (dataObj) {
             if (data.isHVD) {
                 dataObj.filter((item) => 0 < item.datasets).forEach((row) => {
-                    fileName = row.catalogURI.split('/').slice(-1)[0];
+                    fileName = data.getPortalTitle(row.catalogURI.split('/').slice(-1)[0]);
                 });
             } else {
                 dataObj.filter(item => item.id === catalog.id).forEach((row) => {
-                    fileName = row.title;
+                    fileName = data.getPortalTitle(row.title);
                 });
             }
         }
@@ -117,7 +117,7 @@ var chartsupplier = (function () {
                 chartData1.push([]);
                 chartData2.push([]);
                 chartData3.push([]);
-                columnTitles.push(view.title);
+                columnTitles.push(data.getPortalTitle(view.title));
             });
         }
 

@@ -111,15 +111,35 @@
 					</div>
 
 					<div class="row bg-white">
-						<div class="col-12 p-4" style="color:#082b7a">
-							This is not what the HVD's EU reporting will look like (this is my own analysis)
+						<div class="col-12 p-4" style="color:#082b7a"  id="hvd-not-eu">
 						</div>
 					</div>
 
 					<div class="row bg-white">
+						<div class="col-12">
+							<div class="mx-3">
+								<div class="btn-toolbar border-4 border-bottom border-info" role="toolbar" style="overflow-x: scroll;flex-flow: nowrap;">
+									<div class="btn-group ms-3" role="group">
+										<button type="button" class="btn btn-info me-1" id="toolOverview" onclick="onHVDTool(this)" style="border-radius:1em 1em 0 0"></button>
+									</div>
+									<div class="btn-group" role="group">
+										<button type="button" class="btn btn-secondary me-1" id="toolDatasets" onclick="onHVDTool(this)" style="border-radius:1em 1em 0 0"></button>
+										<button type="button" class="btn btn-secondary me-1" id="toolDistributions" onclick="onHVDTool(this)" style="border-radius:1em 1em 0 0"></button>
+										<button type="button" class="btn btn-secondary me-1" id="toolDataservices" onclick="onHVDTool(this)" style="border-radius:1em 1em 0 0"></button>
+										<button type="button" class="btn btn-secondary me-1" id="toolLicenses" onclick="onHVDTool(this)" style="border-radius:1em 1em 0 0"></button>
+									</div>
+									<div class="btn-group me-3" role="group">
+										<button type="button" class="btn btn-secondary" id="toolInsights" onclick="onHVDTool(this)" style="border-radius:1em 1em 0 0"></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row bg-white" id="tabOverview">
 						<div id="columnLeft" class="col-12 col-sm-6 col-md-4 col-xl-4">
 
-							<div class="flex-fill w-100 px-3">
+							<div class="flex-fill w-100 px-3 mt-2">
 								<div class="mb-0" id="history-datasets">Dataset history</div>
 								<div class="card-body py-3">
 									<div class="chart chart-sm">
@@ -131,7 +151,7 @@
 						</div>
 						<div id="columnMiddle" class="col-12 col-sm-6 col-md-4 col-xl-4">
 
-							<div class="flex-fill w-100 px-3">
+							<div class="flex-fill w-100 px-3 mt-2">
 								<div class="mb-0" id="history-distributions">Distribution history</div>
 								<div class="card-body py-3">
 									<div class="chart chart-sm">
@@ -141,10 +161,9 @@
 							</div>
 
 						</div>
-
 						<div id="columnRight" class="col-12 col-sm-6 col-md-4 col-xl-4">
 
-							<div class="flex-fill w-100 px-3">
+							<div class="flex-fill w-100 px-3 mt-2">
 								<div class="mb-0" id="history-dataservices">Data Service history</div>
 								<div class="card-body py-3">
 									<div class="chart chart-sm">
@@ -156,40 +175,48 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-12">
-
-							<div class="card card-supplier-list flex-fill">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Count Datasets</h5>
-								</div>
-								<table class="table table-hover my-0 mb-4">
-									<thead id="datasets-table-header"></thead>
-									<tbody id="datasets-table"></tbody>
-									<tfoot id="datasets-table-footer"></tfoot>
-								</table>
-								<table class="table table-hover my-0 mb-4">
-									<thead id="distributions-table-header"></thead>
-									<tbody id="distributions-table"></tbody>
-									<tfoot id="distributions-table-footer"></tfoot>
-								</table>
-								<table class="table table-hover my-0 mb-4">
-									<thead id="dataservices-table-header"></thead>
-									<tbody id="dataservices-table"></tbody>
-									<tfoot id="dataservices-table-footer"></tfoot>
-								</table>
-								<table class="table table-hover my-0 mb-4">
-									<thead id="licenses-table-header"></thead>
-									<tbody id="licenses-table"></tbody>
-									<tfoot id="licenses-table-footer"></tfoot>
-								</table>
-							</div>
-
+					<div class="row bg-white d-none" id="tabDatasets">
+						<div class="col-12 px-4">
+							<table class="table table-hover my-0 mb-4">
+								<thead id="datasets-table-header"></thead>
+								<tbody id="datasets-table"></tbody>
+								<tfoot id="datasets-table-footer"></tfoot>
+							</table>
 						</div>
 					</div>
 
-					<div class="row bg-white">
-						<div class="col-12 m-3">
+					<div class="row bg-white d-none" id="tabDistributions">
+						<div class="col-12 px-4">
+							<table class="table table-hover my-0 mb-4">
+								<thead id="distributions-table-header"></thead>
+								<tbody id="distributions-table"></tbody>
+								<tfoot id="distributions-table-footer"></tfoot>
+							</table>
+						</div>
+					</div>
+
+					<div class="row bg-white d-none" id="tabDataservices">
+						<div class="col-12 px-4">
+							<table class="table table-hover my-0 mb-4">
+								<thead id="dataservices-table-header"></thead>
+								<tbody id="dataservices-table"></tbody>
+								<tfoot id="dataservices-table-footer"></tfoot>
+							</table>
+						</div>
+					</div>
+
+					<div class="row bg-white d-none" id="tabLicenses">
+						<div class="col-12 px-4">
+							<table class="table table-hover my-0 mb-4">
+								<thead id="licenses-table-header"></thead>
+								<tbody id="licenses-table"></tbody>
+								<tfoot id="licenses-table-footer"></tfoot>
+							</table>
+						</div>
+					</div>
+
+					<div class="row bg-white d-none" id="tabInsights">
+						<div class="col-12 m-3 px-4">
 							<div id="diffDistributions"></div>
 						</div>
 					</div>

@@ -19,11 +19,15 @@ var hvdSettings = {
             hvdEUSPARQLPublished: 'Die SPARQL-Abfragen und SHACL-Regeln',
             hvdEUSPARQLPublishedHere: 'wurden hier veröffentlicht',
             hvdEUTitle: 'So könnte die EU-Berichterstattung für HVD\'s aussehen',
+            hvdEUTitleNot: 'So wird die EU-Berichterstattung des HVD\'s nicht aussehen (dies ist meine eigene Analyse)',
             hvdDiscover: 'entdecken',
             legendDataServices: 'Datendienste',
             legendDatasets: 'Datensätze',
             legendDistributions: 'Distributionen',
             legendDistributionsLicenses: 'Distributionen mit Lizenzen',
+            legendInsights: 'Einblicke',
+            legendLicenses: 'Lizenzen',
+            legendOverview: 'Übersicht',
             loading: 'Einen Moment bitte Daten werden geladen',
             optionsDownloadCSV: 'Herunterladen als CSV-Tabelle',
             optionsDownloadPNG: 'Herunterladen als PNG-Bild',
@@ -53,11 +57,15 @@ var hvdSettings = {
             hvdEUSPARQLPublished: 'The SPARQL queries and SHACL rules',
             hvdEUSPARQLPublishedHere: 'have been published here',
             hvdEUTitle: 'This is what the HVD\'s EU reporting could look like',
+            hvdEUTitleNot: 'This is not what the HVD\'s EU reporting will look like (this is my own analysis)',
             hvdDiscover: 'discover',
             legendDataServices: 'Data Services',
             legendDatasets: 'Datasets',
             legendDistributions: 'Distributions',
             legendDistributionsLicenses: 'Distributions with Licenses',
+            legendInsights: 'Insights',
+            legendLicenses: 'Licenses',
+            legendOverview: 'Overview',
             loading: 'please wait while loading data',
             optionsDownloadCSV: 'Download as CSV table',
             optionsDownloadPNG: 'Download as PNG image',
@@ -92,6 +100,19 @@ var idHistoryDatasets = 'history-datasets',
     idHistoryDistributions = 'history-distributions',
     idHistoryDataservices = 'history-dataservices',
     idEUSummary = 'hvd-eu',
+    idEUSummaryNot = 'hvd-not-eu',
+    idToolOverview = 'toolOverview',
+    idToolDatasets = 'toolDatasets',
+    idToolDistributions = 'toolDistributions',
+    idToolDataservices = 'toolDataservices',
+    idToolLicenses = 'toolLicenses',
+    idToolInsights = 'toolInsights',
+    idTabOverview = 'tabOverview';
+    idTabDatasets = 'tabDatasets';
+    idTabDistributions = 'tabDistributions';
+    idTabDataservices = 'tabDataservices';
+    idTabLicenses = 'tabLicenses';
+    idTabInsights = 'tabInsights';
     idRadarChart = 'dataset-hvd-radar',
     idOfficial = 'hvd-official',
     idDiffDistributions = 'diffDistributions',
@@ -212,9 +233,6 @@ function monitorZoomIn() {
 
     document.getElementById('historyZoomOut').style.pointerEvents = '';
     document.getElementById('historyZoomOut').classList.add('text-dark');
-
-    document.getElementById('history-chart').classList.remove('chart-sm');
-    document.getElementById('history-chart').classList.add('chart-lg');
 }
 
 function monitorZoomOut() {
@@ -227,9 +245,6 @@ function monitorZoomOut() {
 
     document.getElementById('historyZoomOut').style.pointerEvents = 'none';
     document.getElementById('historyZoomOut').classList.remove('text-dark');
-
-    document.getElementById('history-chart').classList.remove('chart-lg');
-    document.getElementById('history-chart').classList.add('chart-sm');
 }
 
 // ----------------------------------------------------------------------------
@@ -574,6 +589,7 @@ function getHVDRadarConfig(data) {
                     beginAtZero: true,
                     fontColor: '#ffffffa0',
                     showLabelBackdrop: false,
+//max: 400,
                 },
             },
         },
@@ -724,6 +740,14 @@ function initHVDSummary() {
 
     document.getElementById(idEUSummary).innerHTML += text;
 
+    document.getElementById(idEUSummaryNot).innerHTML = hvdSettings.dict[nav.lang].hvdEUTitleNot;
+    document.getElementById(idToolOverview).innerHTML = hvdSettings.dict[nav.lang].legendOverview;
+    document.getElementById(idToolDatasets).innerHTML = hvdSettings.dict[nav.lang].legendDatasets;
+    document.getElementById(idToolDistributions).innerHTML = hvdSettings.dict[nav.lang].legendDistributions;
+    document.getElementById(idToolDataservices).innerHTML = hvdSettings.dict[nav.lang].legendDataServices;
+    document.getElementById(idToolLicenses).innerHTML = hvdSettings.dict[nav.lang].legendLicenses;
+    document.getElementById(idToolInsights).innerHTML = hvdSettings.dict[nav.lang].legendInsights;
+
     text = '';
     text += '<div class="col-12 p-4" style="border-bottom:.25em solid #082b7a;">';
     text += hvdSettings.dict[nav.lang].hvdEUNotPublished;
@@ -738,6 +762,36 @@ function initHVDSummary() {
     radarChart = new Chart(document.getElementById(idRadarChart), getHVDRadarConfig(getHVDRadarData()));
 
     hvdChanges(0);
+}
+
+function onHVDTool(elem) {
+    document.getElementById(idToolOverview).classList.remove('btn-info', 'btn-secondary', 'mt-2');
+    document.getElementById(idToolDatasets).classList.remove('btn-info', 'btn-secondary', 'mt-2');
+    document.getElementById(idToolDistributions).classList.remove('btn-info', 'btn-secondary', 'mt-2');
+    document.getElementById(idToolDataservices).classList.remove('btn-info', 'btn-secondary', 'mt-2');
+    document.getElementById(idToolLicenses).classList.remove('btn-info', 'btn-secondary', 'mt-2');
+    document.getElementById(idToolInsights).classList.remove('btn-info', 'btn-secondary', 'mt-2');
+
+    document.getElementById(idToolOverview).classList.add(idToolOverview === elem.id ? 'btn-info' : 'btn-secondary');
+    document.getElementById(idToolDatasets).classList.add(idToolDatasets === elem.id ? 'btn-info' : 'btn-secondary');
+    document.getElementById(idToolDistributions).classList.add(idToolDistributions === elem.id ? 'btn-info' : 'btn-secondary');
+    document.getElementById(idToolDataservices).classList.add(idToolDataservices === elem.id ? 'btn-info' : 'btn-secondary');
+    document.getElementById(idToolLicenses).classList.add(idToolLicenses === elem.id ? 'btn-info' : 'btn-secondary');
+    document.getElementById(idToolInsights).classList.add(idToolInsights === elem.id ? 'btn-info' : 'btn-secondary');
+
+    if (!document.getElementById(idTabOverview).classList.contains('d-none')) document.getElementById(idTabOverview).classList.add('d-none');
+    if (!document.getElementById(idTabDatasets).classList.contains('d-none')) document.getElementById(idTabDatasets).classList.add('d-none');
+    if (!document.getElementById(idTabDistributions).classList.contains('d-none')) document.getElementById(idTabDistributions).classList.add('d-none');
+    if (!document.getElementById(idTabDataservices).classList.contains('d-none')) document.getElementById(idTabDataservices).classList.add('d-none');
+    if (!document.getElementById(idTabLicenses).classList.contains('d-none')) document.getElementById(idTabLicenses).classList.add('d-none');
+    if (!document.getElementById(idTabInsights).classList.contains('d-none')) document.getElementById(idTabInsights).classList.add('d-none');
+
+    if (idToolOverview === elem.id) document.getElementById(idTabOverview).classList.remove('d-none');
+    if (idToolDatasets === elem.id) document.getElementById(idTabDatasets).classList.remove('d-none');
+    if (idToolDistributions === elem.id) document.getElementById(idTabDistributions).classList.remove('d-none');
+    if (idToolDataservices === elem.id) document.getElementById(idTabDataservices).classList.remove('d-none');
+    if (idToolLicenses === elem.id) document.getElementById(idTabLicenses).classList.remove('d-none');
+    if (idToolInsights === elem.id) document.getElementById(idTabInsights).classList.remove('d-none');
 }
 
 // ----------------------------------------------------------------------------

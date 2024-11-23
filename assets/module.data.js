@@ -413,6 +413,10 @@ var data = (function () {
         charthistory.update();
     }
 
+    function funcGetPortalTitle(id) {
+        return id;
+    }
+
     init();
 
     return {
@@ -422,6 +426,7 @@ var data = (function () {
         get: funcGet,
         getDate: funcGetDate,
         getDisplayDate: funcGetDisplayDate,
+        getPortalTitle: funcGetPortalTitle,
         getTypeString: funcGetTypeString,
         has: funcHas,
         initalDays: 0,

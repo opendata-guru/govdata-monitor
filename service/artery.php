@@ -59,8 +59,12 @@
 
 								$level = 'create-map';
 								if (call('create-map.php')) {
-									echo json_encode(array('result' => 'done'));
-									return;
+
+									$level = 'insights';
+									if (call('../../api/cronjob/cronjob-insights.php')) {
+										echo json_encode(array('result' => 'done'));
+										return;
+									}
 								}
 							}
 						}

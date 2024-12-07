@@ -872,7 +872,7 @@ initHVDSummary();
 
     var options = {
 		initpath: [
-			[ '', hvdSettings.dict[nav.lang].legendDistributions, { canmodify: false } ]
+			[ 'hvd', hvdSettings.dict[nav.lang].legendDistributions, { canmodify: false } ]
 		],
         group: 'hvdGroup',
         langmap: (nav.lang === 'de' ? langmapDE : {}),
@@ -895,7 +895,7 @@ initHVDSummary();
 				url: 'https://opendata.guru/api/2/i',
 				params: {
 					action: 'file_explorer_refresh',
-					path: JSON.stringify(folder.GetPathIDs()),
+					path: folder.GetPathIDs().join('/'),
 					xsrftoken: 'readonly'
 				},
 				onsuccess: function(e) {

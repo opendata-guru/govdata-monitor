@@ -825,3 +825,137 @@ document.addEventListener('DOMContentLoaded', function() {
 initHVDSummary();
 
 // ----------------------------------------------------------------------------
+
+(function() {
+	var elem = document.getElementById('filemanager');
+
+    var langmapDE = {
+        'Loading...': 'Wird geladen...',
+        '{0} items': '{0} Objekte',
+        '1 item selected': '1 Objekt ausgewählt',
+        '{0} items selected': '{0} Objekte ausgewählt',
+        '1 item selected {0}': '1 Objekt ausgewählt {0}',
+        '{0} items selected {1}': '{0} Objekte ausgewählt {1}',
+        'This folder is empty.': 'Dieser Ordner ist leer.',
+        'Back (Alt + Left Arrow)': 'Zurück (Alt + Pfeil nach links)',
+        'Back to "{0}" (Alt + Left Arrow)': 'Zurück zu „{0}“ (Alt + Pfeil nach links)',
+        'Forward (Alt + Right Arrow)': 'Vorwärts (Alt + Pfeil nach rechts)',
+        'Forward to "{0}" (Alt + Right Arrow)': 'Vorwärts zu „{0}“ (Alt + Pfeil nach rechts)',
+        'Recent locations': 'Letzte Orte',
+        'Up (Alt + Up Arrow)': 'Hoch (Alt + Pfeil nach oben)',
+        'Up to "{0}" (Alt + Up Arrow)': 'Hoch zu „{0}“ (Alt + Pfeil nach oben)',
+        'Download': 'Herunterladen',
+        'Initializing download...': 'Das Herunterladen wird initialisiert...',
+        'Starting download...': 'Das Herunterladen wird gestartet...',
+        'Download failed to start': 'Das Herunterladen konnte nicht gestartet werden',
+        'Download initialization failed.' : 'Die Initialisierung des Herunterladens ist fehlgeschlagen.',
+        'Download initialization failed.  {0}': 'Die Initialisierung des Herunterladens ist fehlgeschlagen.  {0}',
+
+        'Paste here': 'Paste here',
+        'Cancel all': 'Cancel all',
+        'Long-press + paste': 'Long-press + paste',
+        '\u2318 + V\u00A0\u00A0\u00A0/\u00A0\u00A0\u00A0Right-click + Paste': '\u2318 + V\u00A0\u00A0\u00A0/\u00A0\u00A0\u00A0Right-click + Paste',
+        'Ctrl + V\u00A0\u00A0\u00A0/\u00A0\u00A0\u00A0Right-click + Paste': 'Ctrl + V\u00A0\u00A0\u00A0/\u00A0\u00A0\u00A0Right-click + Paste',
+        'Stopping...': 'Stopping...',
+        'New Folder (Ctrl + Ins)': 'New Folder (Ctrl + Ins)',
+        'New File (Ins)': 'New File (Ins)',
+        'Upload (Ctrl + U)': 'Upload (Ctrl + U)',
+        'Copy (\u2318 + C)': 'Copy (\u2318 + C)',
+        'Copy (Ctrl + C)': 'Copy (Ctrl + C)',
+        'Paste (\u2318 + V)': 'Paste (\u2318 + V)',
+        'Paste (Ctrl + V)': 'Paste (Ctrl + V)',
+        'Cut (\u2318 + X)': 'Cut (\u2318 + X)',
+        'Cut (Ctrl + X)': 'Cut (Ctrl + X)',
+        'Delete (Del)': 'Delete (Del)',
+        'Item Checkboxes': 'Item Checkboxes',
+    };
+
+    var options = {
+		initpath: [
+			[ '', hvdSettings.dict[nav.lang].legendDistributions, { canmodify: false } ]
+		],
+        group: 'hvdGroup',
+        langmap: (nav.lang === 'de' ? langmapDE : {}),
+
+		onrefresh: function(folder, required) {
+			// Optional:  Ignore non-required refresh requests. By default, folders are refreshed every 5 minutes so the widget has up-to-date information.
+//			if (!required) return;
+
+			// Maybe notify a connected WebSocket here to watch the folder on the server for changes.
+			if (folder === this.GetCurrentFolder())
+			{
+			}
+
+			// Make a call to your server here to get some entries to diplay.
+			// this.PrepareXHR(options) could be useful for doing that. Example:
+
+			var $this = this;
+
+			var xhr = new this.PrepareXHR({
+				url: 'https://opendata.guru/api/2/i',
+				params: {
+					action: 'file_explorer_refresh',
+					path: JSON.stringify(folder.GetPathIDs()),
+					xsrftoken: 'readonly'
+				},
+				onsuccess: function(e) {
+					var data = JSON.parse(e.target.response);
+console.log(data);
+
+					if (data.success) {
+                        folder.SetEntries(data.entries);
+                    } else if (required) {
+                        $this.SetNamedStatusBarText('folder', $this.EscapeHTML('Failed to load folder. ' + data.error));
+                    }
+				},
+				onerror: function(e) {
+					if (required) {
+                        $this.SetNamedStatusBarText('folder', 'Failed to load folder. Server error.');
+                    }
+console.log(e);
+				}
+			});
+
+			xhr.Send();
+		},
+        oninitdownload(startdownload, folder, ids, entries) {
+            console.log('oninitdownload');
+            console.log(ids);
+            console.log(entries);
+                // Simulate network delay.
+                setTimeout(function() {
+                    // Set a URL and params to send with the request to the server.
+                    var options = {};
+
+                    // Optional:  HTTP method to use.
+    //				options.method = 'POST';
+
+                    options.url = 'filemanager/';
+
+                    options.params = {
+                        action: 'download',
+                        path: JSON.stringify(folder.GetPathIDs()),
+                        ids: JSON.stringify(ids),
+                        xsrftoken: 'asdfasdf'
+                    };
+
+                    // Optional:  Control the download via an in-page iframe (default) vs. form only (new tab).
+    //				options.iframe = false;
+
+                    startdownload(options);
+                }, 250);
+        },
+        ondownloadstarted(options) {
+            console.log('started');
+            console.log(options);
+        },
+        ondownloaderror(options) {
+            console.log('error');
+            console.log(options);
+        },
+	};
+
+	var fe = new window.FileExplorer(elem, options);
+})();
+
+// ----------------------------------------------------------------------------

@@ -830,13 +830,19 @@ initHVDSummary();
 	var elem = document.getElementById('filemanager');
 
     var langmapDE = {
+        // default messages
         'Loading...': 'Wird geladen...',
+
+        // item selection
+        // missing: '1 item'
         '{0} items': '{0} Objekte',
         '1 item selected': '1 Objekt ausgewählt',
         '{0} items selected': '{0} Objekte ausgewählt',
         '1 item selected {0}': '1 Objekt ausgewählt {0}',
         '{0} items selected {1}': '{0} Objekte ausgewählt {1}',
         'This folder is empty.': 'Dieser Ordner ist leer.',
+
+        // default buttons
         'Back (Alt + Left Arrow)': 'Zurück (Alt + Pfeil nach links)',
         'Back to "{0}" (Alt + Left Arrow)': 'Zurück zu „{0}“ (Alt + Pfeil nach links)',
         'Forward (Alt + Right Arrow)': 'Vorwärts (Alt + Pfeil nach rechts)',
@@ -844,13 +850,16 @@ initHVDSummary();
         'Recent locations': 'Letzte Orte',
         'Up (Alt + Up Arrow)': 'Hoch (Alt + Pfeil nach oben)',
         'Up to "{0}" (Alt + Up Arrow)': 'Hoch zu „{0}“ (Alt + Pfeil nach oben)',
+
+        // download
         'Download': 'Herunterladen',
         'Initializing download...': 'Das Herunterladen wird initialisiert...',
         'Starting download...': 'Das Herunterladen wird gestartet...',
         'Download failed to start': 'Das Herunterladen konnte nicht gestartet werden',
         'Download initialization failed.' : 'Die Initialisierung des Herunterladens ist fehlgeschlagen.',
-        'Download initialization failed.  {0}': 'Die Initialisierung des Herunterladens ist fehlgeschlagen.  {0}',
+        'Download initialization failed.  {0}': 'Die Initialisierung des Herunterladens ist fehlgeschlagen. {0}',
 
+        // unused
         'Paste here': 'Paste here',
         'Cancel all': 'Cancel all',
         'Long-press + paste': 'Long-press + paste',
@@ -895,8 +904,8 @@ initHVDSummary();
 				url: 'https://opendata.guru/api/2/i',
 				params: {
 					action: 'file_explorer_refresh',
-					path: folder.GetPathIDs().join('/'),
-					xsrftoken: 'readonly'
+					lang: nav.lang,
+					path: folder.GetPathIDs().join('/')
 				},
 				onsuccess: function(e) {
 					var data = JSON.parse(e.target.response);
@@ -919,9 +928,9 @@ console.log(e);
 			xhr.Send();
 		},
         oninitdownload(startdownload, folder, ids, entries) {
-            console.log('oninitdownload');
-            console.log(ids);
-            console.log(entries);
+console.log('oninitdownload');
+console.log(ids);
+console.log(entries);
                 // Simulate network delay.
                 setTimeout(function() {
                     // Set a URL and params to send with the request to the server.
@@ -946,12 +955,12 @@ console.log(e);
                 }, 250);
         },
         ondownloadstarted(options) {
-            console.log('started');
-            console.log(options);
+console.log('started');
+console.log(options);
         },
         ondownloaderror(options) {
-            console.log('error');
-            console.log(options);
+console.log('error');
+console.log(options);
         },
 	};
 

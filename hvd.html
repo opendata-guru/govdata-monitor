@@ -18,6 +18,33 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link href="file-explorer/file-explorer.css" rel="stylesheet">
 	<style>
+		.fe_fileexplorer_wrap .fe_fileexplorer_inner_wrap,
+		.fe_fileexplorer_wrap .fe_fileexplorer_inner_wrap.fe_fileexplorer_inner_wrap_focused {
+				border: none;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_toolbar {
+			border-top: 1px solid #17a2b8;
+		    border-bottom: 1px solid #17a2b8;
+			margin-top: initial;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_path_wrap {
+			border: initial;
+			border-left: 1px solid #17a2b8;
+		    margin: 0;
+			padding: 0 .5em;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_body_wrap_outer {
+			margin: 0;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_folder_tools_scroll_wrap {
+			background: #a4e9f4;
+			border-right: 1px solid #17a2b8;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_statusbar_wrap {
+			background: #17a2b8;
+		    color: #fff;
+			padding: .5em 0;
+		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_item_icon img {
 			box-shadow: none;
 		}
@@ -27,6 +54,9 @@
 			background-image: url(https://opendata.guru/govdata/assets/folder.svg);
 			background-position: initial;
 			background-size: contain;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_path_segment_wrap .fe_fileexplorer_path_opts {
+			margin-top: -2px;
 		}
 	</style>
 </head>
@@ -235,7 +265,7 @@
 					</div>
 
 					<div class="row bg-white">
-						<div class="col-12 px-4">
+						<div class="col-12">
 							<div id="filemanager" style="height: 50vh; max-height: 400px; position: relative;"></div>
 						</div>
 					</div>

@@ -377,7 +377,13 @@ function getDistributionSnippet(obj) {
     str += '<br>';
 
     if (error) {
-        error = error.replace(/\</g, "&lt;");
+        if (typeof error === 'string') {
+            error = error.replace(/\</g, "&lt;");
+        } else {
+            if (error['@attributes']) {
+                error = error['@attributes'].code;
+            }
+        }
         str += '<div class="text-danger" style="margin:0 0 0 1em">';
         str += '- ' + error;
         str += '</div>';

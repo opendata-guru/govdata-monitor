@@ -23,11 +23,16 @@
 				border: none;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_toolbar {
-			border-top: 1px solid #17a2b8;
-		    border-bottom: 1px solid #17a2b8;
+			background: #17a2b8;
 			margin-top: initial;
+			padding: .12em 0;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtools {
+		    margin: 0;
+			padding: 0 .5em;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_path_wrap {
+background: #fff;
 			border: initial;
 			border-left: 1px solid #17a2b8;
 		    margin: 0;
@@ -54,6 +59,62 @@
 			background-image: url(https://opendata.guru/govdata/assets/folder.svg);
 			background-position: initial;
 			background-size: contain;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtools button {
+			height: 1.5em;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_back,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_back:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_back:not(.fe_fileexplorer_disabled):focus,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward:not(.fe_fileexplorer_disabled):focus,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up:not(.fe_fileexplorer_disabled):focus,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history:not(.fe_fileexplorer_disabled):focus {
+			background-position: center;
+			background-size: contain;
+			margin: 0 .25em;
+			width: 1em;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_back,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up {
+			background-image: url(https://opendata.guru/govdata/assets/fileexplorer-arrow-white.svg);
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_back:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_back:not(.fe_fileexplorer_disabled):focus,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward:not(.fe_fileexplorer_disabled):focus,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up:not(.fe_fileexplorer_disabled):focus {
+			background-image: url(https://opendata.guru/govdata/assets/fileexplorer-arrow-gray.svg);
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_forward:not(.fe_fileexplorer_disabled):focus {
+			transform: rotate(180deg);
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_up:not(.fe_fileexplorer_disabled):focus {
+			transform: rotate(90deg);
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history:not(.fe_fileexplorer_disabled):focus {
+			transform: rotate(90deg);
+			width: .6em;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history {
+			background-image: url(https://opendata.guru/govdata/assets/fileexplorer-arrow2-white.svg);
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history:not(.fe_fileexplorer_disabled):hover,
+		.fe_fileexplorer_wrap .fe_fileexplorer_navtool_history:not(.fe_fileexplorer_disabled):focus {
+			background-image: url(https://opendata.guru/govdata/assets/fileexplorer-arrow2-gray.svg);
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_path_segment_wrap .fe_fileexplorer_path_opts {
 			margin-top: -2px;
@@ -266,7 +327,7 @@
 
 					<div class="row bg-white">
 						<div class="col-12">
-							<div id="filemanager" style="height: 50vh; max-height: 400px; position: relative;"></div>
+							<div id="filemanager" style="height: 66vh; max-height: 500px; position: relative;"></div>
 						</div>
 					</div>
 				</div>

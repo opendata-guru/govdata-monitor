@@ -885,6 +885,42 @@ initHVDSummary();
         'Item Checkboxes': 'Item Checkboxes',
     };
 
+    function addPreviewArea() {
+        var feBody = document.getElementsByClassName('fe_fileexplorer_body_wrap')[0];
+    
+        var fePreviewWrap = document.createElement('div');
+        fePreviewWrap.classList.add('fe_fileexplorer_preview_scroll_wrap');
+    
+        var fePreview = document.createElement('div');
+        fePreview.classList.add('fe_fileexplorer_preview');
+    
+        fePreviewWrap.appendChild(fePreview);
+        feBody.appendChild(fePreviewWrap);
+    }
+
+    function setPreviewArea(entries) {
+        var fePreview = document.getElementsByClassName('fe_fileexplorer_preview')[0];
+
+        var str = '';
+        if (entries.length === 1) {
+            var entry = entries[0];
+            str += '<b>' + entry.name + '</b><br>';
+            str += '<br>';
+            str += 'hash: ' + entry.hash + '<br>';
+            str += 'id: ' + entry.id + '<br>';
+            str += 'tooltip: ' + entry.tooltip + '<br>';
+            str += 'type: ' + entry.type + '<br>';
+            str += '<br>';
+            str += JSON.stringify(entry);
+        } else {
+            str += 'selection: ' + entries.length + ' entries <br>';
+        }
+
+        if (fePreview) {
+            fePreview.innerHTML = str;
+        }
+    }
+
     var options = {
 		initpath: [
 			[ 'hvd', hvdSettings.dict[nav.lang].legendDistributions, { canmodify: false } ]
@@ -915,7 +951,6 @@ initHVDSummary();
 				},
 				onsuccess: function(e) {
 					var data = JSON.parse(e.target.response);
-console.log(data);
 
 					if (data.success) {
                         folder.SetEntries(data.entries);
@@ -927,7 +962,6 @@ console.log(data);
 					if (required) {
                         $this.SetNamedStatusBarText('folder', 'Failed to load folder. Server error.');
                     }
-console.log(e);
 				}
 			});
 
@@ -968,9 +1002,16 @@ console.log(options);
 console.log('error');
 console.log(options);
         },
-	};
+		onopenfile(folder, entry) {
+//            setPreviewArea(entry);
+        },
+        onselchanged(folder, selecteditemsmap, numselecteditems) {
+           setPreviewArea(this.GetSelectedFolderEntries());
+        }
+    };
 
 	var fe = new window.FileExplorer(elem, options);
+    addPreviewArea();
 })();
 
 // ----------------------------------------------------------------------------

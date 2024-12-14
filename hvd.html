@@ -25,18 +25,22 @@
 		.fe_fileexplorer_wrap .fe_fileexplorer_toolbar {
 			background: #17a2b8;
 			margin-top: initial;
-			padding: .12em 0;
+			padding: .62em 0;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_navtools {
 		    margin: 0;
 			padding: 0 .5em;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_path_wrap {
-background: #fff;
 			border: initial;
-			border-left: 1px solid #17a2b8;
+			border-left: 1px solid #fff;
 		    margin: 0;
 			padding: 0 .5em;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_path_icon,
+		.fe_fileexplorer_wrap .fe_fileexplorer_path_segments_scroll_wrap {
+			background: #fff;
+			height: 25px;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_body_wrap_outer {
 			margin: 0;
@@ -44,6 +48,22 @@ background: #fff;
 		.fe_fileexplorer_wrap .fe_fileexplorer_folder_tools_scroll_wrap {
 			background: #a4e9f4;
 			border-right: 1px solid #17a2b8;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_preview_scroll_wrap {
+			background: #a4e9f4;
+			border-left: 1px solid #17a2b8;
+			box-sizing: border-box;
+			flex: .5;
+			max-width: 20em;
+			overflow-wrap: break-word;
+			outline: none;
+			-ms-overflow-style: none;
+			overflow-y: scroll;
+			padding: .4em 10px;
+			position: relative;
+			scrollbar-width: none;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_preview {
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_statusbar_wrap {
 			background: #17a2b8;

@@ -898,18 +898,30 @@ initHVDSummary();
         feBody.appendChild(fePreviewWrap);
     }
 
+    function stripHTML(str) {
+        let elem = document.createElement('div');
+        elem.innerHTML = str;
+
+        return elem.textContent || elem.innerText || '';
+    }
+
     function setPreviewArea(entries) {
         var fePreview = document.getElementsByClassName('fe_fileexplorer_preview')[0];
 
         var str = '';
         if (entries.length === 1) {
-            var entry = entries[0];
-            str += '<b>' + entry.name + '</b><br>';
+            var entry = { ...entries[0] };
+
+            str += '<b>' + stripHTML(entry.name) + '</b><br>';
             str += '<br>';
-            str += 'hash: ' + entry.hash + '<br>';
-            str += 'id: ' + entry.id + '<br>';
-            str += 'tooltip: ' + entry.tooltip + '<br>';
-            str += 'type: ' + entry.type + '<br>';
+            delete entry.name;
+
+            str += 'id: ' + stripHTML(entry.id) + '<br>';
+            delete entry.id;
+
+            str += 'tooltip: ' + stripHTML(entry.tooltip) + '<br>';
+            delete entry.tooltip;
+
             str += '<br>';
             str += JSON.stringify(entry);
         } else {
@@ -1012,6 +1024,7 @@ console.log(options);
 
 	var fe = new window.FileExplorer(elem, options);
     addPreviewArea();
+    setPreviewArea.call(fe, []);
 })();
 
 // ----------------------------------------------------------------------------

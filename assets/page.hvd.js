@@ -910,20 +910,48 @@ initHVDSummary();
 
         var str = '';
         if (entries.length === 1) {
-            var entry = { ...entries[0] };
+            var entry = entries[0];
 
             str += '<b>' + stripHTML(entry.name) + '</b><br>';
             str += '<br>';
-            delete entry.name;
 
-            str += 'id: ' + stripHTML(entry.id) + '<br>';
-            delete entry.id;
+            if (entry.datasetIdentifier) {
+                str += '<a href="' + stripHTML(entry.datasetIdentifier) + '" target="_blank">Open dataset URI</a><br>';
+            }
 
-            str += 'tooltip: ' + stripHTML(entry.tooltip) + '<br>';
-            delete entry.tooltip;
+            if (entry.iObject) {
+                var iObject = entry.iObject;
+                if (iObject.url) {
+                    str += '<a href="' + stripHTML(iObject.url) + '" target="_blank">Open file</a><br>';
+                }
+                if (iObject.modified) {
+                    str += 'Last seen: ' + stripHTML(iObject.modified) + '<br>';
+                }
+                if (iObject.audited) {
+                    str += 'Investigated: ' + stripHTML(iObject.audited) + '<br>';
+                }
 
-            str += '<br>';
-            str += JSON.stringify(entry);
+                if (iObject.insights) {
+                    var insights = iObject.insights;
+
+                    if (insights.contentType) {
+                        str += 'Content type: ' + stripHTML(insights.contentType) + '<br>';
+                    }
+                    if (insights.error) {
+                        str += '<br>';
+                        str += '<b>Error: ' + stripHTML(insights.error) + '</b><br>';
+                        str += '<br>';
+                    }
+                    if (insights.assets && (0 < insights.assets.length)) {
+                        str += 'Content:';
+                        str += '<ul>';
+                        insights.assets.forEach((asset) => {
+                            str += '<li>' + stripHTML(asset.title[nav.lang]) + '</li>';
+                        });
+                        str += '</ul>';
+                    }
+                }
+            }
         } else {
             str += 'selection: ' + entries.length + ' entries <br>';
         }

@@ -54,7 +54,7 @@
 			border-left: 1px solid #17a2b8;
 			box-sizing: border-box;
 			flex: .5;
-			max-width: 20em;
+			max-width: 15em;
 			overflow-wrap: break-word;
 			outline: none;
 			-ms-overflow-style: none;
@@ -64,6 +64,7 @@
 			scrollbar-width: none;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_preview {
+			font-size: .75em;
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_statusbar_wrap {
 			background: #17a2b8;
@@ -77,6 +78,11 @@
 		.fe_fileexplorer_wrap .fe_fileexplorer_item_icon_folder,
 		.fe_fileexplorer_popup_wrap .fe_fileexplorer_popup_item_icon_folder {
 			background-image: url(https://opendata.guru/govdata/assets/folder.svg);
+			background-position: initial;
+			background-size: contain;
+		}
+		.fe_fileexplorer_wrap .fe_fileexplorer_item_icon_file {
+			background-image: url(https://opendata.guru/govdata/assets/file.svg);
 			background-position: initial;
 			background-size: contain;
 		}
@@ -138,6 +144,12 @@
 		}
 		.fe_fileexplorer_wrap .fe_fileexplorer_path_segment_wrap .fe_fileexplorer_path_opts {
 			margin-top: -2px;
+		}
+		.fe_fileexplorer_wrap .filetype_error .fe_fileexplorer_item_icon_file {
+			background-image: url(https://opendata.guru/govdata/assets/file-error.svg);
+		}
+		.fe_fileexplorer_wrap .filetype_error .fe_fileexplorer_item_icon_file::after {
+			display: none;
 		}
 	</style>
 </head>

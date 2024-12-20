@@ -10,28 +10,77 @@ var data = (function () {
         loadDays = 0,
         displayDate = '',
         layers = [];
+    var dict = {
+        de: {
+            international: 'International',
+            supranational: 'Europa',
+            supranationalAgency: 'Europäische Behörde',
+            country: 'Staat',
+            countryAgency: 'Staatliche Behörde',
+            federal: 'Bund',
+            federalAgency: 'Bundesbehörde',
+            state: 'Land',
+            stateAgency: 'Landesamt',
+            state_municipality: 'Land und Stadt',
+            governmentRegion: 'Regierungsbezirk',
+            regionalNetwork: 'Region',
+            district: 'Kreis',
+            districtAgency: 'Kreisverwaltung',
+            collectiveMunicipality: 'Gemeindeverband',
+            municipality: 'Stadt',
+            municipalityAgency: 'Stadtverwaltung',
+            business: 'Unternehmen',
+            civilSociety: 'Zivilgesellschaft',
+            research: 'Forschung',
+        },
+        en: {
+            international: 'International',
+            supranational: 'Europe',
+            supranationalAgency: 'European authority',
+            country: 'Country',
+            countryAgency: 'Country authority',
+            federal: 'Federal',
+            federalAgency: 'Federal agency',
+            state: 'State',
+            stateAgency: 'State authority',
+            state_municipality: 'State and municipality',
+            governmentRegion: 'Government region',
+            regionalNetwork: 'Regional network',
+            district: 'District',
+            districtAgency: 'District authority',
+            collectiveMunicipality: 'Collective municipality',
+            municipality: 'Municipality',
+            municipalityAgency: 'Municipal authority',
+            business: 'Business',
+            civilSociety: 'Civil society',
+            research: 'Research',
+        },
+    };
 
     function init() {
-        layers['international'] = 'International';
-        layers['supranational'] = 'Europa';
-        layers['supranationalAgency'] = 'Europäische Behörde';
-        layers['country'] = 'Staat';
-        layers['countryAgency'] = 'Staatliche Behörde';
-        layers['federal'] = 'Bund';
-        layers['federalAgency'] = 'Bundesbehörde';
-        layers['state'] = 'Land';
-        layers['stateAgency'] = 'Landesamt';
-        layers['state+municipality'] = 'Land und Stadt';
-        layers['governmentRegion'] = 'Regierungsbezirk';
-        layers['regionalNetwork'] = 'Region';
-        layers['district'] = 'Kreis';
-        layers['districtAgency'] = 'Kreisverwaltung';
-        layers['collectiveMunicipality'] = 'Gemeindeverband';
-        layers['municipality'] = 'Stadt';
-        layers['municipalityAgency'] = 'Stadtverwaltung';
-        layers['business'] = 'Unternehmen';
-        layers['civilSociety'] = 'Zivilgesellschaft';
-        layers['research'] = 'Forschung';
+//        var lang = nav ? nav.lang : 'de';
+        var lang = 'de';
+
+        layers['international'] = dict[lang].international;
+        layers['supranational'] = dict[lang].supranational;
+        layers['supranationalAgency'] = dict[lang].supranationalAgency;
+        layers['country'] = dict[lang].country;
+        layers['countryAgency'] = dict[lang].countryAgency;
+        layers['federal'] = dict[lang].federal;
+        layers['federalAgency'] = dict[lang].federalAgency;
+        layers['state'] = dict[lang].state;
+        layers['stateAgency'] = dict[lang].stateAgency;
+        layers['state+municipality'] = dict[lang].state_municipality;
+        layers['governmentRegion'] = dict[lang].governmentRegion;
+        layers['regionalNetwork'] = dict[lang].regionalNetwork;
+        layers['district'] = dict[lang].district;
+        layers['districtAgency'] = dict[lang].districtAgency;
+        layers['collectiveMunicipality'] = dict[lang].collectiveMunicipality;
+        layers['municipality'] = dict[lang].municipality;
+        layers['municipalityAgency'] = dict[lang].municipalityAgency;
+        layers['business'] = dict[lang].business;
+        layers['civilSociety'] = dict[lang].civilSociety;
+        layers['research'] = dict[lang].research;
     }
 
     function funcAddEventListenerStartLoading(func) {
@@ -102,17 +151,18 @@ var data = (function () {
         var ret = '';
         Object.keys(layers).forEach(key => {
             if (type === key) {
-                ret = layers[key];
+                ret = dict[nav.lang][key];
             }
         });
         if (ret !== '') {
             return ret;
         }
 
+        if (type === 'state+municipality') {
+            return dict[nav.lang].state_municipality;
+        }
         if (type === 'municipality+state') {
             return 'Land + Stadt';
-//        } else if (type === 'portal') {
-//            return 'Portal';
         } else if (type !== '') {
             return '?';
         }

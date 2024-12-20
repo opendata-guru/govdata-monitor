@@ -20,6 +20,16 @@
 	<script src="https://unpkg.com/maplibre-gl@3/dist/maplibre-gl.js"></script>
 	<link href="https://unpkg.com/maplibre-gl@3/dist/maplibre-gl.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+	<style>
+		.loading-bar {
+			background: linear-gradient(90deg,#17a2b810 33%,#17a2b850 50%,#17a2b810 66%) #fff;
+			background-size: 300% 100%;
+			animation: lb 4s infinite linear;
+		}
+		@keyframes lb {
+			0% {background-position: right}
+		}
+	</style>
 </head>
 
 <body>
@@ -80,6 +90,9 @@
 								</div>
 							</div>
 
+							<div id="card-sobject" class="mb-0 p-3">
+							</div>
+
 							<div class="card-parents-and-catalog-title mb-0 p-3">
 								<div class="mb-0" id="parent-title">Harvest Pedigree</div>
 								<div class="card-body">
@@ -131,6 +144,8 @@
 						<div class="col-12 col-sm-6 col-md-5 col-xl-5">
 
 							<div class="card-system p-3">
+								<div id="sobject-box">
+								</div>
 								<div id="system-body">
 								</div>
 							</div>
@@ -182,17 +197,17 @@
 
 	<script src="assets/app.js"></script>
 	<script src="assets/module.nav.js?v=2"></script>
-	<script src="assets/module.catalog.js?v=3"></script>
+	<script src="assets/module.catalog.js?v=4"></script>
 	<script src="assets/module.charthistory.js?v=3"></script>
 	<script src="assets/module.chartsupplier.js?v=1"></script>
-	<script src="assets/module.data.js?v=3"></script>
+	<script src="assets/module.data.js?v=4"></script>
 	<script src="assets/module.date.js"></script>
 	<script src="assets/module.diff.js"></script>
 	<script src="assets/module.map.js"></script>
 	<script src="assets/module.parents.js"></script>
-	<script src="assets/module.system.js?v=6"></script>
+	<script src="assets/module.system.js?v=7"></script>
 	<script src="assets/module.table.js?v=3"></script>
-	<script src="assets/monitor.js?v=4"></script>
+	<script src="assets/monitor.js?v=5"></script>
 </body>
 
 </html>

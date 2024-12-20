@@ -35,8 +35,8 @@ var system = (function () {
         idImage1 = 'image-1',
 //        idImage2 = 'image-2',
 //        idImage3 = 'image-3',
-        idLogo1 = 'logo-1',
-        idLogo2 = 'logo-2',
+//        idLogo1 = 'logo-1',
+//        idLogo2 = 'logo-2',
         idWikipedia = 'linkWikipedia';
     var localDict = {
         noLinkFound: 'No link found',
@@ -150,10 +150,10 @@ var system = (function () {
 //            '(SAMPLE(?photo2) as ?photo2) ' +
 //            '(SAMPLE(?photo3) as ?photo3) ' +
             '(SAMPLE(?banner) as ?banner) ' +
-            '(SAMPLE(?logo) as ?logo) ' +
+//            '(SAMPLE(?logo) as ?logo) ' +
             '(SAMPLE(?map) as ?map) ' +
-            '(SAMPLE(?flag) as ?flag) ' +
-            '(SAMPLE(?coat) as ?coat) ' +
+//            '(SAMPLE(?flag) as ?flag) ' +
+//            '(SAMPLE(?coat) as ?coat) ' +
             '(SAMPLE(?article) as ?article) ' +
             '' +
             'WHERE {' +
@@ -171,17 +171,17 @@ var system = (function () {
             '  OPTIONAL { ?item wdt:P948 ?banner. }' +
             '  BIND(IF( BOUND( ?banner), ?banner, "") AS ?banner)' +
             '' +
-            '  OPTIONAL { ?item wdt:P154 ?logo. }' +
-            '  BIND(IF( BOUND( ?logo), ?logo, "") AS ?logo)' +
+//            '  OPTIONAL { ?item wdt:P154 ?logo. }' +
+//            '  BIND(IF( BOUND( ?logo), ?logo, "") AS ?logo)' +
             '' +
             '  OPTIONAL { ?item wdt:P242 ?map. }' +
             '  BIND(IF( BOUND( ?map), ?map, "") AS ?map)' +
             '' +
-            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
-            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
+//            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
+//            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
             '' +
-            '  OPTIONAL { ?item wdt:P94 ?coat. }' +
-            '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
+//            '  OPTIONAL { ?item wdt:P94 ?coat. }' +
+//            '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
             '' +
             '  OPTIONAL {' +
             '    ?article schema:about ?item .' +
@@ -202,7 +202,7 @@ var system = (function () {
                 var res = JSON.parse(this.responseText);
                 var values = res.results.bindings[0];
                 var images = [];
-                var logos = [];
+//                var logos = [];
 
                 images.push(values.banner.value);
                 images.push(values.photo1.value);
@@ -211,30 +211,30 @@ var system = (function () {
                 images.push(values.map.value);
                 images = images.filter(n => n);
 
-                logos.push(values.flag.value);
-                logos.push(values.coat.value);
-                logos.push(values.logo.value);
-                logos = logos.filter(n => n);
+//                logos.push(values.flag.value);
+//                logos.push(values.coat.value);
+//                logos.push(values.logo.value);
+//                logos = logos.filter(n => n);
 
                 document.getElementById(idImage1).src = images.length > 0 ? images[0] : '';
 //                document.getElementById(idImage2).src = images.length > 1 ? images[1] : '';
 //                document.getElementById(idImage3).src = images.length > 2 ? images[2] : '';
-                document.getElementById(idLogo1).src = logos.length > 0 ? logos[0] : '';
-                document.getElementById(idLogo2).src = logos.length > 1 ? logos[1] : '';
+//                document.getElementById(idLogo1).src = logos.length > 0 ? logos[0] : '';
+//                document.getElementById(idLogo2).src = logos.length > 1 ? logos[1] : '';
                 document.getElementById(idWikipedia).href = values.article ? values.article.value : '';
             } else if (this.readyState == 4) {
                 document.getElementById(idImage1).src = '';
 //                document.getElementById(idImage2).src = '';
 //                document.getElementById(idImage3).src = '';
-                document.getElementById(idLogo1).src = '';
-                document.getElementById(idLogo2).src = '';
+//                document.getElementById(idLogo1).src = '';
+//                document.getElementById(idLogo2).src = '';
                 document.getElementById(idWikipedia).href = '';
             }
             document.getElementById(idImage1).style.opacity = document.getElementById(idImage1).getAttribute('src') == '' ? 0 : 1;
 //            document.getElementById(idImage2).style.opacity = document.getElementById(idImage2).getAttribute('src') == '' ? 0 : 1;
 //            document.getElementById(idImage3).style.opacity = document.getElementById(idImage3).getAttribute('src') == '' ? 0 : 1;
-            document.getElementById(idLogo1).style.opacity = document.getElementById(idLogo1).getAttribute('src') == '' ? 0 : 1;
-            document.getElementById(idLogo2).style.opacity = document.getElementById(idLogo2).getAttribute('src') == '' ? 0 : 1;
+//            document.getElementById(idLogo1).style.opacity = document.getElementById(idLogo1).getAttribute('src') == '' ? 0 : 1;
+//            document.getElementById(idLogo2).style.opacity = document.getElementById(idLogo2).getAttribute('src') == '' ? 0 : 1;
             document.getElementById(idWikipedia).style.display = document.getElementById(idWikipedia).getAttribute('href') == '' ? 'none' : 'inline-block';
         }
 
@@ -378,15 +378,15 @@ var system = (function () {
         var body = '';
         var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
         var wikidata = sys ? sys.wikidata : catalogObj ? catalogObj.wikidata : '';
-        var type = data.getTypeString(sys ? sys.type : catalogObj ? catalogObj.type : '');
+//        var type = data.getTypeString(sys ? sys.type : catalogObj ? catalogObj.type : '');
 
-        body += '<div class="border-bottom border-1 border-secondary mb-2 pb-2">';
-        body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
-        body += '<img src="" id="' + idLogo2 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
-        body += '</div>';
-        body += '<h1 class="fw-light fs-3">' + title + '</h1>';
-        body += '<div>' + type + '</div>';
-        body += '<div class="mb-2"></div>';
+//        body += '<div class="border-bottom border-1 border-secondary mb-2 pb-2">';
+//        body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
+//        body += '<img src="" id="' + idLogo2 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
+//        body += '</div>';
+//        body += '<h1 class="fw-light fs-3">' + title + '</h1>';
+//        body += '<div>' + type + '</div>';
+//        body += '<div class="mb-2"></div>';
 
         var datasetCount = catalogObj ? catalogObj.datasetCount : '';
         var minCount = (datasetCount === undefined) || (datasetCount === '') ? 9999999999 : datasetCount;

@@ -1,29 +1,66 @@
 var catalog = (function () {
-    var initvalId = '',
-        defaultId = 'govdata';
+    var baseURL = 'https://opendata.guru/api/2';
+    var oldInitvalId = '',
+        oldDefaultId = 'govdata',
+        sID = '',
+        sObject = null;
+        defaultSID = 'smZ1A'; //GovData
     var idCatalogHistoryTitle = 'catalog-history-title',
-        idSupplierHistoryTitle = 'supplier-history-title';
-    var paramId = 'catalog';
+        idSupplierHistoryTitle = 'supplier-history-title',
+        idCardSObject = 'card-sobject',
+        idSObjectBox = 'sobject-box';
+    var paramId = 'sid',
+        oldParamId = 'catalog';
+    var dict = {
+            de: {
+                unknownSupplier: 'Unbekannte Datenquelle',
+            },
+            en: {
+                unknownSupplier: 'Unknown data supplier',
+            },
+        };
 
     function init() {
         var params = new URLSearchParams(window.location.search);
 
         if (params.has(paramId)) {
-            initvalId = params.get(paramId);
+            sID = params.get(paramId);
         } else {
-            initvalId = defaultId;
+            sID = defaultSID;
+        }
+
+        if (params.has(oldParamId)) {
+            oldInitvalId = params.get(oldParamId);
+        } else {
+            oldInitvalId = oldDefaultId;
         }
     }
 
     function setId(id) {
-        initvalId = id;
+        oldInitvalId = id;
 
         if (catalog) {
-            catalog.id = initvalId;
+            catalog.id = oldInitvalId;
         }
 
         var params = new URLSearchParams(window.location.search);
-        if (id === defaultId) {
+        if (id === oldDefaultId) {
+            params.delete(oldParamId);
+        } else {
+            params.set(oldParamId, id);
+        }
+        window.history.pushState({}, '', `${location.pathname}?${params}`);
+    }
+
+    function setSID(id) {
+        sID = id;
+
+        if (catalog) {
+            catalog.sID = sID;
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        if (id === defaultSID) {
             params.delete(paramId);
         } else {
             params.set(paramId, id);
@@ -126,6 +163,8 @@ var catalog = (function () {
 
     function funcSet(catalogId) {
         setId(catalogId);
+//        setSID(catalogId);
+//        updateSID();
 
         window.scrollTo(0, 0);
 
@@ -134,6 +173,8 @@ var catalog = (function () {
 
         if (catalogObject) {
             strCatalog = catalogObject.title;
+            setSID(catalogObject.sid);
+            updateSID();
         }
 
         catalog.update();
@@ -146,14 +187,83 @@ var catalog = (function () {
         data.emitFilterChanged();
     }
 
+    function updateSID_storeSObject(payload) {
+        sObject = payload;
+
+        var url = sObject && sObject.image ? sObject.image.url : '';
+        var title = sObject ? sObject.title[nav.lang] : dict[nav.lang].unknownSupplier;
+        var type = sObject ? data.getTypeString(sObject.type) : '';
+
+        var str = '';
+        str += '<div class="border-bottom border-1 border-secondary mb-2 pb-2" style="height:6.5rem">';
+        str += '<img src="' + url + '" style="height:3rem;width:100%;object-fit:contain' + (url === '' ? ';opacity:0' : '') + '">';
+        str += '<h1 class="fw-light fs-3 my-0">' + title + '</h1>';
+        str += '<div>' + type + '</div>';
+        str += '</div>';
+
+        var elem = document.getElementById(idSObjectBox);
+        if (elem) {
+            elem.innerHTML = str;
+        }
+    }
+
+    function updateSID_loadSObject(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                updateSID_storeSObject(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                updateSID_storeSObject(null);
+            }
+        }
+
+        xhr.send();
+    }
+
+    function updateSID() {
+        if ((sID === '') || (sID === 'undefined') || (sID === undefined)) {
+            updateSID_storeSObject(null);
+        } else {
+            if ((sObject === null) || (sObject.sid !== sID)) {
+                var str = '';
+
+                str += '<div class="loading-bar mb-2" style="width:100%;height:1.5em"></div>';
+                str += '<div class="loading-bar" style="width:50%;height:1.5em"></div>';
+
+                var elem = document.getElementById(idCardSObject);
+                if (elem) {
+//                    elem.innerHTML = str;
+                }
+
+                str = '';
+                str += '<div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div';
+
+                elem = document.getElementById(idSObjectBox);
+                if (elem) {
+                    elem.innerHTML = str;
+                }
+
+                updateSID_loadSObject(baseURL + '/s/' + sID);
+            }
+        }
+    }
+
+    function funcStart() {
+        updateSID();
+    }
+
     init();
 
     return {
-        id: initvalId,
+        id: oldInitvalId,
+        sID: sID,
         get: funcGet,
         getBySID: funcGetBySID,
         getSameAs: funcGetSameAs,
         set: funcSet,
+        start: funcStart,
         update: funcUpdate,
     };
 }());

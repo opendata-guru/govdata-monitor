@@ -215,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     data.addEventListenerStartLoading(showProgress);
     data.addEventListenerEndLoading(hideProgress);
 
+    catalog.start();
     system.loadData();
 });
 

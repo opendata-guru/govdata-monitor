@@ -32,6 +32,16 @@ var chartsupplier = (function () {
         swatch.push('#bbe634'); // yellow green (Triadic Color)
         swatch.push('#b834e6'); // purple (Tetrad/Square Color)
 
+        // repeat (to have 15+ colors)
+        swatch.push('#e63462'); // red (Split Complementary)
+        swatch.push('#e6b834'); // yellow (Split Complementary + Double Complementary Color)
+        swatch.push('#e634bb'); // pink (Triadic Color)
+        swatch.push('#3462e6'); // dark blue (Double Complementary Color)
+        swatch.push('#34bbe6'); // green (Tetrad/Square Color)
+        swatch.push('#e65f34'); // orange (Complimentary + Double Complementary Color + Tetrad/Square Color)
+        swatch.push('#bbe634'); // yellow green (Triadic Color)
+        swatch.push('#b834e6'); // purple (Tetrad/Square Color)
+
         return swatch;
     }
 
@@ -282,9 +292,132 @@ var chartsupplier = (function () {
         }
     }
 
+    function sortChartData(id) {
+        return function(a, b) {
+            if (a.data[id] === b.data[id]) {
+                return a.label.localeCompare(b.label);
+            }
+
+            return a.data[id] < b.data[id] ? 1 : -1;
+        }
+    }
+
+    function getChartDatasets(dates, options) {
+        var datasets = [];
+        var colors = getColorSwatch();
+
+        for (var c = 0; c < options.pObject.lObjects.length; ++c) {
+            var labels = options.pObject.lObjects[c].title;
+            var lid = options.pObject.lObjects[c].lid;
+            var data = [];
+
+            for (var d = 0; d < dates.length; ++d) {
+                var date = dates[d];
+                var count = options.lObjectsCount[date];
+
+                if (count) {
+                    data.push(count[options.pObject.lObjects[c].lid]);
+                } else {
+                    data.push(null);
+                }
+            }
+
+            datasets.push({
+                label: labels,
+                lid: lid,
+                fill: false,
+                borderColor: colors[c],
+                borderWidth: 2,
+                pointRadius: 1,
+                data: data,
+            });
+        }
+
+        var topLIDs = [];
+
+        for (var c = 0; c < options.pObject.lObjects.length; ++c) {
+            datasets.sort(sortChartData(c));
+
+            for (var t = 0; t < Math.min(options.topCount, datasets.length); ++t) {
+                if (datasets[t].data[c]) {
+                    topLIDs.push(datasets[t].lid);
+                }
+            }
+        }
+
+        topLIDs = [...new Set(topLIDs)];
+        datasets = datasets.filter((dataset) => topLIDs.includes(dataset.lid));
+
+        for (var d = 0; d < datasets.length; ++d) {
+            datasets[d].borderColor = colors[d];
+        }
+
+        return datasets;
+    }
+
+    function buildLObjectsChartCanvas(options) {
+        var str = '';
+
+        if (options.pObject.lObjects && (options.pObject.lObjects.length > 0)) {
+            if (Object.keys(options.lObjectsCount).length === 0) {
+                return;
+            }
+
+            str += '<div>';
+            str += options.dict[nav.lang].suppliersHistory.replace('{days}', options.days);
+            str += '</div>';
+            str += '<canvas class="my-3" style="max-height:16rem"></canvas>';
+        }
+
+        var elem = document.getElementById('portal-chart-' + options.pObject.pid);
+        elem.innerHTML = str;
+    }
+
+    function buildLObjectsChartData(options) {
+        var elem = document.querySelector('#portal-chart-' + options.pObject.pid + ' > canvas');
+        if (!elem) {
+            return;
+        }
+
+        var rowTitles = [];
+        var current = new Date(Date.now());
+        var dateString;
+
+        for (var d = 0; d < options.days; ++d) {
+            dateString = current.toLocaleString('sv-SE').split(' ')[0];
+            rowTitles.unshift(dateString);
+
+            current.setDate(current.getDate() - 1);
+        }
+
+        var supplierData = {
+            labels: rowTitles,
+            datasets: getChartDatasets(rowTitles, options),
+        };
+
+        var chartLine = new Chart(elem, {
+            type: 'line',
+            data: supplierData,
+            options: getOptions(),
+        });
+    }
+
+    function funcBuildChartLObjects(options) {
+        if (!options.pObject) {
+            console.error('pObject not exists');
+            return;
+        }
+
+        options.topCount = 15;
+
+        buildLObjectsChartCanvas(options);
+        buildLObjectsChartData(options);
+    }
+
     init();
 
     return {
+        buildChartLObjects: funcBuildChartLObjects,
         getColumnTitles: funcGetColumnTitles,
         getRowTitles: funcGetRowTitles,
         getData: funcGetData,

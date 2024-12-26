@@ -380,18 +380,22 @@ var chartsupplier = (function () {
         }
 
         var rowTitles = [];
+        var rowTitlesTranslated = [];
         var current = new Date(Date.now());
         var dateString;
+        var dateStringDE;
 
         for (var d = 0; d < options.days; ++d) {
             dateString = current.toLocaleString('sv-SE').split(' ')[0];
+            dateStringDE = current.toLocaleString('de-DE').split(',')[0];
             rowTitles.unshift(dateString);
+            rowTitlesTranslated.unshift(nav.lang === 'de' ? dateStringDE : dateString);
 
             current.setDate(current.getDate() - 1);
         }
 
         var supplierData = {
-            labels: rowTitles,
+            labels: rowTitlesTranslated,
             datasets: getChartDatasets(rowTitles, options),
         };
 

@@ -48,24 +48,24 @@ function monitorRemoveLoadedDays() {
     data.removeLoadedData();
 }
 
-function monitorGetAsCSV(chartObject) {
+function monitorGetAsCSV(chartObject, chartObjectID) {
     var ret = [];
-    var len = chartObject.getRowTitles().length;
-    var col = chartObject.getColumnTitles().length;
+    var len = chartObject.getRowTitles(chartObjectID).length;
+    var col = chartObject.getColumnTitles(chartObjectID).length;
 
     var header = [];
     header.push('date');
     for (var c = 0; c < col; ++c) {
-        header.push(chartObject.getColumnTitles()[c].replace(/,/g, ''));
+        header.push(chartObject.getColumnTitles(chartObjectID)[c].replace(/,/g, ''));
     }
     ret.push(header);
 
     for (var l = 0; l < len; ++l) {
         var line = [];
-        line.push(chartObject.getRowTitles()[l]);
+        line.push(chartObject.getRowTitles(chartObjectID)[l]);
 
         for (var c = 0; c < col; ++c) {
-            line.push(chartObject.getData()[c][l]);
+            line.push(chartObject.getData(chartObjectID)[c][l]);
         }
         ret.push(line);
     }
@@ -78,14 +78,16 @@ function monitorGetAsPNG() {
 }
 
 function monitorDownloadAsCSV(chartObjectName) {
-    var objects = {charthistory, chartsupplier};
-    var chartObject = objects[chartObjectName];
-    var csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV(chartObject).map(e => e.join(',')).join("\n");
+    var objects = {charthistory, chartsupplier, chartLObjects};
+    var chartObjectTitle = chartObjectName.split('|')[0];
+    var chartObjectID = chartObjectName.split('|')[1];
+    var chartObject = objects[chartObjectTitle];
+    var csv = 'data:text/csv;charset=utf-8,' + monitorGetAsCSV(chartObject, chartObjectID).map(e => e.join(',')).join("\n");
 
     var encoded = encodeURI(csv);
     var link = document.createElement('a');
     link.setAttribute('href', encoded);
-    link.setAttribute('download', chartObject.getFileName() + '.csv');
+    link.setAttribute('download', chartObject.getFileName(chartObjectID) + '.csv');
     document.body.appendChild(link);
 
     link.click();

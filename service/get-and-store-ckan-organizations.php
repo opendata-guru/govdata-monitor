@@ -84,6 +84,7 @@
 			'type' => 'root',
 			'wikidata' => 'Q458',
 			'link' => 'https://data.europa.eu/api/hub/search/catalogues',
+			'sid' => 'sYyj9',
 		);
 
 		return $data;

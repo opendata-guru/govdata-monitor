@@ -605,3 +605,193 @@ var table = (function () {
         update: funcUpdate,
     };
 }());
+
+var tableLObjects = (function () {
+    function init() {
+    }
+
+    function sortAlphabetical(options) {
+        return function(a, b) {
+            return a.title.localeCompare(b.title);
+        }
+    }
+
+    function sortCount(options) {
+        options.dates = [...new Set(options.dates)];
+        options.dates.sort();
+        var date = options.dates.slice(-1)[0];
+
+        if (!options.lObjectsCount[date]) {
+            return undefined;
+        }
+
+        var count = options.lObjectsCount[date];
+
+        return function(a, b) {
+            if (count[a.lid] === count[b.lid]) {
+                return a.title.localeCompare(b.title);
+            }
+
+            return count[a.lid] < count[b.lid] ? 1 : -1;
+        }
+    }
+
+    function sort(options) {
+//        options.pObject.lObjects.sort(sortAlphabetical(options));
+        options.pObject.lObjects.sort(sortCount(options));
+    }
+
+    function buildTableHead(options) {
+        var str = '';
+
+        str += '<tr>';
+        str += '<th style="padding:.25rem .5rem">' + options.dict[nav.lang].suppliers + '</th>';
+
+        options.dates.forEach((date) => {
+            var formated = date;
+            if (nav.lang === 'de') {
+                var current = new Date(date);
+                formated = current.toLocaleString('de-DE').split(',')[0];
+            }
+            str += '<th style="padding:.25rem .5rem;text-align:right;border-left:1px solid #17a2b8">' + formated + '</th>';
+        });
+
+        str += '</tr>';
+
+        return str;
+    }
+
+    function buildTableBody(options) {
+        var current = new Date(Date.now());
+        var dateString = current.toLocaleString('sv-SE').split(' ')[0];
+        var str = '';
+
+        options.pObject.lObjects.forEach((lObject) => {
+            var lastSeen = '';
+            var diffMilliseconds = new Date((new Date(dateString)).getTime() - (new Date(lObject.lastseen)).getTime());
+            var diff = Math.floor(diffMilliseconds/(24*3600*1000));
+
+            if (diff === 0) {
+//                lastSeen = options.dict[nav.lang].lastSeenZeroDays;
+            } else if (diff === 1) {
+//                lastSeen = '<span class="text-warning">(' + options.dict[nav.lang].lastSeenOneDay + ')</span>';
+            } else {
+                lastSeen = '<span class="text-danger">(' + options.dict[nav.lang].lastSeenMoreDays.replace('{days}', diff) + ')</span>';
+            }
+
+            str += '<tr style="border-bottom:1px solid #ddd">';
+            str += '<td style="padding:.25rem .5rem">';
+
+            if (lObject.lid) {
+                str += '<span class="badge bg-danger me-1" style="width:2.4rem">' + lObject.lid + '</span>';
+            }
+            if (lObject.sid) {
+                str += '<span class="badge bg-secondary me-1" style="width:2.4rem">' + lObject.sid + '</span>';
+            }
+
+            str += lObject.title;
+            str += ' ' + lastSeen;
+            str += '</td>';
+
+            options.dates.forEach((date) => {
+                var count = options.lObjectsCount[date] ? options.lObjectsCount[date][lObject.lid] : undefined;
+                if (count === undefined) {
+                    count = '-';
+                }
+                str += '<td style="padding:.25rem .5rem;text-align:right;background:#a4e9f4;border-left:1px solid #17a2b8">' + monitorFormatNumber(count) + '</td>';
+            });
+
+            str += '</tr>';
+        });
+
+        return str;
+    }
+
+    function buildHeader(options) {
+        var str = '';
+
+        str += '<div class="text-white" style="background:#17a2b8;padding:.62rem .5rem;font-size:.7rem">';
+        str += options.dict[nav.lang].unknownPortal + ' <span class="ms-4" style="color:#a4e9f4">' + options.pObject.url + '</span>';
+        str += '</div>';
+
+        return str;
+    }
+
+    function buildTable(options) {
+        var str = '';
+
+        str += '<table class="bg-white" style="min-height:2rem;width:100%;font-size:.7rem">';
+
+        if (options.pObject.lObjects && (options.pObject.lObjects.length > 0)) {
+            str += '<thead style="background:#a4e9f4;border-bottom:1px solid #17a2b8">';
+            str += buildTableHead(options);
+            str += '</thead>';
+            str += '<tbody>';
+            str += buildTableBody(options);
+            str += '</tbody>';
+        } else {
+            str += '<tr><td style="background: repeating-conic-gradient(#a4e9f4 0% 25%, transparent 0% 50%) 50% / 20px 20px;"></td></tr>';
+        }
+
+        str += '</table>';
+
+        return str;
+    }
+
+    function buildFooter(options) {
+        var str = '';
+
+        str += '<div class="text-white mb-3" style="background:#17a2b8;padding:.62rem .5rem;font-size:.7rem">';
+        if (!options.pObject.lObjects) {
+            str += options.dict[nav.lang].suppliersError;
+        } else if (options.pObject.lObjects.length === 0) {
+            str += options.dict[nav.lang].suppliersCountZero;
+        } else if (options.pObject.lObjects.length === 1) {
+            str += options.dict[nav.lang].suppliersCountOne;
+        } else {
+            str += options.dict[nav.lang].suppliersCountMore.replace('{count}', options.pObject.lObjects.length);
+        }
+        str += '</div>';
+
+        return str;
+    }
+
+    function buildFrame(options) {
+        var str = '';
+
+        sort(options);
+
+        str += buildHeader(options);
+        str += buildTable(options);
+        str += buildFooter(options);
+
+        return str;
+    }
+
+    function funcBuild(options) {
+        if (!options.pObject) {
+            console.error('pObject not exists');
+            return;
+        }
+
+        options.dates = [...new Set(options.dates)];
+        options.dates.sort();
+
+        var str = buildFrame(options);
+
+        var elem = document.getElementById('portal-' + options.pObject.pid);
+        elem.innerHTML = str;
+    }
+
+    init();
+
+    return {
+        build: funcBuild,
+//        copyToClipboard: funcCopyToClipboard,
+//        flatten: initvalFlatten,
+//        layers: initvalLayers,
+//        layerNameOfUndefined: layerUndefined,
+//        listDatasets: funcListDatasets,
+//        update: funcUpdate,
+    };
+}());

@@ -224,72 +224,13 @@ var catalog = (function () {
         });
     }
 
-    function buildPortalTable(pObject, dateCols) {
-        var str = '';
-        str += '<div class="text-white" style="background:#17a2b8;padding:.62rem .5rem;font-size:.7rem">';
-        str += dict[nav.lang].unknownPortal + ' <span class="ms-4" style="color:#a4e9f4">' + pObject.url + '</span></div>';
-
-        var current = new Date(Date.now());
-        var dateString = current.toLocaleString('sv-SE').split(' ')[0];
-
-        str += '<table class="bg-white" style="min-height:2rem;width:100%;font-size:.7rem">';
-
-        if (pObject.lObjects && (pObject.lObjects.length > 0)) {
-            str += '<thead style="background:#a4e9f4;border-bottom:1px solid #17a2b8"><tr>';
-            str += '<th style="padding:.25rem .5rem">' + dict[nav.lang].suppliers + '</th>';
-
-            dateCols.forEach((column) => {
-                str += '<th style="padding:.25rem .5rem;text-align:right;border-left:1px solid #17a2b8">' + column + '</th>';
-            });
-
-            str += '</tr></thead>';
-
-            str += '<tbody>';
-            pObject.lObjects.forEach((lObject) => {
-                var lastSeen = '';
-                var diffMilliseconds = new Date((new Date(dateString)).getTime() - (new Date(lObject.lastseen)).getTime());
-                var diff = Math.floor(diffMilliseconds/(24*3600*1000));
-
-                if (diff === 0) {
-//                    lastSeen = dict[nav.lang].lastSeenZeroDays;
-                } else if (diff === 1) {
-                    lastSeen = '<span class="text-warning">(' + dict[nav.lang].lastSeenOneDay + ')</span>';
-                } else {
-                    lastSeen = '<span class="text-danger">(' + dict[nav.lang].lastSeenMoreDays.replace('{days}', diff) + ')</span>';
-                }
-
-                str += '<tr style="border-bottom:1px solid #ddd">';
-                str += '<td style="padding:.25rem .5rem">' + lObject.title + ' ' + lastSeen + '</td>';
-
-                dateCols.forEach((column) => {
-                    var count = lObjectsCount[column][lObject.lid];
-                    if (count === undefined) {
-                        count = '-';
-                    }
-                    str += '<td style="padding:.25rem .5rem;text-align:right;background:#a4e9f4;border-left:1px solid #17a2b8">' + monitorFormatNumber(count) + '</td>';
-                });
-
-                str += '</tr>';
-            });
-            str += '</tbody>';
-        }
-
-        str += '</table>';
-
-        str += '<div class="text-white mb-3" style="background:#17a2b8;padding:.62rem .5rem;font-size:.7rem">';
-        if (!pObject.lObjects) {
-            str += dict[nav.lang].suppliersError;
-        } else if (pObject.lObjects.length === 0) {
-            str += dict[nav.lang].suppliersCountZero;
-        } else if (pObject.lObjects.length === 1) {
-            str += dict[nav.lang].suppliersCountOne;
-        } else {
-            str += dict[nav.lang].suppliersCountMore.replace('{count}', pObject.lObjects.length);
-        }
-        str += '</div>';
-
-        elem = document.getElementById('portal-' + pObject.pid);
-        elem.innerHTML = str;
+    function buildPortalTable(pObject, dates) {
+        tableLObjects.build({
+            dates: dates,
+            dict: dict,
+            lObjectsCount: lObjectsCount,
+            pObject: pObject,
+        });
     }
 
     function updateSID_storeLObjectsCount(payload, dateString) {
@@ -301,7 +242,12 @@ var catalog = (function () {
 
         pObjects.forEach((pObject) => {
             buildPortalChart(pObject);
-            buildPortalTable(pObject, [dateString]);
+
+            var current = new Date(Date.now());
+            var currentDate = current.toLocaleString('sv-SE').split(' ')[0];
+
+//            buildPortalTable(pObject, [currentDate, dateString]);
+            buildPortalTable(pObject, [currentDate]);
         });
     }
 

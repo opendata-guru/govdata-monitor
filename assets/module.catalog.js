@@ -607,13 +607,13 @@ var catalog = (function () {
         document.getElementById(idInteractiveEditSystemButton2).classList.add('d-none');
         document.getElementById(idInteractiveEditSystemError).innerHTML = '';
 
-        var url = 'https://opendata.guru/api/2/p/' + selectedModifyPortalLID;
+        var url = 'https://opendata.guru/api/2/l/' + selectedModifyPortalLID;
 
         account.sendRequest(url, {
             sID: selectedModifySystemSID
         }, (result) => {
             if (selectedModifySystemSID === result.sobject.sid) {
-                reloadPObjects('');
+                reloadLObjects('');
             } else {
                 console.log(result);
                 document.getElementById(idInteractiveEditSystemError).innerHTML = 'Something went wrong';
@@ -638,6 +638,25 @@ var catalog = (function () {
                 }
             });
         });
+    }
+
+    function reloadLObjects(selectLID) {
+        pObjects = [];
+//        fillModifyPObjectTable();
+//        onModifyLoadPObjects(selectLID);
+        updateSID_loadPObjects(baseURL + '/s/' + sObject.sid + '/p');
+
+        updateModifyPortalSelection();
+        enableModifyPortalButton();
+    }
+
+    function reloadSObjects(selectSID) {
+        loadedSObjects = [];
+        fillModifySObjectTable();
+        onModifyLoadSObjects(selectSID);
+
+        updateModifyPortalSelection();
+        enableModifyPortalButton();
     }
 
     function onModifyPortalSID(event) {

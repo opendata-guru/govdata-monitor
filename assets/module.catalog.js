@@ -269,11 +269,11 @@ var catalog = (function () {
         pObjects.forEach((pObject) => {
             buildPortalChart(pObject);
 
-            var current = new Date(Date.now());
-            var currentDate = current.toLocaleString('sv-SE').split(' ')[0];
-
-//            buildPortalTable(pObject, [currentDate, dateString]);
-            buildPortalTable(pObject, [currentDate]);
+//            var current = new Date(Date.now());
+//            var currentDate = current.toLocaleString('sv-SE').split(' ')[0];
+//
+//            buildPortalTable(pObject, [currentDate]);
+            buildPortalTable(pObject, date.selection);
         });
     }
 

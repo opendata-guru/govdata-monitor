@@ -157,15 +157,27 @@
 
 					</div>
 
-					<div class="row">
-						<div class="col-12">
+					<div class="row d-none d-loggedin mb-4" style="background: #a4e9f4;">
+						<div class="col-12 col-md-12 col-xxl-12 position-relative overflow-hidden border border-2 border-info">
+							<div class="flex-fill w-100 pb-3 overflow-auto text-end">
+								<span class="bg-info text-white mt-0 p-2" style="font-size: .9em;">Interactive area</span>
+							</div>
 
-							<div id="card-portals" class="mb-0 p-0 d-none"></div>
+							<div id="interactive-add-sobject"></div>
+							<div id="interactive-edit-lobject"></div>
+
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-6">
+
+							<div id="card-portals" class="mb-0 p-0"></div>
+
+						</div>
+						<div class="col-6">
 
 							<div class="card card-supplier-list flex-fill">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Count Datasets</h5>
-								</div>
 								<table class="table table-hover my-0">
 									<thead id="supplier-table-header"></thead>
 									<tbody id="supplier-table"></tbody>
@@ -200,7 +212,8 @@
 
 	<script src="assets/app.js"></script>
 	<script src="assets/module.nav.js?v=2"></script>
-	<script src="assets/module.catalog.js?v=5"></script>
+	<script src="assets/module.account.js?v=1"></script>
+	<script src="assets/module.catalog.js?v=6"></script>
 	<script src="assets/module.charthistory.js?v=3"></script>
 	<script src="assets/module.chartsupplier.js?v=2"></script>
 	<script src="assets/module.data.js?v=4"></script>
@@ -209,7 +222,7 @@
 	<script src="assets/module.map.js"></script>
 	<script src="assets/module.parents.js"></script>
 	<script src="assets/module.system.js?v=7"></script>
-	<script src="assets/module.table.js?v=3"></script>
+	<script src="assets/module.table.js?v=4"></script>
 	<script src="assets/monitor.js?v=6"></script>
 </body>
 

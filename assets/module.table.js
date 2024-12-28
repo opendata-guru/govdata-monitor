@@ -632,6 +632,13 @@ var tableLObjects = (function () {
                 return a.title.localeCompare(b.title);
             }
 
+            if (count[a.lid] === undefined) {
+                return 1;
+            }
+            if (count[b.lid] === undefined) {
+                return -1;
+            }
+
             return count[a.lid] < count[b.lid] ? 1 : -1;
         }
     }
@@ -683,7 +690,7 @@ var tableLObjects = (function () {
             str += '<td style="padding:.25rem .5rem">';
 
             if (lObject.lid) {
-                str += '<span class="badge bg-danger me-1" style="width:2.4rem">' + lObject.lid + '</span>';
+                str += '<span class="d-loggedin badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
             if (lObject.sid) {
                 str += '<span class="badge bg-secondary me-1" style="width:2.4rem">' + lObject.sid + '</span>';
@@ -783,15 +790,15 @@ var tableLObjects = (function () {
         elem.innerHTML = str;
     }
 
+    function funcSelectLID(that) {
+        var lid = that.textContent;
+        catalog.modifySetLID(lid);
+    }
+
     init();
 
     return {
         build: funcBuild,
-//        copyToClipboard: funcCopyToClipboard,
-//        flatten: initvalFlatten,
-//        layers: initvalLayers,
-//        layerNameOfUndefined: layerUndefined,
-//        listDatasets: funcListDatasets,
-//        update: funcUpdate,
+        selectLID: funcSelectLID,
     };
 }());

@@ -147,7 +147,7 @@ function updateSelection() {
     text += '<img src="' + sObject.image.url + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
     text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
     text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
-    text += '<strong>type</strong>: ' + sObject.type + '<br>';
+    text += '<strong>type</strong>: ' + data.getTypeString(sObject.type) + '<br>';
     text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
     text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
     text += '<strong>geocoding</strong>: ' + sObject.geocoding.germanRegionalKey + '<br>';

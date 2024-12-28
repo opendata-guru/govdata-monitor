@@ -17,6 +17,32 @@ var catalog = (function () {
         idSObjectBox = 'sobject-box';
     var paramId = 'sid',
         oldParamId = 'catalog';
+    var idInteractiveAddSupplier = 'interactive-add-sobject',
+        idInteractiveAddSupplierType = 'add-supplier-type',
+        idInteractiveAddSupplierRelation = 'add-supplier-relation',
+        idInteractiveAddSupplierSameAs = 'add-supplier-same-as',
+        idInteractiveAddSupplierPartOf = 'add-supplier-part-of',
+        idInteractiveAddSupplierWikidata = 'add-supplier-wikidata',
+        idInteractiveAddSupplierTitle = 'add-supplier-title',
+        idInteractiveAddSupplierError = 'add-supplier-error',
+        idInteractiveAddSupplierButton = 'add-supplier-button',
+        idInteractiveAddSupplierButton2 = 'add-supplier-button-2';
+    var idInteractiveEditSystem = 'interactive-edit-lobject',
+        idInteractiveEditSystemLObject = 'edit-system-lobject',
+        idInteractiveEditSystemSObject = 'edit-system-sobject',
+        idInteractiveEditSystemLObjects = 'edit-system-lobjects',
+        idInteractiveEditSystemSObjects = 'edit-system-sobjects',
+        idInteractiveEditSystemSelection = 'edit-system-selection',
+        idInteractiveEditSystemLoadSObjects = 'edit-system-load-sobjects',
+        idInteractiveEditSystemButton = 'edit-system-button',
+        idInteractiveEditSystemButton2 = 'edit-system-button-2',
+        idInteractiveEditSystemError = 'edit-system-error';
+    var classInteractiveHeader = 'ia-header',
+        selectedModifyPortalLID = '',
+        selectedModifySystemSID = '',
+        loadedSObjects = [],
+        filterSObjects = '',
+        showOnlyImperfectPObjects = true;
     var dict = {
             de: {
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
@@ -483,8 +509,451 @@ var catalog = (function () {
         }
     }
 
+    // ----------------------------------------------------------------------------
+
+    function prepareInteracticeElem(elem) {
+        elem.classList.add('flex-fill');
+        elem.classList.add('w-100');
+        elem.classList.add('p-3');
+        elem.classList.add('pt-0');
+        elem.classList.add('overflow-auto');
+
+        var str = '';
+        str += '<div class="ps-4 border border-info border-2 bg-info">';
+        str += '  <div class="mb-0 p-2 bg-white" style="position: relative;">';
+        str += '    <strong class="' + classInteractiveHeader + ' text-white" style="position: absolute;transform: rotate(90deg);left: 0;top: 0"></strong>';
+        str += '    <div class="row"></div>';
+        str += '  </div>';
+        str += '</div>';
+
+        elem.innerHTML = str;
+    }
+
+    function onAddSupplier() {
+        var button = document.getElementById(idInteractiveAddSupplierButton2);
+        button.classList.remove('d-none');
+
+        document.getElementById(idInteractiveAddSupplierError).innerHTML = '';
+
+        setTimeout(() => {
+            button.classList.add('d-none');
+        }, 3000);
+    }
+
+    function onAddSupplier2() {
+        document.getElementById(idInteractiveAddSupplierButton2).classList.add('d-none');
+        var elemType = document.getElementById(idInteractiveAddSupplierType);
+        var elemError = document.getElementById(idInteractiveAddSupplierError);
+        var elemTitle = document.getElementById(idInteractiveAddSupplierTitle);
+        var elemSameAs = document.getElementById(idInteractiveAddSupplierSameAs);
+        var elemWikidata = document.getElementById(idInteractiveAddSupplierWikidata);
+        var type = elemType.value;
+        var error = '';
+        var title = elemTitle.value;
+        var sameAs = elemSameAs.checked;
+        var wikidata = elemWikidata.value;
+
+        if ((title === '') && (wikidata.split('/').slice(-1)[0].toLocaleLowerCase().indexOf('q') !== 0)) {
+            error = 'Link to Wikidata is invalid';
+        }
+        elemError.innerHTML = error;
+
+        if (error === '') {
+            var url = 'https://opendata.guru/api/2/s';
+
+            account.sendRequest(url, {
+                type: type,
+                title: title,
+                sameaswikidata: sameAs ? wikidata : '',
+                partofwikidata: !sameAs ? wikidata : ''
+            }, (result) => {
+                if (type === result.type) {
+                    elemError.innerHTML = 'Done: ' + result.sid;
+                    elemWikidata.value = '';
+
+                    reloadSObjects(result.sid);
+                } else {
+                    console.log(result);
+                    elemError.innerHTML = 'Something went wrong';
+
+                    reloadSObjects('');
+                }
+            }, (error) => {
+                elemError.innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+
+                reloadSObjects('');
+            });
+        }
+    }
+
+    function onModifySystem() {
+        var button1 = document.getElementById(idInteractiveEditSystemButton);
+        if (button1.classList.contains('bg-secondary')) {
+            // button is disabled
+            return;
+        }
+
+        var button = document.getElementById(idInteractiveEditSystemButton2);
+        button.classList.remove('d-none');
+
+        document.getElementById(idInteractiveEditSystemError).innerHTML = '';
+
+        setTimeout(() => {
+            button.classList.add('d-none');
+        }, 3000);
+    }
+
+    function onModifySystem2() {
+        document.getElementById(idInteractiveEditSystemButton2).classList.add('d-none');
+        document.getElementById(idInteractiveEditSystemError).innerHTML = '';
+
+        var url = 'https://opendata.guru/api/2/p/' + selectedModifyPortalLID;
+
+        account.sendRequest(url, {
+            sID: selectedModifySystemSID
+        }, (result) => {
+            if (selectedModifySystemSID === result.sobject.sid) {
+                reloadPObjects('');
+            } else {
+                console.log(result);
+                document.getElementById(idInteractiveEditSystemError).innerHTML = 'Something went wrong';
+            }
+        }, (error) => {
+            document.getElementById(idInteractiveEditSystemError).innerHTML = error === '' ? 'Unknown error' : error.error + ' ' + error.message;
+        });
+    }
+
+    function funcModifyFilterSObjects(element) {
+        filterSObjects = element.value;
+        fillModifySObjectTable();
+    }
+
+    function funcModifySetLID(lid) {
+        selectModifyLID(lid);
+
+        pObjects.forEach((pObject) => {
+            pObject.lObjects.forEach((lObject) => {
+                if ((lObject.lid === lid) && (lObject.sid)) {
+                    selectModifyPortalSID(lObject.sid);
+                }
+            });
+        });
+    }
+
+    function onModifyPortalSID(event) {
+        var element = event.target;
+        var sID = element.value;
+
+        selectModifyPortalSID(sID);
+    }
+
+    function selectModifyLID(lid) {
+        if (selectedModifyPortalLID === lid) {
+            return;
+        }
+
+        if (lid !== '') {
+            var elem = document.getElementById(idInteractiveEditSystemLObjects);
+            var str = '';
+
+            str += lid;
+
+            elem.innerHTML = str;
+
+            elem = document.getElementById(idInteractiveEditSystem);
+            elem.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+        }
+
+        updateModifyPortalSelection();
+        enableModifyPortalButton();
+    }
+
+    function selectModifyPortalSID(sid) {
+        if (selectedModifySystemSID === sid) {
+            return;
+        }
+
+        if (sid !== '') {
+            var selection = document.getElementById('edit-system-sid-' + sid);
+            if (selection) {
+                selectedModifySystemSID = sid;
+                selection.checked = true;
+                selection.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+            }
+        }
+
+        updateModifyPortalSelection();
+        enableModifyPortalButton();
+    }
+
+    function enableModifyPortalButton() {
+        var button = document.getElementById(idInteractiveEditSystemButton);
+        var text = 'Link';
+
+        var lText = '-';
+        if (selectedModifyPortalLID) {
+            loadedPObjects.forEach(pObject => {
+                if (pObject.pid === selectedModifyPortalLID) {
+                    if (pObject.sobject) {
+                        lText = system.getTitle(pObject.sobject); 
+                    } else {
+                        lText = pObject.url;
+                    }
+                }
+            });
+        }
+
+        var sText = '-';
+        if (selectedModifySystemSID) {
+            loadedSObjects.forEach(sObject => {
+                if (sObject.sid === selectedModifySystemSID) {
+                    sText = system.getTitle(sObject); 
+                }
+            });
+        }
+
+        text += ' ' + lText +  ' to ' + sText;
+
+        button.innerHTML = text;
+
+        if ((lText !== '-') && (sText !== '-')) {
+            button.classList.remove('bg-secondary');
+            button.classList.add('bg-info');
+        } else {
+            button.classList.add('bg-secondary');
+            button.classList.remove('bg-info');
+        }
+    }
+
+    function updateModifyPortalSelection() {
+        var element = document.getElementById(idInteractiveEditSystemSelection);
+        var sObjects = Object.values(loadedSObjects).filter((sObject) => sObject.sid === selectedModifySystemSID);
+        var text = '';
+
+        if (sObjects.length > 0) {
+            var sObject = sObjects[0];
+
+            text += '<img src="' + sObject.image.url + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
+            text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
+            text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
+            text += '<strong>type</strong>: ' + data.getTypeString(sObject.type) + '<br>';
+            text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
+            text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
+            text += '<strong>geocoding</strong>: ' + sObject.geocoding.germanRegionalKey + '<br>';
+        }
+
+        element.innerHTML = text;
+    }
+
+    function fillModifySObjectTable() {
+        var listElem = document.getElementById(idInteractiveEditSystemSObjects);
+        var list = '';
+        var first = true;
+        var lowerFilter = filterSObjects.toLocaleLowerCase();
+
+        list += '<fieldset>';
+        loadedSObjects.forEach(sObject => {
+            var title = system.getTitle(sObject);
+
+            if ((lowerFilter !== '') && (-1 === title.toLocaleLowerCase().indexOf(lowerFilter))) {
+                return;
+            }
+
+            list += '<div style="overflow-x: hidden;white-space: nowrap;">';
+            list += '<input type="radio" id="edit-system-sid-' + sObject.sid + '" value="' + sObject.sid + '" name="' + idInteractiveEditSystemSObject + '" class="mx-2" ' + (first ? 'checked' : '') + '>';
+            list += '<label for="edit-system-sid-' + sObject.sid + '">' + title + '</label>';
+            list += '</div>';
+
+            first = false;
+        });
+        list += '</fieldset>';
+
+        listElem.classList.remove('text-center');
+        listElem.innerHTML = list;
+
+        document.querySelector('#' + idInteractiveEditSystemSObjects + ' fieldset').addEventListener('change', onModifyPortalSID);
+
+        var selected = document.querySelector('#' + idInteractiveEditSystemSObjects + ' fieldset input:checked');
+        if (selected) {
+            onModifyPortalSID({
+                target: selected
+            });
+        } else {
+            selectedModifySystemSID = '';
+            updateModifyPortalSelection();
+            enableModifyPortalButton();
+        }
+    }
+
+    function loadSObjects(loadedCB, errorCB) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://opendata.guru/api/2/s', true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                loadedCB(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                errorCB(JSON.parse(this.responseText));
+            }
+        }
+
+        xhr.send();
+    }
+
+    function onModifyLoadSObjects(selectSID) {
+        loadSObjects((result) => {
+            loadedSObjects = result;
+            loadedSObjects.sort(function(a, b) {
+                return system.getTitle(a).localeCompare(system.getTitle(b));
+            });
+            fillModifySObjectTable();
+            selectModifyPortalSID(selectSID);
+        }, (error) => {
+            loadedSObjects = [];
+            fillModifySObjectTable();
+
+            console.warn(error);
+        });
+    }
+
+    function installAddSupplier(elem) {
+        prepareInteracticeElem(elem);
+
+        var header = elem.getElementsByClassName(classInteractiveHeader)[0];
+        header.innerHTML = 'Add supplier';
+        header.style.left = '-4em';
+        header.style.top = '2.75em';
+
+        var row = elem.getElementsByClassName('row')[0];
+        var str = '';
+        str += '<div class="col-12 col-md-12">';
+
+        str += '  <div>';
+        str += '    <label for="' + idInteractiveAddSupplierType + '">Choose a type:</label>';
+        str += '    <select name="' + idInteractiveAddSupplierType + '" id="' + idInteractiveAddSupplierType + '">';
+        Object.keys(data.layers).forEach((key) => {
+            str += '      <option value="' + key + '">' + data.layers[key] + '</option>';
+        });
+        str += '    </select>';
+        str += '  </div>';
+
+        str += '</div>';
+        str += '<div class="col-12 col-md-6">';
+
+        str += '  <fieldset>';
+        str += '    <legend class="fs-5 mb-0">Select a Wikidata relationship:</legend>';
+        str += '    <div class="ps-3">';
+        str += '      <input type="radio" id="' + idInteractiveAddSupplierSameAs + '" name="' + idInteractiveAddSupplierRelation + '" value="sameas" checked />';
+        str += '      <label for="' + idInteractiveAddSupplierSameAs + '">Same as</label>';
+        str += '    </div>';
+        str += '    <div class="ps-3">';
+        str += '      <input type="radio" id="' + idInteractiveAddSupplierPartOf + '" name="' + idInteractiveAddSupplierRelation + '" value="partof" />';
+        str += '      <label for="' + idInteractiveAddSupplierPartOf + '">Part of</label>';
+        str += '    </div>';
+        str += '  </fieldset>';
+
+        str += '  <div>';
+        str += '    <label for="' + idInteractiveAddSupplierWikidata + '">Set link to Wikidata:</label>';
+        str += '    <input type="text" id="' + idInteractiveAddSupplierWikidata + '" name="' + idInteractiveAddSupplierWikidata + '" value="" />';
+        str += '  </div>';
+
+        str += '</div>';
+        str += '<div class="col-12 col-md-6">';
+
+        str += '  <div>';
+        str += '    <label for="' + idInteractiveAddSupplierTitle + '">Or set title:</label>';
+        str += '    <input type="text" id="' + idInteractiveAddSupplierTitle + '" name="' + idInteractiveAddSupplierTitle + '" value="" />';
+        str += '  </div>';
+
+        str += '</div>';
+        str += '<div class="col-12 col-md-12">';
+
+        str += '  <div>';
+        str += '    <span id="' + idInteractiveAddSupplierButton + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Add</span>';
+        str += '    <span id="' + idInteractiveAddSupplierButton2 + '" class="badge mt-1 bg-warning text-black d-none" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Do it</span>';
+        str += '    <span id="' + idInteractiveAddSupplierError + '" class="text-danger p-2"></span>';
+        str += '  </div>';
+
+        str += '</div>';
+
+        row.innerHTML = str;
+    }
+
+    function installEditLinks(elem) {
+        prepareInteracticeElem(elem);
+
+        var header = elem.getElementsByClassName(classInteractiveHeader)[0];
+        header.innerHTML = 'Modify portal links';
+        header.style.left = '-5.4em';
+        header.style.top = '4.3em';
+
+        var row = elem.getElementsByClassName('row')[0];
+        var str = '';
+
+        str += '<div class="col-12 col-md-4">';
+        str += '  <div style="min-height: 2em;">';
+        str += '    Click on a <span class="badge bg-danger mx-1">red label</span> in portal table.';
+        str += '  </div>';
+        str += '  <div class="border border-1 border-dark" style="height: 10em;overflow-y: scroll;">';
+        str += '    <div id="' + idInteractiveEditSystemLObjects + '" class="w-100 text-center">';
+        str += '    </div>';
+        str += '  </div>';
+        str += '</div>';
+
+        str += '<div class="col-12 col-md-4">';
+        str += '  <div style="min-height: 2em;">';
+        str += '    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+        str += '    <input type="search" placeholder="Search Supplier" class="ps-2 border border-1 border-dark" oninput="catalog.modifyFilterSObjects(this)">';
+        str += '  </div>';
+        str += '  <div class="border border-1 border-dark" style="height: 10em;overflow-y: scroll;">';
+        str += '    <div id="' + idInteractiveEditSystemSObjects + '" class="w-100 text-center">';
+        str += '      <span id="' + idInteractiveEditSystemLoadSObjects + '" class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;margin-top:4.5em !important">';
+        str += '        Load Supplier List';
+        str += '      </span>';
+        str += '    </div>';
+        str += '  </div>';
+        str += '  <div class="text-center px-2" id="modify-system-add-sobject"></div>';
+        str += '</div>';
+
+        str += '<div class="col-12 col-md-4">';
+        str += '  <div style="height: 12em;overflow-y: scroll;">';
+        str += '    <div id="' + idInteractiveEditSystemSelection + '" class="w-100 p-2">';
+        str += '    </div>';
+        str += '  </div>';
+        str += '</div>';
+
+        str += '<div class="col-12 col-md-12">';
+        str += '  <span id="' + idInteractiveEditSystemButton + '" class="badge mt-1 bg-secondary" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Link</span>';
+        str += '  <span id="' + idInteractiveEditSystemButton2 + '" class="badge mt-1 bg-warning text-black d-none" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;">Do it</span>';
+        str += '  <span id="' + idInteractiveEditSystemError + '" class="text-danger p-2"></span>';
+        str += '</div>';
+
+        row.innerHTML = str;
+    }
+
+    function installInteractiveArea() {
+        var elemAddSObject = document.getElementById(idInteractiveAddSupplier);
+        var elemEditLObject = document.getElementById(idInteractiveEditSystem);
+
+        if (elemAddSObject) {
+            installAddSupplier(elemAddSObject);
+
+            document.getElementById(idInteractiveAddSupplierButton).addEventListener('click', onAddSupplier);
+            document.getElementById(idInteractiveAddSupplierButton2).addEventListener('click', onAddSupplier2);
+        }
+
+        if (elemEditLObject) {
+            installEditLinks(elemEditLObject);
+
+            document.getElementById(idInteractiveEditSystemButton).addEventListener('click', onModifySystem);
+            document.getElementById(idInteractiveEditSystemButton2).addEventListener('click', onModifySystem2);
+            document.getElementById(idInteractiveEditSystemLoadSObjects).addEventListener('click', onModifyLoadSObjects);
+        }
+    }
+
     function funcStart() {
         updateSID();
+        installInteractiveArea();
     }
 
     init();
@@ -500,5 +969,7 @@ var catalog = (function () {
         set: funcSet,
         start: funcStart,
         update: funcUpdate,
+        modifySetLID: funcModifySetLID,
+        modifyFilterSObjects: funcModifyFilterSObjects,
     };
 }());

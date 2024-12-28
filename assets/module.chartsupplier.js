@@ -94,7 +94,7 @@ var chartLObjects = (function () {
         chartData[pid] = [];
 
         for (var c = 0; c < options.pObject.lObjects.length; ++c) {
-            var labels = options.pObject.lObjects[c].title;
+            var labels = tableLObjects.getLObjectTitle(options.pObject.lObjects[c]);
             var lid = options.pObject.lObjects[c].lid;
             var data = [];
 

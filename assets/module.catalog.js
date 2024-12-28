@@ -656,10 +656,22 @@ var catalog = (function () {
             var elem = document.getElementById(idInteractiveEditSystemLObjects);
             var str = '';
 
-            str += lid;
+            pObjects.forEach((pObject) => {
+                pObject.lObjects.forEach((lObject) => {
+                    if (lObject.lid === lid) {
+                        if (lObject.sobject) {
+                            str += '<b>' + system.getTitle(lObject.sobject) + '</b><br><br>';
+                        }
+                        str += '<b>Title:</b> ' + lObject.title + '<br>';
+                        str += '<b>Identifier:</b> ' + lObject.identifier + '<br>';
+                        str += '<b>lid:</b> ' + lObject.lid + '<br>';
+                    }
+                });
+            });
 
             elem.innerHTML = str;
 
+            selectedModifyPortalLID = lid;
             elem = document.getElementById(idInteractiveEditSystem);
             elem.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
         }
@@ -692,14 +704,16 @@ var catalog = (function () {
 
         var lText = '-';
         if (selectedModifyPortalLID) {
-            loadedPObjects.forEach(pObject => {
-                if (pObject.pid === selectedModifyPortalLID) {
-                    if (pObject.sobject) {
-                        lText = system.getTitle(pObject.sobject); 
-                    } else {
-                        lText = pObject.url;
+            pObjects.forEach((pObject) => {
+                pObject.lObjects.forEach((lObject) => {
+                    if (lObject.lid === selectedModifyPortalLID) {
+                        if (lObject.sobject) {
+                            lText = system.getTitle(lObject.sobject);
+                        } else {
+                            lText = lObject.title;
+                        }
                     }
-                }
+                });
             });
         }
 

@@ -610,9 +610,35 @@ var tableLObjects = (function () {
     function init() {
     }
 
+    function getLObjectTitle(lObject) {
+        var sObject = lObject.sobject;
+
+        if (sObject && sObject.title) {
+            if (sObject.title[nav.lang]) {
+                return sObject.title[nav.lang];
+            }
+            if (sObject.title.en) {
+                return sObject.title.en;
+            }
+            return sObject.title[Object.keys(sObject.title)[0]];
+        }
+
+        return lObject.title;
+    }
+
+    function getLObjectImage(lObject) {
+        var sObject = lObject.sobject;
+
+        if (sObject && sObject.image && (sObject.image.url !== '')) {
+            return  '<img src="' + sObject.image.url + '" style="height:1.5em;margin:-.1rem .5em 0 0">';
+        }
+
+        return '';
+    }
+
     function sortAlphabetical(options) {
         return function(a, b) {
-            return a.title.localeCompare(b.title);
+            return getLObjectTitle(a).localeCompare(getLObjectTitle(b));
         }
     }
 
@@ -629,7 +655,7 @@ var tableLObjects = (function () {
 
         return function(a, b) {
             if (count[a.lid] === count[b.lid]) {
-                return a.title.localeCompare(b.title);
+                return getLObjectTitle(a).localeCompare(getLObjectTitle(b));
             }
 
             if (count[a.lid] === undefined) {
@@ -690,13 +716,10 @@ var tableLObjects = (function () {
             str += '<td style="padding:.25rem .5rem">';
 
             if (lObject.lid) {
-                str += '<span class="d-loggedin badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
-            }
-            if (lObject.sid) {
-                str += '<span class="badge bg-secondary me-1" style="width:2.4rem">' + lObject.sid + '</span>';
+                str += '<span class="d-loggedin ' + (account.isLoggedIn() ? '' : 'd-none') + ' badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
 
-            str += lObject.title;
+            str += getLObjectImage(lObject) + getLObjectTitle(lObject);
             str += ' ' + lastSeen;
             str += '</td>';
 
@@ -799,6 +822,7 @@ var tableLObjects = (function () {
 
     return {
         build: funcBuild,
+        getLObjectTitle: getLObjectTitle,
         selectLID: funcSelectLID,
     };
 }());

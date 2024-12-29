@@ -629,7 +629,7 @@ var tableLObjects = (function () {
     function getLObjectType(lObject) {
         var sObject = lObject.sobject;
 
-        if (sObject && sObject.image && (sObject.image.url !== '')) {
+        if (sObject) {
             return  data.getTypeString(sObject.type);
         }
 

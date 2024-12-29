@@ -214,6 +214,14 @@ var catalog = (function () {
     }
 
     function funcSet(catalogId) {
+        if ((catalogId === oldDefaultId) && (sID !== defaultSID)) {
+            // fix old id
+            var catalogObj = funcGetBySID(sID);
+            if (catalogObj) {
+                catalogId = catalogObj.id;
+            }
+        }
+
         setId(catalogId);
 //        setSID(catalogId);
 //        updateSID();

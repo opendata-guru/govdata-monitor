@@ -725,11 +725,13 @@ var tableLObjects = (function () {
 
             str += '<tr style="border-bottom:1px solid #ddd">';
 
+            var url = lObject.sid ? 'sid=' + lObject.sid : 'lid=' + lObject.lid;
+            url += nav.lang === 'en' ? '' : '&lang=' + nav.lang;
             str += '<td style="padding:.25rem .5rem">';
             if (lObject.lid) {
                 str += '<span class="d-loggedin ' + (account.isLoggedIn() ? '' : 'd-none') + ' badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
-            str += getLObjectImage(lObject) + getLObjectTitle(lObject);
+            str += '<a href="catalogs.html?' + url + '">' + getLObjectImage(lObject) + getLObjectTitle(lObject) + '</a>';
             str += ' ' + lastSeen;
             str += '</td>';
 

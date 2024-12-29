@@ -626,6 +626,16 @@ var tableLObjects = (function () {
         return lObject.title;
     }
 
+    function getLObjectType(lObject) {
+        var sObject = lObject.sobject;
+
+        if (sObject && sObject.image && (sObject.image.url !== '')) {
+            return  data.getTypeString(sObject.type);
+        }
+
+        return '';
+    }
+
     function getLObjectImage(lObject) {
         var sObject = lObject.sobject;
 
@@ -679,6 +689,7 @@ var tableLObjects = (function () {
 
         str += '<tr>';
         str += '<th style="padding:.25rem .5rem">' + options.dict[nav.lang].suppliers + '</th>';
+        str += '<th>&nbsp;</th>';
 
         options.dates.forEach((date) => {
             var formated = date;
@@ -713,14 +724,17 @@ var tableLObjects = (function () {
             }
 
             str += '<tr style="border-bottom:1px solid #ddd">';
-            str += '<td style="padding:.25rem .5rem">';
 
+            str += '<td style="padding:.25rem .5rem">';
             if (lObject.lid) {
                 str += '<span class="d-loggedin ' + (account.isLoggedIn() ? '' : 'd-none') + ' badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
-
             str += getLObjectImage(lObject) + getLObjectTitle(lObject);
             str += ' ' + lastSeen;
+            str += '</td>';
+
+            str += '<td style="padding:.25rem .5rem;background:#eee">';
+            str += getLObjectType(lObject);
             str += '</td>';
 
             options.dates.forEach((date) => {

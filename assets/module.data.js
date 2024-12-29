@@ -158,11 +158,8 @@ var data = (function () {
             return ret;
         }
 
-        if (type === 'state+municipality') {
+        if ((type === 'state+municipality') || (type === 'municipality+state')) {
             return dict[nav.lang].state_municipality;
-        }
-        if (type === 'municipality+state') {
-            return 'Land + Stadt';
         } else if (type !== '') {
             return '?';
         }

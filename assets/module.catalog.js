@@ -229,13 +229,49 @@ var catalog = (function () {
         window.scrollTo(0, 0);
 
         var catalogObject = funcGet(catalogId);
-        var strCatalog = catalogId;
 
         if (catalogObject) {
-            strCatalog = catalogObject.title;
             setSID(catalogObject.sid);
             updateSID();
         }
+
+        catalog.update();
+        if (parents) {
+            parents.update();
+        }
+        if (date) {
+            date.update();
+        }
+        data.emitFilterChanged();
+    }
+
+    function funcSetLID(lid) {
+        // todo
+
+        window.scrollTo(0, 0);
+
+        catalog.update();
+        if (parents) {
+            parents.update();
+        }
+        if (date) {
+            date.update();
+        }
+        data.emitFilterChanged();
+    }
+
+    function funcSetSID(sID) {
+        // fix old id
+        var catalogObj = funcGetBySID(sID);
+        if (catalogObj) {
+            var catalogId = catalogObj.id;
+            setId(catalogId);
+        }
+
+        setSID(sID);
+        updateSID();
+
+        window.scrollTo(0, 0);
 
         catalog.update();
         if (parents) {
@@ -365,14 +401,19 @@ var catalog = (function () {
 
         var strChart = '';
         var strCard = '';
+//        var size = Object.keys(pObjects).length;
+//        var 
+//console.log(c);
         pObjects.forEach((pObject) => {
             strChart += '<div id="portal-chart-' + pObject.pid + '">';
-            strChart += '<div>&nbsp;</div>';
-            strChart += '<div class="loading-bar my-3 pb-2" style="height:16rem"></div>';
+            strChart += '  <div>&nbsp;</div>';
+            strChart += '  <div class="loading-bar my-3 pb-2" style="height:16rem"></div>';
             strChart += '</div>';
 
-            strCard += '<div id="portal-' + pObject.pid + '">';
-            strCard += '<div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div>';
+            strCard += '<div class="col">';
+            strCard += '  <div id="portal-' + pObject.pid + '">';
+            strCard += '    <div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div>';
+            strCard += '  </div>';
             strCard += '</div>';
         });
 
@@ -501,7 +542,9 @@ var catalog = (function () {
                 elem.innerHTML = str;
 
                 str = '';
-                str += '<div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div>';
+                str += '<div class="col-12">';
+                str += '  <div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div>';
+                str += '</div>';
 
                 elem = document.getElementById(idCardPObjects);
                 elem.innerHTML = str;
@@ -1008,6 +1051,8 @@ var catalog = (function () {
         getSObject: funcGetSObject,
         getDownloadMenu: getDownloadMenu,
         set: funcSet,
+        setLID: funcSetLID,
+        setSID: funcSetSID,
         start: funcStart,
         update: funcUpdate,
         modifySetLID: funcModifySetLID,

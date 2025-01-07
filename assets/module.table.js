@@ -611,6 +611,10 @@ var tableLObjects = (function () {
     }
 
     function getLObjectTitle(lObject) {
+        if (!lObject) {
+            return '---- null';
+        }
+
         var sObject = lObject.sobject;
 
         if (sObject && sObject.title) {
@@ -623,7 +627,11 @@ var tableLObjects = (function () {
             return sObject.title[Object.keys(sObject.title)[0]];
         }
 
-        return lObject.title;
+        if (lObject.title) {
+            return lObject.title;
+        }
+
+        return '*' + lObject.identifier + '*';
     }
 
     function getLObjectType(lObject) {
@@ -648,7 +656,33 @@ var tableLObjects = (function () {
 
     function sortAlphabetical(options) {
         return function(a, b) {
-            return getLObjectTitle(a).localeCompare(getLObjectTitle(b));
+            var a_ = 'x';
+            var b_ = 'x';
+            var objA = a;
+            var objB = b;
+
+            if (a.ispartof && (a.ispartof.length > 0)) {
+                objA = options.pObject.lObjects.find(lObject => lObject.lid === a.ispartof[0]);
+                if (objA) {
+                    a_ += ' ' + objA.identifier;
+                } else {
+                    a_ += '?';
+                }
+            }
+            if (b.ispartof && (b.ispartof.length > 0)) {
+                objB = options.pObject.lObjects.find(lObject => lObject.lid === b.ispartof[0]);
+                if (objB) {
+                    b_ += ' ' + objB.identifier;
+                } else {
+                    b_ += '?';
+                }
+            }
+
+            var ret = getLObjectTitle(objA).localeCompare(getLObjectTitle(objB));
+            if (ret !== 0) {
+                return ret;
+            }
+            return a_.localeCompare(b_);
         }
     }
 
@@ -664,18 +698,48 @@ var tableLObjects = (function () {
         var count = options.lObjectsCount[date];
 
         return function(a, b) {
-            if (count[a.lid] === count[b.lid]) {
-                return getLObjectTitle(a).localeCompare(getLObjectTitle(b));
+            var a_ = 'x';
+            var b_ = 'x';
+            var objA = a;
+            var objB = b;
+            var a_lid = a.lid;
+            var b_lid = b.lid;
+
+            if (a.ispartof && (a.ispartof.length > 0)) {
+                objA = options.pObject.lObjects.find(lObject => lObject.lid === a.ispartof[0]);
+                if (objA) {
+                    a_ += ' ' + objA.identifier;
+                    a_lid = objA.lid;
+                } else {
+                    a_ += '?';
+                }
+            }
+            if (b.ispartof && (b.ispartof.length > 0)) {
+                objB = options.pObject.lObjects.find(lObject => lObject.lid === b.ispartof[0]);
+                if (objB) {
+                    b_ += ' ' + objB.identifier;
+                    b_lid = objB.lid;
+                } else {
+                    b_ += '?';
+                }
             }
 
-            if (count[a.lid] === undefined) {
+            if (count[a_lid] === count[b_lid]) {
+                var ret = getLObjectTitle(objA).localeCompare(getLObjectTitle(objB));
+                if (ret !== 0) {
+                    return ret;
+                }
+                return a_.localeCompare(b_);
+            }
+
+            if (count[a_lid] === undefined) {
                 return 1;
             }
-            if (count[b.lid] === undefined) {
+            if (count[b_lid] === undefined) {
                 return -1;
             }
 
-            return count[a.lid] < count[b.lid] ? 1 : -1;
+            return count[a_lid] < count[b_lid] ? 1 : -1;
         }
     }
 
@@ -712,6 +776,8 @@ var tableLObjects = (function () {
 
         options.pObject.lObjects.forEach((lObject) => {
             var lastSeen = '';
+            var indentCSS = '';
+            var countCSS = '';
             var diffMilliseconds = new Date((new Date(dateString)).getTime() - (new Date(lObject.lastseen)).getTime());
             var diff = Math.floor(diffMilliseconds/(24*3600*1000));
 
@@ -721,6 +787,11 @@ var tableLObjects = (function () {
 //                lastSeen = '<span class="text-warning">(' + options.dict[nav.lang].lastSeenOneDay + ')</span>';
             } else {
                 lastSeen = '<span class="text-danger">(' + options.dict[nav.lang].lastSeenMoreDays.replace('{days}', diff) + ')</span>';
+            }
+
+            if (lObject.ispartof && (lObject.ispartof.length > 0)) {
+                indentCSS = 'padding-left:1.5rem;font-style:italic';
+                countCSS = 'font-style:italic';
             }
 
             str += '<tr style="border-bottom:1px solid #ddd">';
@@ -736,15 +807,19 @@ var tableLObjects = (function () {
             }
 
             url += nav.lang === 'en' ? '' : '&lang=' + nav.lang;
-            str += '<td style="padding:.25rem .5rem">';
+            str += '<td style="padding:.25rem .5rem;' + indentCSS + '">';
             if (lObject.lid) {
                 str += '<span class="d-loggedin ' + (account.isLoggedIn() ? '' : 'd-none') + ' badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
-            str += '<a href="catalogs.html?' + url + '" onclick="' + onClick + '";event.preventDefault()>' + getLObjectImage(lObject) + getLObjectTitle(lObject) + '</a>';
+            if (lObject.ispartof && (lObject.ispartof.length > 0)) {
+                str +=  getLObjectImage(lObject) + getLObjectTitle(lObject) + ' (' + lObject.identifier + ')';
+            } else {
+                str += '<a href="catalogs.html?' + url + '" onclick="' + onClick + '";event.preventDefault()>' + getLObjectImage(lObject) + getLObjectTitle(lObject) + '</a>';
+            }
             str += ' ' + lastSeen;
             str += '</td>';
 
-            str += '<td style="padding:.25rem .5rem;background:#eee">';
+            str += '<td style="padding:.25rem .5rem;background:#eee;' + countCSS + '">';
             str += getLObjectType(lObject);
             str += '</td>';
 
@@ -753,7 +828,7 @@ var tableLObjects = (function () {
                 if (count === undefined) {
                     count = '-';
                 }
-                str += '<td style="padding:.25rem .5rem;text-align:right;background:#a4e9f4;border-left:1px solid #17a2b8">' + monitorFormatNumber(count) + '</td>';
+                str += '<td style="padding:.25rem .5rem;text-align:right;background:#a4e9f4;border-left:1px solid #17a2b8;' + countCSS + '">' + monitorFormatNumber(count) + '</td>';
             });
 
             str += '</tr>';

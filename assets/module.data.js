@@ -32,6 +32,7 @@ var data = (function () {
             business: 'Unternehmen',
             civilSociety: 'Zivilgesellschaft',
             research: 'Forschung',
+            religiousCommunity: 'Religionsgemeinschaft',
         },
         en: {
             international: 'International',
@@ -54,6 +55,7 @@ var data = (function () {
             business: 'Business',
             civilSociety: 'Civil society',
             research: 'Research',
+            religiousCommunity: 'Religious Community',
         },
     };
 
@@ -81,6 +83,7 @@ var data = (function () {
         layers['business'] = dict[lang].business;
         layers['civilSociety'] = dict[lang].civilSociety;
         layers['research'] = dict[lang].research;
+        layers['religiousCommunity'] = dict[lang].religiousCommunity;
     }
 
     function funcAddEventListenerStartLoading(func) {

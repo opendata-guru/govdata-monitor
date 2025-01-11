@@ -38,11 +38,19 @@ var system = (function () {
 //        idLogo1 = 'logo-1',
 //        idLogo2 = 'logo-2',
         idWikipedia = 'linkWikipedia';
-    var localDict = {
-        noLinkFound: 'No link found',
-        noOrganisationFound: 'No organisation found',
-//        duplicateOrganisationEntriesFound: 'Duplicate organisation entries found',
-        couldNotCountDatasets: 'Could not count datasets',
+    var dict = {
+        de: {
+            couldNotCountPObject: 'Datensätze konnten nicht gezählt werden',
+            noLObjectsFound: 'Keine Datenliefernde gefunden',
+            noSObjectFound: 'Kein semantischer Titel gefunden',
+            missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
+        },
+        en: {
+            couldNotCountPObject: 'Datasets could not be counted',
+            noLObjectsFound: 'No suppliers found',
+            noSObjectFound: 'No semantic title found',
+            missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
+        },
     };
     var assets = [];
     var pSystems = [];
@@ -428,11 +436,39 @@ var system = (function () {
         elemBody.innerHTML = body;
     }
 
+    function getIssueRow(sys, cols) {
+        var monitoringObj = monitoring.get(sys.pobject);
+        var str = '';
+
+        if (monitoringObj) {
+            str += '<tr><td colspan=' + cols + ' class="px-3 py-1" style="background:#ddd;border-radius:0 0 1rem 1rem">';
+
+            monitoringObj.forEach((issue) => {
+                if (issue.severity === 'info') {
+                    str += '<span class="bg-info text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">i</span>';
+                } else if (issue.severity === 'warning') {
+                    str += '<span class="bg-warning text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">!</span>';
+                } else {
+                    str += '<span class="bg-danger text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">x</span>';
+                }
+
+                var translated = dict[nav.lang][issue.message];
+                translated = translated.replace('%sObjects%', issue.sObjects);
+                translated = translated.replace('%lObjects%', issue.lObjects);
+                str += translated;
+                str += '<br>';
+            });
+
+            str += '</td></tr>';
+        }
+
+        return str;
+    }
+
     function getOtherSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>System</th>';
         head += '<th>Version</th>';
         head += '<th>API</th>';
@@ -443,52 +479,32 @@ var system = (function () {
     }
 
     function getOtherSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            sys.version = sys.version === null ? '-' : sys.version;
-            sys.system = sys.system === null ? '-' : sys.system;
-            sys.cms = sys.cms === null ? '-' : sys.cms;
-            cols += '<td class="align-middle">' + sys.system + '</td>';
-            cols += '<td class="align-middle">' + sys.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + (sys.extensions ? JSON.stringify(sys.extensions) : '-') + '</td>';
-            cols += '<td class="align-middle">' + sys.cms + '</td>';
-        } else {
-            var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">' + url + '</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
+        sys.version = sys.version === null ? '-' : sys.version;
+        sys.system = sys.system === null ? '-' : sys.system;
+        sys.cms = sys.cms === null ? '-' : sys.cms;
+        cols += '<td class="align-middle">' + sys.system + '</td>';
+        cols += '<td class="align-middle">' + sys.version + '</td>';
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
+        cols += '<td class="align-middle">' + (sys.extensions ? JSON.stringify(sys.extensions) : '-') + '</td>';
+        cols += '<td class="align-middle">' + sys.cms + '</td>';
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getCKANSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>CKAN Version</th>';
         head += '<th>API</th>';
         head += '<th>Extensions</th>';
@@ -498,21 +514,15 @@ var system = (function () {
     }
 
     function getCKANSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
         if (sys) {
             sys.cms = sys.cms === null ? '-' : sys.cms;
@@ -528,11 +538,7 @@ var system = (function () {
             } else {
                 cols += '<td class="align-middle">-</td>';
             }
-            if (sys.url) {
-                cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-            } else {
-                cols += '<td class="align-middle">-</td>';
-            }
+            cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
             cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
             cols += '<td class="align-middle">' + sys.cms + '</td>';
         } else {
@@ -542,18 +548,13 @@ var system = (function () {
             cols += '<td class="align-middle">-</td>';
         }
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
     }
 
     function getDKANSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>API</th>';
         head += '<th>CMS</th>';
 
@@ -561,44 +562,27 @@ var system = (function () {
     }
 
     function getDKANSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            sys.cms = sys.cms === null ? '-' : sys.cms;
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + sys.cms + '</td>';
-        } else {
-            var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
-            cols += '<td class="align-middle">' + url + '</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
+        sys.cms = sys.cms === null ? '-' : sys.cms;
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
+        cols += '<td class="align-middle">' + sys.cms + '</td>';
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getPiveauSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>Search Version</th>';
         head += '<th>Registry Version</th>';
         head += '<th>MQA Version</th>';
@@ -609,48 +593,29 @@ var system = (function () {
     }
 
     function getPiveauSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            cols += '<td class="align-middle">' + (sys.extensions.search || '-') + '</td>';
-            cols += '<td class="align-middle">' + (sys.extensions.registry || '-') + '</td>';
-            cols += '<td class="align-middle">' + (sys.extensions.MQA || '-') + '</td>';
-            cols += '<td class="align-middle">' + (sys.extensions['SHACL metadata validation'] || '-') + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-        } else {
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
+        cols += '<td class="align-middle">' + (sys.extensions.search || '-') + '</td>';
+        cols += '<td class="align-middle">' + (sys.extensions.registry || '-') + '</td>';
+        cols += '<td class="align-middle">' + (sys.extensions.MQA || '-') + '</td>';
+        cols += '<td class="align-middle">' + (sys.extensions['SHACL metadata validation'] || '-') + '</td>';
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getODSSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>ODS Version</th>';
         head += '<th>API</th>';
 
@@ -658,42 +623,26 @@ var system = (function () {
     }
 
     function getODSSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            cols += '<td class="align-middle">' + sys.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-        } else {
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
+        cols += '<td class="align-middle">' + sys.version + '</td>';
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
     }
 
     function getEntryScapeSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>EntryScape Version</th>';
         head += '<th>API</th>';
         head += '<th>Extensions</th>';
@@ -702,44 +651,27 @@ var system = (function () {
     }
 
     function getEntryScapeSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            cols += '<td class="align-middle">' + sys.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
-        } else {
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
+        cols += '<td class="align-middle">' + sys.version + '</td>';
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
+        cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getArcGISHubSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>ArcGIS Hub Version</th>';
         head += '<th>API</th>';
 
@@ -747,42 +679,26 @@ var system = (function () {
     }
 
     function getArcGISHubSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            cols += '<td class="align-middle">' + sys.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-        } else {
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
+        cols += '<td class="align-middle">' + sys.version + '</td>';
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
 
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=5 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
     }
 
     function getSPARQLSystemsHead() {
         var head = '';
 
         head += '<th>Title</th>';
-        head += '<th>Datasets</th>';
         head += '<th>System</th>';
         head += '<th>Version</th>';
         head += '<th>API</th>';
@@ -793,46 +709,26 @@ var system = (function () {
     }
 
     function getSPARQLSystemsRow(sys) {
-        var monitoringObj = monitoring.get(sys.pobject.deepLink);
-        var catalogObj = catalog.getBySID(sys.sobject ? sys.sobject.sid : null);
-
         var title = getSystemTitle(sys.sobject);
-        var datasetCount = catalogObj ? catalogObj.datasetCount : 'unknown';
-        var error = '';
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
 
         if (title === '') {
-            title = sys.url;
+            title = sys.url || sys.pobject.deepLink;
         }
 
         var cols = '';
         cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
-        cols += '<td>' + monitorFormatNumber(datasetCount) + '</td>';
 
-        if (sys) {
-            sys.version = sys.version === null ? '-' : sys.version;
-            sys.name = sys.name === null ? '-' : sys.name;
-            sys.build.os = sys.build.os === null ? '-' : sys.build.os;
-            sys.build.date = sys.build.date === null ? '-' : sys.build.date;
-            cols += '<td class="align-middle">' + sys.name + '</td>';
-            cols += '<td class="align-middle">' + sys.version + '</td>';
-            cols += '<td class="align-middle"><a href="' + sys.url + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle">' + sys.build.date + '</td>';
-            cols += '<td class="align-middle">' + sys.build.os + '</td>';
-        } else {
-            var url = catalogObj ? '<a href="' + catalogObj.link + '" target="_blank">API</a>' : '-';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">' + url + '</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-        }
-
-        if (monitoringObj) {
-            error = '<tr ><td></td><td colspan=6 class="bg-danger text-white px-3 py-1" style="border-radius:0 0 1rem 1rem">' + title + ': ' + localDict[monitoringObj.message] + '</td></tr>';
-        }
-
-        return '<tr>' + cols + '</tr>' + error;
+        sys.version = sys.version === null ? '-' : sys.version;
+        sys.name = sys.name === null ? '-' : sys.name;
+        sys.build.os = sys.build.os === null ? '-' : sys.build.os;
+        sys.build.date = sys.build.date === null ? '-' : sys.build.date;
+        cols += '<td class="align-middle">' + sys.name + '</td>';
+        cols += '<td class="align-middle">' + sys.version + '</td>';
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
+        cols += '<td class="align-middle">' + sys.build.date + '</td>';
+        cols += '<td class="align-middle">' + sys.build.os + '</td>';
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function updateSystemTable() {

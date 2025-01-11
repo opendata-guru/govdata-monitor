@@ -1,9 +1,9 @@
 var monitoring = (function () {
-    var baseURL = 'https://opendata.guru/govdata/assets/',
-        uriToLoad = '';
+    var uriPIssues = 'https://opendata.guru/api/2/p/issues/today',
+        uriPIssuesAlt = 'https://opendata.guru/api/2/p/issues/yesterday';
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
-    var assets = [];
+    var pIssues = [];
 
     function init() {
     }
@@ -24,28 +24,26 @@ var monitoring = (function () {
         eventListenerEndLoading.forEach((func) => func());
     }
 
-    function setLoadingDate(loadingDate) {
-        var dateString = loadingDate.toISOString().split('T')[0];
-        var uri = baseURL + 'monitoring-' + dateString.split('-')[0] + '/' + dateString + '.json';
-
-        uriToLoad = uri;
-    }
-
-    function store(payload) {
-        assets = payload;
+    function storePIssues(payload) {
+        pIssues = payload;
 
         dispatchEventEndLoading();
     }
 
-    function load() {
+    function loadPIssues() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', uriToLoad, true);
+        xhr.open('GET', uriPIssues, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                store(JSON.parse(this.responseText));
+                storePIssues(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                dispatchEventEndLoading();
+                if (uriPIssues === uriPIssuesAlt) {
+                    dispatchEventEndLoading();
+                } else {
+                    uriPIssues = uriPIssuesAlt;
+                    loadPIssues();
+                }
             }
         }
 
@@ -53,23 +51,19 @@ var monitoring = (function () {
     }
 
     function funcLoadData() {
-        setLoadingDate(new Date(Date.now()));
-
         dispatchEventStartLoading('monitoring');
 
-        load();
+        loadPIssues();
     }
 
-    function funcGet(link) {
-        var ret = null;
+    function funcGet(pObject) {
+        var pid = pObject.pid;
 
-        assets.errors.forEach(error => {
-            if (error.object === link) {
-                ret = error;
-            }
-        });
+        if (pIssues[pid]) {
+            return pIssues[pid];
+        }
 
-        return ret;
+        return null;
     }
 
     init();

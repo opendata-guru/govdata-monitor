@@ -21,8 +21,9 @@ var data = (function () {
         'national-open-data-portal-cyprus':{de: 'Zypern', en: 'Cyprus'},
         'nkod-opendata-cz':  {de: 'Tschechien',  en: 'Czechia'    },
         'datavejviser':      {de: 'Dänemark',    en: 'Denmark'    },
-        'avaandmete-portaal':{de: 'Estland',     en: 'Estonia'    },
-        'open-data-finland': {de: 'Finnland',    en: 'Finland'    },
+        'geodata-info-dk':   {de: 'Dänemark, Geo',en:'Denmark, Geo'},
+        'ng-ee':             {de: 'Estland',     en: 'Estonia'    }, // avaandmete-portaal
+        'fmi':               {de: 'Finnland',    en: 'Finland'    }, // open-data-finland
         'plateforme-ouverte-des-donnees-publiques-francaises':{de: 'Frankreich', en: 'France'},
         'govdata':           {de: 'Deutschland', en: 'Germany'    },
         'gr':{de: 'Griechenland', en: 'Greece'},
@@ -31,15 +32,16 @@ var data = (function () {
         'dati-gov-it':       {de: 'Italien',     en: 'Italy'      },
         'data-gov-lv':       {de: 'Lettland',    en: 'Latvia'     },
         'data-gov-lt':       {de: 'Litauen',     en: 'Lithuania'  },
-        'la-plateforme-de-donnees-luxembourgeoise':{de: 'Luxemburg', en: 'Luxembourg'},
+        'geoportal-lu':      {de: 'Luxemburg',   en: 'Luxembourg' }, // la-plateforme-de-donnees-luxembourgeoise
         'mt':{de: 'Malta', en: 'Malta'},
-        'dataportaal-van-de-nederlandse-overheid':{de: 'Niederlande', en: 'Netherlands'},
+        'ngr-nl':            {de: 'Niederlande', en: 'Netherlands'}, // dataportaal-van-de-nederlandse-overheid
         'dane-gov-pl':       {de: 'Polen',       en: 'Poland'     },
         'dados-gov-pt':      {de: 'Portugal',    en: 'Portugal'   },
         'data-gov-ro':       {de: 'Rumänien',    en: 'Romania'    },
         'data-gov-sk':       {de: 'Slowakei',    en: 'Slovakia'   },
         'odprti-podatki-slovenije':{de: 'Slowenien', en: 'Slovenia'},
-        'idee':              {de: 'Spanien',     en: 'Spain'      },
+        'idee':              {de: 'Spanien, Geo',en: 'Spain, Geo' },
+        'datos-gob-es':      {de: 'Spanien',     en: 'Spain'      },
         'oppnadata':         {de: 'Schweden',    en: 'Sweden'     },
     };
 

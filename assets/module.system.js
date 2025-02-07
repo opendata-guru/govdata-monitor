@@ -528,12 +528,14 @@ var system = (function () {
             sys.cms = sys.cms === null ? '-' : sys.cms;
             if (sys.version) {
                 var version = '<span style="display:inline-block;width:4em">' + sys.version + '</span>';
-                assetsChangelogCKAN.history.forEach(item => {
-                    if (item.version === sys.version) {
-                        var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
-                        version += '<span class="badge ' + color + '" style="width:7em">' + item.date + '</span>';
-                    }
-                });
+                if (assetsChangelogCKAN.history) {
+                    assetsChangelogCKAN.history.forEach(item => {
+                        if (item.version === sys.version) {
+                            var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
+                            version += '<span class="badge ' + color + '" style="width:7em">' + item.date + '</span>';
+                        }
+                    });
+                }
                 cols += '<td class="align-middle">' + version + '</td>';
             } else {
                 cols += '<td class="align-middle">-</td>';

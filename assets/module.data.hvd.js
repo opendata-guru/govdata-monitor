@@ -24,6 +24,7 @@ var data = (function () {
         'geodata-info-dk':   {de: 'Dänemark, Geo',en:'Denmark, Geo'},
         'ng-ee':             {de: 'Estland',     en: 'Estonia'    }, // avaandmete-portaal
         'fmi':               {de: 'Finnland',    en: 'Finland'    }, // open-data-finland
+        'paikkatietohakemisto':{de:'Finnland, Geo',en:'Finland, Geo'},
         'plateforme-ouverte-des-donnees-publiques-francaises':{de: 'Frankreich', en: 'France'},
         'govdata':           {de: 'Deutschland', en: 'Germany'    },
         'gr':{de: 'Griechenland', en: 'Greece'},
@@ -41,6 +42,7 @@ var data = (function () {
         'data-gov-sk':       {de: 'Slowakei',    en: 'Slovakia'   },
         'odprti-podatki-slovenije':{de: 'Slowenien', en: 'Slovenia'},
         'idee':              {de: 'Spanien, Geo',en: 'Spain, Geo' },
+        'codsi':             {de: 'Spanien, INSPIRE', en: 'Spain, INSPIRE' },
         'datos-gob-es':      {de: 'Spanien',     en: 'Spain'      },
         'oppnadata':         {de: 'Schweden',    en: 'Sweden'     },
     };

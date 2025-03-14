@@ -44,7 +44,9 @@ var data = (function () {
         'idee':              {de: 'Spanien, Geo',en: 'Spain, Geo' },
         'codsi':             {de: 'Spanien, INSPIRE', en: 'Spain, INSPIRE' },
         'datos-gob-es':      {de: 'Spanien',     en: 'Spain'      },
+        'navarra':           {de: 'Spanien (Provinz Navarra)', en: 'Spain (Navarra region)'},
         'oppnadata':         {de: 'Schweden',    en: 'Sweden'     },
+        'nsip-se':           {de: 'Schweden (NSIP)', en: 'Sweden (NSIP)'},
     };
 
     function init() {

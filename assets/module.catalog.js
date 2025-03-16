@@ -32,6 +32,7 @@ var catalog = (function () {
         idInteractiveEditSystemSObject = 'edit-system-sobject',
         idInteractiveEditSystemLObjects = 'edit-system-lobjects',
         idInteractiveEditSystemSObjects = 'edit-system-sobjects',
+        idInteractiveEditSystemSearch = 'edit-system-search',
         idInteractiveEditSystemSelection = 'edit-system-selection',
         idInteractiveEditSystemLoadSObjects = 'edit-system-load-sobjects',
         idInteractiveEditSystemButton = 'edit-system-button',
@@ -740,7 +741,11 @@ var catalog = (function () {
                 pObject.lObjects.forEach((lObject) => {
                     if (lObject.lid === lid) {
                         if (lObject.sobject) {
-                            str += '<b>' + system.getTitle(lObject.sobject) + '</b><br><br>';
+                            var title = system.getTitle(lObject.sobject);
+                            var titleStart = title.trim().split(' ')[0];
+                            str += '<b>' + title + '</b>'
+                            str += '<span class="badge mt-1 bg-info" style="margin:0 0 0 .5rem;cursor:pointer;" onclick="catalog.setSearchSupplier(\'' + titleStart + '\')">→</span>';
+                            str += '<br><br>';
                         }
                         str += '<b>Title:</b> ' + lObject.title + '<br>';
                         str += '<b>Identifier:</b> ' + lObject.identifier + '<br>';
@@ -910,6 +915,15 @@ var catalog = (function () {
         });
     }
 
+    function funcSetSearchSupplier(titleStart) {
+        var element = document.getElementById(idInteractiveEditSystemSearch);
+
+        element.value = titleStart;
+        filterSObjects = titleStart;
+
+        fillModifySObjectTable();
+    }
+
     function installAddSupplier(elem) {
         prepareInteracticeElem(elem);
 
@@ -997,7 +1011,7 @@ var catalog = (function () {
         str += '<div class="col-12 col-md-4">';
         str += '  <div style="min-height: 2em;">';
         str += '    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
-        str += '    <input type="search" placeholder="Search Supplier" class="ps-2 border border-1 border-dark" oninput="catalog.modifyFilterSObjects(this)">';
+        str += '    <input id="' + idInteractiveEditSystemSearch + '" type="search" placeholder="Search Supplier" class="ps-2 border border-1 border-dark" oninput="catalog.modifyFilterSObjects(this)">';
         str += '  </div>';
         str += '  <div class="border border-1 border-dark" style="height: 10em;overflow-y: scroll;">';
         str += '    <div id="' + idInteractiveEditSystemSObjects + '" class="w-100 text-center">';
@@ -1064,6 +1078,7 @@ var catalog = (function () {
         set: funcSet,
         setLID: funcSetLID,
         setSID: funcSetSID,
+        setSearchSupplier: funcSetSearchSupplier,
         start: funcStart,
         update: funcUpdate,
         modifySetLID: funcModifySetLID,

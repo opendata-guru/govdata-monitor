@@ -50,8 +50,11 @@ var catalog = (function () {
                 lastSeenZeroDays: 'Heute zuletzt gesehen',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
+                suppliersCountMoreFilter: '{count} Datenliefernde (gefiltert aus {max} Datenliefernden)',
                 suppliersCountOne: '1 Datenliefernde:r',
+                suppliersCountOneFilter: '1 Datenliefernde:r (gefiltert aus {max} Datenliefernden)',
                 suppliersCountZero: 'Keine Datenliefernde',
+                suppliersCountZeroFilter: 'Keine Datenliefernde (gefiltert aus {max} Datenliefernden)',
                 suppliersError: 'Beim Ermitteln, wer die Daten bereitgestellt hat, ist ein Fehler aufgetreten',
                 suppliersHistory: '{days} Tage Datenliefernde Historie',
                 unknownPortal: 'Portal',
@@ -63,8 +66,11 @@ var catalog = (function () {
                 lastSeenZeroDays: 'Last seen today',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
+                suppliersCountMoreFilter: '{count} data suppliers (filtered from {max} data suppliers)',
                 suppliersCountOne: '1 data supplier',
+                suppliersCountOneFilter: '1 data supplier (filtered from {max} data suppliers)',
                 suppliersCountZero: 'No data suppliers',
+                suppliersCountZeroFilter: 'No data suppliers (filtered from {max} data suppliers)',
                 suppliersError: 'An error occurred while determining who suppliered the data',
                 suppliersHistory: '{days} days supplier history',
                 unknownPortal: 'Portal',
@@ -303,13 +309,7 @@ var catalog = (function () {
         });
     }
 
-    function updateSID_storeLObjectsCount(payload, dateString) {
-        if (payload) {
-            lObjectsCount[dateString] = payload;
-        } else {
-            lObjectsCount[dateString] = [];
-        }
-
+    function funcRebuildAllPortalTables() {
         pObjects.forEach((pObject) => {
             buildPortalChart(pObject);
 
@@ -319,6 +319,16 @@ var catalog = (function () {
 //            buildPortalTable(pObject, [currentDate]);
             buildPortalTable(pObject, date.selection);
         });
+    }
+
+    function updateSID_storeLObjectsCount(payload, dateString) {
+        if (payload) {
+            lObjectsCount[dateString] = payload;
+        } else {
+            lObjectsCount[dateString] = [];
+        }
+
+        funcRebuildAllPortalTables();
     }
 
     function updateSID_loadLObjectsCount(url, dateString) {
@@ -1050,6 +1060,7 @@ var catalog = (function () {
         getSameAs: funcGetSameAs,
         getSObject: funcGetSObject,
         getDownloadMenu: getDownloadMenu,
+        rebuildAllPortalTables: funcRebuildAllPortalTables,
         set: funcSet,
         setLID: funcSetLID,
         setSID: funcSetSID,

@@ -638,6 +638,16 @@ var tableLObjects = (function () {
         var sObject = lObject.sobject;
 
         if (sObject) {
+            return  sObject.type;
+        }
+
+        return '';
+    }
+
+    function getLObjectTypeString(lObject) {
+        var sObject = lObject.sobject;
+
+        if (sObject) {
             return  data.getTypeString(sObject.type);
         }
 
@@ -745,7 +755,9 @@ var tableLObjects = (function () {
 
     function sort(options) {
 //        options.pObject.lObjects.sort(sortAlphabetical(options));
-        options.pObject.lObjects.sort(sortCount(options));
+        if (options.pObject && options.pObject.lObjects) {
+            options.pObject.lObjects.sort(sortCount(options));
+        }
     }
 
     function buildTableHead(options) {
@@ -774,12 +786,30 @@ var tableLObjects = (function () {
         var dateString = current.toLocaleString('sv-SE').split(' ')[0];
         var str = '';
 
+        options.pObject.lObjectsFiltered = 0;
         options.pObject.lObjects.forEach((lObject) => {
             var lastSeen = '';
             var indentCSS = '';
             var countCSS = '';
             var diffMilliseconds = new Date((new Date(dateString)).getTime() - (new Date(lObject.lastseen)).getTime());
             var diff = Math.floor(diffMilliseconds/(24*3600*1000));
+            var type = getLObjectType(lObject);
+            var strType = getLObjectTypeString(lObject);
+
+            if (table && table.layers.length > 0) {
+                var show = false;
+                table.layers.forEach(layer => {
+                    if (layer === table.layerNameOfUndefined) {
+                        show |= type === '';
+                    } else {
+                        show |= (-1 !== type.split('+').indexOf(layer));
+                    }
+                });
+                if (!show) {
+                    return;
+                }
+            }
+            ++options.pObject.lObjectsFiltered;
 
             if (diff === 0) {
 //                lastSeen = options.dict[nav.lang].lastSeenZeroDays;
@@ -820,7 +850,7 @@ var tableLObjects = (function () {
             str += '</td>';
 
             str += '<td style="padding:.25rem .5rem;background:#eee;' + countCSS + '">';
-            str += getLObjectType(lObject);
+            str += strType;
             str += '</td>';
 
             options.dates.forEach((date) => {
@@ -874,12 +904,22 @@ var tableLObjects = (function () {
         str += '<div class="text-white mb-3" style="background:#17a2b8;padding:.62rem .5rem;font-size:.7rem">';
         if (!options.pObject.lObjects) {
             str += options.dict[nav.lang].suppliersError;
-        } else if (options.pObject.lObjects.length === 0) {
-            str += options.dict[nav.lang].suppliersCountZero;
-        } else if (options.pObject.lObjects.length === 1) {
-            str += options.dict[nav.lang].suppliersCountOne;
+        } else if (options.pObject.lObjectsFiltered === options.pObject.lObjects.length) {
+            if (options.pObject.lObjects.length === 0) {
+                str += options.dict[nav.lang].suppliersCountZero;
+            } else if (options.pObject.lObjects.length === 1) {
+                str += options.dict[nav.lang].suppliersCountOne;
+            } else {
+                str += options.dict[nav.lang].suppliersCountMore.replace('{count}', options.pObject.lObjects.length);
+            }
         } else {
-            str += options.dict[nav.lang].suppliersCountMore.replace('{count}', options.pObject.lObjects.length);
+            if (options.pObject.lObjectsFiltered === 0) {
+                str += options.dict[nav.lang].suppliersCountZeroFilter.replace('{max}', options.pObject.lObjects.length);
+            } else if (options.pObject.lObjectsFiltered === 1) {
+                str += options.dict[nav.lang].suppliersCountOneFilter.replace('{max}', options.pObject.lObjects.length);
+            } else {
+                str += options.dict[nav.lang].suppliersCountMoreFilter.replace('{count}', options.pObject.lObjectsFiltered).replace('{max}', options.pObject.lObjects.length);
+            }
         }
         str += '</div>';
 

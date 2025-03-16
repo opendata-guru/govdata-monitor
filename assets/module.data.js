@@ -315,6 +315,10 @@ var data = (function () {
             table.update();
         }
 
+        if (catalog) {
+            catalog.rebuildAllPortalTables();
+        }
+
         monitorUpdateCatalogPieChart();
 
         if (charthistory) {

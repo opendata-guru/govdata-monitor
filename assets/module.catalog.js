@@ -740,14 +740,30 @@ var catalog = (function () {
             pObjects.forEach((pObject) => {
                 pObject.lObjects.forEach((lObject) => {
                     if (lObject.lid === lid) {
-                        if (lObject.sobject) {
+						var titleSplit = lObject.title.trim().split(' ');
+						var titleStart = titleSplit[0];
+
+						if ((titleSplit.length > 0) && (
+							   (titleSplit[0] === 'Stadt')
+							|| (titleSplit[0] === 'Gemeinde')
+							|| (titleSplit[0] === 'Flecken')
+							|| (titleSplit[0] === 'Samtgemeinde')
+							|| (titleSplit[0] === 'Verwaltungsgemeinschaft')
+							|| (titleSplit[0] === 'Kreis')
+							|| (titleSplit[0] === 'Landkreis')
+						)) {
+							titleSplit.shift();
+							if (titleSplit.length > 0) {
+								titleStart = titleSplit[0];
+							}
+						}
+						if (lObject.sobject) {
                             var title = system.getTitle(lObject.sobject);
-                            var titleStart = title.trim().split(' ')[0];
-                            str += '<b>' + title + '</b>'
-                            str += '<span class="badge mt-1 bg-info" style="margin:0 0 0 .5rem;cursor:pointer;" onclick="catalog.setSearchSupplier(\'' + titleStart + '\')">→</span>';
-                            str += '<br><br>';
+							str += '<b>' + system.getTitle(lObject.sobject) + '</b><br><br>';
                         }
-                        str += '<b>Title:</b> ' + lObject.title + '<br>';
+                        str += '<b>Title:</b> ' + lObject.title;
+						str += '<span class="badge mt-1 bg-info" style="margin:0 0 0 .5rem;cursor:pointer;" onclick="catalog.setSearchSupplier(\'' + titleStart + '\')">→</span>';
+						str += '<br>';
                         str += '<b>Identifier:</b> ' + lObject.identifier + '<br>';
                         str += '<b>lid:</b> ' + lObject.lid + '<br>';
                     }

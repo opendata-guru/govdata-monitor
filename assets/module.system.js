@@ -611,7 +611,7 @@ var system = (function () {
         cols += '<td class="align-middle">' + (sys.extensions['SHACL metadata validation'] || '-') + '</td>';
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
 
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
+        return '<tr class="issues">' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getODSSystemsHead() {

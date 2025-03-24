@@ -786,7 +786,6 @@ var tableLObjects = (function () {
         var dateString = current.toLocaleString('sv-SE').split(' ')[0];
         var str = '';
 
-        options.pObject.lObjectsFiltered = 0;
         options.pObject.lObjects.forEach((lObject) => {
             var lastSeen = '';
             var indentCSS = '';
@@ -881,6 +880,8 @@ var tableLObjects = (function () {
         var str = '';
 
         str += '<table class="bg-white" style="min-height:2rem;width:100%;font-size:.7rem">';
+
+        options.pObject.lObjectsFiltered = 0;
 
         if (options.pObject.lObjects && (options.pObject.lObjects.length > 0)) {
             str += '<thead style="background:#a4e9f4;border-bottom:1px solid #17a2b8">';

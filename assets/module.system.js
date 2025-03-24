@@ -441,7 +441,7 @@ var system = (function () {
         var str = '';
 
         if (monitoringObj) {
-            str += '<tr><td colspan=' + cols + ' class="px-3 py-1" style="background:#ddd;border-radius:0 0 1rem 1rem">';
+            str += '<tr class="issues"><td colspan=' + cols + ' class="px-3 py-1" style="background:#ddd;border-radius:0 0 1rem 1rem">';
 
             monitoringObj.forEach((issue) => {
                 if (issue.severity === 'info') {
@@ -487,7 +487,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         sys.version = sys.version === null ? '-' : sys.version;
         sys.system = sys.system === null ? '-' : sys.system;
@@ -522,7 +522,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         if (sys) {
             sys.cms = sys.cms === null ? '-' : sys.cms;
@@ -572,7 +572,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         sys.cms = sys.cms === null ? '-' : sys.cms;
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
@@ -603,7 +603,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         cols += '<td class="align-middle">' + (sys.extensions.search || '-') + '</td>';
         cols += '<td class="align-middle">' + (sys.extensions.registry || '-') + '</td>';
@@ -611,7 +611,7 @@ var system = (function () {
         cols += '<td class="align-middle">' + (sys.extensions['SHACL metadata validation'] || '-') + '</td>';
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
 
-        return '<tr class="issues">' + cols + '</tr>' + getIssueRow(sys, 6);
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getODSSystemsHead() {
@@ -633,7 +633,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         cols += '<td class="align-middle">' + sys.version + '</td>';
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
@@ -661,7 +661,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         cols += '<td class="align-middle">' + sys.version + '</td>';
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
@@ -689,7 +689,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         cols += '<td class="align-middle">' + sys.version + '</td>';
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
@@ -719,7 +719,7 @@ var system = (function () {
         }
 
         var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '">' + title + '</a></td>';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
 
         sys.version = sys.version === null ? '-' : sys.version;
         sys.name = sys.name === null ? '-' : sys.name;

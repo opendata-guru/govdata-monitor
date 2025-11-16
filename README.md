@@ -55,11 +55,28 @@ And service endpoints:
 - https://opendata.guru/govdata/service/create-map.php
 - https://opendata.guru/govdata/service/create-monitoring.php
 
-(use a cron job service like https://cron-job.org)
-
 Regionalschlüssel:
 
 - https://www.dcat-ap.de/def/politicalGeocoding/regionalKey/
+
+## Cron job
+
+What happens at night?
+
+The script [service/artery.php](https://opendata.guru/govdata/service/artery.php) is executed automatically every 2 minutes. It can either be started locally via a cron job or using an online service like [cron-job.org](https://cron-job.org).
+
+Order | Level               | Asset | Task
+------|---------------------|-------|------
+0     | root                |       | void
+1     | ckan-organizations  | :x:   get-and-store-ckan-organizations.php | write file ```/assets/data-YEAR/YEAR-MONTH-DAY-organizations.json```
+2     | ckan-dataset-counts | :x:   get-and-store-ckan-dataset-counts.php | write / append in file ```/assets/data-YEAR/YEAR-MONTH-DAY-organizations.json```
+3     | systems             | :x:   get-and-store-systems.php |	write file ```/assets/data-YEAR/YEAR-MONTH-DAY-systems.json```
+4     | providers           | :new: api/cronjob/cronjob-providers.php |
+5     | hvd                 | :new: api/cronjob/cronjob-hvd.php |
+6     | monitoring-old      | :x:   create-monitoring.php | write file ```/assets/monitoring-YEAR/YEAR-MONTH-DAY.json```
+7     | monitoring          | :new: api/cronjob/cronjob-monitoring.php |
+8     | create-map          | :x:   create-map.php | write file ```/assets/map-YEAR/YEAR-MONTH-DAY-de.geojson```
+9     | insights            | :new: api/cronjob/cronjob-insights.php |
 
 ## Ideas
 
@@ -156,3 +173,8 @@ OPTIONAL {?publisher skos:prefLabel ?publisherLabel}
 }
 LIMIT 25
 ```
+
+
+## Used Libraries
+
+- [Folder and File Explorer](https://github.com/cubiclesoft/js-fileexplorer)

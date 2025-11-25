@@ -1,146 +1,178 @@
 var parents = (function () {
-    var idParents = 'parents';
+    var baseURL = 'https://opendata.guru/api/2';
+    var idParentData = 'parent-data';
+    var childSIDList = [];
+    var orgchart = null;
 
     function init() {
         var css = '';
 
-        css += '.parent-diagram {margin:0 auto;width:max-content;}';
-        css += '.parent-diagram ul {display:flex;padding:.75rem 0 0 0;position:relative;}';
-        css += '.parent-diagram ul::before {border-left:1px solid #17a2b8;content:"";height:.75rem;left:50%;position:absolute;top:0;width:0;}';
-        css += '.parent-diagram > ul::before {border:none;}';
-        css += '.parent-diagram li {float:left;list-style-type:none;padding:.75rem .2rem 0 .2rem;position:relative;text-align:center;}';
-        css += '.parent-diagram li:only-child {flex:auto;padding-top:0;}';
-        css += '.parent-diagram li::after, .parent-diagram li::before {border-top:1px solid #17a2b8;content:"";height:.75rem;position:absolute;top:0;width:50%;}';
-        css += '.parent-diagram li:only-child::after, .parent-diagram li:only-child::before {display:none;}';
-        css += '.parent-diagram li::after {left:50%;}';
-        css += '.parent-diagram li::before {right:50%;}';
-        css += '.parent-diagram li:first-child::after {border-radius:.5rem 0 0 0;border-left:1px solid #17a2b8;}';
-        css += '.parent-diagram li:first-child::before {border:none;}';
-        css += '.parent-diagram li:last-child::before {border-radius:0 .5rem 0 0;border-right:1px solid #17a2b8;}';
-        css += '.parent-diagram li:last-child::after {border:none;}';
-        css += '.parent-diagram a {border:1px solid #17a2b8;border-radius:.25rem;color:#17a2b8 !important;display:inline-block;font-size:.8rem;padding:.25rem .5rem;text-decoration:none;}';
-        css += '.parent-diagram a.end {background:#a4e9f4;pointer-events:none;}';
-        css += '.parent-diagram a:hover {background:#49d3e9;color:#fff !important;}';
+        css += '#parent-data {margin: 0; padding: 0}';
+        css += '.orgchart {background: none; border: none; min-height: auto; padding: 0; width: 100%}';
+        css += '.orgchart>table:first-child {margin: 0 auto}';
+        css += '.orgchart .node {border-radius: 8px; margin: -5px 0}';
+        css += '.orgchart .node.root {pointer-events:none}';
+        css += '.orgchart .node:hover {background: #a4e9f4; cursor: pointer;}';
+        css += '.orgchart .node .title {background: #a4e9f4; border: 1px solid #17a2b8;border-bottom: none; color: #17a2b8}';
+        css += '.orgchart .node.root .title {background: #17a2b8; color: #fff}';
+        css += '.orgchart .node .content {border-color: #17a2b8; height: calc(2.5rem + 2px); margin-bottom: -6px; padding: .25rem}';
+        css += '.orgchart tr.lines .downLine {background: #17a2b8; height: 1rem}';
+        css += '.orgchart tr.lines td.rightLine, .orgchart tr.lines td.leftLine {border-color: #17a2b8}';
 
         const style = document.createElement('style');
         style.textContent = css;
         document.head.append(style);
+
+        initOrgChart({});
     }
 
-    function funcUpdate() {
-        document.getElementById(idParents).innerHTML = getParents(catalog.id);
-    }
+    function initOrgChart(chartData) {
+        orgchart = new OrgChart({
+            'chartContainer': '#' + idParentData,
+            'data' : chartData,
+            'createNode': function(node, data) {
+                var div = document.createElement('div');
+                div.setAttribute('class', 'content');
+                div.innerHTML = '<img style="height:2rem;width:100%;object-fit:contain" src="' + data.image + '">';
+                node.appendChild(div);
 
-    function getDeeper(id) {
-        var ret = [];
-        var catalogObject = catalog.get(id);
-
-        if (catalogObject) {
-            ret = getDeeper(catalogObject.packagesInId);
-            var obj = {
-                id: id,
-                title: catalogObject.title,
-            };
-            ret.push(obj);
-        }
-
-        return ret;
-    }
-
-    function getAsList(id) {
-        var list = [];
-
-        var sameAs = catalog.getSameAs(id);
-        if (sameAs.length > 0) {
-            sameAs.forEach((sameID) => {
-                list.push(getDeeper(sameID));
-            });
-        }
-
-        list.sort(function(a, b) {
-            var s = '', t = '';
-
-            a.forEach((item) => s += item.id + '|');
-            b.forEach((item) => t += item.id + '|');
-
-            return a < b ? -1 : a > b ? 1 : 0;
-        });
-
-        return list;
-    }
-
-    function getAsTree(list) {
-        var tree = [];
-
-        list.forEach((path) => {
-            var children = tree;
-            path.forEach((item) => {
-                children.push({
-                    children: [],
-                    id: item.id,
-                    title: item.title,
+                node.addEventListener('click', () => {
+                    catalog.setSID(data.sid);
                 });
-                children = children[children.length - 1].children;
-            });
+            },
         });
-
-        return tree;
     }
 
-    function getSimplifiedTree(tree) {
-        for (var t = 1; t < tree.length; ++t) {
-            if (tree[t - 1].id === tree[t].id) {
-                tree[t - 1].children = [].concat(tree[t - 1].children, tree[t].children)
-                tree.splice(t, 1);
-                t = 0;
+    function funcUpdateSID() {
+        updateParentData(catalog.getSObject());
+    }
+
+    function updateParentData(sObject) {
+        var chartContainer = document.getElementById(idParentData);
+        chartContainer.innerHTML = '';
+//        var selectedChart = chartContainer.querySelector('.orgchart');
+//        selectedChart.innerHTML = '';
+
+        var chartData = {
+            className: 'sid-' + sObject.sid + ' root',
+            name: system.getTitle(sObject),
+            image: sObject.image.url,
+            sid: sObject.sid,
+            type: data.getTypeString(sObject.type),
+        };
+
+        initOrgChart({});
+        orgchart.buildHierarchy(orgchart.chart, chartData, 0, function() {
+            fillSID(sObject.sid);
+        });
+    }
+
+    function fillSID(sid) {
+        loadLObjects(sid, baseURL + '/s/' + sid + '/l');
+    }
+
+    function loadLObjects(parentSID, url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        var chartContainer = document.getElementById(idParentData);
+        chartContainer.classList.add('loading-bar');
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                chartContainer.classList.remove('loading-bar');
+                storeLObjects(parentSID, JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                chartContainer.classList.remove('loading-bar');
+				var error = '';
+                try {
+                    error = JSON.parse(this.responseText);
+                    console.error(error);
+                } catch(e) {
+                }
             }
         }
 
-        tree.forEach((branch) => {
-            branch.children = getSimplifiedTree(branch.children);
-        });
-
-        return tree;
+        xhr.send();
     }
 
-    function format(data, isRoot) {
-        var ret = '';
+    function storeLObjects(parentSID, payload) {
+        lObjects = [];
 
-        if (data.length) {
-            ret += '<ul>';
-            data.forEach((item) => {
-                if (item.children.length === 0) {
-                    ret += '<li>';
-                    ret += '<a class="end">' + item.title + '</a>';
-                    ret += '</li>';
-                } else {
-                    ret += '<li>';
-                    ret += '<a onclick="catalog.set(\'' + item.id + '\')">' + item.title + '</a>';
-                    ret += format(item.children, false);
-                    ret += '</li>';
-                }
-            });
-
-            ret += '</ul>';
+        if (payload && payload.lobjects) {
+            lObjects = payload.lobjects;
         }
 
-        return ret;
+        var children = [];
+        var sIDs = [];
+        lObjects.forEach(lObject => {
+/*            children.push({
+                id: 'lid-' + lObject.lid,
+                name: lObject.title,
+                haspart: lObject.haspart,
+                ispartof: lObject.ispartof,
+                identifier: lObject.identifier,
+                pid: lObject.pid,
+                pobject: lObject.pobject,
+                sid: lObject.sid,
+            });*/
+
+            if (lObject.pobject && lObject.pobject.sobject) {
+                var sObject = lObject.pobject.sobject;
+
+                if ((parentSID !== sObject.sid) && (!children.find((child) => child.sid === sObject.sid))) {
+                    childSIDList[sObject.sid] = {
+                        className: 'sid-' + sObject.sid,
+                        name: system.getTitle(sObject),
+                        image: sObject.image.url,
+                        sid: sObject.sid,
+                        type: data.getTypeString(sObject.type),
+                        childrenSIDs: []
+                    };
+
+                    children.push(getChild(sObject.sid));
+                    childSIDList[parentSID]?.childrenSIDs.push(sObject.sid);
+
+//                    var elem = document.getElementById('sid-' + sObject.sid);
+                    var elems = document.getElementsByClassName('sid-' + sObject.sid);
+                    if (elems.length === 0) {
+                        sIDs.push(sObject.sid);
+                    }
+                }
+            }
+        });
+
+//        var selectedNode = document.getElementById('sid-' + parentSID);
+        var selectedNodes = document.querySelectorAll('.sid-' + parentSID);
+        selectedNodes.forEach((selectedNode) => {
+            orgchart.addChildren(selectedNode, {
+                'children': children
+            });
+        });
+
+        window.setTimeout(function() {
+            sIDs.forEach(sID => {
+                fillSID(sID);
+            });
+        }, 100);
     }
 
-    function getParents(id) {
-        var ret = '';
+    function getChild(sid) {
+        var child = childSIDList[sid];
 
-        ret += '<div class="parent-diagram">';
-        ret += format(getSimplifiedTree(getAsTree(getAsList(id))), true);
-        ret += '<div style="clear:both"></div>';
-        ret += '</div>';
-
-        return ret;
+//        child.children = [];
+/*console.log(child.childrenSIDs, childSIDList[sid].childrenSIDs);
+        child.childrenSIDs.forEach((sid) => {
+console.log(sid);
+            child.children.push(getChild(sid));
+        });
+console.log(child);*/
+        return child;
     }
 
     init();
 
     return {
-        update: funcUpdate,
+        updateSID: funcUpdateSID,
     };
 }());

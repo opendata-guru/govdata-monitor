@@ -1,7 +1,7 @@
 var catalog = (function () {
     var baseURL = 'https://opendata.guru/api/2';
-    var oldInitvalId = '',
-        oldDefaultId = 'govdata',
+    var oldInitvalId = '', // depricated
+        oldDefaultId = 'govdata', // depricated
         sID = '',
         sObject = null;
         lObjects = [];
@@ -10,13 +10,14 @@ var catalog = (function () {
         pObjectsLoadedLObjects = 0;
         defaultSID = 'smZ1A'; //GovData
     var idCatalogHistoryTitle = 'catalog-history-title',
+        idParentTitle = 'parent-title',
         idSupplierHistoryTitle = 'supplier-history-title',
         idCardSObject = 'card-sobject',
         idCardPObjects = 'card-portals',
         idChartPObjects = 'chart-portals',
         idSObjectBox = 'sobject-box';
     var paramId = 'sid',
-        oldParamId = 'catalog';
+        oldParamId = 'catalog'; // depricated
     var idInteractiveAddSupplier = 'interactive-add-sobject',
         idInteractiveAddSupplierType = 'add-supplier-type',
         idInteractiveAddSupplierRelation = 'add-supplier-relation',
@@ -46,6 +47,7 @@ var catalog = (function () {
         showOnlyImperfectPObjects = true;
     var dict = {
             de: {
+                dataFlow: 'Datenfluss',
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
                 lastSeenOneDay: 'Gestern zuletzt gesehen',
                 lastSeenZeroDays: 'Heute zuletzt gesehen',
@@ -62,6 +64,7 @@ var catalog = (function () {
                 unknownSupplier: 'Unbekannte Datenquelle',
             },
             en: {
+                dataFlow: 'Data flow',
                 lastSeenMoreDays: 'Last seen {days} days ago',
                 lastSeenOneDay: 'Last seen yesterday',
                 lastSeenZeroDays: 'Last seen today',
@@ -88,30 +91,30 @@ var catalog = (function () {
             sID = defaultSID;
         }
 
-        if (params.has(oldParamId)) {
-            oldInitvalId = params.get(oldParamId);
-        } else {
-            oldInitvalId = oldDefaultId;
-        }
+        if (params.has(oldParamId)) { // depricated
+            oldInitvalId = params.get(oldParamId); // depricated
+        } else { // depricated
+            oldInitvalId = oldDefaultId; // depricated
+        } // depricated
     }
 
-    function setId(id) {
-        oldInitvalId = id;
+    function setId(id) { // depricated
+        oldInitvalId = id; // depricated
 
-        if (catalog) {
-            catalog.id = oldInitvalId;
-        }
+        if (catalog) { // depricated
+            catalog.id = oldInitvalId; // depricated
+        } // depricated
 
-        var params = new URLSearchParams(window.location.search);
-        if (id === oldDefaultId) {
-            params.delete(oldParamId);
-        } else {
-            params.set(oldParamId, id);
-        }
-        window.history.pushState({}, '', `${location.pathname}?${params}`);
+        var params = new URLSearchParams(window.location.search); // depricated
+        if (id === oldDefaultId) { // depricated
+            params.delete(oldParamId); // depricated
+        } else { // depricated
+            params.set(oldParamId, id); // depricated
+        } // depricated
+        window.history.pushState({}, '', `${location.pathname}?${params}`); // depricated
     }
 
-    function setSID(id) {
+    function setSID_(id) {
         sID = id;
 
         if (catalog) {
@@ -212,6 +215,11 @@ var catalog = (function () {
             elemHistory.innerHTML = data.loadedDays + ' days supplier history ' + getDownloadMenu('chartsupplier');
         }
 
+        elemHistory = document.getElementById(idParentTitle);
+        if (elemHistory) {
+            elemHistory.innerHTML = dict[nav.lang].dataFlow;
+        }
+
         if (data.loadedDays > data.initalDays) {
             if (document.getElementById('removeLoadedDays')) {
                 document.getElementById('removeLoadedDays').style.pointerEvents = '';
@@ -221,7 +229,7 @@ var catalog = (function () {
     }
 
     function funcSet(catalogId) {
-        if ((catalogId === oldDefaultId) && (sID !== defaultSID)) {
+        if ((catalogId === oldDefaultId) && (sID !== defaultSID)) { // depricated
             // fix old id
             var catalogObj = funcGetBySID(sID);
             if (catalogObj) {
@@ -229,8 +237,8 @@ var catalog = (function () {
             }
         }
 
-        setId(catalogId);
-//        setSID(catalogId);
+        setId(catalogId); // depricated
+//        setSID_(catalogId);
 //        updateSID();
 
         window.scrollTo(0, 0);
@@ -238,14 +246,11 @@ var catalog = (function () {
         var catalogObject = funcGet(catalogId);
 
         if (catalogObject) {
-            setSID(catalogObject.sid);
+            setSID_(catalogObject.sid);
             updateSID();
         }
 
         catalog.update();
-        if (parents) {
-            parents.update();
-        }
         if (date) {
             date.update();
         }
@@ -258,9 +263,9 @@ var catalog = (function () {
         window.scrollTo(0, 0);
 
         catalog.update();
-        if (parents) {
-            parents.update();
-        }
+//        if (parents) {
+//            parents.updateSID();
+//        }
         if (date) {
             date.update();
         }
@@ -269,21 +274,18 @@ var catalog = (function () {
 
     function funcSetSID(sID) {
         // fix old id
-        var catalogObj = funcGetBySID(sID);
-        if (catalogObj) {
-            var catalogId = catalogObj.id;
-            setId(catalogId);
-        }
+        var catalogObj = funcGetBySID(sID); // depricated
+        if (catalogObj) { // depricated
+            var catalogId = catalogObj.id; // depricated
+            setId(catalogId); // depricated
+        } // depricated
 
-        setSID(sID);
+        setSID_(sID);
         updateSID();
 
         window.scrollTo(0, 0);
 
         catalog.update();
-        if (parents) {
-            parents.update();
-        }
         if (date) {
             date.update();
         }
@@ -511,11 +513,17 @@ var catalog = (function () {
         } else {
             updateSID_storeLObjects(null);
         }
+
+        if (parents) {
+            parents.updateSID();
+        }
     }
 
     function updateSID_loadSObject(url) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
+
+        sObject = null;
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -747,6 +755,7 @@ var catalog = (function () {
 							   (titleSplit[0] === 'Stadt')
 							|| (titleSplit[0] === 'Gemeinde')
 							|| (titleSplit[0] === 'Flecken')
+							|| (titleSplit[0] === 'Amt')
 							|| (titleSplit[0] === 'Samtgemeinde')
 							|| (titleSplit[0] === 'Verwaltungsgemeinschaft')
 							|| (titleSplit[0] === 'Kreis')
@@ -1083,7 +1092,7 @@ var catalog = (function () {
     init();
 
     return {
-        id: oldInitvalId,
+        id: oldInitvalId, // depricated
         sID: sID,
         get: funcGet,
         getBySID: funcGetBySID,
@@ -1091,7 +1100,7 @@ var catalog = (function () {
         getSObject: funcGetSObject,
         getDownloadMenu: getDownloadMenu,
         rebuildAllPortalTables: funcRebuildAllPortalTables,
-        set: funcSet,
+        set: funcSet, // depricated
         setLID: funcSetLID,
         setSID: funcSetSID,
         setSearchSupplier: funcSetSearchSupplier,

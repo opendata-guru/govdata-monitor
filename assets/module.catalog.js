@@ -12,7 +12,6 @@ var catalog = (function () {
     var idCatalogHistoryTitle = 'catalog-history-title',
         idParentTitle = 'parent-title',
         idSupplierHistoryTitle = 'supplier-history-title',
-        idCardSObject = 'card-sobject',
         idCardPObjects = 'card-portals',
         idChartPObjects = 'chart-portals',
         idSObjectBox = 'sobject-box';
@@ -492,13 +491,11 @@ var catalog = (function () {
     function updateSID_storeSObject(payload) {
         sObject = payload;
 
-        var url = sObject && sObject.image ? sObject.image.url : '';
         var title = sObject ? sObject.title[nav.lang] : dict[nav.lang].unknownSupplier;
         var type = sObject ? data.getTypeString(sObject.type) : '';
 
         var str = '';
-        str += '<div class="border-bottom border-1 border-secondary mb-2 pb-2" style="height:6.5rem">';
-        str += '<img src="' + url + '" style="height:3rem;width:100%;object-fit:contain' + (url === '' ? ';opacity:0' : '') + '">';
+        str += '<div class="border-bottom border-1 border-secondary pb-2" style="height:3.5rem;border-color:#17a2b8 !important">';
         str += '<h1 class="fw-light fs-3 my-0">' + title + '</h1>';
         str += '<div>' + type + '</div>';
         str += '</div>';
@@ -537,7 +534,7 @@ var catalog = (function () {
     }
 
     function updateSID() {
-        var elem = document.getElementById(idCardSObject);
+        var elem = document.getElementById(idSObjectBox);
         if (!elem) {
             return;
         }
@@ -547,14 +544,6 @@ var catalog = (function () {
         } else {
             if ((sObject === null) || (sObject.sid !== sID)) {
                 var str = '';
-
-                str += '<div class="loading-bar mb-2" style="width:100%;height:1.5em"></div>';
-                str += '<div class="loading-bar" style="width:50%;height:1.5em"></div>';
-
-                var elem = document.getElementById(idCardSObject);
-//                elem.innerHTML = str;
-
-                str = '';
                 str += '<div class="loading-bar mb-2 pb-2" style="height:18rem"></div>';
 
                 elem = document.getElementById(idChartPObjects);
@@ -569,7 +558,7 @@ var catalog = (function () {
                 elem.innerHTML = str;
 
                 str = '';
-                str += '<div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div>';
+                str += '<div class="loading-bar pb-2" style="height:3.5rem"></div>';
 
                 elem = document.getElementById(idSObjectBox);
                 elem.innerHTML = str;

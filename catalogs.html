@@ -31,6 +31,83 @@
 		@keyframes lb {
 			0% {background-position: right}
 		}
+		#sobject-intro {
+			background: #a4e9f480;
+			border: 1px solid #17a2b8;
+			border-radius: 1rem 0 0 1em;
+			height: calc(12rem + 2px);
+			overflow-y: scroll;
+		}
+		.card-parents-and-catalog-title {
+			background: #a4e9f480;
+			border-top: 1px solid #17a2b8;
+			border-bottom: 1px solid #17a2b8;
+			min-height: calc(12rem + 2px);
+			overflow: scroll;
+			position: relative;
+		}
+		#parent-title {
+			color: #17a2b8;
+			left: .5rem;
+			position: absolute;
+			top: .25rem;
+		}
+		#sobject-slideshow {
+			background: #a4e9f480;
+			border: 1px solid #17a2b8;
+			border-radius: 0 1rem 1em 0;
+			margin: auto;
+			min-height: calc(12rem + 2px);
+			position: relative;
+		}
+		#sobject-slideshow .imgSlides {
+			display: none;
+		}
+		#sobject-slideshow .imgSlides img {
+			object-fit: cover;
+			height: 10rem;
+			width: 100%;
+		}
+		#sobject-slideshow:not(:has(.imgSlides)) .prev, #sobject-slideshow:not(:has(.imgSlides)) .next {
+			display: none;
+		}
+		#sobject-slideshow .prev, #sobject-slideshow .next {
+			background: #a4e9f4;
+			border: 1px solid #17a2b8;
+			color: #17a2b8;
+			cursor: pointer;
+			font-weight: bold;
+			font-size: 1.25em;
+			padding: .5em 1em;;
+			position: absolute;
+			text-decoration: none;
+			top: 50%;
+			transform: translate(0, -50%);
+			transition: 0.3s ease;
+			user-select: none;
+		}
+		#sobject-slideshow .prev {
+			border-left: none;
+			border-radius: 0 .5em .5em 0;
+			left: 0;
+		}
+		#sobject-slideshow .next {
+			border-radius: .5em 0 0 .5em;
+			border-right: none;
+			right: 0;
+		}
+		#sobject-slideshow .prev:hover, #sobject-slideshow .next:hover {
+			color: white;
+			background: #17a2b8;
+		}
+		.animate {
+			animation-duration: 1.5s;
+			animation-name: animate;
+		}
+		@keyframes animate {
+			from {opacity: .4}
+			to {opacity: 1}
+		}
 	</style>
 </head>
 
@@ -85,6 +162,23 @@
 							<div id="sobject-box" class="mb-0 p-3 pb-0"></div>
 						</div>
 
+						<div class="row col-12 col-sm-12 col-md-12 col-xl-12 mb-3 pb-3 border-bottom border-1 border-secondary" style="border-color:#17a2b8 !important">
+							<div class="col-12 col-sm-4 col-md-4 col-xl-4 pe-0">
+								<div id="sobject-intro" class="mb-0 ms-3 p-3"></div>
+							</div>
+							<div class="col-12 col-sm-4 col-md-4 col-xl-4 px-0">
+								<div class="card-parents-and-catalog-title pt-3">
+									<div class="mb-0" id="parent-title">Data flow</div>
+									<div class="card-body">
+										<ul id="parent-data"></ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-sm-4 col-md-4 col-xl-4 px-0">
+								<div id="sobject-slideshow" class="mb-0 p-3"></div>
+							</div>
+						</div>
+
 						<div id="columnLeft" class="col-12 col-sm-6 col-md-7 col-xl-7">
 
 							<div class="card-loading mb-0 p-3 border border-secondary position-absolute overflow-hidden text-nowrap" style="background:#a4e9f4;left:50%;transform:translateX(-50%);top:-3.5rem;transition:top ease-out 200ms">
@@ -93,13 +187,6 @@
 										<i class="text-black align-top me-1 rotate" data-feather="loader"></i>
 										<span id="loading-description"></span>
 									</div>
-								</div>
-							</div>
-
-							<div class="card-parents-and-catalog-title mb-0 p-3">
-								<div class="mb-0" id="parent-title">Data flow</div>
-								<div class="card-body">
-									<ul id="parent-data"></ul>
 								</div>
 							</div>
 
@@ -146,11 +233,6 @@
 
 						</div>
 						<div class="col-12 col-sm-6 col-md-5 col-xl-5">
-
-							<div class="card-system p-3">
-								<div id="system-body">
-								</div>
-							</div>
 
 							<div id="map" class="border border-1" style="width:100%;height:25rem;border-color:#aaa !important"></div>
 
@@ -214,7 +296,7 @@
 	<script src="assets/app.js"></script>
 	<script src="assets/module.nav.js?v=2"></script>
 	<script src="assets/module.account.js?v=1"></script>
-	<script src="assets/module.catalog.js?v=9"></script>
+	<script src="assets/module.catalog.js?v=10"></script>
 	<script src="assets/module.charthistory.js?v=3"></script>
 	<script src="assets/module.chartsupplier.js?v=3"></script>
 	<script src="assets/module.data.js?v=5"></script>
@@ -222,7 +304,7 @@
 	<script src="assets/module.diff.js"></script>
 	<script src="assets/module.map.js"></script>
 	<script src="assets/module.parents.js?v=1"></script>
-	<script src="assets/module.system.js?v=8"></script>
+	<script src="assets/module.system.js?v=9"></script>
 	<script src="assets/module.table.js?v=5"></script>
 	<script src="assets/monitor.js?v=6"></script>
 </body>

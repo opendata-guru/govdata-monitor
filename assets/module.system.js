@@ -7,8 +7,7 @@ var system = (function () {
         systemId = null;
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
-    var idSystemBody = 'system-body',
-        idCKANSystemsHead = 'ckan-systems-thead',
+    var idCKANSystemsHead = 'ckan-systems-thead',
         idCKANSystemsBody = 'ckan-systems-tbody',
         idCKANSystemsFoot = 'ckan-systems-tfoot',
         idDKANSystemsHead = 'dkan-systems-thead',
@@ -31,13 +30,7 @@ var system = (function () {
         idSPARQLSystemsFoot = 'sparql-systems-tfoot',
         idOtherSystemsHead = 'other-systems-thead',
         idOtherSystemsBody = 'other-systems-tbody',
-        idOtherSystemsFoot = 'other-systems-tfoot',
-        idImage1 = 'image-1',
-//        idImage2 = 'image-2',
-//        idImage3 = 'image-3',
-//        idLogo1 = 'logo-1',
-//        idLogo2 = 'logo-2',
-        idWikipedia = 'linkWikipedia';
+        idOtherSystemsFoot = 'other-systems-tfoot';
     var dict = {
         de: {
             couldNotCountPObject: 'Datensätze konnten nicht gezählt werden',
@@ -150,105 +143,6 @@ var system = (function () {
         xhr.send();
     }
 
-    function loadSPARQL(qid) {
-        var endpointUrl = 'https://query.wikidata.org/sparql';
-        var sparqlQuery = 'SELECT ' +
-            '?item ' +
-            '(SAMPLE(?photo1) as ?photo1) ' +
-//            '(SAMPLE(?photo2) as ?photo2) ' +
-//            '(SAMPLE(?photo3) as ?photo3) ' +
-            '(SAMPLE(?banner) as ?banner) ' +
-//            '(SAMPLE(?logo) as ?logo) ' +
-            '(SAMPLE(?map) as ?map) ' +
-//            '(SAMPLE(?flag) as ?flag) ' +
-//            '(SAMPLE(?coat) as ?coat) ' +
-            '(SAMPLE(?article) as ?article) ' +
-            '' +
-            'WHERE {' +
-            '  BIND(wd:' + qid + ' as ?item)' +
-            '' +
-            '  OPTIONAL { ?item wdt:P18 ?photo1. }' +
-            '  BIND(IF( BOUND( ?photo1), ?photo1, "") AS ?photo1)' +
-            '' +
-//            '  OPTIONAL { ?item wdt:P18 ?photo2. FILTER ( ?photo1 != ?photo2) }' +
-//            '  BIND(IF( BOUND( ?photo2), ?photo2, "") AS ?photo2)' +
-            '' +
-//            '  OPTIONAL { ?item wdt:P18 ?photo3. FILTER ( ?photo1 != ?photo3) FILTER ( ?photo2 != ?photo3) }' +
-//            '  BIND(IF( BOUND( ?photo3), ?photo3, "") AS ?photo3)' +
-            '' +
-            '  OPTIONAL { ?item wdt:P948 ?banner. }' +
-            '  BIND(IF( BOUND( ?banner), ?banner, "") AS ?banner)' +
-            '' +
-//            '  OPTIONAL { ?item wdt:P154 ?logo. }' +
-//            '  BIND(IF( BOUND( ?logo), ?logo, "") AS ?logo)' +
-            '' +
-            '  OPTIONAL { ?item wdt:P242 ?map. }' +
-            '  BIND(IF( BOUND( ?map), ?map, "") AS ?map)' +
-            '' +
-//            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
-//            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
-            '' +
-//            '  OPTIONAL { ?item wdt:P94 ?coat. }' +
-//            '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
-            '' +
-            '  OPTIONAL {' +
-            '    ?article schema:about ?item .' +
-            '    ?article schema:inLanguage "' + nav.lang + '" .' +
-            '    ?article schema:isPartOf <https://' + nav.lang + '.wikipedia.org/> .' +
-            '  }' +
-            '}' +
-            'GROUP BY ?item';
-
-        var uri = endpointUrl + '?query=' + encodeURIComponent(sparqlQuery);
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', uri, true);
-
-        xhr.setRequestHeader('Accept', 'application/sparql-results+json');
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var res = JSON.parse(this.responseText);
-                var values = res.results.bindings[0];
-                var images = [];
-//                var logos = [];
-
-                images.push(values.banner.value);
-                images.push(values.photo1.value);
-//                images.push(values.photo2.value);
-//                images.push(values.photo3.value);
-                images.push(values.map.value);
-                images = images.filter(n => n);
-
-//                logos.push(values.flag.value);
-//                logos.push(values.coat.value);
-//                logos.push(values.logo.value);
-//                logos = logos.filter(n => n);
-
-                document.getElementById(idImage1).src = images.length > 0 ? images[0] : '';
-//                document.getElementById(idImage2).src = images.length > 1 ? images[1] : '';
-//                document.getElementById(idImage3).src = images.length > 2 ? images[2] : '';
-//                document.getElementById(idLogo1).src = logos.length > 0 ? logos[0] : '';
-//                document.getElementById(idLogo2).src = logos.length > 1 ? logos[1] : '';
-                document.getElementById(idWikipedia).href = values.article ? values.article.value : '';
-            } else if (this.readyState == 4) {
-                document.getElementById(idImage1).src = '';
-//                document.getElementById(idImage2).src = '';
-//                document.getElementById(idImage3).src = '';
-//                document.getElementById(idLogo1).src = '';
-//                document.getElementById(idLogo2).src = '';
-                document.getElementById(idWikipedia).href = '';
-            }
-            document.getElementById(idImage1).style.opacity = document.getElementById(idImage1).getAttribute('src') == '' ? 0 : 1;
-//            document.getElementById(idImage2).style.opacity = document.getElementById(idImage2).getAttribute('src') == '' ? 0 : 1;
-//            document.getElementById(idImage3).style.opacity = document.getElementById(idImage3).getAttribute('src') == '' ? 0 : 1;
-//            document.getElementById(idLogo1).style.opacity = document.getElementById(idLogo1).getAttribute('src') == '' ? 0 : 1;
-//            document.getElementById(idLogo2).style.opacity = document.getElementById(idLogo2).getAttribute('src') == '' ? 0 : 1;
-            document.getElementById(idWikipedia).style.display = document.getElementById(idWikipedia).getAttribute('href') == '' ? 'none' : 'inline-block';
-        }
-
-        xhr.send();
-    }
-
     function funcLoadData() {
         setLoadingDate(new Date(Date.now()));
 
@@ -314,11 +208,6 @@ var system = (function () {
         return '<div class="font-monospace"><span class="fw-bold">' + key + ':</span> <a href="' + link + '" target="_blank">' + value + '</a></div>';
     }
 
-    function formatButton(key, link, id) {
-        var addID = id ? ' id="' + id + '"' : '';
-        return '<a href="' + link + '" style="text-align:center;display:inline-block;" target="_blank" class="me-3"' + addID + '><span style="display:block;width:3rem;height:3rem;border-radius:3rem;line-height:3rem;text-align:center;margin:auto;" class="bg-secondary text-white">' + key.substring(0, 1) + '</span>' + key + '</a>';
-    }
-
     function formatExtensions(extensions) {
         var ret = '';
 
@@ -374,66 +263,6 @@ var system = (function () {
             return;
         }
         systemId = catalog.id;
-
-        var elemBody = document.getElementById(idSystemBody);
-        if (!elemBody) {
-            return;
-        }
-
-        var catalogObj = catalog.get(systemId);
-        var sameAs = catalog.getSameAs(systemId);
-        var sys = funcGet(systemId);
-        var body = '';
-        var title = sys ? sys.title : catalogObj ? catalogObj.title : '';
-        var wikidata = sys ? sys.wikidata : catalogObj ? catalogObj.wikidata : '';
-//        var type = data.getTypeString(sys ? sys.type : catalogObj ? catalogObj.type : '');
-
-//        body += '<div class="border-bottom border-1 border-secondary mb-2 pb-2">';
-//        body += '<img src="" id="' + idLogo1 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
-//        body += '<img src="" id="' + idLogo2 + '" style="height:3rem;width:50%;object-fit:contain;opacity:0">';
-//        body += '</div>';
-//        body += '<h1 class="fw-light fs-3">' + title + '</h1>';
-//        body += '<div>' + type + '</div>';
-//        body += '<div class="mb-2"></div>';
-
-        var datasetCount = catalogObj ? catalogObj.datasetCount : '';
-        var minCount = (datasetCount === undefined) || (datasetCount === '') ? 9999999999 : datasetCount;
-        var maxCount = (datasetCount === undefined) || (datasetCount === '') ? 0 : datasetCount;
-        if (sameAs.length > 0) {
-            sameAs.forEach((id) => {
-                var sameAsObj = catalog.get(id);
-                minCount = Math.min(minCount, sameAsObj.packages);
-                maxCount = Math.max(maxCount, sameAsObj.packages);
-            });
-        }
-        if (minCount === 0) {
-            minCount = maxCount;
-        }
-        if (minCount === maxCount) {
-            body += 'Has <strong>' + monitorFormatNumber(minCount) + '</strong> datasets';
-        } else {
-            body += 'Has <strong>' + monitorFormatNumber(minCount) + '</strong> to <strong>' + monitorFormatNumber(maxCount) + '</strong> datasets';
-        }
-
-        body += '<div class="border-bottom border-1 border-secondary my-3" style="text-align:center">';
-        if (wikidata) {
-            body += formatButton('Wikipedia', '', idWikipedia);
-            body += formatButton('Wikidata', 'https://www.wikidata.org/wiki/' + wikidata);
-            body += '<img src="" id="' + idImage1 + '" class="bg-light mt-2" style="height:6rem;width:100%;object-fit:cover;opacity:0">';
-        }
-        body += '</div>';
-
-        if (sys && sys.server) {
-            body += format('System', sys.server.system + ', version ' + sys.server.version);
-            body += formatLink('API', sys.server.url, sys.server.url);
-            body += formatScroll('Extensions', (Array.isArray(sys.server.extensions) ? sys.server.extensions.length : 0));
-        }
-
-        if (wikidata) {
-            loadSPARQL(wikidata);
-        }
-
-        elemBody.innerHTML = body;
     }
 
     function getIssueRow(sys, cols) {

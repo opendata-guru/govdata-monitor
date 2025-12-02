@@ -15,6 +15,8 @@ var catalog = (function () {
         idCardPObjects = 'card-portals',
         idChartPObjects = 'chart-portals',
         idSObjectBox = 'sobject-box';
+        idSObjectIntro = 'sobject-intro';
+        idSObjectSlideshow = 'sobject-slideshow';
     var paramId = 'sid',
         oldParamId = 'catalog'; // depricated
     var idInteractiveAddSupplier = 'interactive-add-sobject',
@@ -43,13 +45,20 @@ var catalog = (function () {
         selectedModifySystemSID = '',
         loadedSObjects = [],
         filterSObjects = '',
-        showOnlyImperfectPObjects = true;
+        showOnlyImperfectPObjects = true,
+        slideIndex = 0,
+        slideShowTimeout = 10000;
     var dict = {
             de: {
                 dataFlow: 'Datenfluss',
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
                 lastSeenOneDay: 'Gestern zuletzt gesehen',
                 lastSeenZeroDays: 'Heute zuletzt gesehen',
+                linkToGeonames: 'Geografische Informationen auf {Geonames} anzeigen.',
+                linkToGND: 'Zeige das Datenobjekt in der {GND} ("Gemeinsame Normdatei") an.',
+                linkToOSM: 'Eine Karte auf {OSM} (OpenStreetMap) anzeigen.',
+                linkToWikidata: 'Datenobjekt auf {Wikidata} anzeigen.',
+                linkToWikipedia: 'Lese mehr auf {Wikipedia}.',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
                 suppliersCountMoreFilter: '{count} Datenliefernde (gefiltert aus {max} Datenliefernden)',
@@ -67,6 +76,11 @@ var catalog = (function () {
                 lastSeenMoreDays: 'Last seen {days} days ago',
                 lastSeenOneDay: 'Last seen yesterday',
                 lastSeenZeroDays: 'Last seen today',
+                linkToGeonames: 'Display geographic information on {Geonames}.',
+                linkToGND: 'Display the data object in the {GND} ("Common Authority File").',
+                linkToOSM: 'Display a map on {OSM} (OpenStreetMap).',
+                linkToWikidata: 'Display data object on {Wikidata}.',
+                linkToWikipedia: 'Read more on {Wikipedia}.',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
                 suppliersCountMoreFilter: '{count} data suppliers (filtered from {max} data suppliers)',
@@ -95,6 +109,8 @@ var catalog = (function () {
         } else { // depricated
             oldInitvalId = oldDefaultId; // depricated
         } // depricated
+
+        startSlideshow();
     }
 
     function setId(id) { // depricated
@@ -488,14 +504,12 @@ var catalog = (function () {
         return sObject;
     }
 
-    function updateSID_storeSObject(payload) {
-        sObject = payload;
-
+    function updateElementsSObject(sObject) {
         var title = sObject ? sObject.title[nav.lang] : dict[nav.lang].unknownSupplier;
         var type = sObject ? data.getTypeString(sObject.type) : '';
 
         var str = '';
-        str += '<div class="border-bottom border-1 border-secondary pb-2" style="height:3.5rem;border-color:#17a2b8 !important">';
+        str += '<div class="pb-2" style="height:3.5rem">';
         str += '<h1 class="fw-light fs-3 my-0">' + title + '</h1>';
         str += '<div>' + type + '</div>';
         str += '</div>';
@@ -504,6 +518,22 @@ var catalog = (function () {
         if (elem) {
             elem.innerHTML = str;
         }
+
+        var partOf = sObject.partOf?.wikidata;
+        var sameAs = sObject.sameAs?.wikidata;
+        var wikidata = sameAs ? sameAs : partOf;
+
+        if (wikidata) {
+            loadWikidata(wikidata);
+        } else {
+            storeWikidata(null);
+        }
+    }
+
+    function updateSID_storeSObject(payload) {
+        sObject = payload;
+
+        updateElementsSObject(sObject);
 
         if (sObject) {
             updateSID_loadLObjects(baseURL + '/s/' + sObject.sid + '/l');
@@ -563,9 +593,262 @@ var catalog = (function () {
                 elem = document.getElementById(idSObjectBox);
                 elem.innerHTML = str;
 
+                str = '';
+                str += '<div class="loading-bar pb-2" style="height:10rem"></div>';
+
+                elem = document.getElementById(idSObjectIntro);
+                elem.innerHTML = str;
+
+                str = '';
+                str += '<div class="loading-bar pb-2" style="height:10rem"></div>';
+
+                elem = document.getElementById(idSObjectSlideshow);
+                elem.innerHTML = str;
+
                 updateSID_loadSObject(baseURL + '/s/' + sID);
             }
         }
+    }
+
+    function getWikidataSPARQL(wikipediaURL) {
+        var  qid = wikipediaURL.split('/').pop();
+        var sparqlQuery = 'SELECT ' +
+            '?item ' +
+            '(SAMPLE(?gnd) as ?gnd) ' +
+            '(SAMPLE(?osm) as ?osm) ' +
+            '(SAMPLE(?geonames) as ?geonames) ' +
+            '(SAMPLE(?photo1) as ?photo1) ' +
+            '(SAMPLE(?photo2) as ?photo2) ' +
+            '(SAMPLE(?photo3) as ?photo3) ' +
+            '(SAMPLE(?banner) as ?banner) ' +
+//            '(SAMPLE(?logo) as ?logo) ' +
+            '(SAMPLE(?map) as ?map) ' +
+//            '(SAMPLE(?flag) as ?flag) ' +
+//            '(SAMPLE(?coat) as ?coat) ' +
+            '(SAMPLE(?article) as ?article) ' +
+            '' +
+            'WHERE {' +
+            '  BIND(wd:' + qid + ' as ?item)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P227 ?gnd. }' +
+            '' +
+            '  OPTIONAL { ?item wdt:P402 ?osm. }' +
+            '' +
+            '  OPTIONAL { ?item wdt:P1566 ?geonames. }' +
+            '' +
+            '  OPTIONAL { ?item wdt:P18 ?photo1. }' +
+            '  BIND(IF( BOUND( ?photo1), ?photo1, "") AS ?photo1)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P18 ?photo2. FILTER ( ?photo1 != ?photo2) }' +
+            '  BIND(IF( BOUND( ?photo2), ?photo2, "") AS ?photo2)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P18 ?photo3. FILTER ( ?photo1 != ?photo3) FILTER ( ?photo2 != ?photo3) }' +
+            '  BIND(IF( BOUND( ?photo3), ?photo3, "") AS ?photo3)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P948 ?banner. }' +
+            '  BIND(IF( BOUND( ?banner), ?banner, "") AS ?banner)' +
+            '' +
+//            '  OPTIONAL { ?item wdt:P154 ?logo. }' +
+//            '  BIND(IF( BOUND( ?logo), ?logo, "") AS ?logo)' +
+            '' +
+            '  OPTIONAL { ?item wdt:P242 ?map. }' +
+            '  BIND(IF( BOUND( ?map), ?map, "") AS ?map)' +
+            '' +
+//            '  OPTIONAL { ?item wdt:P41 ?flag. }' +
+//            '  BIND(IF( BOUND( ?flag), ?flag, "") AS ?flag)' +
+            '' +
+//            '  OPTIONAL { ?item wdt:P94 ?coat. }' +
+//            '  BIND(IF( BOUND( ?coat), ?coat, "") AS ?coat)' +
+            '' +
+            '  OPTIONAL {' +
+            '    ?article schema:about ?item .' +
+            '    ?article schema:inLanguage "' + nav.lang + '" .' +
+            '    ?article schema:isPartOf <https://' + nav.lang + '.wikipedia.org/> .' +
+            '  }' +
+            '}' +
+            'GROUP BY ?item';
+
+        return sparqlQuery;
+    }
+
+    function loadWikidata(wikidataURL) {
+        var endpointUrl = 'https://query.wikidata.org/sparql';
+        var sparqlQuery = getWikidataSPARQL(wikidataURL);
+        var uri = endpointUrl + '?query=' + encodeURIComponent(sparqlQuery);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uri, true);
+
+        xhr.setRequestHeader('Accept', 'application/sparql-results+json');
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeWikidata(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                storeWikidata(null);
+            }
+        }
+
+        xhr.send();
+    }
+
+    function storeWikidata(payload) {
+        var values = payload?.results?.bindings[0];
+        var slideshow = '';
+        var images = [];
+        var footer = '';
+
+        var wikipedia = values?.article?.value;
+        if (wikipedia) {
+            footer += ' ' + dict[nav.lang].linkToWikipedia.replace('{Wikipedia}', '<a href="' + wikipedia + '" target="_blank">Wikipedia</a>');
+        }
+
+        var wikidata = values?.item?.value;
+        if (wikidata) {
+            footer += ' ' + dict[nav.lang].linkToWikidata.replace('{Wikidata}', '<a href="' + wikidata + '" target="_blank">Wikidata</a>');
+        }
+
+        var gnd = values?.gnd?.value;
+        if (gnd) {
+            footer += ' ' + dict[nav.lang].linkToGND.replace('{GND}', '<a href="https://d-nb.info/gnd/' + gnd + '" target="_blank">GND</a>');
+        }
+
+        var osm = values?.osm?.value;
+        if (osm) {
+            footer += ' ' + dict[nav.lang].linkToOSM.replace('{OSM}', '<a href="https://www.openstreetmap.org/relation/' + osm + '" target="_blank">OSM</a>');
+        }
+
+        var geonames = values?.geonames?.value;
+        if (geonames) {
+            footer += ' ' + dict[nav.lang].linkToGeonames.replace('{Geonames}', '<a href="https://www.geonames.org/' + geonames + '" target="_blank">Geonames</a>');
+        }
+
+        images.push(values?.photo1?.value);
+        images.push(values?.photo2?.value);
+        images.push(values?.photo3?.value);
+        images.push(values?.banner?.value);
+        images.push(values?.map?.value);
+
+        images.forEach((image) => {
+            if (image) {
+                slideshow += '<div class="imgSlides animate"><img src="' + image + '"></div>';
+            }
+        });
+        slideshow += '<a class="prev" onclick="catalog.navigateSlides(-1)">&#10094;</a>';
+        slideshow += '<a class="next" onclick="catalog.navigateSlides(1)">&#10095;</a>';
+
+        elem = document.getElementById(idSObjectSlideshow);
+        if (elem) {
+            elem.innerHTML = slideshow;
+            gotoSlide(0);
+        }
+
+        if (wikipedia) {
+            loadWikipedia(wikipedia, footer);
+        } else {
+            storeWikipedia(footer, null);
+        }
+    }
+
+    function loadWikipedia(wikipediaURL, footer) {
+        var parts = wikipediaURL.split('/wiki/');
+        var uri = parts[0] + '/w/api.php';
+        uri += '?action=parse';
+        uri += '&page=' + parts[1];
+        uri += '&format=json';
+        uri += '&origin=*';
+        uri += '&section=0';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uri, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeWikipedia(footer, JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                storeWikipedia(footer, null);
+            }
+        }
+
+        xhr.send();
+    }
+
+    function storeWikipedia(footer, payload) {
+        var str = '';
+
+        if (payload) {
+            var text = payload?.parse?.text['*'];
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = text;
+
+            var p = tempDiv.querySelector('div > p');
+
+            var remove = p.getElementsByClassName('navigation-not-searchable');
+            while(remove[0]) {
+                remove[0].parentNode.removeChild(remove[0]);
+            }
+            remove = p.getElementsByClassName('reference');
+            while(remove[0]) {
+                remove[0].parentNode.removeChild(remove[0]);
+            }
+
+            var links = p.getElementsByTagName('a');
+            for (var i = 0; i < links.length; ++i) {
+                links[i].removeAttribute('class');
+                links[i].removeAttribute('href');
+                links[i].removeAttribute('title');
+            }
+            p.innerHTML = p.innerHTML.replace(/(<a)/igm, '<span').replace(/<\/a>/igm, '</span>');
+
+            str = p.innerHTML;
+            str += '<div class="mt-3" style="font-size:.8em;color:#777">' + footer + '</div>';
+        } else {
+            str += '<div style="font-size:.8em;color:#777">' + footer + '</div>';
+        }
+
+        var elem = document.getElementById(idSObjectIntro);
+        if (elem) {
+            elem.innerHTML = str;
+        }
+    }
+
+    function startSlideshow() {
+        var slideshow = document.getElementById('sobject-slideshow');
+
+        if (slideshow) {
+            var slides = slideshow.getElementsByClassName('imgSlides');
+
+            if (slides.length > 0) {
+                funcNavigateSlides(1);
+            }
+
+            setTimeout(startSlideshow, slideShowTimeout);
+        }
+    }
+
+    function gotoSlide(slide) {
+        var slideshow = document.getElementById('sobject-slideshow');
+        var slides = slideshow.getElementsByClassName('imgSlides');
+
+        if (slides.length === 0) {
+            return;
+        }
+
+        slideIndex = slide;
+        if (slideIndex >= slides.length) {
+            slideIndex = 0;
+        }
+        if (slideIndex < 0) {
+            slideIndex = slides.length - 1;
+        }
+
+        for (var i = 0; i < slides.length; ++i) {
+            slides[i].style.display = 'none';
+        }
+        slides[slideIndex].style.display = 'block';
+    }
+
+    function funcNavigateSlides(slides) {
+        gotoSlide(slideIndex + slides);
     }
 
     // ----------------------------------------------------------------------------
@@ -1088,6 +1371,7 @@ var catalog = (function () {
         getSameAs: funcGetSameAs,
         getSObject: funcGetSObject,
         getDownloadMenu: getDownloadMenu,
+        navigateSlides: funcNavigateSlides,
         rebuildAllPortalTables: funcRebuildAllPortalTables,
         set: funcSet, // depricated
         setLID: funcSetLID,

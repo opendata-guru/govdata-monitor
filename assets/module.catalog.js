@@ -600,7 +600,7 @@ var catalog = (function () {
                 elem.innerHTML = str;
 
                 str = '';
-                str += '<div class="loading-bar pb-2" style="height:10rem"></div>';
+                str += '<div class="loading-bar pb-2" style="height:12rem"></div>';
 
                 elem = document.getElementById(idSObjectSlideshow);
                 elem.innerHTML = str;
@@ -797,9 +797,14 @@ var catalog = (function () {
                 links[i].removeAttribute('href');
                 links[i].removeAttribute('title');
             }
-            p.innerHTML = p.innerHTML.replace(/(<a)/igm, '<span').replace(/<\/a>/igm, '</span>');
 
             str = p.innerHTML;
+
+            str = str.replace(/(<a)/igm, '<span').replace(/<\/a>/igm, '</span>');
+//            str = str.replace(/[.+?]/g, "");
+            str = str.replace(/\(.+?\)/g, "");
+            str = str.split(' ').splice(0, 30).join(' ') + '...';
+
             str += '<div class="mt-3" style="font-size:.8em;color:#777">' + footer + '</div>';
         } else {
             str += '<div style="font-size:.8em;color:#777">' + footer + '</div>';
@@ -812,7 +817,7 @@ var catalog = (function () {
     }
 
     function startSlideshow() {
-        var slideshow = document.getElementById('sobject-slideshow');
+        var slideshow = document.getElementById(idSObjectSlideshow);
 
         if (slideshow) {
             var slides = slideshow.getElementsByClassName('imgSlides');
@@ -826,7 +831,7 @@ var catalog = (function () {
     }
 
     function gotoSlide(slide) {
-        var slideshow = document.getElementById('sobject-slideshow');
+        var slideshow = document.getElementById(idSObjectSlideshow);
         var slides = slideshow.getElementsByClassName('imgSlides');
 
         if (slides.length === 0) {

@@ -7,6 +7,7 @@ var catalog = (function () {
         lObjects = [];
         lObjectsCount = [];
         pObjects = [];
+        pObjectsCount = [];
         pObjectsLoadedLObjects = 0;
         defaultSID = 'smZ1A'; //GovData
     var idCatalogHistoryTitle = 'catalog-history-title',
@@ -17,6 +18,8 @@ var catalog = (function () {
         idSObjectBox = 'sobject-box';
         idSObjectIntro = 'sobject-intro';
         idSObjectSlideshow = 'sobject-slideshow';
+        idCatalogList = 'catalog-list',
+        idCatalogChart = 'catalog-chart';
     var paramId = 'sid',
         oldParamId = 'catalog'; // depricated
     var idInteractiveAddSupplier = 'interactive-add-sobject',
@@ -50,6 +53,7 @@ var catalog = (function () {
         slideShowTimeout = 10000;
     var dict = {
             de: {
+                catalogHistory: '{days} Tage Daten-Historie',
                 dataFlow: 'Datenfluss',
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
                 lastSeenOneDay: 'Gestern zuletzt gesehen',
@@ -59,6 +63,12 @@ var catalog = (function () {
                 linkToOSM: 'Eine Karte auf {OSM} (OpenStreetMap) anzeigen.',
                 linkToWikidata: 'Datenobjekt auf {Wikidata} anzeigen.',
                 linkToWikipedia: 'Lese mehr auf {Wikipedia}.',
+                portalLined: 'Die Daten werden im Portal {portal} {image} mit der Herkunft {id} veröffentlicht.',
+                portalLinedShort: 'Im Portal {portal} ({id})',
+                portalOutdated: 'Seit {days} Tagen werden dort aber keine Daten mehr angeboten.',
+                portalOwn: 'Die Daten werden im eigenen Portal von {portal} {image} unter dem Namen {id} veröffentlicht.',
+                portalMore: 'Für weitere Informationen und Statistiken gehe zu {link} oder gehe direkt zum Portal {externallink}.',
+                portalMoreExternal: 'Gehe direkt zum Portal {externallink}.',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
                 suppliersCountMoreFilter: '{count} Datenliefernde (gefiltert aus {max} Datenliefernden)',
@@ -72,6 +82,7 @@ var catalog = (function () {
                 unknownSupplier: 'Unbekannte Datenquelle',
             },
             en: {
+                catalogHistory: '{days} days datasets history',
                 dataFlow: 'Data flow',
                 lastSeenMoreDays: 'Last seen {days} days ago',
                 lastSeenOneDay: 'Last seen yesterday',
@@ -81,6 +92,12 @@ var catalog = (function () {
                 linkToOSM: 'Display a map on {OSM} (OpenStreetMap).',
                 linkToWikidata: 'Display data object on {Wikidata}.',
                 linkToWikipedia: 'Read more on {Wikipedia}.',
+                portalLined: 'The data will be published in the portal {portal} {image} with the origin {id}.',
+                portalLinedShort: 'In portal {portal} ({id})',
+                portalOutdated: 'No data has been offered there for {days} days.',
+                portalOwn: 'The data will be published on {portal}\'s {image} own portal under the name {id}.',
+                portalMore: 'For more information and statistics go to {link} or go directly to the portal {externallink}.',
+                portalMoreExternal: 'Go directly to the portal {externallink}.',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
                 suppliersCountMoreFilter: '{count} data suppliers (filtered from {max} data suppliers)',
@@ -307,6 +324,20 @@ var catalog = (function () {
         data.emitFilterChanged();
     }
 
+    function buildCatalogChart() {
+        var loadedDays = 20;
+
+        chartCatalogObjects.build({
+            days: loadedDays,
+            dict: dict,
+            lObjects: lObjects,
+            pObjects: pObjects,
+            lObjectsCount: lObjectsCount,
+            pObjectsCount: pObjectsCount,
+            sObject: sObject,
+        });
+    }
+
     function buildPortalChart(pObject) {
         var loadedDays = 20;
 
@@ -328,6 +359,8 @@ var catalog = (function () {
     }
 
     function funcRebuildAllPortalTables() {
+        buildCatalogChart();
+
         pObjects.forEach((pObject) => {
             buildPortalChart(pObject);
 
@@ -339,58 +372,87 @@ var catalog = (function () {
         });
     }
 
-    function updateSID_storeLObjectsCount(payload, dateString) {
+    function updateSID_storeLObjectsCount(payload, urlCountP, dateString) {
         if (payload) {
             lObjectsCount[dateString] = payload;
         } else {
             lObjectsCount[dateString] = [];
         }
 
-        funcRebuildAllPortalTables();
+        updateSID_loadPObjectsCount(urlCountP, dateString);
     }
 
-    function updateSID_loadLObjectsCount(url, dateString) {
+    function updateSID_loadLObjectsCount(urlCountL, urlCountP, dateString) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
+        xhr.open('GET', urlCountL, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                updateSID_storeLObjectsCount(JSON.parse(this.responseText), dateString);
+                updateSID_storeLObjectsCount(JSON.parse(this.responseText), urlCountP, dateString);
             } else if (this.readyState == 4) {
-                updateSID_storeLObjectsCount(null, dateString);
+                updateSID_storeLObjectsCount(null, urlCountP, dateString);
             }
         }
 
         if (dateString in lObjectsCount) {
-            updateSID_storeLObjectsCount(lObjectsCount[dateString], dateString);
+            updateSID_storeLObjectsCount(lObjectsCount[dateString], urlCountP, dateString);
         } else {
             xhr.send();
         }
     }
 
-    function updateSID_loadLObjectsNextDate() {
+    function updateSID_storePObjectsCount(payload, dateString) {
+        if (payload) {
+            pObjectsCount[dateString] = payload;
+        } else {
+            pObjectsCount[dateString] = [];
+        }
+
+        funcRebuildAllPortalTables();
+    }
+
+    function updateSID_loadPObjectsCount(urlCountP, dateString) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', urlCountP, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                updateSID_storePObjectsCount(JSON.parse(this.responseText), dateString);
+            } else if (this.readyState == 4) {
+                updateSID_storePObjectsCount(null, dateString);
+            }
+        }
+
+        if (dateString in pObjectsCount) {
+            updateSID_storePObjectsCount(pObjectsCount[dateString], dateString);
+        } else {
+            xhr.send();
+        }
+    }
+
+    function fifth_load20Dates() {
         var current = new Date(Date.now());
         var dateString;
 
         for (var d = 0; d < 20; ++d) {
             dateString = current.toLocaleString('sv-SE').split(' ')[0];
-            updateSID_loadLObjectsCount(baseURL + '/l/count/' + dateString, dateString);
+            updateSID_loadLObjectsCount(baseURL + '/l/count/' + dateString, baseURL + '/p/count/' + dateString, dateString);
 
             current.setDate(current.getDate() - 1);
         }
     }
 
-    function updateSID_storePObjectLObjects(payload, pid) {
-        var lObjects = null;
+    function fourth_storePObjectLObjects(payload, pid) {
+        var pObjectLObjects = null;
 
         if (payload) {
             pid = payload.pid;
-            lObjects = payload.lobjects;
+            pObjectLObjects = payload.lobjects;
         }
 
         pObjects.forEach((pObject) => {
             if (pObject.pid === pid) {
-                pObject.lObjects = lObjects;
+                pObject.lObjects = pObjectLObjects;
 
                 buildPortalChart(pObject);
                 buildPortalTable(pObject, []);
@@ -400,26 +462,136 @@ var catalog = (function () {
         });
 
         if (pObjects.length === pObjectsLoadedLObjects) {
-            updateSID_loadLObjectsNextDate();            
+            fifth_load20Dates();            
         }
     }
 
-    function updateSID_loadPObjectLObjects(url, pid) {
+    function fourth_loadPObjectLObjects(url, pid) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                updateSID_storePObjectLObjects(JSON.parse(this.responseText), pid);
+                fourth_storePObjectLObjects(JSON.parse(this.responseText), pid);
             } else if (this.readyState == 4) {
-                updateSID_storePObjectLObjects(null, pid);
+                fourth_storePObjectLObjects(null, pid);
             }
         }
 
         xhr.send();
     }
 
-    function updateSID_storePObjects(payload) {
+    function fillCatalogList() {
+        var str = '';
+        var serial = 0;
+        var objectCount = pObjects.length + lObjects.length;
+        var colClass = 'col-12';
+        var swatch = chartGetColorSwatch();
+
+        if (objectCount === 1) {
+            colClass = 'col-12 col-sm-12 col-md-12 col-xl-12';
+        } else if (objectCount === 2) {
+            colClass = 'col-6 col-sm-6 col-md-6 col-xl-6';
+        } else {
+            colClass = 'col-4 col-sm-4 col-md-4 col-xl-4';
+        }
+
+        if (pObjects.length > 0) {
+            pObjects.forEach((pObject) => {
+console.log(pObject);
+                var sObjects = Object.values(loadedSObjects).filter((sObject) => sObject.sid === pObject.sid);
+console.log(loadedSObjects);
+
+/*if (sObjects.length > 0) {
+var sObject = sObjects[0];
+}
+var title = system.getTitle(sObject);*/
+//                var portalTitle = system.getTitle(lObject?.pobject?.sobject);
+                var portalTitle = pObject.pid;
+                var portalURL = pObject.url;
+                var portalLink = '<a href="' + portalURL + '" target="_blank">' + portalTitle + '</a>';
+                var color = swatch[serial];
+
+                str += '<div class="' + colClass + '">';
+                str += '<div style="border-bottom: .2rem solid ' + color + ';height:1.4rem;margin-bottom:1.25rem">';
+                str += '<span style="border: .2rem solid ' + color + ';background:#fff;border-radius:50%;font-weight:bolder;display:inline-block;width:2.5rem;height:2.5rem;line-height:2.3rem;text-align:center;margin-left:.5rem">' + (serial + 1) + '</span>';
+                str += '</div>';
+                str += '<div>';
+
+                str += 'Portal: ' + pObject.url + '<br>';
+//                str += dict[nav.lang].portalOwn.replace('{portal}',portalTitle).replace('{image}',portalImage).replace('{id}',parentTitle) + ' ';
+
+                str += '</div>';
+                str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+                str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
+                str += '</div>';
+                str += '</div>';
+
+                ++serial;
+            });
+        }
+
+        if (lObjects.length > 0) {
+            lObjects.forEach((lObject) => {
+                var parentTitle = lObject.title;
+                var parentSID = lObject.sid;
+                var portalTitle = system.getTitle(lObject?.pobject?.sobject);
+                var portalURL = lObject?.pobject?.url;
+                var portalSID = lObject?.pobject?.sid;
+                var portalImage = lObject?.pobject?.sobject?.image?.url;
+                var portalLink = '<a href="' + portalURL + '" target="_blank">' + portalTitle + '</a>';
+                var internalURL = 'sid=' + portalSID + (nav.lang === 'en' ? '' : '&lang=' + nav.lang);
+                var onClick = 'catalog.setSID(\'' + portalSID + '\')';
+                var internalLink = '<a href="catalogs.html?' + internalURL + '" onclick="' + onClick + '";event.preventDefault()>' + portalTitle + '</a>';
+                var lastseenMilliseconds = new Date((new Date(Date.now())).getTime() - (new Date(lObject.lastseen)).getTime());
+                var lastseen = Math.floor(lastseenMilliseconds/(24*3600*1000));
+                var color = swatch[serial];
+
+                portalTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + portalTitle + '</span>';
+                parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + parentTitle + '</span>';
+                portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
+
+                str += '<div class="' + colClass + '">';
+                str += '<div style="border-bottom: .2rem solid ' + color + ';height:1.4rem;margin-bottom:1.25rem">';
+                str += '<span style="border: .2rem solid ' + color + ';background:#fff;border-radius:50%;font-weight:bolder;display:inline-block;width:2.5rem;height:2.5rem;line-height:2.3rem;text-align:center;margin-left:.5rem">' + (serial + 1) + '</span>';
+                str += '</div>';
+                str += '<div>';
+                if (parentSID === portalSID) {
+                    str += dict[nav.lang].portalOwn.replace('{portal}',portalTitle).replace('{image}',portalImage).replace('{id}',parentTitle) + ' ';
+                    if (lastseen > 1) {
+                        str += dict[nav.lang].portalOutdated.replace('{days}',lastseen) + ' ';
+                    }
+                    str += '</div>';
+                    str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+                    str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
+                } else {
+                    str += dict[nav.lang].portalLined.replace('{portal}',portalTitle).replace('{image}',portalImage).replace('{id}',parentTitle) + ' ';
+                    if (lastseen > 1) {
+                        str += dict[nav.lang].portalOutdated.replace('{days}',lastseen) + ' ';
+                    }
+                    str += '</div>';
+                    str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+                    str += dict[nav.lang].portalMore.replace('{link}', internalLink).replace('{externallink}', portalLink);
+                }
+                str += '</div>';
+                str += '</div>';
+
+                ++serial;
+            });
+        }
+
+        str += '<div id="' + idCatalogChart + '" class="col-12 col-sm-12 col-md-12 col-xl-12">';
+        str += '  <div>&nbsp;</div>';
+        str += '  <div class="loading-bar my-3 pb-2" style="height:16rem"></div>';
+        str += '</div>';
+
+        elem = document.getElementById(idCatalogList);
+        elem.innerHTML = str;
+
+        buildCatalogChart();
+    }
+
+    function third_storePObjects(payload) {
         pObjects = [];
         pObjectsLoadedLObjects = 0;
 
@@ -427,11 +599,10 @@ var catalog = (function () {
             pObjects = payload.pobjects;
         }
 
+        fillCatalogList();
+
         var strChart = '';
         var strCard = '';
-//        var size = Object.keys(pObjects).length;
-//        var 
-//console.log(c);
         pObjects.forEach((pObject) => {
             strChart += '<div id="portal-chart-' + pObject.pid + '">';
             strChart += '  <div>&nbsp;</div>';
@@ -451,27 +622,33 @@ var catalog = (function () {
         elem = document.getElementById(idCardPObjects);
         elem.innerHTML = strCard;
 
-        pObjects.forEach((pObject) => {
-            updateSID_loadPObjectLObjects(baseURL + '/p/' + pObject.pid + '/l', pObject.pid);
-        });
+        if (pObjects.length > 0) {
+            pObjects.forEach((pObject) => {
+                fourth_loadPObjectLObjects(baseURL + '/p/' + pObject.pid + '/l', pObject.pid);
+            });
+        } else {
+            if (pObjects.length === pObjectsLoadedLObjects) {
+                fifth_load20Dates();            
+            }
+        }
     }
 
-    function updateSID_loadPObjects(url) {
+    function third_loadPObjects(url) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                updateSID_storePObjects(JSON.parse(this.responseText));
+                third_storePObjects(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                updateSID_storePObjects(null);
+                third_storePObjects(null);
             }
         }
 
         xhr.send();
     }
 
-    function updateSID_storeLObjects(payload) {
+    function second_storeLObjects(payload) {
         lObjects = [];
 
         if (payload && payload.lobjects) {
@@ -479,21 +656,21 @@ var catalog = (function () {
         }
 
         if (sObject) {
-            updateSID_loadPObjects(baseURL + '/s/' + sObject.sid + '/p');
+            third_loadPObjects(baseURL + '/s/' + sObject.sid + '/p');
         } else {
-            updateSID_storePObjects(null);
+            third_storePObjects(null);
         }
     }
 
-    function updateSID_loadLObjects(url) {
+    function second_loadLObjects(url) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                updateSID_storeLObjects(JSON.parse(this.responseText));
+                second_storeLObjects(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                updateSID_storeLObjects(null);
+                second_storeLObjects(null);
             }
         }
 
@@ -530,15 +707,15 @@ var catalog = (function () {
         }
     }
 
-    function updateSID_storeSObject(payload) {
+    function first_storeSObject(payload) {
         sObject = payload;
 
         updateElementsSObject(sObject);
 
         if (sObject) {
-            updateSID_loadLObjects(baseURL + '/s/' + sObject.sid + '/l');
+            second_loadLObjects(baseURL + '/s/' + sObject.sid + '/l');
         } else {
-            updateSID_storeLObjects(null);
+            second_storeLObjects(null);
         }
 
         if (parents) {
@@ -546,7 +723,7 @@ var catalog = (function () {
         }
     }
 
-    function updateSID_loadSObject(url) {
+    function first_loadSObject(url) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
 
@@ -554,9 +731,9 @@ var catalog = (function () {
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                updateSID_storeSObject(JSON.parse(this.responseText));
+                first_storeSObject(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
-                updateSID_storeSObject(null);
+                first_storeSObject(null);
             }
         }
 
@@ -570,7 +747,7 @@ var catalog = (function () {
         }
 
         if ((sID === '') || (sID === 'undefined') || (sID === undefined)) {
-            updateSID_storeSObject(null);
+            first_storeSObject(null);
         } else {
             if ((sObject === null) || (sObject.sid !== sID)) {
                 var str = '';
@@ -605,7 +782,13 @@ var catalog = (function () {
                 elem = document.getElementById(idSObjectSlideshow);
                 elem.innerHTML = str;
 
-                updateSID_loadSObject(baseURL + '/s/' + sID);
+                str = '';
+                str += '<div class="loading-bar pb-2" style="height:12rem"></div>';
+
+                elem = document.getElementById(idCatalogList);
+                elem.innerHTML = str;
+
+                first_loadSObject(baseURL + '/s/' + sID);
             }
         }
     }
@@ -991,7 +1174,7 @@ var catalog = (function () {
         pObjects = [];
 //        fillModifyPObjectTable();
 //        onModifyLoadPObjects(selectLID);
-        updateSID_loadPObjects(baseURL + '/s/' + sObject.sid + '/p');
+        third_loadPObjects(baseURL + '/s/' + sObject.sid + '/p');
 
         updateModifyPortalSelection();
         enableModifyPortalButton();

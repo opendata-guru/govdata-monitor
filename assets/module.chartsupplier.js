@@ -65,6 +65,236 @@ function chartGetOptions() {
     };
 }
 
+var chartCatalogObjects = (function () {
+    var idCatalogChart = 'catalog-chart';
+    var columnTitles = [],
+        rowTitles = [],
+        rowTitlesTranslated = [],
+        chartData = [],
+        fileName = '';
+
+    function init() {
+    }
+
+    function sortChartData(id) {
+        return function(a, b) {
+            if (a.data[id] === b.data[id]) {
+                return a.label.localeCompare(b.label);
+            }
+
+            return a.data[id] < b.data[id] ? 1 : -1;
+        }
+    }
+
+    function getDatasets(dates, options) {
+//console.log(options);
+        var datasets = [];
+        var colors = chartGetColorSwatch();
+
+        columnTitles = [];
+        chartData = [];
+
+        var colorID = 0;
+
+        for (var c = 0; c < options.pObjects.length; ++c, ++colorID) {
+            var pObject = options.pObjects[c];
+var labels = pObject.url;
+//console.log(':' + labels);
+            var pid = pObject.pid;
+            var data = [];
+
+            for (var d = 0; d < dates.length; ++d) {
+                var date = dates[d];
+                var count = options.pObjectsCount[date];
+
+                if (count) {
+                    data.push(count[pid]);
+                } else {
+                    data.push(null);
+                }
+            }
+
+            columnTitles.push(labels);
+            chartData.push(data);
+
+console.log(columnTitles[c]);
+            datasets.push({
+                label: columnTitles[c],
+                pid: pid,
+                fill: false,
+                borderColor: colors[colorID],
+                borderWidth: 2,
+                pointRadius: 1,
+                data: data,
+            });
+        }
+
+        for (var c = 0; c < options.lObjects.length; ++c, ++colorID) {
+            var lObject = options.lObjects[c];
+//            var labels = tableLObjects.getLObjectTitle(lObject);
+            var parentTitle = lObject.title;
+            var portalTitle = system.getTitle(lObject?.pobject?.sobject);
+            var labels = options.dict[nav.lang].portalLinedShort.replace('{portal}',portalTitle).replace('{id}',parentTitle);
+            var lid = lObject.lid;
+            var data = [];
+
+            for (var d = 0; d < dates.length; ++d) {
+                var date = dates[d];
+                var count = options.lObjectsCount[date];
+
+                if (count) {
+                    data.push(count[lid]);
+                } else {
+                    data.push(null);
+                }
+            }
+
+            columnTitles.push(labels);
+            chartData.push(data);
+
+            datasets.push({
+                label: columnTitles[c],
+                lid: lid,
+                fill: false,
+                borderColor: colors[colorID],
+                borderWidth: 2,
+                pointRadius: 1,
+                data: data,
+            });
+        }
+
+        var topLIDs = [];
+
+        for (var c = 0; c < options.lObjects.length; ++c) {
+            datasets.sort(sortChartData(c));
+
+            for (var t = 0; t < Math.min(options.topCount, datasets.length); ++t) {
+                if (datasets[t].data[c]) {
+                    topLIDs.push(datasets[t].lid);
+                }
+            }
+        }
+
+        topLIDs = [...new Set(topLIDs)];
+        datasets = datasets.filter((dataset) => topLIDs.includes(dataset.lid));
+
+        for (var d = 0; d < datasets.length; ++d) {
+            datasets[d].borderColor = colors[d];
+        }
+
+        return datasets;
+    }
+
+    function buildCanvas(options) {
+        var str = '';
+
+        if (options.pObjects && options.lObjects && ((options.pObjects.length + options.lObjects.length) > 0)) {
+            str += '<div>';
+            str += options.dict[nav.lang].catalogHistory.replace('{days}', options.days);
+            str += catalog.getDownloadMenu('chartCatalogObjects');
+            str += '</div>';
+            str += '<canvas class="my-3" style="max-height:16rem"></canvas>';
+        }
+
+        var elem = document.getElementById(idCatalogChart);
+        if (elem) {
+            elem.innerHTML = str;
+        }
+    }
+
+    function buildData(options) {
+//console.log(options.sObject.title);
+//console.log(options.lObjects[0]?.title + ' @ ' + options.lObjects[0]?.pobject?.sobject?.title?.de);
+        var elem = document.querySelector('#' + idCatalogChart + ' > canvas');
+        if (!elem) {
+            return;
+        }
+
+        var current = new Date(Date.now());
+        var dateString;
+        var dateStringDE;
+
+        rowTitles = [];
+        rowTitlesTranslated = [];
+
+        for (var d = 0; d < options.days; ++d) {
+            dateString = current.toLocaleString('sv-SE').split(' ')[0];
+            dateStringDE = current.toLocaleString('de-DE').split(',')[0];
+            rowTitles.unshift(dateString);
+            rowTitlesTranslated.unshift(nav.lang === 'de' ? dateStringDE : dateString);
+
+            current.setDate(current.getDate() - 1);
+        }
+
+        var supplierData = {
+            labels: rowTitlesTranslated,
+            datasets: getDatasets(rowTitles, options),
+        };
+
+        var chartLine = new Chart(elem, {
+            type: 'line',
+            data: supplierData,
+            options: chartGetOptions(),
+        });
+    }
+
+    function funcBuild(options) {
+        if (!options.lObjects) {
+            console.error('lObjects not exists');
+            return;
+        }
+        if (!options.pObjects) {
+            console.error('pObjects not exists');
+            return;
+        }
+/*        if (!options.sObject) {
+            console.error('sObject not exists');
+            return;
+        }*/
+
+        var current = new Date(Date.now());
+        var endDate = current.toLocaleString('sv-SE').split(' ')[0];
+        current.setDate(current.getDate() - options.days + 1);
+        var startDate = current.toLocaleString('sv-SE').split(' ')[0];
+
+        var sObject = options.sObject;
+        var title = system.getTitle(sObject);
+
+        fileName = startDate + '_' + endDate + '_' + title;
+
+        options.topCount = 15;
+
+        buildCanvas(options);
+        buildData(options);
+    }
+
+    function funcGetColumnTitles(pID) {
+        return columnTitles;
+    }
+
+    function funcGetFileName() {
+        return fileName;
+    }
+
+    function funcGetRowTitles(pID) {
+        return rowTitles;
+    }
+
+    function funcGetData(pID) {
+        return chartData;
+    }
+
+    init();
+
+    return {
+        build: funcBuild,
+        getColumnTitles: funcGetColumnTitles,
+        getRowTitles: funcGetRowTitles,
+        getData: funcGetData,
+        getFileName: funcGetFileName,
+    };
+}());
+
 var chartLObjects = (function () {
     var columnTitles = [],
         rowTitles = [],
@@ -212,7 +442,7 @@ var chartLObjects = (function () {
 
         var pid = options.pObject.pid;
         var sObject = catalog.getSObject();
-        var title = sObject ? sObject.title[nav.lang] : options.dict[nav.lang].unknownSupplier;
+        var title = system.getTitle(sObject);
         var fileName = startDate + '_' + endDate + '_' + title + '_' + pid;
 
         fileNames[pid] = fileName;

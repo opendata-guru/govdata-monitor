@@ -309,9 +309,9 @@ var table = (function () {
         var icon = '';
         var title = row.title;
 
-        if (row.linkId) {
-            title = '<a href="#" onclick="catalog.set(\'' + row.linkId + '\')">' + title + '</a>';
-        }
+//        if (row.linkId) {
+//            title = '<a href="#" onclick="catalog.set(\'' + row.linkId + '\')">' + title + '</a>';
+//        }
         if (row.children.length > 0) {
             var map = row.children.map((child) => child.id);
 

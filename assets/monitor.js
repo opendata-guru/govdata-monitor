@@ -78,7 +78,7 @@ function monitorGetAsPNG() {
 }
 
 function monitorDownloadAsCSV(chartObjectName) {
-    var objects = {charthistory, chartsupplier, chartLObjects};
+    var objects = {charthistory, chartsupplier, chartLObjects, chartCatalogObjects};
     var chartObjectTitle = chartObjectName.split('|')[0];
     var chartObjectID = chartObjectName.split('|')[1];
     var chartObject = objects[chartObjectTitle];

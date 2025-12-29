@@ -7,7 +7,7 @@ var parents = (function () {
     function init() {
         var css = '';
 
-        css += '#parent-data {margin: 0; padding: 0}';
+        css += '#parent-data {margin: 0 0 0 2px; padding: 0}';
         css += '.orgchart {background: none; border: none; min-height: auto; padding: 0; width: 100%}';
         css += '.orgchart>table:first-child {margin: 0 auto}';
         css += '.orgchart .node {border-radius: 8px; margin: -5px 0}';
@@ -97,15 +97,15 @@ var parents = (function () {
     }
 
     function storeLObjects(parentSID, payload) {
-        lObjects = [];
+        var sIDLObjects = [];
 
         if (payload && payload.lobjects) {
-            lObjects = payload.lobjects;
+            sIDLObjects = payload.lobjects;
         }
 
         var children = [];
         var sIDs = [];
-        lObjects.forEach(lObject => {
+        sIDLObjects.forEach(lObject => {
 /*            children.push({
                 id: 'lid-' + lObject.lid,
                 name: lObject.title,

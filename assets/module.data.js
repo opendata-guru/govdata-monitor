@@ -372,7 +372,7 @@ var data = (function () {
 
         if (data.loadedDays === 1) {
             setDate(dateToLoad);
-            catalog.set(catalog.id); // <-  this is a hack
+            catalog.setSID(catalog.sID); // <-  this is a hack
         } else {
             catalog.update();
         }

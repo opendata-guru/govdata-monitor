@@ -24,7 +24,7 @@ var data = (function () {
         'geodata-info-dk':   {de: 'Dänemark, Geo',en:'Denmark, Geo'},
         'ng-ee':             {de: 'Estland',     en: 'Estonia'    }, // avaandmete-portaal
         'fmi':               {de: 'Finnland',    en: 'Finland'    }, // open-data-finland
-        'paikkatietohakemisto':{de:'Finnland, Geo',en:'Finland, Geo'},
+//        'paikkatietohakemisto':{de:'Finnland, Geo',en:'Finland, Geo'},
         'plateforme-ouverte-des-donnees-publiques-francaises':{de: 'Frankreich', en: 'France'},
         'govdata':           {de: 'Deutschland', en: 'Germany'    },
         'gr':{de: 'Griechenland', en: 'Greece'},
@@ -36,6 +36,7 @@ var data = (function () {
         'geoportal-lu':      {de: 'Luxemburg',   en: 'Luxembourg' }, // la-plateforme-de-donnees-luxembourgeoise
         'mt':{de: 'Malta', en: 'Malta'},
         'ngr-nl':            {de: 'Niederlande', en: 'Netherlands'}, // dataportaal-van-de-nederlandse-overheid
+        'data-norge-no':     {de: 'Norwegen',    en: 'Norway'     },
         'dane-gov-pl':       {de: 'Polen',       en: 'Poland'     },
         'dados-gov-pt':      {de: 'Portugal',    en: 'Portugal'   },
         'data-gov-ro':       {de: 'Rumänien',    en: 'Romania'    },
@@ -45,8 +46,10 @@ var data = (function () {
         'codsi':             {de: 'Spanien, INSPIRE', en: 'Spain, INSPIRE' },
         'datos-gob-es':      {de: 'Spanien',     en: 'Spain'      },
         'navarra':           {de: 'Spanien (Provinz Navarra)', en: 'Spain (Navarra region)'},
+        'ideandalucia':      {de: 'Spanien (Provinz Andalusien)', en: 'Spain (Andalusia region)'},
         'oppnadata':         {de: 'Schweden',    en: 'Sweden'     },
         'nsip-se':           {de: 'Schweden (NSIP)', en: 'Sweden (NSIP)'},
+        'beopen':            {de: 'BeOpen Projekt', en: 'BeOpen project'},
     };
 
     function init() {
@@ -308,7 +311,7 @@ var data = (function () {
 
         if (data.loadedDays === 1) {
             setDate(dateToLoad);
-            catalog.set(catalog.id); // <-  this is a hack
+            catalog.setSID(catalog.sID); // <-  this is a hack
         } else {
             catalog.update();
         }

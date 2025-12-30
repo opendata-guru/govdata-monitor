@@ -85,6 +85,7 @@ var catalog = {
     id: 'http://data.europa.eu/88u/catalogue/govdata',
     getSameAs: function() { return []; },
     set: catalogSet,
+    setSID: catalogSet,
     update: catalogUpdate,
 };
 var charthistory = {
@@ -923,6 +924,11 @@ initHVDSummary();
                 var iObject = entry.iObject;
                 if (iObject.url) {
                     str += '<a href="' + stripHTML(iObject.url) + '" target="_blank">Open file</a><br>';
+                    str += '<br>';
+                    str += '<a class="link-info" href="#" onclick="selectHVD(this, 1)" data-bs-toggle="dropdown" data-dataset="' + stripHTML(entry.datasetIdentifier) + '" data-accessurl="' + stripHTML(iObject.url) + '">' + hvdSettings.dict[nav.lang].hvdDiscover + '</a><br>';
+                    str += '<br>';
+    str += '<div class="menu-canvas dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" id="hvdDiscovery2" style="background:#222831;color:#a2c11c;">';
+    str += '</div>';
                 }
                 if (iObject.modified) {
                     str += 'Last seen: ' + stripHTML(iObject.modified) + '<br>';
@@ -949,6 +955,28 @@ initHVDSummary();
                             str += '<li>' + stripHTML(asset.title[nav.lang]) + '</li>';
                         });
                         str += '</ul>';
+                    }
+                }
+
+                if (iObject.url) {
+                    url = URL.parse(iObject.url);
+                    str += '<br>';
+                    str += '<b>URL</b><br>';
+                    str += 'Path: ' + stripHTML(url.pathname) + '<br>';
+                    if (url.search) {
+                        str += '<br>Search: ' + stripHTML(url.search) + '<br>';
+                    }
+                    if (url.hash) {
+                        str += '<br>Hash: ' + stripHTML(url.hash) + '<br>';
+                    }
+                    if (url.port) {
+                        str += '<br>Port: ' + stripHTML(url.port) + '<br>';
+                    }
+                    if (url.username) {
+                        str += '<br><span style="color:#f00">Username: ' + stripHTML(url.username) + '</span><br>';
+                    }
+                    if (url.password) {
+                        str += '<br><span style="color:#f00">Password: ' + stripHTML(url.password) + '</span><br>';
                     }
                 }
             }

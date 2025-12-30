@@ -327,15 +327,17 @@ var catalog = (function () {
     function buildCatalogChart() {
         var loadedDays = 20;
 
-        chartCatalogObjects.build({
-            days: loadedDays,
-            dict: dict,
-            lObjects: lObjects,
-            pObjects: pObjects,
-            lObjectsCount: lObjectsCount,
-            pObjectsCount: pObjectsCount,
-            sObject: sObject,
-        });
+        if (chartCatalogObjects) {
+            chartCatalogObjects.build({
+                days: loadedDays,
+                dict: dict,
+                lObjects: lObjects,
+                pObjects: pObjects,
+                lObjectsCount: lObjectsCount,
+                pObjectsCount: pObjectsCount,
+                sObject: sObject,
+            });
+        }
     }
 
     function buildPortalChart(pObject) {
@@ -492,8 +494,10 @@ var catalog = (function () {
             colClass = 'col-12 col-sm-12 col-md-12 col-xl-12';
         } else if (objectCount === 2) {
             colClass = 'col-6 col-sm-6 col-md-6 col-xl-6';
-        } else {
+        } else if (objectCount === 3) {
             colClass = 'col-4 col-sm-4 col-md-4 col-xl-4';
+        } else {
+            colClass = 'col-3 col-sm-3 col-md-3 col-xl-3';
         }
 
         if (pObjects.length > 0) {

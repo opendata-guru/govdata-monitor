@@ -1,6 +1,7 @@
 var date = null,
     diff = null,
-    charthistory = null;
+    charthistory = null,
+    chartCatalogObjects = null,
     map = null,
     parents = null,
     loadedPObjects = [],

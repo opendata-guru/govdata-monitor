@@ -69,6 +69,7 @@ var catalog = (function () {
                 portalOwn: 'Die Daten werden im eigenen Portal von {portal} {image} unter dem Namen {id} veröffentlicht.',
                 portalMore: 'Für weitere Informationen und Statistiken gehe zu {link} oder gehe direkt zum Portal {externallink}.',
                 portalMoreExternal: 'Gehe direkt zum Portal {externallink}.',
+                portalPortal: 'Die Daten werden im eigenen Portal auf {url} {image} veröffentlicht.',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
                 suppliersCountMoreFilter: '{count} Datenliefernde (gefiltert aus {max} Datenliefernden)',
@@ -98,6 +99,7 @@ var catalog = (function () {
                 portalOwn: 'The data will be published on {portal}\'s {image} own portal under the name {id}.',
                 portalMore: 'For more information and statistics go to {link} or go directly to the portal {externallink}.',
                 portalMoreExternal: 'Go directly to the portal {externallink}.',
+                portalPortal: 'The data will be published on own portal at {url} {image}.',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
                 suppliersCountMoreFilter: '{count} data suppliers (filtered from {max} data suppliers)',
@@ -491,43 +493,27 @@ var catalog = (function () {
         var swatch = chartGetColorSwatch();
 
         if (objectCount === 1) {
-            colClass = 'col-12 col-sm-12 col-md-12 col-xl-12';
+            colClass = 'col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
         } else if (objectCount === 2) {
-            colClass = 'col-6 col-sm-6 col-md-6 col-xl-6';
+            colClass = 'col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6';
         } else if (objectCount === 3) {
-            colClass = 'col-4 col-sm-4 col-md-4 col-xl-4';
+            colClass = 'col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4';
+        } else if (objectCount === 4) {
+            colClass = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3';
         } else {
-            colClass = 'col-3 col-sm-3 col-md-3 col-xl-3';
+            colClass = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2';
         }
 
         if (pObjects.length > 0) {
             pObjects.forEach((pObject) => {
-console.log(pObject);
-                var sObjects = Object.values(loadedSObjects).filter((sObject) => sObject.sid === pObject.sid);
-console.log(loadedSObjects);
-
-/*if (sObjects.length > 0) {
-var sObject = sObjects[0];
-}
-var title = system.getTitle(sObject);*/
-//                var portalTitle = system.getTitle(lObject?.pobject?.sobject);
-                var portalTitle = pObject.pid;
-                var portalURL = pObject.url;
-                var portalLink = '<a href="' + portalURL + '" target="_blank">' + portalTitle + '</a>';
                 var color = swatch[serial];
 
                 str += '<div class="' + colClass + '">';
                 str += '<div style="border-bottom: .2rem solid ' + color + ';height:1.4rem;margin-bottom:1.25rem">';
                 str += '<span style="border: .2rem solid ' + color + ';background:#fff;border-radius:50%;font-weight:bolder;display:inline-block;width:2.5rem;height:2.5rem;line-height:2.3rem;text-align:center;margin-left:.5rem">' + (serial + 1) + '</span>';
                 str += '</div>';
-                str += '<div>';
-
-                str += 'Portal: ' + pObject.url + '<br>';
-//                str += dict[nav.lang].portalOwn.replace('{portal}',portalTitle).replace('{image}',portalImage).replace('{id}',parentTitle) + ' ';
-
-                str += '</div>';
-                str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
-                str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
+                str += '<div id="catalog-' + pObject.pid + '">';
+                str += '<div class="loading-bar mb-2 pb-2" style="height:3rem"></div>';
                 str += '</div>';
                 str += '</div>';
 
@@ -552,7 +538,7 @@ var title = system.getTitle(sObject);*/
                 var color = swatch[serial];
 
                 portalTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + portalTitle + '</span>';
-                parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + parentTitle + '</span>';
+                parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-all">' + parentTitle + '</span>';
                 portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
 
                 str += '<div class="' + colClass + '">';
@@ -593,6 +579,38 @@ var title = system.getTitle(sObject);*/
         elem.innerHTML = str;
 
         buildCatalogChart();
+
+        var serial = 0;
+        pObjects.forEach((pObject) => {
+            loadCatalogPObject('catalog-' + pObject.pid, baseURL + '/p/' + pObject.pid, swatch[serial]);
+            ++serial;
+        });
+    }
+
+    function fillCatalogListPObject(id, pObject, color) {
+        var str = '';
+
+        var portalTitle = system.getTitle(pObject.sobject);
+        var portalURL = pObject.url;
+        var portalImage = pObject.sobject?.image?.url;
+        var portalLink = '<a href="' + portalURL + '" target="_blank">' + portalTitle + '</a>';
+
+        portalURL = portalURL.replace(/^(https:\/\/)/,"");
+        portalURL = portalURL.replace(/^(http:\/\/)/,"");
+        portalURL = portalURL.replace(/^(www\.)/,"");
+
+        portalURL = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-all">' + portalURL + '</span>';
+        portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
+
+        str += '<div>';
+        str += dict[nav.lang].portalPortal.replace('{url}',portalURL).replace('{image}',portalImage) + ' ';
+        str += '</div>';
+        str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+        str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
+        str += '</div>';
+
+        var elem = document.getElementById(id);
+        elem.innerHTML = str;
     }
 
     function third_storePObjects(payload) {
@@ -635,6 +653,27 @@ var title = system.getTitle(sObject);*/
                 fifth_load20Dates();            
             }
         }
+    }
+
+    function loadCatalogPObject(id, url, color) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeCatalogPObject(id, JSON.parse(this.responseText), color);
+            } else if (this.readyState == 4) {
+                storeCatalogPObject(id, null, color);
+            }
+        }
+
+        xhr.send();
+    }
+
+    function storeCatalogPObject(id, payload, color) {
+        var pObject = payload;
+
+        fillCatalogListPObject(id, pObject, color);
     }
 
     function third_loadPObjects(url) {

@@ -48,6 +48,7 @@ var catalog = (function () {
         selectedModifySystemSID = '',
         loadedSObjects = [],
         filterSObjects = '',
+        catalogList = [],
         showOnlyImperfectPObjects = true,
         slideIndex = 0,
         slideShowTimeout = 10000;
@@ -70,6 +71,7 @@ var catalog = (function () {
                 portalMore: 'Für weitere Informationen und Statistiken gehe zu {link} oder gehe direkt zum Portal {externallink}.',
                 portalMoreExternal: 'Gehe direkt zum Portal {externallink}.',
                 portalPortal: 'Die Daten werden im eigenen Portal auf {url} {image} veröffentlicht.',
+                portalPortalShort: 'Im Portal {url}',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
                 suppliersCountMoreFilter: '{count} Datenliefernde (gefiltert aus {max} Datenliefernden)',
@@ -100,6 +102,7 @@ var catalog = (function () {
                 portalMore: 'For more information and statistics go to {link} or go directly to the portal {externallink}.',
                 portalMoreExternal: 'Go directly to the portal {externallink}.',
                 portalPortal: 'The data will be published on own portal at {url} {image}.',
+                portalPortalShort: 'In portal {url}',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
                 suppliersCountMoreFilter: '{count} data suppliers (filtered from {max} data suppliers)',
@@ -331,6 +334,7 @@ var catalog = (function () {
 
         if (chartCatalogObjects) {
             chartCatalogObjects.build({
+                catalogList: catalogList,
                 days: loadedDays,
                 dict: dict,
                 lObjects: lObjects,
@@ -504,6 +508,7 @@ var catalog = (function () {
             colClass = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2';
         }
 
+        catalogList = [];
         if (pObjects.length > 0) {
             pObjects.forEach((pObject) => {
                 var color = swatch[serial];
@@ -516,6 +521,13 @@ var catalog = (function () {
                 str += '<div class="loading-bar mb-2 pb-2" style="height:3rem"></div>';
                 str += '</div>';
                 str += '</div>';
+
+                catalogList.push({
+                    color: color,
+                    id: 'catalog-' + pObject.pid,
+                    pid: pObject.pid,
+                    serial: serial,
+                });
 
                 ++serial;
             });
@@ -538,7 +550,7 @@ var catalog = (function () {
                 var color = swatch[serial];
 
                 portalTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + portalTitle + '</span>';
-                parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-all">' + parentTitle + '</span>';
+                parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + parentTitle + '</span>';
                 portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
 
                 str += '<div class="' + colClass + '">';
@@ -566,6 +578,12 @@ var catalog = (function () {
                 str += '</div>';
                 str += '</div>';
 
+                catalogList.push({
+                    color: color,
+                    lid: lObject.lid,
+                    serial: serial,
+                });
+
                 ++serial;
             });
         }
@@ -580,10 +598,10 @@ var catalog = (function () {
 
         buildCatalogChart();
 
-        var serial = 0;
-        pObjects.forEach((pObject) => {
-            loadCatalogPObject('catalog-' + pObject.pid, baseURL + '/p/' + pObject.pid, swatch[serial]);
-            ++serial;
+        catalogList.forEach((item) => {
+            if (item.pid) {
+                loadCatalogPObject(item.id, baseURL + '/p/' + item.pid, item.color);
+            }
         });
     }
 
@@ -599,7 +617,7 @@ var catalog = (function () {
         portalURL = portalURL.replace(/^(http:\/\/)/,"");
         portalURL = portalURL.replace(/^(www\.)/,"");
 
-        portalURL = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-all">' + portalURL + '</span>';
+        portalURL = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + portalURL + '</span>';
         portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
 
         str += '<div>';
@@ -1027,7 +1045,7 @@ var catalog = (function () {
             str = p.innerHTML;
 
             str = str.replace(/(<a)/igm, '<span').replace(/<\/a>/igm, '</span>');
-//            str = str.replace(/[.+?]/g, "");
+            str = str.replace(/\[.+?\]/g, "");
             str = str.replace(/\(.+?\)/g, "");
             str = str.split(' ').splice(0, 30).join(' ') + '...';
 

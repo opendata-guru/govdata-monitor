@@ -2,24 +2,24 @@ function chartGetColorSwatch() {
     var swatch = [];
 
 //    swatch.push('#34bbe6'); // blue
+    swatch.push('#34bbe6'); // green (Tetrad/Square Color)
     swatch.push('#e63462'); // red (Split Complementary)
     swatch.push('#e6b834'); // yellow (Split Complementary + Double Complementary Color)
-    swatch.push('#e634bb'); // pink (Triadic Color)
-    swatch.push('#3462e6'); // dark blue (Double Complementary Color)
-    swatch.push('#34bbe6'); // green (Tetrad/Square Color)
-    swatch.push('#e65f34'); // orange (Complimentary + Double Complementary Color + Tetrad/Square Color)
-    swatch.push('#bbe634'); // yellow green (Triadic Color)
     swatch.push('#b834e6'); // purple (Tetrad/Square Color)
+    swatch.push('#3462e6'); // dark blue (Double Complementary Color)
+    swatch.push('#e634bb'); // pink (Triadic Color)
+    swatch.push('#bbe634'); // yellow green (Triadic Color)
+    swatch.push('#e65f34'); // orange (Complimentary + Double Complementary Color + Tetrad/Square Color)
 
     // repeat (to have 15+ colors)
+    swatch.push('#34bbe6'); // green (Tetrad/Square Color)
     swatch.push('#e63462'); // red (Split Complementary)
     swatch.push('#e6b834'); // yellow (Split Complementary + Double Complementary Color)
-    swatch.push('#e634bb'); // pink (Triadic Color)
-    swatch.push('#3462e6'); // dark blue (Double Complementary Color)
-    swatch.push('#34bbe6'); // green (Tetrad/Square Color)
-    swatch.push('#e65f34'); // orange (Complimentary + Double Complementary Color + Tetrad/Square Color)
-    swatch.push('#bbe634'); // yellow green (Triadic Color)
     swatch.push('#b834e6'); // purple (Tetrad/Square Color)
+    swatch.push('#3462e6'); // dark blue (Double Complementary Color)
+    swatch.push('#e634bb'); // pink (Triadic Color)
+    swatch.push('#bbe634'); // yellow green (Triadic Color)
+    swatch.push('#e65f34'); // orange (Complimentary + Double Complementary Color + Tetrad/Square Color)
 
     return swatch;
 }
@@ -87,99 +87,112 @@ var chartCatalogObjects = (function () {
     }
 
     function getDatasets(dates, options) {
-//console.log(options);
         var datasets = [];
-        var colors = chartGetColorSwatch();
 
         columnTitles = [];
         chartData = [];
 
-        var colorID = 0;
-
-        for (var c = 0; c < options.pObjects.length; ++c, ++colorID) {
+        for (var c = 0; c < options.pObjects.length; ++c) {
             var pObject = options.pObjects[c];
-var labels = pObject.url;
-//console.log(':' + labels);
+            var portalURL = pObject.url;
+            portalURL = portalURL.replace(/^(https:\/\/)/,"");
+            portalURL = portalURL.replace(/^(http:\/\/)/,"");
+            portalURL = portalURL.replace(/^(www\.)/,"");
+            var label = options.dict[nav.lang].portalPortalShort.replace('{url}',portalURL);
             var pid = pObject.pid;
+            var catalogItem = options.catalogList.filter((item) => item.pid === pid)[0];
             var data = [];
+
+            switch(catalogItem?.serial) {
+                case 0: label = '1️⃣ ' + label; break;
+                case 1: label = '2️⃣ ' + label; break;
+                case 2: label = '3️⃣ ' + label; break;
+                case 3: label = '4️⃣ ' + label; break;
+                case 4: label = '5️⃣ ' + label; break;
+                case 5: label = '6️⃣ ' + label; break;
+                case 6: label = '7️⃣ ' + label; break;
+                case 7: label = '8️⃣ ' + label; break;
+                case 8: label = '9️⃣ ' + label; break;
+            }
 
             for (var d = 0; d < dates.length; ++d) {
                 var date = dates[d];
                 var count = options.pObjectsCount[date];
 
                 if (count) {
-                    data.push(count[pid]);
+                    if (count[pid] === 0) {
+                        data.push(0.00001);
+                    } else {
+                        data.push(count[pid]);
+                    }
                 } else {
                     data.push(null);
                 }
             }
 
-            columnTitles.push(labels);
+            columnTitles.push(label);
             chartData.push(data);
 
-console.log(columnTitles[c]);
             datasets.push({
-                label: columnTitles[c],
+                label: columnTitles.slice(-1)[0],
                 pid: pid,
-                fill: false,
-                borderColor: colors[colorID],
-                borderWidth: 2,
-                pointRadius: 1,
+                fill: true,
+                backgroundColor: catalogItem ? catalogItem.color + '20' : '#88888820',
+                borderColor: catalogItem ? catalogItem.color : '#888',
+                borderWidth: 3,
+                pointRadius: 2,
                 data: data,
             });
         }
 
-        for (var c = 0; c < options.lObjects.length; ++c, ++colorID) {
+        for (var c = 0; c < options.lObjects.length; ++c) {
             var lObject = options.lObjects[c];
-//            var labels = tableLObjects.getLObjectTitle(lObject);
             var parentTitle = lObject.title;
             var portalTitle = system.getTitle(lObject?.pobject?.sobject);
-            var labels = options.dict[nav.lang].portalLinedShort.replace('{portal}',portalTitle).replace('{id}',parentTitle);
+            var label = options.dict[nav.lang].portalLinedShort.replace('{portal}',portalTitle).replace('{id}',parentTitle);
             var lid = lObject.lid;
+            var catalogItem = options.catalogList.filter((item) => item.lid === lid)[0];
             var data = [];
+
+            switch(catalogItem?.serial) {
+                case 0: label = '1️⃣ ' + label; break;
+                case 1: label = '2️⃣ ' + label; break;
+                case 2: label = '3️⃣ ' + label; break;
+                case 3: label = '4️⃣ ' + label; break;
+                case 4: label = '5️⃣ ' + label; break;
+                case 5: label = '6️⃣ ' + label; break;
+                case 6: label = '7️⃣ ' + label; break;
+                case 7: label = '8️⃣ ' + label; break;
+                case 8: label = '9️⃣ ' + label; break;
+            }
 
             for (var d = 0; d < dates.length; ++d) {
                 var date = dates[d];
                 var count = options.lObjectsCount[date];
 
                 if (count) {
-                    data.push(count[lid]);
+                    if (count[lid] === 0) {
+                        data.push(0.00001);
+                    } else {
+                        data.push(count[lid]);
+                    }
                 } else {
                     data.push(null);
                 }
             }
 
-            columnTitles.push(labels);
+            columnTitles.push(label);
             chartData.push(data);
 
             datasets.push({
-                label: columnTitles[c],
+                label: columnTitles.slice(-1)[0],
                 lid: lid,
                 fill: false,
-                borderColor: colors[colorID],
-                borderWidth: 2,
-                pointRadius: 1,
+                borderColor: catalogItem ? catalogItem.color : '#888',
+                borderWidth: 3,
+                pointRadius: 2,
                 data: data,
             });
-        }
-
-        var topLIDs = [];
-
-        for (var c = 0; c < options.lObjects.length; ++c) {
-            datasets.sort(sortChartData(c));
-
-            for (var t = 0; t < Math.min(options.topCount, datasets.length); ++t) {
-                if (datasets[t].data[c]) {
-                    topLIDs.push(datasets[t].lid);
-                }
-            }
-        }
-
-        topLIDs = [...new Set(topLIDs)];
-        datasets = datasets.filter((dataset) => topLIDs.includes(dataset.lid));
-
-        for (var d = 0; d < datasets.length; ++d) {
-            datasets[d].borderColor = colors[d];
         }
 
         return datasets;
@@ -203,8 +216,6 @@ console.log(columnTitles[c]);
     }
 
     function buildData(options) {
-//console.log(options.sObject.title);
-//console.log(options.lObjects[0]?.title + ' @ ' + options.lObjects[0]?.pobject?.sobject?.title?.de);
         var elem = document.querySelector('#' + idCatalogChart + ' > canvas');
         if (!elem) {
             return;

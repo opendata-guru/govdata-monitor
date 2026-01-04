@@ -96,7 +96,14 @@ var chartCatalogObjects = (function () {
         }
     }
 
-    function getDatasets(dates, options) {
+    function plusOneDay(date) {
+        var obj = new Date(date);
+
+        obj.setDate(obj.getDate() + 1);
+        return obj.toLocaleString('sv-SE').split(' ')[0];
+    }
+
+    function getDatasets(options) {
         var datasets = [];
 
         columnTitles = [];
@@ -125,20 +132,19 @@ var chartCatalogObjects = (function () {
                 case 8: label = '9️⃣ ' + label; break;
             }
 
-            for (var d = 0; d < dates.length; ++d) {
-                var date = dates[d];
-                var count = options.pObjectsCount[date];
+            var date = options.selectionBegin;
+            var lastDate = plusOneDay(options.selectionEnd);
+            do {
+                var count = catalogItem?.count ? catalogItem?.count[date] : null;
 
-                if (count) {
-                    if (count[pid] === 0) {
-                        data.push(0.00001);
-                    } else {
-                        data.push(count[pid]);
-                    }
+                if (count === 0) {
+                    data.push(0.00001);
                 } else {
-                    data.push(null);
+                    data.push(count);
                 }
-            }
+
+                date = plusOneDay(date);
+            } while(date !== lastDate);
 
             columnTitles.push(label);
             chartData.push(data);
@@ -176,20 +182,19 @@ var chartCatalogObjects = (function () {
                 case 8: label = '9️⃣ ' + label; break;
             }
 
-            for (var d = 0; d < dates.length; ++d) {
-                var date = dates[d];
-                var count = options.lObjectsCount[date];
+            var date = options.selectionBegin;
+            var lastDate = plusOneDay(options.selectionEnd);
+            do {
+                var count = catalogItem?.count ? catalogItem?.count[date] : null;
 
-                if (count) {
-                    if (count[lid] === 0) {
-                        data.push(0.00001);
-                    } else {
-                        data.push(count[lid]);
-                    }
+                if (count === 0) {
+                    data.push(0.00001);
                 } else {
-                    data.push(null);
+                    data.push(count);
                 }
-            }
+
+                date = plusOneDay(date);
+            } while(date !== lastDate);
 
             columnTitles.push(label);
             chartData.push(data);
@@ -238,25 +243,26 @@ var chartCatalogObjects = (function () {
             return;
         }
 
-        var current = new Date(Date.now());
         var dateString;
         var dateStringDE;
 
         rowTitles = [];
         rowTitlesTranslated = [];
 
-        for (var d = 0; d < options.days; ++d) {
-            dateString = current.toLocaleString('sv-SE').split(' ')[0];
-            dateStringDE = current.toLocaleString('de-DE').split(',')[0];
-            rowTitles.unshift(dateString);
-            rowTitlesTranslated.unshift(nav.lang === 'de' ? dateStringDE : dateString);
+        var date = options.selectionBegin;
+        var lastDate = plusOneDay(options.selectionEnd);
+        do {
+            dateString = date.toLocaleString('sv-SE').split(' ')[0];
+            dateStringDE = date.toLocaleString('de-DE').split(',')[0];
+            rowTitles.push(dateString);
+            rowTitlesTranslated.push(nav.lang === 'de' ? dateStringDE : dateString);
 
-            current.setDate(current.getDate() - 1);
-        }
+            date = plusOneDay(date);
+        } while(date !== lastDate);
 
         var supplierData = {
             labels: rowTitlesTranslated,
-            datasets: getDatasets(rowTitles, options),
+            datasets: getDatasets(options),
         };
 
         var chartLine = new Chart(elem, {
@@ -317,7 +323,7 @@ var chartCatalogObjects = (function () {
 
         var elem = document.getElementById(id);
         var str = '';
-        var days = 100;
+        var days = options.days;
 
         sliderStartDate = new Date(options.dateFirst);
         var diffTime = Math.abs(sliderStartDate - (new Date(options.dateLast)));

@@ -7,7 +7,6 @@ var catalog = (function () {
         lObjects = [];
         lObjectsCount = [];
         pObjects = [];
-        pObjectsCount = [];
         pObjectsLoadedLObjects = 0;
         defaultSID = 'smZ1A'; //GovData
     var idCatalogHistoryTitle = 'catalog-history-title',
@@ -330,7 +329,7 @@ var catalog = (function () {
     }
 
     function buildCatalogChart() {
-        var loadedDays = 20;
+        var displayDays = 30;
 
         if (chartCatalogObjects) {
             var dateFirst = null;
@@ -344,21 +343,29 @@ var catalog = (function () {
                 dateLast = dateLast ? Math.max(last, dateLast) : last;
             });
 
-            dateFirst = (new Date(dateFirst).toLocaleString('sv-SE').split(' ')[0]);
-            dateLast = (new Date(dateLast).toLocaleString('sv-SE').split(' ')[0]);
+            if (dateFirst && dateLast) {
+                var selectionBegin = new Date(dateLast);
+                var selectionEnd = new Date(dateLast);
+                selectionBegin.setDate(selectionBegin.getDate() - displayDays);
 
-            chartCatalogObjects.build({
-                catalogList: catalogList,
-                dateFirst: dateFirst,
-                dateLast: dateLast,
-                days: loadedDays,
-                dict: dict,
-                lObjects: lObjects,
-                pObjects: pObjects,
-                lObjectsCount: lObjectsCount,
-                pObjectsCount: pObjectsCount,
-                sObject: sObject,
-            });
+                dateFirst = (new Date(dateFirst)).toLocaleString('sv-SE').split(' ')[0];
+                dateLast = (new Date(dateLast)).toLocaleString('sv-SE').split(' ')[0];
+                selectionBegin = selectionBegin.toLocaleString('sv-SE').split(' ')[0];
+                selectionEnd = selectionEnd.toLocaleString('sv-SE').split(' ')[0];
+
+                chartCatalogObjects.build({
+                    catalogList: catalogList,
+                    dateFirst: dateFirst,
+                    dateLast: dateLast,
+                    days: displayDays,
+                    dict: dict,
+                    lObjects: lObjects,
+                    pObjects: pObjects,
+                    selectionBegin: selectionBegin,
+                    selectionEnd: selectionEnd,
+                    sObject: sObject,
+                });
+            }
         }
     }
 
@@ -396,59 +403,30 @@ var catalog = (function () {
         });
     }
 
-    function updateSID_storeLObjectsCount(payload, urlCountP, dateString) {
+    function updateSID_storeLObjectsCount(payload, dateString) {
         if (payload) {
             lObjectsCount[dateString] = payload;
         } else {
             lObjectsCount[dateString] = [];
         }
 
-        updateSID_loadPObjectsCount(urlCountP, dateString);
+        funcRebuildAllPortalTables();
     }
 
-    function updateSID_loadLObjectsCount(urlCountL, urlCountP, dateString) {
+    function updateSID_loadLObjectsCount(urlCountL, dateString) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', urlCountL, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                updateSID_storeLObjectsCount(JSON.parse(this.responseText), urlCountP, dateString);
+                updateSID_storeLObjectsCount(JSON.parse(this.responseText), dateString);
             } else if (this.readyState == 4) {
-                updateSID_storeLObjectsCount(null, urlCountP, dateString);
+                updateSID_storeLObjectsCount(null, dateString);
             }
         }
 
         if (dateString in lObjectsCount) {
-            updateSID_storeLObjectsCount(lObjectsCount[dateString], urlCountP, dateString);
-        } else {
-            xhr.send();
-        }
-    }
-
-    function updateSID_storePObjectsCount(payload, dateString) {
-        if (payload) {
-            pObjectsCount[dateString] = payload;
-        } else {
-            pObjectsCount[dateString] = [];
-        }
-
-        funcRebuildAllPortalTables();
-    }
-
-    function updateSID_loadPObjectsCount(urlCountP, dateString) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', urlCountP, true);
-
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                updateSID_storePObjectsCount(JSON.parse(this.responseText), dateString);
-            } else if (this.readyState == 4) {
-                updateSID_storePObjectsCount(null, dateString);
-            }
-        }
-
-        if (dateString in pObjectsCount) {
-            updateSID_storePObjectsCount(pObjectsCount[dateString], dateString);
+            updateSID_storeLObjectsCount(lObjectsCount[dateString], dateString);
         } else {
             xhr.send();
         }
@@ -493,7 +471,7 @@ var catalog = (function () {
 
         for (var d = 0; d < 20; ++d) {
             dateString = current.toLocaleString('sv-SE').split(' ')[0];
-            updateSID_loadLObjectsCount(baseURL + '/l/count/' + dateString, baseURL + '/p/count/' + dateString, dateString);
+            updateSID_loadLObjectsCount(baseURL + '/l/count/' + dateString, dateString);
 
             current.setDate(current.getDate() - 1);
         }

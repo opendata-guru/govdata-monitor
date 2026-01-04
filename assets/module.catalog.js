@@ -333,8 +333,24 @@ var catalog = (function () {
         var loadedDays = 20;
 
         if (chartCatalogObjects) {
+            var dateFirst = null;
+            var dateLast = null;
+
+            catalogList.forEach((item) => {
+                var first = (new Date(item.dateFirst)).getTime();
+                var last = (new Date(item.dateLast)).getTime();
+
+                dateFirst = dateFirst ? Math.min(first, dateFirst) : first;
+                dateLast = dateLast ? Math.max(last, dateLast) : last;
+            });
+
+            dateFirst = (new Date(dateFirst).toLocaleString('sv-SE').split(' ')[0]);
+            dateLast = (new Date(dateLast).toLocaleString('sv-SE').split(' ')[0]);
+
             chartCatalogObjects.build({
                 catalogList: catalogList,
+                dateFirst: dateFirst,
+                dateLast: dateLast,
                 days: loadedDays,
                 dict: dict,
                 lObjects: lObjects,
@@ -436,6 +452,39 @@ var catalog = (function () {
         } else {
             xhr.send();
         }
+    }
+
+    function storeCatalogObjectCount(payload) {
+        if (payload) {
+            catalogList.forEach((item) => {
+                if ((item.pid && (item.pid === payload.pid) && !payload.lid) ||
+                    (item.lid && (item.lid === payload.lid))) {
+                    var keys = Object.keys(payload.count);
+                    keys.sort();
+
+                    item.count = payload.count;
+                    item.dateFirst = keys.length === 0 ? null : keys[0];
+                    item.dateLast = keys.length === 0 ? null : keys.slice(-1)[0];
+                }
+            });
+        }
+
+        buildCatalogChart();
+    }
+
+    function loadCatalogObjectCount(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeCatalogObjectCount(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                storeCatalogObjectCount(null);
+            }
+        }
+
+        xhr.send();
     }
 
     function fifth_load20Dates() {
@@ -601,6 +650,12 @@ var catalog = (function () {
         catalogList.forEach((item) => {
             if (item.pid) {
                 loadCatalogPObject(item.id, baseURL + '/p/' + item.pid, item.color);
+            }
+
+            if (item.pid) {
+                loadCatalogObjectCount(baseURL + '/p/' + item.pid + '/count');
+            } else {
+                loadCatalogObjectCount(baseURL + '/l/' + item.lid + '/count');
             }
         });
     }

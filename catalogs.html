@@ -130,6 +130,119 @@
 			from {opacity: .4}
 			to {opacity: 1}
 		}
+
+		#catalogTimeRange {
+			display: grid;
+			padding: 0 .7em 1.7em .7em;
+			position: relative;
+			width: 100%;
+
+			background: #a4e9f480;
+			border: 1px solid #17a2b8;
+			border-radius: 1em 1em 0 0;
+		}
+		#catalogTimeRange .slider-labels {
+			display: flex;
+			justify-content: space-between;
+			padding-bottom: 1em;
+		}
+		#catalogTimeRange .slider-label {
+			padding: 0 .5em;
+		}
+		#catalogTimeRange input[type='range'] {
+			bottom: 1.65em;
+			cursor: pointer;
+			height: .3em;
+			opacity: 0;
+			pointer-events: none;
+			position: absolute;
+			width: 100%;
+			z-index: 2;
+			-webkit-appearance: none;
+		}
+		#catalogTimeRange input[type='range']::-webkit-slider-thumb {
+			background: none;
+			border: none;
+			border-radius: 50%;
+			height: 1.2em;
+			pointer-events: all;
+			width: 1.2em;
+			-webkit-appearance: none;
+		}
+		#catalogTimeRange input[type='range']::-moz-range-thumb {
+			background: none;
+			border: none;
+			border-radius: 50%;
+			height: 1.2em;
+			pointer-events: all;
+			width: 1.2em;
+			-webkit-appearance: none;
+		}
+		#catalogTimeRange .track-wrapper {
+			align-items: center;
+			display: grid;
+			height: .3em;
+			position: relative;
+			z-index: 1;
+		}
+		#catalogTimeRange .track, #catalogTimeRange .between {
+			border-radius: 1em;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		#catalogTimeRange .track {
+			background-color: #a4e9f4;
+			z-index: 1;
+		}
+		#catalogTimeRange .between {
+			background-color: #17a2b8;
+			z-index: 2;
+		}
+		#catalogTimeRange .thumb {
+			background-color: #17a2b8;
+			border-radius: 50%;
+			height: 1.2em;
+			position: absolute;
+			transition: box-shadow 0.3s ease-in-out;
+			width: 1.2em;
+			z-index: 3;
+		}
+		#catalogTimeRange .thumb.left {
+			left: 0;
+			transform: translate(-.6em, 0);
+		}
+		#catalogTimeRange .thumb.right {
+			right: 0;
+			transform: translate(.6em, 0);
+		}
+		#catalogTimeRange .thumb::before {
+			background-color: #17a2b8;
+			border-radius: 50%;
+			content: '';
+			left: 50%;
+			height: 1.2em;
+			opacity: 0;
+			pointer-events: none;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			transition: opacity 0.3s ease-in-out,height 0.3s ease-in-out,width 0.3s ease-in-out;
+			width: 1.2em;
+			z-index: -1;
+		}
+		#catalogTimeRange .thumb.hover::before {
+			height: 2.4em;
+			opacity: .2;
+			width: 2.4em;
+		}
+		#catalogTimeRange .thumb.active::before {
+			height: 3.6em;
+			opacity: .4;
+			width: 3.6em;
+		}
 	</style>
 </head>
 

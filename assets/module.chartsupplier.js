@@ -72,6 +72,16 @@ var chartCatalogObjects = (function () {
         rowTitlesTranslated = [],
         chartData = [],
         fileName = '';
+    var sliderStartDate = null,
+        sliderInputStart = null,
+        sliderInputEnd = null,
+        sliderThumbLeft = null,
+        sliderThumbRight = null,
+        sliderBetween = null,
+        sliderLabelMin = null,
+        sliderLabelMax = null,
+        sliderMin = 0,
+        sliderMax = 0;
 
     function init() {
     }
@@ -206,12 +216,19 @@ var chartCatalogObjects = (function () {
             str += options.dict[nav.lang].catalogHistory.replace('{days}', options.days);
             str += catalog.getDownloadMenu('chartCatalogObjects');
             str += '</div>';
+
+            str += '<div id="catalogTimeRange"></div>';
+
             str += '<canvas class="my-3" style="max-height:16rem"></canvas>';
         }
 
         var elem = document.getElementById(idCatalogChart);
         if (elem) {
             elem.innerHTML = str;
+
+            if (str !== '') {
+                sliderCreate('catalogTimeRange', options);
+            }
         }
     }
 
@@ -293,6 +310,141 @@ var chartCatalogObjects = (function () {
 
     function funcGetData(pID) {
         return chartData;
+    }
+
+    function sliderCreate(id, options) {
+        // see https://codepen.io/sarmunbustillo/pen/XWEYERa?editors=0100
+
+        var elem = document.getElementById(id);
+        var str = '';
+        var days = 100;
+
+        sliderStartDate = new Date(options.dateFirst);
+        var diffTime = Math.abs(sliderStartDate - (new Date(options.dateLast)));
+        sliderMin = 0;
+        sliderMax = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+
+        str += '<div class="slider-labels">';
+        str += '<span class="slider-label slider-label-start">0</span>';
+        str += '<span class="slider-label slider-label-end">100</span>';
+        str += '</div>';
+        str += '<input type="range" min="' + sliderMin + '" max="' + (sliderMax - 1) + '" value="' + (sliderMax - days) + '">';
+        str += '<input type="range" min="' + (sliderMin + 1) + '" max="' + sliderMax + '" value="' + sliderMax + '">';
+
+        str += '<div class="track-wrapper">';
+        str += '<div class="track"></div>';
+        str += '<div class="between"></div>';
+        str += '<div class="thumb left"></div>';
+        str += '<div class="thumb right"></div>';
+        str += '</div>';
+
+        elem.innerHTML = str;
+
+        var inputs = elem.querySelectorAll('input');
+        sliderInputStart = inputs[0];
+        sliderInputEnd = inputs[1];
+        sliderThumbLeft = elem.querySelector('.thumb.left');
+        sliderThumbRight = elem.querySelector('.thumb.right');
+        sliderBetween = elem.querySelector('.between');
+        sliderLabelMin = elem.querySelector('.slider-label-start');
+        sliderLabelMax = elem.querySelector('.slider-label-end');
+
+        sliderSetStartValue();
+        sliderSetLabel(sliderLabelMin, sliderInputStart);
+
+        sliderSetEndValue();
+        sliderSetLabel(sliderLabelMax, sliderInputEnd);
+
+        sliderInitEvents();
+    }
+
+    function sliderInitEvents() {
+        sliderInputStart.addEventListener('input', () => {
+            sliderSetStartValue();
+            sliderSetLabel(sliderLabelMin, sliderInputStart);
+        });
+
+        sliderInputEnd.addEventListener('input', () => {
+            sliderSetEndValue();
+            sliderSetLabel(sliderLabelMax, sliderInputEnd);
+        });
+
+        sliderInputStart.addEventListener('mouseover', function () {
+            sliderThumbLeft.classList.add('hover');
+        });
+        sliderInputStart.addEventListener('mouseout', function () {
+            sliderThumbLeft.classList.remove('hover');
+        });
+        sliderInputStart.addEventListener('mousedown', function () {
+            sliderThumbLeft.classList.add('active');
+        });
+        sliderInputStart.addEventListener('pointerup', function () {
+            sliderThumbLeft.classList.remove('active');
+        });
+
+        sliderInputEnd.addEventListener('mouseover', function () {
+            sliderThumbRight.classList.add('hover');
+        });
+        sliderInputEnd.addEventListener('mouseout', function () {
+            sliderThumbRight.classList.remove('hover');
+        });
+        sliderInputEnd.addEventListener('mousedown', function () {
+            sliderThumbRight.classList.add('active');
+        });
+        sliderInputEnd.addEventListener('pointerup', function () {
+            sliderThumbRight.classList.remove('active');
+        });
+
+        sliderInputStart.addEventListener('touchstart', function () {
+            sliderThumbLeft.classList.add('active');
+        });
+        sliderInputStart.addEventListener('touchend', function () {
+            sliderThumbLeft.classList.remove('active');
+        });
+        sliderInputEnd.addEventListener('touchstart', function () {
+            sliderThumbRight.classList.add('active');
+        });
+        sliderInputEnd.addEventListener('touchend', function () {
+            sliderThumbRight.classList.remove('active');
+        });
+    }
+
+    function sliderSetLabel(label, input) {
+        var value = parseInt(input.value, 10);
+
+        label.innerHTML = sliderAddInLocal(value);
+    }
+
+    function sliderSetStartValue() {
+        var max = Math.min(parseInt(sliderInputStart.value), parseInt(sliderInputEnd.value) - 1);
+        const percent = ((max - sliderInputStart.min) / (sliderInputStart.max - sliderInputStart.min)) * 100;
+        sliderThumbLeft.style.left = percent + '%';
+        sliderBetween.style.left = percent + '%';
+
+        if (max != parseInt(sliderInputStart.value)) {
+            sliderInputStart.value = max;
+        }
+    }
+
+    function sliderSetEndValue() {
+        var min = Math.max(parseInt(sliderInputEnd.value), parseInt(sliderInputStart.value) + 1);
+        const percent = ((min - sliderInputEnd.min) / (sliderInputEnd.max - sliderInputEnd.min)) * 100;
+        sliderThumbRight.style.right = 100 - percent + '%';
+        sliderBetween.style.right = 100 - percent + '%';   
+
+        if (min != parseInt(sliderInputEnd.value)) {
+            sliderInputEnd.value = min;
+        }
+    }
+
+    function sliderAddInISO(daysToAdd) {
+        var result = (new Date(sliderStartDate.getTime())).setDate(sliderStartDate.getDate() + daysToAdd);
+        return (new Date(result)).toLocaleString('sv-SE').split(' ')[0];
+    }
+
+    function sliderAddInLocal(daysToAdd) {
+        var result = (new Date(sliderStartDate.getTime())).setDate(sliderStartDate.getDate() + daysToAdd);
+        return (new Date(result)).toLocaleString('de').split(',')[0];
     }
 
     init();

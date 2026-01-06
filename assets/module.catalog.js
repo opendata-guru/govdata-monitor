@@ -53,7 +53,7 @@ var catalog = (function () {
         slideShowTimeout = 10000;
     var dict = {
             de: {
-                catalogHistory: '{days} Tage Daten-Historie',
+                catalogHistory: 'Historie der Daten in jedem Portal',
                 dataFlow: 'Datenfluss',
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
                 lastSeenOneDay: 'Gestern zuletzt gesehen',
@@ -84,7 +84,7 @@ var catalog = (function () {
                 unknownSupplier: 'Unbekannte Datenquelle',
             },
             en: {
-                catalogHistory: '{days} days datasets history',
+                catalogHistory: 'History of the data in each portal',
                 dataFlow: 'Data flow',
                 lastSeenMoreDays: 'Last seen {days} days ago',
                 lastSeenOneDay: 'Last seen yesterday',
@@ -347,6 +347,7 @@ var catalog = (function () {
                 var selectionBegin = new Date(dateLast);
                 var selectionEnd = new Date(dateLast);
                 selectionBegin.setDate(selectionBegin.getDate() - displayDays);
+                selectionBegin = new Date(Math.max(selectionBegin, dateFirst));
 
                 dateFirst = (new Date(dateFirst)).toLocaleString('sv-SE').split(' ')[0];
                 dateLast = (new Date(dateLast)).toLocaleString('sv-SE').split(' ')[0];

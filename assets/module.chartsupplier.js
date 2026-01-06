@@ -215,10 +215,23 @@ var chartCatalogObjects = (function () {
 
     function buildCanvas(options) {
         var str = '';
+        var oldCanvas = document.querySelector('#' + idCatalogChart + ' canvas');
+
+        if (oldCanvas) {
+            oldCanvas.remove();
+
+            var elem = document.getElementById(idCatalogChart);
+            var newCanvas = document.createElement('canvas');
+            newCanvas.className = 'my-3';
+            newCanvas.style.maxHeight = '16rem';
+            elem.appendChild(newCanvas);
+
+            return;
+        }
 
         if (options.pObjects && options.lObjects && ((options.pObjects.length + options.lObjects.length) > 0)) {
             str += '<div>';
-            str += options.dict[nav.lang].catalogHistory.replace('{days}', options.days);
+            str += options.dict[nav.lang].catalogHistory;
             str += catalog.getDownloadMenu('chartCatalogObjects');
             str += '</div>';
 
@@ -296,8 +309,6 @@ var chartCatalogObjects = (function () {
 
         fileName = startDate + '_' + endDate + '_' + title;
 
-        options.topCount = 15;
-
         buildCanvas(options);
         buildData(options);
     }
@@ -327,15 +338,19 @@ var chartCatalogObjects = (function () {
 
         sliderStartDate = new Date(options.dateFirst);
         var diffTime = Math.abs(sliderStartDate - (new Date(options.dateLast)));
+        var trackMin = Math.abs(sliderStartDate - (new Date(options.selectionBegin)))
+        var trackMax = Math.abs(sliderStartDate - (new Date(options.selectionEnd)))
         sliderMin = 0;
         sliderMax = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+        trackMin = Math.floor(trackMin / (1000 * 60 * 60 * 24)); 
+        trackMax = Math.floor(trackMax / (1000 * 60 * 60 * 24)); 
 
         str += '<div class="slider-labels">';
         str += '<span class="slider-label slider-label-start">0</span>';
         str += '<span class="slider-label slider-label-end">100</span>';
         str += '</div>';
-        str += '<input type="range" min="' + sliderMin + '" max="' + (sliderMax - 1) + '" value="' + (sliderMax - days) + '">';
-        str += '<input type="range" min="' + (sliderMin + 1) + '" max="' + sliderMax + '" value="' + sliderMax + '">';
+        str += '<input type="range" min="' + sliderMin + '" max="' + (sliderMax - 1) + '" value="' + trackMin + '">';
+        str += '<input type="range" min="' + (sliderMin + 1) + '" max="' + sliderMax + '" value="' + trackMax + '">';
 
         str += '<div class="track-wrapper">';
         str += '<div class="track"></div>';
@@ -356,23 +371,23 @@ var chartCatalogObjects = (function () {
         sliderLabelMax = elem.querySelector('.slider-label-end');
 
         sliderSetStartValue();
-        sliderSetLabel(sliderLabelMin, sliderInputStart);
+        sliderSetLabelMin(options);
 
         sliderSetEndValue();
-        sliderSetLabel(sliderLabelMax, sliderInputEnd);
+        sliderSetLabelMax(options);
 
-        sliderInitEvents();
+        sliderInitEvents(options);
     }
 
-    function sliderInitEvents() {
+    function sliderInitEvents(options) {
         sliderInputStart.addEventListener('input', () => {
             sliderSetStartValue();
-            sliderSetLabel(sliderLabelMin, sliderInputStart);
+            sliderSetLabelMin(options);
         });
 
         sliderInputEnd.addEventListener('input', () => {
             sliderSetEndValue();
-            sliderSetLabel(sliderLabelMax, sliderInputEnd);
+            sliderSetLabelMax(options);
         });
 
         sliderInputStart.addEventListener('mouseover', function () {
@@ -403,22 +418,40 @@ var chartCatalogObjects = (function () {
 
         sliderInputStart.addEventListener('touchstart', function () {
             sliderThumbLeft.classList.add('active');
-        });
+        }, { passive: true });
         sliderInputStart.addEventListener('touchend', function () {
             sliderThumbLeft.classList.remove('active');
-        });
+        }, { passive: true });
         sliderInputEnd.addEventListener('touchstart', function () {
             sliderThumbRight.classList.add('active');
-        });
+        }, { passive: true });
         sliderInputEnd.addEventListener('touchend', function () {
             sliderThumbRight.classList.remove('active');
-        });
+        }, { passive: true });
     }
 
-    function sliderSetLabel(label, input) {
-        var value = parseInt(input.value, 10);
+    function sliderSetLabelMin(options) {
+        var value = parseInt(sliderInputStart.value, 10);
 
-        label.innerHTML = sliderAddInLocal(value);
+        sliderLabelMin.innerHTML = sliderAddAsLocal(value);
+
+        var selectionBegin = sliderAddAsISO(value);
+        if (selectionBegin !== options.selectionBegin) {
+            options.selectionBegin = sliderAddAsISO(value);
+            funcBuild(options);
+        }
+    }
+
+    function sliderSetLabelMax(options) {
+        var value = parseInt(sliderInputEnd.value, 10);
+
+        sliderLabelMax.innerHTML = sliderAddAsLocal(value);
+
+        var selectionEnd = sliderAddAsISO(value);
+        if (selectionEnd !== options.selectionEnd) {
+            options.selectionEnd = sliderAddAsISO(value);
+            funcBuild(options);
+        }
     }
 
     function sliderSetStartValue() {
@@ -443,12 +476,12 @@ var chartCatalogObjects = (function () {
         }
     }
 
-    function sliderAddInISO(daysToAdd) {
+    function sliderAddAsISO(daysToAdd) {
         var result = (new Date(sliderStartDate.getTime())).setDate(sliderStartDate.getDate() + daysToAdd);
         return (new Date(result)).toLocaleString('sv-SE').split(' ')[0];
     }
 
-    function sliderAddInLocal(daysToAdd) {
+    function sliderAddAsLocal(daysToAdd) {
         var result = (new Date(sliderStartDate.getTime())).setDate(sliderStartDate.getDate() + daysToAdd);
         return (new Date(result)).toLocaleString('de').split(',')[0];
     }

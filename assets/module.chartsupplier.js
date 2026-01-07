@@ -430,6 +430,33 @@ var chartCatalogObjects = (function () {
         }, { passive: true });
     }
 
+    var throttlineMilliseconds = 100;
+    var throttlingOptions = null;
+    var throttlingTimestamp = null;
+    function throttlingRebuild(options) {
+        if (throttlingOptions) {
+            throttlingOptions = options;
+        } else {
+            throttlingOptions = options;
+            requestAnimationFrame(throttlingFunction);
+        }
+    }
+    function throttlingFunction() {
+        if (null === throttlingTimestamp) {
+            throttlingTimestamp = performance.now();
+        }
+
+        var elapsed = performance.now() - throttlingTimestamp;
+        if (elapsed > throttlineMilliseconds) {
+            funcBuild(throttlingOptions);
+
+            throttlingOptions = null;
+            throttlingTimestamp = null;
+        } else {
+            requestAnimationFrame(throttlingFunction);
+        }
+    }
+
     function sliderSetLabelMin(options) {
         var value = parseInt(sliderInputStart.value, 10);
 
@@ -438,7 +465,7 @@ var chartCatalogObjects = (function () {
         var selectionBegin = sliderAddAsISO(value);
         if (selectionBegin !== options.selectionBegin) {
             options.selectionBegin = sliderAddAsISO(value);
-            funcBuild(options);
+            throttlingRebuild(options);
         }
     }
 
@@ -450,7 +477,7 @@ var chartCatalogObjects = (function () {
         var selectionEnd = sliderAddAsISO(value);
         if (selectionEnd !== options.selectionEnd) {
             options.selectionEnd = sliderAddAsISO(value);
-            funcBuild(options);
+            throttlingRebuild(options);
         }
     }
 
@@ -593,7 +620,9 @@ var chartLObjects = (function () {
         }
 
         var elem = document.getElementById('portal-chart-' + options.pObject.pid);
-        elem.innerHTML = str;
+        if (elem) {
+            elem.innerHTML = str;
+        }
     }
 
     function buildData(options) {

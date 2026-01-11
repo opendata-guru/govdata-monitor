@@ -3,6 +3,8 @@ var monitor = {
     chartPie: null,
 };
 
+var charthistory = null;
+
 function monitorFormatNumber(x) {
     if (x === null) {
         return '-';
@@ -112,9 +114,6 @@ function monitorZoomIn() {
 
     document.getElementById('historyZoomOut').style.pointerEvents = '';
     document.getElementById('historyZoomOut').classList.add('text-dark');
-
-    document.getElementById('history-chart').classList.remove('chart-sm');
-    document.getElementById('history-chart').classList.add('chart-lg');
 }
 
 function monitorZoomOut() {
@@ -125,9 +124,6 @@ function monitorZoomOut() {
 
     document.getElementById('historyZoomOut').style.pointerEvents = 'none';
     document.getElementById('historyZoomOut').classList.remove('text-dark');
-
-    document.getElementById('history-chart').classList.remove('chart-lg');
-    document.getElementById('history-chart').classList.add('chart-sm');
 }
 
 function monitorUpdateCatalogPieChart() {

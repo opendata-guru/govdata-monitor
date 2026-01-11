@@ -9,8 +9,7 @@ var catalog = (function () {
         pObjects = [];
         pObjectsLoadedLObjects = 0;
         defaultSID = 'smZ1A'; //GovData
-    var idCatalogHistoryTitle = 'catalog-history-title',
-        idParentTitle = 'parent-title',
+    var idParentTitle = 'parent-title',
         idSupplierHistoryTitle = 'supplier-history-title',
         idCardPObjects = 'card-portals',
         idChartPObjects = 'chart-portals',
@@ -243,12 +242,7 @@ var catalog = (function () {
     }
 
     function funcUpdate() {
-        var elemHistory = document.getElementById(idCatalogHistoryTitle);
-        if (elemHistory) {
-            elemHistory.innerHTML = data.loadedDays + ' days catalog history ' + getDownloadMenu('charthistory');
-        }
-
-        elemHistory = document.getElementById(idSupplierHistoryTitle);
+        var elemHistory = document.getElementById(idSupplierHistoryTitle);
         if (elemHistory) {
             elemHistory.innerHTML = data.loadedDays + ' days supplier history ' + getDownloadMenu('chartsupplier');
         }

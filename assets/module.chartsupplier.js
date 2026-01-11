@@ -222,7 +222,9 @@ var chartCatalogObjects = (function () {
 
             var elem = document.getElementById(idCatalogChart);
             var newCanvas = document.createElement('canvas');
-            newCanvas.className = 'my-3';
+            newCanvas.className = 'mb-3 py-2';
+            newCanvas.style.border = '1px solid #17a2b8';
+            newCanvas.style.borderTop = 'none';
             newCanvas.style.maxHeight = '16rem';
             elem.appendChild(newCanvas);
 
@@ -232,12 +234,12 @@ var chartCatalogObjects = (function () {
         if (options.pObjects && options.lObjects && ((options.pObjects.length + options.lObjects.length) > 0)) {
             str += '<div>';
             str += options.dict[nav.lang].catalogHistory;
-            str += catalog.getDownloadMenu('chartCatalogObjects');
+            str += '<a onclick="monitorDownloadAsCSV(\'chartCatalogObjects\')" class="link" style="float:right;border:1px solid #17a2b8;border-bottom:none;margin-right:1rem;padding:.25rem 1rem;border-radius:1rem 1rem 0 0">' + options.dict[nav.lang].saveAsCSV + '</a>';
             str += '</div>';
 
             str += '<div id="catalogTimeRange"></div>';
 
-            str += '<canvas class="my-3" style="max-height:16rem"></canvas>';
+            str += '<canvas class="mb-3 py-2" style="max-height:16rem;border:1px solid #17a2b8;border-top:none"></canvas>';
         }
 
         var elem = document.getElementById(idCatalogChart);

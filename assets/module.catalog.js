@@ -70,6 +70,7 @@ var catalog = (function () {
                 portalMoreExternal: 'Gehe direkt zum Portal {externallink}.',
                 portalPortal: 'Die Daten werden im eigenen Portal auf {url} {image} veröffentlicht.',
                 portalPortalShort: 'Im Portal {url}',
+                portalVoid: 'Es wurde kein Portal gefunden, auf dem Daten veröffentlicht werden.',
                 saveAsCSV: 'Als CSV herunterladen',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
@@ -102,6 +103,7 @@ var catalog = (function () {
                 portalMoreExternal: 'Go directly to the portal {externallink}.',
                 portalPortal: 'The data will be published on own portal at {url} {image}.',
                 portalPortalShort: 'In portal {url}',
+                portalVoid: 'No portal was found where data is published.',
                 saveAsCSV: 'Download as CSV',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
@@ -520,7 +522,7 @@ var catalog = (function () {
         var colClass = 'col-12';
         var swatch = chartGetColorSwatch();
 
-        if (objectCount === 1) {
+        if (objectCount <= 1) {
             colClass = 'col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
         } else if (objectCount === 2) {
             colClass = 'col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6';
@@ -612,10 +614,21 @@ var catalog = (function () {
             });
         }
 
-        str += '<div id="' + idCatalogChart + '" class="col-12 col-sm-12 col-md-12 col-xl-12">';
-        str += '  <div>&nbsp;</div>';
-        str += '  <div class="loading-bar my-3 pb-2" style="height:16rem"></div>';
-        str += '</div>';
+        if (objectCount === 0) {
+            var color = swatch[serial];
+
+            str += '<div class="' + colClass + '">';
+            str += '<div style="border-bottom: .2rem solid ' + color + ';height:1.4rem;margin-bottom:1.25rem">';
+            str += '<span style="border: .2rem solid ' + color + ';background:#fff;border-radius:50%;font-weight:bolder;display:inline-block;width:2.5rem;height:2.5rem;line-height:2.3rem;text-align:center;margin-left:.5rem">0</span>';
+            str += '</div>';
+            str += '<div>' + dict[nav.lang].portalVoid + '</div>';
+            str += '</div>';
+        } else {
+            str += '<div id="' + idCatalogChart + '" class="col-12 col-sm-12 col-md-12 col-xl-12">';
+            str += '  <div>&nbsp;</div>';
+            str += '  <div class="loading-bar my-3 pb-2" style="height:16rem"></div>';
+            str += '</div>';
+        }
 
         elem = document.getElementById(idCatalogList);
         elem.innerHTML = str;

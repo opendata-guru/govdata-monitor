@@ -244,7 +244,7 @@ var map = (function () {
     }
 
     function setupPLayerWithGeoJSON(mapItem, geoJSON) {
-        setPLayer(geoJSON);
+        setPLayer(mapItem, geoJSON);
 
         mapItem.map.jumpTo({
             center: defaultCenter,

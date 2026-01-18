@@ -1094,6 +1094,7 @@ var catalog = (function () {
         if (payload) {
             var text = payload?.parse?.text['*'];
             var tempDiv = document.createElement('div');
+            text = text.replace(/(<img)/igm, '<meta');
             tempDiv.innerHTML = text;
 
             var p = tempDiv.querySelector('div > p');

@@ -69,6 +69,7 @@ var catalog = (function () {
                 portalMore: 'Für weitere Informationen und Statistiken gehe zu {link} oder gehe direkt zum Portal {externallink}.',
                 portalMoreExternal: 'Gehe direkt zum Portal {externallink}.',
                 portalPortal: 'Die Daten werden im eigenen Portal auf {url} {image} veröffentlicht.',
+                portalPortalMoreDetails: 'Weitere Einblicke in das Portal {url}',
                 portalPortalShort: 'Im Portal {url}',
                 portalVoid: 'Es wurde kein Portal gefunden, auf dem Daten veröffentlicht werden.',
                 saveAsCSV: 'Als CSV herunterladen',
@@ -102,6 +103,7 @@ var catalog = (function () {
                 portalMore: 'For more information and statistics go to {link} or go directly to the portal {externallink}.',
                 portalMoreExternal: 'Go directly to the portal {externallink}.',
                 portalPortal: 'The data will be published on own portal at {url} {image}.',
+                portalPortalMoreDetails: 'Further insights into the portal {url}',
                 portalPortalShort: 'In portal {url}',
                 portalVoid: 'No portal was found where data is published.',
                 saveAsCSV: 'Download as CSV',
@@ -490,6 +492,7 @@ var catalog = (function () {
 
                 buildPortalChart(pObject);
                 buildPortalTable(pObject, []);
+                map.add(pObject);
 
                 ++pObjectsLoadedLObjects;
             }
@@ -684,13 +687,39 @@ var catalog = (function () {
 
         fillCatalogList();
 
+        var strFrameStart = '';
+        var strFrameEnd = '';
         var strChart = '';
         var strCard = '';
         pObjects.forEach((pObject) => {
-            strChart += '<div id="portal-chart-' + pObject.pid + '">';
+            var catalogItem = catalogList.filter((item) => item.pid === pObject.pid)[0];
+            var portalURL = pObject.url;
+            portalURL = portalURL.replace(/^(https:\/\/)/,"");
+            portalURL = portalURL.replace(/^(http:\/\/)/,"");
+            portalURL = portalURL.replace(/^(www\.)/,"");
+            portalURL = '<span style="border-bottom: .1rem solid ' + catalogItem.color + ';background:' + catalogItem.color + '40;padding:.1rem .3rem;word-break:break-word">' + portalURL + '</span>';
+
+            strFrameStart = '';
+            strFrameStart += '<div class="row">';
+            strFrameStart += '  <div class="col-12 col-sm-12 col-md-12 col-xl-12 mb-3">';
+            strFrameStart += '    <div style="border-bottom: .2rem solid ' + catalogItem.color + ';height:1.4rem;margin-bottom:1.25rem">';
+            strFrameStart += '      <span style="border: .2rem solid ' + catalogItem.color + ';background:#fff;border-radius:50%;font-weight:bolder;display:inline-block;width:2.5rem;height:2.5rem;line-height:2.3rem;text-align:center;margin-left:.5rem">' + (catalogItem.serial + 1) + '</span>';
+            strFrameStart += '    </div>';
+            strFrameStart += '    <div>' + dict[nav.lang].portalPortalMoreDetails.replace('{url}',portalURL) + '</div>';
+            strFrameStart += '  </div>';
+
+            strFrameEnd = '';
+            strFrameEnd += '</div>';
+
+            strChart += strFrameStart;
+            strChart += '<div id="portal-chart-' + pObject.pid + '" class="col-12 col-sm-6 col-md-7 col-xl-7">';
             strChart += '  <div>&nbsp;</div>';
             strChart += '  <div class="loading-bar my-3 pb-2" style="height:16rem"></div>';
             strChart += '</div>';
+            strChart += '<div class="col-12 col-sm-6 col-md-5 col-xl-5">';
+			strChart += '  <div id="map-' + pObject.pid + '" class="loading-bar" style="width:100%;height:18rem;border:.1rem solid ' + catalogItem.color +';border-radius:.5rem"></div>';
+            strChart += '</div>';
+            strChart += strFrameEnd;
 
             strCard += '<div class="col">';
             strCard += '  <div id="portal-' + pObject.pid + '">';

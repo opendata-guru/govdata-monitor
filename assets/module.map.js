@@ -11,7 +11,8 @@ var map = (function () {
         layerDistrictName = 'layer-district',
         layerCollectiveMunicipalityName1 = 'layer-collective-municipality1',
         layerCollectiveMunicipalityName2 = 'layer-collective-municipality2',
-        layerMunicipalityName = 'layer-municipality';
+        layerMunicipalityName = 'layer-municipality',
+        pMaps = [];
     var eventListenerMapLoaded = [],
         eventListenerMapClicked = [];
     var idMap = 'map',
@@ -21,15 +22,36 @@ var map = (function () {
     var mouseHover = [];
 
     function init() {
-        map = new maplibregl.Map({
+        var elem = document.getElementById(idMap);
+        if (elem) {
+            map = new maplibregl.Map({
+                center: defaultCenter,
+                container: idMap,
+                style: mapStyle,
+                zoom: defaultZoom
+            });
+
+            map.on('mousemove', onMouseMoveReset);
+            map.on('load', onMapLoaded);
+        }
+    }
+
+    function funcAdd(pObject) {
+        var newMap = new maplibregl.Map({
             center: defaultCenter,
-            container: idMap,
+            container: 'map-' + pObject.pid,
             style: mapStyle,
             zoom: defaultZoom
         });
 
-		map.on('mousemove', onMouseMoveReset);
-        map.on('load', onMapLoaded);
+//		newMap.on('mousemove', onMouseMoveReset);
+        newMap.on('load', onPMapLoaded);
+
+        pMaps.push({
+            ars: getARSList(pObject),
+            map: newMap,
+            pid: pObject.pid,
+        });
     }
 
     function getRSList() {
@@ -55,6 +77,20 @@ var map = (function () {
         return [ ...new Set(ret) ];
     }
 
+    function getARSList(pObject) {
+        var ret = [];
+
+        if (pObject && pObject.lObjects) {
+            pObject.lObjects.forEach((lObject) => {
+                if (lObject.sobject && lObject.sobject.geocoding && lObject.sobject.geocoding.germanRegionalKey) {
+                    ret.push(lObject.sobject.geocoding.germanRegionalKey);
+                }
+            });
+        }
+
+        return [ ...new Set(ret) ];
+    }
+
     function generateSingleLayer(idLayer, paint, filter) {
         map.addLayer({
             'id': idLayer,
@@ -66,6 +102,19 @@ var map = (function () {
         });
         map.on('click', idLayer, onClick);
         map.on('mousemove', idLayer, onMouseMove);
+    }
+
+    function generateSinglePLayer(mapItem, idLayer, paint, filter) {
+        mapItem.map.addLayer({
+            'id': idLayer,
+            'type': 'fill',
+            'source': idSource,
+            'paint': paint,
+            'layout': { 'visibility': 'visible' },
+            'filter': filter
+        });
+//        mapItem.map.on('click', idLayer, onClick);
+//        mapItem.map.on('mousemove', idLayer, onMouseMove);
     }
 
     function generateLayer() {
@@ -112,6 +161,50 @@ var map = (function () {
         }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]);
     }
 
+    function generatePLayer(mapItem) {
+/*        generateSinglePLayer(mapItem, layerCountryName, {
+            'fill-color': '#ffffff',
+            'fill-outline-color': '#B8B8B8',
+            'fill-opacity': 1
+        }, ['all', ['==', 'gf', 4], ['==', 'ibz', 10]]);*/
+
+        generateSinglePLayer(mapItem, layerStateName, {
+            'fill-color': '#ffc819',
+            'fill-outline-color': '#8F6D00',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 20], ['<=', 'ibz', 23]]);
+
+        generateSinglePLayer(mapItem, layerGovernmentRegionName, {
+            'fill-color': '#e89532',
+            'fill-outline-color': '#814D0E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['==', 'ibz', 30]]);
+
+        generateSinglePLayer(mapItem, layerDistrictName, {
+            'fill-color': '#63af4f',
+            'fill-outline-color': '#2F5426',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 40], ['<=', 'ibz', 46]]);
+
+        generateSinglePLayer(mapItem, layerCollectiveMunicipalityName1, {
+            'fill-color': '#8c4877',
+            'fill-outline-color': '#361C2E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 50], ['<=', 'ibz', 56]]);
+
+        generateSinglePLayer(mapItem, layerCollectiveMunicipalityName2, {
+            'fill-color': '#8c4877',
+            'fill-outline-color': '#361C2E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 80], ['<=', 'ibz', 88]]);
+
+        generateSinglePLayer(mapItem, layerMunicipalityName, {
+            'fill-color': '#bf2026',
+            'fill-outline-color': '#460C0E',
+            'fill-opacity': .8
+        }, ['all', ['==', 'gf', 4], ['>=', 'ibz', 60], ['<=', 'ibz', 66]]);
+    }
+
     function setLayer(source) {
         if (map.getSource(idSource)) {
             map.getSource(idSource).setData(source);
@@ -125,12 +218,37 @@ var map = (function () {
         }
     }
 
+    function setPLayer(mapItem, source) {
+        if (mapItem.map.getSource(idSource)) {
+            mapItem.map.getSource(idSource).setData(source);
+        } else {
+            mapItem.map.addSource(idSource, {
+                'type': 'geojson',
+                'data': source
+            });
+
+            generatePLayer(mapItem);
+        }
+ 
+        var item = document.getElementById('map-' + mapItem.pid);
+        item.classList.remove('loading-bar');
+    }
+
     function setupLayerWithGeoJSON(geoJSON) {
         setLayer(geoJSON);
 
         map.jumpTo({
             center: defaultCenter,
             zoom: defaultZoom
+        });
+    }
+
+    function setupPLayerWithGeoJSON(mapItem, geoJSON) {
+        setPLayer(geoJSON);
+
+        mapItem.map.jumpTo({
+            center: defaultCenter,
+            zoom: defaultZoom - 1
         });
     }
 
@@ -165,6 +283,29 @@ var map = (function () {
         xhr.send();
     }
 
+    function funcPLoadGeoJSON(mapItem, path) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', path, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                features = JSON.parse(this.responseText);
+                setPLayer(mapItem, features);
+
+                var bounds = turf.bbox(features);
+                mapItem.map.fitBounds(bounds, {padding: 20});
+            } else if (this.readyState == 4) {
+                mapItem.map.jumpTo({
+                    // AUA
+                    center: [9.571, 50.915],
+                    zoom: 14
+                });
+            }
+        }
+
+        xhr.send();
+    }
+
     function setupLayer() {
         if (isMapLoaded && isDataLoaded) {
 //            isMapLoaded = false; // hack
@@ -180,12 +321,32 @@ var map = (function () {
         }
     }
 
+    function setupPLayer(mapItem) {
+        var ars = mapItem.ars.join(',');
+        if (ars === '') {
+            setupPLayerWithGeoJSON(mapItem, {'type':'FeatureCollection','features':[]});
+        } else {
+            funcPLoadGeoJSON(mapItem, 'https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + ars);
+        }
+    }
+
     function onMapLoaded() {
         isDataLoaded = true;
 
         setupLayer();
 
         dispatchEventStartLoading();
+    }
+
+    function onPMapLoaded(event) {
+        var pid = event?.target?._container?.id;
+        pid = pid.split('-')[1];
+
+        var mapItem = pMaps.filter((item) => item.pid === pid)[0];
+
+        setupPLayer(mapItem);
+
+//        dispatchEventStartLoading();
     }
 
     function onClick(e) {
@@ -256,6 +417,7 @@ var map = (function () {
     init();
 
     return {
+        add: funcAdd,
         addEventListenerMapLoaded: funcAddEventListenerMapLoaded,
         addEventListenerMapClicked: funcAddEventListenerMapClicked,
         getLayoutProperty: funcGetLayoutProperty,

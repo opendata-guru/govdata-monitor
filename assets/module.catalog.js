@@ -1287,6 +1287,29 @@ var catalog = (function () {
         });
     }
 
+    function funcOnUpdateWikidataInfo(elem, sid, wikidata) {
+        if (!elem) {
+            return;
+        }
+        elem.classList.remove('bg-info');
+        elem.classList.add('bg-secondary');
+        elem.onClick = null;
+
+        wikidata = wikidata.split('/').slice(-1)[0];
+
+        var url = 'https://opendata.guru/api/2/s/' + sid;
+
+        account.sendRequest(url, {
+            sameaswikidata: wikidata
+        }, (result) => {
+            elem.classList.remove('bg-secondary');
+            elem.classList.add('bg-success');
+        }, (error) => {
+            elem.classList.remove('bg-secondary');
+            elem.classList.add('bg-danger');
+        });
+    }
+
     function funcModifyFilterSObjects(element) {
         filterSObjects = element.value;
         fillModifySObjectTable();
@@ -1458,6 +1481,10 @@ var catalog = (function () {
             text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
             text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
             text += '<strong>geocoding</strong>: ' + sObject.geocoding.germanRegionalKey + '<br>';
+
+            if (sObject.sameAs.wikidata) {
+                text += '<span class="badge mt-1 bg-info" style="line-height:1.3rem;padding:.2rem .6rem;cursor:pointer;margin:0 auto;display:table" onClick="catalog.onUpdateWikidataInfo(this, \'' + sObject.sid + '\', \'' + sObject.sameAs.wikidata + '\')">Update Wikidata info</span>';
+            }
         }
 
         element.innerHTML = text;
@@ -1694,6 +1721,7 @@ var catalog = (function () {
         getSObject: funcGetSObject,
         getDownloadMenu: getDownloadMenu,
         navigateSlides: funcNavigateSlides,
+        onUpdateWikidataInfo: funcOnUpdateWikidataInfo,
         rebuildAllPortalTables: funcRebuildAllPortalTables,
         set: funcSet, // depricated
         setLID: funcSetLID,

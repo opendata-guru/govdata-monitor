@@ -1088,6 +1088,36 @@ var catalog = (function () {
         xhr.send();
     }
 
+    function parseDiv(elem) {
+        var remove = elem.getElementsByClassName('navigation-not-searchable');
+        while(remove[0]) {
+            remove[0].parentNode.removeChild(remove[0]);
+        }
+        remove = elem.getElementsByClassName('reference');
+        while(remove[0]) {
+            remove[0].parentNode.removeChild(remove[0]);
+        }
+        remove = elem.getElementsByTagName('meta');
+        while(remove[0]) {
+            remove[0].parentNode.removeChild(remove[0]);
+        }
+
+        var links = elem.getElementsByTagName('a');
+        for (var i = 0; i < links.length; ++i) {
+            links[i].removeAttribute('class');
+            links[i].removeAttribute('href');
+            links[i].removeAttribute('title');
+        }
+
+        str = elem.innerHTML;
+
+        str = str.replace(/(<a)/igm, '<span').replace(/<\/a>/igm, '</span>');
+        str = str.replace(/\[.+?\]/g, "");
+        str = str.replace(/\(.+?\)/g, "");
+
+        return str;
+    }
+
     function storeWikipedia(footer, payload) {
         var str = '';
 
@@ -1097,30 +1127,16 @@ var catalog = (function () {
             text = text.replace(/(<img)/igm, '<meta');
             tempDiv.innerHTML = text;
 
-            var p = tempDiv.querySelector('div > p');
+            var all = tempDiv.querySelectorAll('div > p');
+            all.forEach((p) => {
+                str += parseDiv(p);
+            });
 
-            var remove = p.getElementsByClassName('navigation-not-searchable');
-            while(remove[0]) {
-                remove[0].parentNode.removeChild(remove[0]);
+            var words = str.split(' ').length;
+            str = str.split(' ').splice(0, 30).join(' ');
+            if (words > 30) {
+                str += '...';
             }
-            remove = p.getElementsByClassName('reference');
-            while(remove[0]) {
-                remove[0].parentNode.removeChild(remove[0]);
-            }
-
-            var links = p.getElementsByTagName('a');
-            for (var i = 0; i < links.length; ++i) {
-                links[i].removeAttribute('class');
-                links[i].removeAttribute('href');
-                links[i].removeAttribute('title');
-            }
-
-            str = p.innerHTML;
-
-            str = str.replace(/(<a)/igm, '<span').replace(/<\/a>/igm, '</span>');
-            str = str.replace(/\[.+?\]/g, "");
-            str = str.replace(/\(.+?\)/g, "");
-            str = str.split(' ').splice(0, 30).join(' ') + '...';
 
             str += '<div class="mt-3" style="font-size:.8em;color:#777">' + footer + '</div>';
         } else {

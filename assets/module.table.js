@@ -951,7 +951,9 @@ var tableLObjects = (function () {
         var str = buildFrame(options);
 
         var elem = document.getElementById('portal-' + options.pObject.pid);
-        elem.innerHTML = str;
+        if (elem) {
+            elem.innerHTML = str;
+        }
     }
 
     function funcSelectLID(that) {

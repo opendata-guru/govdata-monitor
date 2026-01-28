@@ -60,13 +60,17 @@
 								$level = 'monitoring';
 								if (call('../../api/cronjob/cronjob-monitoring.php')) {
 
-									$level = 'create-map';
+									$level = 'create-map-old';
 									if (call('create-map.php')) {
 
-										$level = 'insights';
-										if (call('../../api/cronjob/cronjob-insights.php')) {
-											echo json_encode(array('result' => 'done'));
-											return;
+										$level = 'create-map';
+										if (call('../../api/cronjob/cronjob-map.php')) {
+
+											$level = 'insights';
+											if (call('../../api/cronjob/cronjob-insights.php')) {
+												echo json_encode(array('result' => 'done'));
+												return;
+											}
 										}
 									}
 								}

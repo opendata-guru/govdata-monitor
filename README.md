@@ -71,12 +71,13 @@ Order | Level               | Asset | Task
 1     | ckan-organizations  | :x:   get-and-store-ckan-organizations.php | write file ```/assets/data-YEAR/YEAR-MONTH-DAY-organizations.json```
 2     | ckan-dataset-counts | :x:   get-and-store-ckan-dataset-counts.php | write / append in file ```/assets/data-YEAR/YEAR-MONTH-DAY-organizations.json```
 3     | systems             | :x:   get-and-store-systems.php |	write file ```/assets/data-YEAR/YEAR-MONTH-DAY-systems.json```
-4     | providers           | :new: api/cronjob/cronjob-providers.php |
-5     | hvd                 | :new: api/cronjob/cronjob-hvd.php |
+4     | providers           | :new: api/cronjob/cronjob-providers.php | write file ```/api-data/temp-YEAR/YEAR-MONTH-DAY-providers.json```
+5     | hvd                 | :new: api/cronjob/cronjob-hvd.php | write file ```/api-data/temp-YEAR/YEAR-MONTH-DAY-hvd.json```
 6     | monitoring-old      | :x:   create-monitoring.php | write file ```/assets/monitoring-YEAR/YEAR-MONTH-DAY.json```
-7     | monitoring          | :new: api/cronjob/cronjob-monitoring.php |
-8     | create-map          | :x:   create-map.php | write file ```/assets/map-YEAR/YEAR-MONTH-DAY-de.geojson```
-9     | insights            | :new: api/cronjob/cronjob-insights.php |
+7     | monitoring          | :new: api/cronjob/cronjob-monitoring.php | write file ```/api-data/monitor-date/YEAR-MONTH/monitor-YEAR-MONTH-DAY.json```
+8     | create-map-old      | :x:   create-map.php | write file ```/assets/map-YEAR/YEAR-MONTH-DAY-de.geojson```
+9     | create-map          | :new: api/cronjob/cronjob-map.php | write file ```/assets/map-YEAR/YEAR-MONTH-DAY-map.geojson```
+10     | insights            | :new: api/cronjob/cronjob-insights.php | write file ```/api-data/temp-YEAR/YEAR-MONTH-DAY-insights.json```
 
 ## Ideas
 
@@ -178,3 +179,4 @@ LIMIT 25
 ## Used Libraries
 
 - [Folder and File Explorer](https://github.com/cubiclesoft/js-fileexplorer)
+- [OrgChart.js](https://github.com/dabeng/OrgChart.js)

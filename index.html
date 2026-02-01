@@ -103,7 +103,7 @@
 			now = new Date(now.getTime() - offsetMinutes * 60000);
 			var date = now.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
 			var year = date.split('-')[0];
-			var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-de.geojson';
+			var source = 'https://opendata.guru/govdata/assets/map-' + year + '/' + date + '-map.geojson';
 
 			map.loadGeoJSON(source);
 		});

@@ -51,20 +51,20 @@
 					$level = 'providers';
 					if (call('../../api/cronjob/cronjob-providers.php')) {
 
-						$level = 'hvd';
-						if (call('../../api/cronjob/cronjob-hvd.php')) {
+						$level = 'monitoring-old';
+						if (call('create-monitoring.php')) {
 
-							$level = 'monitoring-old';
-							if (call('create-monitoring.php')) {
+							$level = 'monitoring';
+							if (call('../../api/cronjob/cronjob-monitoring.php')) {
 
-								$level = 'monitoring';
-								if (call('../../api/cronjob/cronjob-monitoring.php')) {
+//								$level = 'create-map-old';
+//								if (call('create-map.php')) {
 
-									$level = 'create-map-old';
-									if (call('create-map.php')) {
+									$level = 'create-map';
+									if (call('../../api/cronjob/cronjob-map.php')) {
 
-										$level = 'create-map';
-										if (call('../../api/cronjob/cronjob-map.php')) {
+										$level = 'hvd';
+										if (call('../../api/cronjob/cronjob-hvd.php')) {
 
 											$level = 'insights';
 											if (call('../../api/cronjob/cronjob-insights.php')) {
@@ -73,7 +73,7 @@
 											}
 										}
 									}
-								}
+//								}
 							}
 						}
 					}

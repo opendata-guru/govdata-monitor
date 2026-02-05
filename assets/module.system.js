@@ -25,6 +25,9 @@ var system = (function () {
         idArcGISHubSystemsHead = 'arcgishub-systems-thead',
         idArcGISHubSystemsBody = 'arcgishub-systems-tbody',
         idArcGISHubSystemsFoot = 'arcgishub-systems-tfoot',
+        idDUVASystemsHead = 'duva-systems-thead',
+        idDUVASystemsBody = 'duva-systems-tbody',
+        idDUVASystemsFoot = 'duva-systems-tfoot',
         idSPARQLSystemsHead = 'sparql-systems-thead',
         idSPARQLSystemsBody = 'sparql-systems-tbody',
         idSPARQLSystemsFoot = 'sparql-systems-tfoot',
@@ -526,6 +529,31 @@ var system = (function () {
         return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
     }
 
+    function getDUVASystemsHead() {
+        var head = '';
+
+        head += '<th>Title</th>';
+        head += '<th>API</th>';
+
+        return '<tr>' + head + '</tr>';
+    }
+
+    function getDUVASystemsRow(sys) {
+        var title = getSystemTitle(sys.sobject);
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+
+        if (title === '') {
+            title = sys.url || sys.pobject.deepLink;
+        }
+
+        var cols = '';
+        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
+
+        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
+
+        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 2);
+    }
+
     function getSPARQLSystemsHead() {
         var head = '';
 
@@ -581,6 +609,9 @@ var system = (function () {
         var arcGISHubTableHead = document.getElementById(idArcGISHubSystemsHead);
         var arcGISHubTableBody = document.getElementById(idArcGISHubSystemsBody);
         var arcGISHubTableFoot = document.getElementById(idArcGISHubSystemsFoot);
+        var duvaTableHead = document.getElementById(idDUVASystemsHead);
+        var duvaTableBody = document.getElementById(idDUVASystemsBody);
+        var duvaTableFoot = document.getElementById(idDUVASystemsFoot);
         var sparqlTableHead = document.getElementById(idSPARQLSystemsHead);
         var sparqlTableBody = document.getElementById(idSPARQLSystemsBody);
         var sparqlTableFoot = document.getElementById(idSPARQLSystemsFoot);
@@ -598,6 +629,7 @@ var system = (function () {
         var odsBody = '';
         var entryScapeBody = '';
         var arcGISHubBody = '';
+        var duvaBody = '';
         var sparqlBody = '';
         var otherBody = '';
 
@@ -620,6 +652,8 @@ var system = (function () {
                 entryScapeBody += getEntryScapeSystemsRow(sys);
             } else if ('ArcGIS Hub' === system) {
                 arcGISHubBody += getArcGISHubSystemsRow(sys);
+            } else if ('DUVA' === system) {
+                duvaBody += getDUVASystemsRow(sys);
             } else if ('SPARQL' === system) {
                 sparqlBody += getSPARQLSystemsRow(sys);
             } else {
@@ -644,6 +678,9 @@ var system = (function () {
         }
         if (arcGISHubBody.length === 0) {
             arcGISHubBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
+        }
+        if (duvaBody.length === 0) {
+            duvaBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
         if (sparqlBody.length === 0) {
             sparqlBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
@@ -670,6 +707,9 @@ var system = (function () {
         arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
         arcGISHubTableBody.innerHTML = arcGISHubBody;
         arcGISHubTableFoot.innerHTML = '<tr><td style="border:none">' + (arcGISHubBody.split('<tr>').length - 1) + ' systems</td></tr>';
+        duvaTableHead.innerHTML = getDUVASystemsHead();
+        duvaTableBody.innerHTML = duvaBody;
+        duvaTableFoot.innerHTML = '<tr><td style="border:none">' + (duvaBody.split('<tr>').length - 1) + ' systems</td></tr>';
         sparqlTableHead.innerHTML = getSPARQLSystemsHead();
         sparqlTableBody.innerHTML = sparqlBody;
         sparqlTableFoot.innerHTML = '<tr><td style="border:none">' + (sparqlBody.split('<tr>').length - 1) + ' systems</td></tr>';

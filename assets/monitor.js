@@ -169,7 +169,7 @@ function monitorUpdateCatalogPieChart() {
         monitor.chartPie.data = pieData;
         monitor.chartPie.update();
     } else {
-        monitor.chartPie = new Chart(document.getElementById('supplier-pie'), {
+/*        monitor.chartPie = new Chart(document.getElementById('supplier-pie'), {
             type: 'pie',
             data: pieData,
             options: {
@@ -180,7 +180,7 @@ function monitorUpdateCatalogPieChart() {
                 },
                 cutoutPercentage: 10
             }
-        });
+        });*/
     }
 }
 

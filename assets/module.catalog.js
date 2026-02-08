@@ -62,6 +62,7 @@ var catalog = (function () {
                 linkToOSM: 'Eine Karte auf {OSM} (OpenStreetMap) anzeigen.',
                 linkToWikidata: 'Datenobjekt auf {Wikidata} anzeigen.',
                 linkToWikipedia: 'Lese mehr auf {Wikipedia}.',
+                portalCount: 'Aktuell sind {count} Datensätze verfügbar.',
                 portalLined: 'Die Daten werden im Portal {portal} {image} mit der Herkunft {id} veröffentlicht.',
                 portalLinedShort: 'Im Portal {portal} ({id})',
                 portalOutdated: 'Seit {days} Tagen werden dort aber keine Daten mehr angeboten.',
@@ -96,6 +97,7 @@ var catalog = (function () {
                 linkToOSM: 'Display a map on {OSM} (OpenStreetMap).',
                 linkToWikidata: 'Display data object on {Wikidata}.',
                 linkToWikipedia: 'Read more on {Wikipedia}.',
+                portalCount: 'Currently, {count} datasets are available.',
                 portalLined: 'The data will be published in the portal {portal} {image} with the origin {id}.',
                 portalLinedShort: 'In portal {portal} ({id})',
                 portalOutdated: 'No data has been offered there for {days} days.',
@@ -444,6 +446,20 @@ var catalog = (function () {
                     item.count = payload.count;
                     item.dateFirst = keys.length === 0 ? null : keys[0];
                     item.dateLast = keys.length === 0 ? null : keys.slice(-1)[0];
+
+                    var countDiv = document.getElementById(item.countid);
+                    if (countDiv) {
+                        var count = '<span style="border-bottom: .1rem solid ' + item.color + ';background:' + item.color + '40;padding:.1rem .3rem">' + item.count[item.dateLast] + '</span>';
+                        var str = '';
+
+                        str += dict[nav.lang].portalCount.replace('{count}', count);
+
+                        str += '<span style="font-size:.8em;color:#777">';
+                        str += ' Coming next: Show this datasets';
+                        str += '</span>';
+
+                        countDiv.innerHTML = str;
+                    }
                 }
             });
         }
@@ -532,7 +548,9 @@ var catalog = (function () {
         } else if (objectCount === 3) {
             colClass = 'col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4';
         } else if (objectCount === 4) {
-            colClass = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3';
+            colClass = 'col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3';
+        } else if (objectCount === 5) {
+            colClass = 'col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2';
         } else {
             colClass = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2';
         }
@@ -553,6 +571,7 @@ var catalog = (function () {
 
                 catalogList.push({
                     color: color,
+                    countid: 'count-' + pObject.pid,
                     id: 'catalog-' + pObject.pid,
                     pid: pObject.pid,
                     serial: serial,
@@ -593,6 +612,7 @@ var catalog = (function () {
                         str += dict[nav.lang].portalOutdated.replace('{days}',lastseen) + ' ';
                     }
                     str += '</div>';
+                    str += '<div class="mt-3" id="count-' + lObject.lid + '"><div class="loading-bar mb-2 pb-2" style="height:1rem"></div></div>';
                     str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
                     str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
                 } else {
@@ -601,6 +621,9 @@ var catalog = (function () {
                         str += dict[nav.lang].portalOutdated.replace('{days}',lastseen) + ' ';
                     }
                     str += '</div>';
+                    if (lastseen <= 1) {
+                        str += '<div class="mt-3" id="count-' + lObject.lid + '"><div class="loading-bar mb-2 pb-2" style="height:1rem"></div></div>';
+                    }
                     str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
                     str += dict[nav.lang].portalMore.replace('{link}', internalLink).replace('{externallink}', portalLink);
                 }
@@ -609,6 +632,7 @@ var catalog = (function () {
 
                 catalogList.push({
                     color: color,
+                    countid: 'count-' + lObject.lid,
                     lid: lObject.lid,
                     serial: serial,
                 });
@@ -640,7 +664,7 @@ var catalog = (function () {
 
         catalogList.forEach((item) => {
             if (item.pid) {
-                loadCatalogPObject(item.id, baseURL + '/p/' + item.pid, item.color);
+                loadCatalogPObject(item.id, item.countid, baseURL + '/p/' + item.pid, item.color);
             }
 
             if (item.pid) {
@@ -651,7 +675,7 @@ var catalog = (function () {
         });
     }
 
-    function fillCatalogListPObject(id, pObject, color) {
+    function fillCatalogListPObject(id, countid, pObject, color) {
         var str = '';
 
         var portalTitle = system.getTitle(pObject.sobject);
@@ -669,6 +693,7 @@ var catalog = (function () {
         str += '<div>';
         str += dict[nav.lang].portalPortal.replace('{url}',portalURL).replace('{image}',portalImage) + ' ';
         str += '</div>';
+        str += '<div class="mt-3" id="' + countid + '"><div class="loading-bar mb-2 pb-2" style="height:1rem"></div></div>';
         str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
         str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
         str += '</div>';
@@ -745,25 +770,25 @@ var catalog = (function () {
         }
     }
 
-    function loadCatalogPObject(id, url, color) {
+    function loadCatalogPObject(id, countid, url, color) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                storeCatalogPObject(id, JSON.parse(this.responseText), color);
+                storeCatalogPObject(id, countid, JSON.parse(this.responseText), color);
             } else if (this.readyState == 4) {
-                storeCatalogPObject(id, null, color);
+                storeCatalogPObject(id, countid, null, color);
             }
         }
 
         xhr.send();
     }
 
-    function storeCatalogPObject(id, payload, color) {
+    function storeCatalogPObject(id, countid, payload, color) {
         var pObject = payload;
 
-        fillCatalogListPObject(id, pObject, color);
+        fillCatalogListPObject(id, countid, pObject, color);
     }
 
     function third_loadPObjects(url) {

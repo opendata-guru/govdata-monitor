@@ -8,8 +8,8 @@ var table = (function () {
     var idSupplierTableBody = 'supplier-table',
         idSupplierTableHeader = 'supplier-table-header',
         idSupplierTableFooter = 'supplier-table-footer',
-        idCatalogTableBody = 'catalog-table',
-        idCatalogTableHeader = 'catalog-table-header',
+//        idCatalogTableBody = 'catalog-table',
+//        idCatalogTableHeader = 'catalog-table-header',
         idElement = 'tableDropdown',
         idMenu = 'table-menu',
         idReset = 'table-reset',
@@ -359,7 +359,7 @@ var table = (function () {
         navigator.clipboard.writeText(value);
     }
 
-    function loadDatasetList(path, elemHeader, elemBody) {
+/*    function loadDatasetList(path, elemHeader, elemBody) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', path, true);
 
@@ -379,9 +379,9 @@ var table = (function () {
         }
 
         xhr.send();
-    }
+    }*/
 
-    function funcListDatasets(elemButton, name, parent) {
+/*    function funcListDatasets(elemButton, name, parent) {
         var catName = '', id = '';
         var elemMenu = elemButton.parentElement;
         var elemHeader = elemMenu.querySelector('.menu-header');
@@ -417,9 +417,9 @@ var table = (function () {
         // package_search https://docs.ckan.org/en/2.8/api/index.html#ckan.logic.action.get.package_search
 
         loadDatasetList('https://opendata.guru/api/2/datasets?link=' + catLink + '&sub_id=' + id, elemHeader, elemBody);
-    }
+    }*/
 
-    function getCatalogMenu(catalogId) {
+/*    function getCatalogMenu(catalogId) {
         var html = ' and ';
         html += '<a title="Options" class="link-info" href="#" id="' + idDatasetDropdown + '" data-bs-toggle="dropdown">';
         html += 'List Datasets';
@@ -433,9 +433,9 @@ var table = (function () {
         html += '</div>';
 
         return html;
-    }
+    }*/
 
-    function getCatalogRow(arrayData, id, countDatasets, lastSuffix) {
+/*    function getCatalogRow(arrayData, id, countDatasets, lastSuffix) {
         var str = '';
         var name = '';
         var title = '';
@@ -517,30 +517,30 @@ var table = (function () {
         }
 //        showPortal = '<a href="" class="ms-2" style="pointer-events:none;color:#888">Show in portal</a>';
 
-        secondLine = '<br><span class="ms-4">Work in progress:</span> <a href="datasets.html' + suffix + '" class="link-info">Show datasets</a>' + showPortal + showDiff + getCatalogMenu(catalogId);
+//        secondLine = '<br><span class="ms-4">Work in progress:</span> <a href="datasets.html' + suffix + '" class="link-info">Show datasets</a>' + showPortal + showDiff + getCatalogMenu(catalogId);
 
         str = '<td>' + title + secondLine + '</td>' + str;
 
         lastSuffix.value = suffix;
 
         return '<tr>' + str + '</tr>';
-    }
+    }*/
 
     function funcUpdate() {
         var arrayData = [];
         var arrayIds = [];
-        var catalogHeader = '';
-        var catalogRows = '';
+//        var catalogHeader = '';
+//        var catalogRows = '';
         var supplierHeader = '';
         var supplierRows = '';
         var supplierFooter = '';
         var sameAs = catalog.getSameAs(catalog.id);
 
-        catalogHeader += '<th></th>';
+//        catalogHeader += '<th></th>';
         supplierHeader += '<th>Data Suppliers</th>';
 
         for (var v = 0; v < data.viewHeader.length; ++v) {
-            catalogHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
+//            catalogHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
             supplierHeader += '<th class="text-end">' + data.viewHeader[v] + '</th>';
         }
         if (data.viewHeader.length === 1) {
@@ -570,18 +570,18 @@ var table = (function () {
             supplierFooter += '<th></th>';
         }
 
-        var suffix = { value: '' };
+/*        var suffix = { value: '' };
         catalogRows += getCatalogRow(arrayData, catalog.id, true, suffix);
         if (sameAs.length > 0) {
             sameAs.forEach((id) => catalogRows += getCatalogRow(arrayData, id, false, suffix));
-        }
+        }*/
 
-        catalogHeader = '<tr>' + catalogHeader + '</tr>';
+//        catalogHeader = '<tr>' + catalogHeader + '</tr>';
         supplierHeader = '<tr style="border-bottom:1.5px solid #6C757D">' + supplierHeader + '</tr>';
         supplierFooter = '<tr style="border-top:1.5px solid #6C757D">' + supplierFooter + '</tr>';
 
-        document.getElementById(idCatalogTableHeader).innerHTML = catalogHeader;
-        document.getElementById(idCatalogTableBody).innerHTML = catalogRows;
+//        document.getElementById(idCatalogTableHeader).innerHTML = catalogHeader;
+//        document.getElementById(idCatalogTableBody).innerHTML = catalogRows;
 
         document.getElementById(idSupplierTableHeader).innerHTML = supplierHeader;
         document.getElementById(idSupplierTableFooter).innerHTML = supplierFooter;
@@ -601,7 +601,7 @@ var table = (function () {
         flatten: initvalFlatten,
         layers: initvalLayers,
         layerNameOfUndefined: layerUndefined,
-        listDatasets: funcListDatasets,
+//        listDatasets: funcListDatasets,
         update: funcUpdate,
     };
 }());

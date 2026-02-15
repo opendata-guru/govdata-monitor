@@ -317,7 +317,7 @@ var map = (function () {
         if (rs === '') {
             setupLayerWithGeoJSON({'type':'FeatureCollection','features':[]});
         } else {
-            funcLoadGeoJSON('https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + rs);
+            funcLoadGeoJSON('https://opendata.guru/api/2/convert/ars?ars=' + rs);
         }
     }
 
@@ -326,7 +326,7 @@ var map = (function () {
         if (ars === '') {
             setupPLayerWithGeoJSON(mapItem, {'type':'FeatureCollection','features':[]});
         } else {
-            funcPLoadGeoJSON(mapItem, 'https://opendata.guru/govdata/get/rs-to-geojson.php?rs=' + ars);
+            funcPLoadGeoJSON(mapItem, 'https://opendata.guru/api/2/convert/ars?ars=' + ars);
         }
     }
 

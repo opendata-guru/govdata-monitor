@@ -17,36 +17,9 @@
 A monitoring dashboard:
 https://opendata.guru/govdata/index.html
 
-The OpenAPI description: /openapi.yaml
+The OLD OpenAPI description: /openapi.yaml . Use NEW OpenAPI documentation: https://opendata.guru/govdata/api.html
 
-Count all datasets:
-
-- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
-
-Get a list of all contributors and some more meta data:
-
-- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
-
-Get a list of all datasets:
-
-- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
-
-Get system status information:
-
-- use new OpenAPI documentation: https://opendata.guru/govdata/api.html
-
-Convert RS (Regionalschlüssel) to GEOJSON file:
-
-- https://opendata.guru/govdata/get/rs-to-geojson.php
-- https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04
-- https://opendata.guru/govdata/get/rs-to-geojson.php?rs=04,06
-
-Parameter length in GET method is limited to some KByte (depend on Browser support).
-You can use `rs` as POST parameter to prevent this limitation.
-
-- https://opendata.guru/govdata/get/rs-to-geojson.php and POST parameter `rs=04,06`
-
-And service endpoints:
+And OLD service endpoints:
 
 - https://opendata.guru/govdata/service/artery.php
 - https://opendata.guru/govdata/service/get-and-store-ckan-organizations.php
@@ -54,10 +27,6 @@ And service endpoints:
 - https://opendata.guru/govdata/service/get-and-store-systems.php
 - https://opendata.guru/govdata/service/create-map.php
 - https://opendata.guru/govdata/service/create-monitoring.php
-
-Regionalschlüssel:
-
-- https://www.dcat-ap.de/def/politicalGeocoding/regionalKey/
 
 ## Cron job
 
@@ -173,6 +142,114 @@ OPTIONAL {?publisher skos:prefLabel ?publisherLabel}
 }
 LIMIT 25
 ```
+
+**Show HVD datasets
+
+Bsp. für keyword = Georaum (insgesamt haben 375 Datensätze dieses Schlüsselwort)
+
+https://gdk.gdi-de.org/gdi-de/srv/eng/csw?request=GetRecords&version=2.0.2&service=CSW&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&NAMESPACE=xmlns(gmd=http://www.isotc211.org/2005/gmd)&typeNames=gmd:MD_Metadata&CONSTRAINTLANGUAGE=FILTER&CONSTRAINT_LANGUAGE_VERSION=1.1.0&elementSetName=full&startPosition=1&maxRecords=10&CONSTRAINT=%3Cogc:Filter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%20xmlns:gmd=%22http://www.isotc211.org/2005/gmd%22%3E%3Cogc:And%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:type%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3Edataset%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:subject%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3EGeoraum%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3C/ogc:And%3E%3C/ogc:Filter%3E
+
+https://gdk.gdi-de.org/gdi-de/srv/eng/csw
+?request=GetRecords
+&version=2.0.2
+&service=CSW
+&resultType=results
+&outputSchema=http://www.isotc211.org/2005/gmd
+&NAMESPACE=xmlns(gmd=http://www.isotc211.org/2005/gmd)
+&typeNames=gmd:MD_Metadata
+&CONSTRAINTLANGUAGE=FILTER
+&CONSTRAINT_LANGUAGE_VERSION=1.1.0
+&elementSetName=full
+&startPosition=1
+&maxRecords=10
+&CONSTRAINT=%3Cogc:Filter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%20xmlns:gmd=%22http://www.isotc211.org/2005/gmd%22%3E%3Cogc:And%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:type%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3Edataset%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:subject%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3EGeoraum%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3C/ogc:And%3E%3C/ogc:Filter%3E
+
+<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc" xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0" xmlns:gmd="http://www.isotc211.org/2005/gmd"><ogc:And> <ogc:PropertyIsEqualTo> <ogc:PropertyName>apiso:type</ogc:PropertyName> <ogc:Literal>dataset</ogc:Literal> </ogc:PropertyIsEqualTo> <ogc:PropertyIsEqualTo> <ogc:PropertyName>apiso:subject</ogc:PropertyName> <ogc:Literal>Georaum</ogc:Literal> </ogc:PropertyIsEqualTo> </ogc:And></ogc:Filter>
+
+<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc" xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0" xmlns:gmd="http://www.isotc211.org/2005/gmd">
+  <ogc:And>
+    <ogc:PropertyIsEqualTo>
+      <ogc:PropertyName>apiso:type</ogc:PropertyName>
+      <ogc:Literal>dataset</ogc:Literal>
+    </ogc:PropertyIsEqualTo>
+    <ogc:PropertyIsEqualTo>
+      <ogc:PropertyName>apiso:subject</ogc:PropertyName>
+      <ogc:Literal>Georaum</ogc:Literal>
+    </ogc:PropertyIsEqualTo>
+  </ogc:And>
+</ogc:Filter>
+
+--------
+Mapping
+https://github.com/geopython/pycsw/blob/70f1a19f764757a459501ae59f75982a50a14acb/pycsw/plugins/profiles/apiso/apiso.py#L65
+--------
+- 'apiso:Type' -> 'xpath': 'gmd:hierarchyLevel/gmd:MD_ScopeCode'
+- 'apiso:Subject' -> 'xpath': 'gmd:identificationInfo/gmd:MD_Identification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:topicCategory/gmd:MD_TopicCategoryCode'
+--------
+
+
+Result:
+<csw:GetRecordsResponse>
+  <csw:SearchResults>
+    <gmd:MD_Metadata>
+      <gmd:hierarchyLevel>
+        <gmd:MD_ScopeCode codeList="https://standards.iso.org/iso/19139/resources/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+      <gmd:identificationInfo>
+        <gmd:MD_DataIdentification>
+          <gmd:descriptiveKeywords>
+            <gmd:MD_Keywords>
+              <gmd:keyword>
+                <gco:CharacterString>Georaum</gco:CharacterString>
+
+Ansonsten müsstest du den Term „Georaum“ dann für die anderen fünf Kategorien jeweils austauschen.
+
+Die HVD-Kennzeichnung verdient diesen Namen aber erst, wenn auch der Thesaurus angegeben ist wie vorgesehen.
+
+<csw:GetRecordsResponse>
+  <csw:SearchResults>
+    <gmd:MD_Metadata>
+      <gmd:identificationInfo>
+        <gmd:MD_DataIdentification>
+          <gmd:descriptiveKeywords>
+            <gmd:MD_Keywords>
+              <gmd:thesaurusName>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>High-value dataset categories</gco:CharacterString>
+
+- https://www.ogc.org/de/publications/standard/filter/
+- https://docs.geoserver.org/main/en/user/filter/filter_reference.html
+- InGrid CSW Schnittstelle:
+  - Die CSW-Schnittstelle bietet Zugang zur InGrid-Suche über die OGC CSW 2.0.2 AP ISO 1.0 Schnittstellenspezifikation
+  - https://www.ingrid-oss.eu/5.2.0/components/interface_csw.html
+  - https://www.ogc.org/de/publications/standard/cat/
+- https://redmine.gdi-de.org/projects/gdi-de-registry/wiki/Tipps
+- https://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd
+- API description for Catalogue Service for the Web 2.0.2 (CSW)
+  - https://help.wetransform.to/de/docs/users-roles-orgs/harvesting-metadata/2015-03-07-csw/
+
+Iteration 2 (only 1 dataset):
+
+https://gdk.gdi-de.org/gdi-de/srv/eng/csw?request=GetRecords&version=2.0.2&service=CSW&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&NAMESPACE=xmlns(gmd=http://www.isotc211.org/2005/gmd)&typeNames=gmd:MD_Metadata&CONSTRAINTLANGUAGE=FILTER&CONSTRAINT_LANGUAGE_VERSION=1.1.0&elementSetName=full&startPosition=1&maxRecords=1&CONSTRAINT=%3Cogc:Filter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%20xmlns:gmd=%22http://www.isotc211.org/2005/gmd%22%3E%3Cogc:And%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:type%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3Edataset%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:subject%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3EGeoraum%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3C/ogc:And%3E%3C/ogc:Filter%3E
+
+Iteration 3 (replace apiso:Subject with xpath):
+
+https://gdk.gdi-de.org/gdi-de/srv/eng/csw?request=GetRecords&version=2.0.2&service=CSW&resultType=results&outputSchema=http://www.isotc211.org/2005/gmd&NAMESPACE=xmlns(gmd=http://www.isotc211.org/2005/gmd)&typeNames=gmd:MD_Metadata&CONSTRAINTLANGUAGE=FILTER&CONSTRAINT_LANGUAGE_VERSION=1.1.0&elementSetName=full&startPosition=1&maxRecords=1&CONSTRAINT=%3Cogc:Filter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%20xmlns:apiso=%22http://www.opengis.net/cat/csw/apiso/1.0%22%20xmlns:gmd=%22http://www.isotc211.org/2005/gmd%22%3E%3Cogc:And%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3E/csw:GetRecordsResponse/csw:SearchResults/gmd:MD_Metadata/gmd:hierarchyLevel/gmd:MD_ScopeCode%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3Edataset%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyIsEqualTo%3E%20%3Cogc:PropertyName%3Eapiso:subject%3C/ogc:PropertyName%3E%20%3Cogc:Literal%3EGeoraum%3C/ogc:Literal%3E%20%3C/ogc:PropertyIsEqualTo%3E%20%3C/ogc:And%3E%3C/ogc:Filter%3E
+
+- CSW service
+  - https://gdk.gdi-de.org/gdi-de/srv/eng/csw
+- Portal
+  - https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/home
+- GeoNetwork Api Documentation (beta)
+  - https://gdk.gdi-de.org/gdi-de/doc/api/
+  - https://gdk.gdi-de.org/gdi-de/srv/v2/api-docs
+  - https://gdk.gdi-de.org/geonetwork/srv/api/0.1/records (too big to get a valid request)
+- INSPIRE
+  - INSPIRE theme, artical from Jesper: https://open-north.de/blog/2023-07-24_inspire_abkuerzungen/
+  - INSPIRE theme registry: https://inspire.ec.europa.eu/theme
+- Building functions
+  - Artical from Jesper: https://open-north.de/blog/2022-09-04_geobasisdaten_nutzung/
+  - Code lists by ADV: https://repository.gdi-de.org/schemas/adv/citygml/Codelisten/BuildingFunctionTypeAdV.xml
 
 ## Used Libraries
 

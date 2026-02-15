@@ -39,9 +39,9 @@
 		$uri = 'https://' . $_SERVER['HTTP_HOST'] . htmlspecialchars($_SERVER['REQUEST_URI']);
 		$uri = dirname(dirname($uri));
 
-		$params = 'rs=' . str_replace('%2C', ',', urlencode($paramRS));
+		$params = 'ars=' . str_replace('%2C', ',', urlencode($paramRS));
 		$params .= '&status=' . str_replace('%2C', ',', urlencode($paramStatus));
-		$uri .= '/get/rs-to-geojson.php';
+		$uri .= '/convert-ars.php';
 
 		$ch = curl_init();
 

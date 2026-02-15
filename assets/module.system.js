@@ -276,6 +276,28 @@ var system = (function () {
             str += '<tr class="issues"><td colspan=' + cols + ' class="px-3 py-1" style="background:#ddd;border-radius:0 0 1rem 1rem">';
 
             monitoringObj.forEach((issue) => {
+                var silent = [
+                    'pNlz' /* https://avoindata.suomi.fi */,
+                    'pHbA' /* https://data.gov.ie */,
+                    'pXSc' /* https://data.gov.il */,
+                    'pjP8' /* https://dati.gov.it/opendata */,
+                    'pFuv' /* https://data.overheid.nl/data */,
+                    'pSU6' /* https://data.gov.hr/ckan */,
+                    'p6VB' /* https://data.gov.lv/dati/lv */,
+                    'pJmr' /* https://dataset.gov.md */,
+                    'ptfz' /* https://ckan.opendata.swiss */,
+                    'pFzk' /* https://ckan.publishing.service.gov.uk */,
+                    'p000' /* https://data.europa.eu */,
+                    'pQLS' /* https://data.bl.ch */,
+                    'pKZE' /* https://data.bs.ch */,
+                    'p1Y3' /* https://data.tg.ch */,
+                    'pNgX' /* https://data.zg.ch */,
+                    'pGBx' /* https://catalog.opendata.li */,
+                    'p1tT' /* https://admin.dataportal.se */,
+                ];
+                if ((issue.message === 'missingSObjects') && silent.includes(sys.pobject.pid)) {
+                    return;
+                }
                 if (issue.severity === 'info') {
                     str += '<span class="bg-info text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">i</span>';
                 } else if (issue.severity === 'warning') {

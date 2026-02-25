@@ -7,7 +7,9 @@ var system = (function () {
         systemId = null;
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
-    var idCKANSystemsHead = 'ckan-systems-thead',
+    var idSystemBar = 'system-bar',
+        idSystemRow = 'system-row',
+        idCKANSystemsHead = 'ckan-systems-thead',
         idCKANSystemsBody = 'ckan-systems-tbody',
         idCKANSystemsFoot = 'ckan-systems-tfoot',
         idDKANSystemsHead = 'dkan-systems-thead',
@@ -37,12 +39,18 @@ var system = (function () {
     var dict = {
         de: {
             couldNotCountPObject: 'Datensätze konnten nicht gezählt werden',
+            extensions: 'mit {number} Erweiterungen',
+            linkAPI: 'API',
+            linkOpen: 'Öffnen',
             noLObjectsFound: 'Keine Datenliefernde gefunden',
             noSObjectFound: 'Kein semantischer Titel gefunden',
             missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
         },
         en: {
             couldNotCountPObject: 'Datasets could not be counted',
+            extensions: 'with {number} extensions',
+            linkAPI: 'API',
+            linkOpen: 'Open',
             noLObjectsFound: 'No suppliers found',
             noSObjectFound: 'No semantic title found',
             missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
@@ -284,6 +292,7 @@ var system = (function () {
                     'pFuv' /* https://data.overheid.nl/data */,
                     'pSU6' /* https://data.gov.hr/ckan */,
                     'p6VB' /* https://data.gov.lv/dati/lv */,
+                    'poLl' /* https://data.gov.ua */,
                     'pJmr' /* https://dataset.gov.md */,
                     'ptfz' /* https://ckan.opendata.swiss */,
                     'pFzk' /* https://ckan.publishing.service.gov.uk */,
@@ -317,6 +326,57 @@ var system = (function () {
         }
 
         return str;
+    }
+
+    function getIssueInfo(sys) {
+        var monitoringObj = monitoring.get(sys.pobject);
+        var ret = {
+            error: [],
+            info: [],
+            warning: [],
+        };
+
+        if (monitoringObj) {
+            monitoringObj.forEach((issue) => {
+                var silent = [
+                    'pNlz' /* https://avoindata.suomi.fi */,
+                    'pHbA' /* https://data.gov.ie */,
+                    'pXSc' /* https://data.gov.il */,
+                    'pjP8' /* https://dati.gov.it/opendata */,
+                    'pFuv' /* https://data.overheid.nl/data */,
+                    'pSU6' /* https://data.gov.hr/ckan */,
+                    'p6VB' /* https://data.gov.lv/dati/lv */,
+                    'poLl' /* https://data.gov.ua */,
+                    'pJmr' /* https://dataset.gov.md */,
+                    'ptfz' /* https://ckan.opendata.swiss */,
+                    'pFzk' /* https://ckan.publishing.service.gov.uk */,
+                    'p000' /* https://data.europa.eu */,
+                    'pQLS' /* https://data.bl.ch */,
+                    'pKZE' /* https://data.bs.ch */,
+                    'p1Y3' /* https://data.tg.ch */,
+                    'pNgX' /* https://data.zg.ch */,
+                    'pGBx' /* https://catalog.opendata.li */,
+                    'p1tT' /* https://admin.dataportal.se */,
+                ];
+                if ((issue.message === 'missingSObjects') && silent.includes(sys.pobject.pid)) {
+                    return;
+                }
+
+                var translated = dict[nav.lang][issue.message];
+                translated = translated.replace('%sObjects%', issue.sObjects);
+                translated = translated.replace('%lObjects%', issue.lObjects);
+
+                if (issue.severity === 'info') {
+                    ret.info.push(translated);
+                } else if (issue.severity === 'warning') {
+                    ret.warning.push(translated);
+                } else {
+                    ret.error.push(translated);
+                }
+            });
+        }
+
+        return ret;
     }
 
     function getOtherSystemsHead() {
@@ -355,56 +415,151 @@ var system = (function () {
         return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
-    function getCKANSystemsHead() {
-        var head = '';
+    function getSystemCKANItem(sys) {
+        var str = '';
 
-        head += '<th>Title</th>';
-        head += '<th>CKAN Version</th>';
-        head += '<th>API</th>';
-        head += '<th>Extensions</th>';
-        head += '<th>CMS</th>';
+        str += 'CKAN';
 
-        return '<tr>' + head + '</tr>';
+        sys.cms = sys.cms === null ? '-' : sys.cms;
+        if (sys.version) {
+            var version = sys.version;
+            if (assetsChangelogCKAN.history) {
+                assetsChangelogCKAN.history.forEach(item => {
+                    if (item.version === sys.version) {
+                        var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning text-dark' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
+                        var title = item.color === 'green' ? '&check;' : item.color === 'yellow' ? '~' : item.color === 'red' ? '&cross;' : 'bg-secondary';
+                        version += ' <span class="badge ' + color + '" style="display:inline-block;height:.9rem;margin-left:.1rem;width:1.1rem;border-radius:.45rem" title="' + item.date + '">' + title + '</span>';
+                    }
+                });
+            }
+            str += ' ' + version;
+        }
+
+        if (sys.extensions) {
+            var tooltip = sys.extensions.join(', ');
+            tooltip = tooltip.replace(/"/g, '&quot;');
+            var num = '<span title="' + tooltip + '" style="background:#ddd;padding:.1rem .3rem;cursor:help">';
+            num += sys.extensions.length + '</span>';
+            str += '<br>' + dict[nav.lang].extensions.replace('{number}', num);
+        }
+
+        if (sys.cms !== '') {
+            str += '<br><br>@ ' + sys.cms;
+        }
+
+        return str;
     }
 
-    function getCKANSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
+    function getSystemOtherItem(sys) {
+        var str = '';
 
+        sys.version = sys.version === null || sys.version === undefined ? '' : sys.version;
+        sys.system = sys.system === null || sys.system === undefined ? '' : sys.system;
+        sys.cms = sys.cms === null || sys.cms === undefined ? '' : sys.cms;
+
+        str += sys.system;
+        str += ' ' + sys.version;
+
+        if (sys.cms !== '') {
+            str += '<br><br>@ ' + sys.cms;
+        }
+
+        return str;
+    }
+
+    function getSystemItem(sys) {
+        var info = getIssueInfo(sys);
+
+        var classTitle = '';
+        var classBorder = ' border-blue';
+        if (info.error.length > 0) {
+            classTitle = ' bg-danger text-white';
+            classBorder = ' border-danger';
+        } else if (info.warning.length > 0) {
+            classTitle = ' bg-warning text-dark';
+            classBorder = ' border-warning';
+        } else if (info.info.length > 0) {
+            classTitle = ' bg-primary text-white';
+            classBorder = ' border-primary';
+        }
+
+        var str = '';
+        str += '<div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-3">';
+        str += '<div class="border overflow-hidden system' + classBorder + '">';
+
+        var title = getSystemTitle(sys.sobject);
         if (title === '') {
             title = sys.url || sys.pobject.deepLink;
         }
 
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
+        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '">' : '';
 
-        if (sys) {
-            sys.cms = sys.cms === null ? '-' : sys.cms;
-            if (sys.version) {
-                var version = '<span style="display:inline-block;width:4em">' + sys.version + '</span>';
-                if (assetsChangelogCKAN.history) {
-                    assetsChangelogCKAN.history.forEach(item => {
-                        if (item.version === sys.version) {
-                            var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
-                            version += '<span class="badge ' + color + '" style="width:7em">' + item.date + '</span>';
-                        }
-                    });
-                }
-                cols += '<td class="align-middle">' + version + '</td>';
-            } else {
-                cols += '<td class="align-middle">-</td>';
-            }
-            cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-            cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
-            cols += '<td class="align-middle">' + sys.cms + '</td>';
+        str += '<div class="title' + classTitle + '" title="' + title + '">' + title + '</div>';
+        str += '<div class="content" style="height:calc(2.5rem + 1px)">';
+
+        str += image;
+
+        str += '</div>';
+        str += '<div class="content">';
+
+        var system = sys.system;
+        if ('CKAN' === system) {
+            str += getSystemCKANItem(sys);
+/*        } else if ('DKAN' === system) {
+            str += getDKANSystemsRow(sys);
+        } else if ('Piveau' === system) {
+            str += getPiveauSystemsRow(sys);
+        } else if ('Opendatasoft' === system) {
+            str += getODSSystemsRow(sys);
+        } else if ('entryscape' === system) {
+            str += getEntryScapeSystemsRow(sys);
+        } else if ('ArcGIS Hub' === system) {
+            str += getArcGISHubSystemsRow(sys);
+        } else if ('DUVA' === system) {
+            str += getDUVASystemsRow(sys);
+        } else if ('SPARQL' === system) {
+            str += getSPARQLSystemsRow(sys);*/
         } else {
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
-            cols += '<td class="align-middle">-</td>';
+            str += getSystemOtherItem(sys);
         }
 
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
+        str += '</div>';
+        str += '<div class="content p-0">';
+
+        if (sys.sobject) {
+            str += '<div class="bottom p-1"><a href="catalogs.html?sid=' + sys.sobject.sid + '&lang=' + nav.lang + '">' + dict[nav.lang].linkOpen + '</a></div>';
+        }
+        str += '<div class="bottom p-1"><a href="' + sys.pobject.deepLink + '" target="_blank">' + dict[nav.lang].linkAPI + '</a></div>';
+
+        str += '</div>';
+
+        var infoCount = info.error.length + info.warning.length + info.info.length;
+        if (infoCount > 0) {
+            str += '<div class="content p-0">';
+
+            info.error.forEach((issue) => {
+                str += '<div class="p-1" style="background:#dc344540"><span class="bg-danger text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">x</span>';
+                str += issue;
+                str += '</div>';
+            });
+            info.warning.forEach((issue) => {
+                str += '<div class="p-1" style="background:#fcb92b40"><span class="bg-warning text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">!</span>';
+                str += issue;
+                str += '</div>';
+            });
+            info.info.forEach((issue) => {
+                str += '<div class="p-1" style="background:#3a7ddd40"><span class="bg-primary text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">i</span>';
+                str += issue;
+                str += '</div>';
+            });
+
+            str += '</div>';
+        }
+
+        str += '</div>';
+        str += '</div>';
+
+        return str;
     }
 
     function getDKANSystemsHead() {
@@ -613,6 +768,9 @@ var system = (function () {
     }
 
     function updateSystemTable() {
+        var systemBar = document.getElementById(idSystemBar);
+        var systemRow = document.getElementById(idSystemRow);
+
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
         var ckanTableBody = document.getElementById(idCKANSystemsBody);
         var ckanTableFoot = document.getElementById(idCKANSystemsFoot);
@@ -645,7 +803,7 @@ var system = (function () {
             return;
         }
 
-        var ckanBody = '';
+        var systemCanvas = '';
         var dkanBody = '';
         var piveauBody = '';
         var odsBody = '';
@@ -663,7 +821,7 @@ var system = (function () {
             var system = sys.system;
 
             if ('CKAN' === system) {
-                ckanBody += getCKANSystemsRow(sys);
+systemCanvas += getSystemItem(sys);
             } else if ('DKAN' === system) {
                 dkanBody += getDKANSystemsRow(sys);
             } else if ('Piveau' === system) {
@@ -681,11 +839,10 @@ var system = (function () {
             } else {
                 otherBody += getOtherSystemsRow(sys);
             }
+
+//            systemCanvas += getSystemItem(sys);
         });
 
-        if (ckanBody.length === 0) {
-            ckanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (dkanBody.length === 0) {
             dkanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -711,9 +868,11 @@ var system = (function () {
             otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
 
-        ckanTableHead.innerHTML = getCKANSystemsHead();
-        ckanTableBody.innerHTML = ckanBody;
-        ckanTableFoot.innerHTML = '<tr><td style="border:none">' + (ckanBody.split('<tr>').length - 1) + ' systems</td></tr>';
+        systemRow.innerHTML = systemCanvas;
+
+        ckanTableHead.innerHTML = '';
+        ckanTableBody.innerHTML = '';
+        ckanTableFoot.innerHTML = '';
         dkanTableHead.innerHTML = getDKANSystemsHead();
         dkanTableBody.innerHTML = dkanBody;
         dkanTableFoot.innerHTML = '<tr><td style="border:none">' + (dkanBody.split('<tr>').length - 1) + ' systems</td></tr>';

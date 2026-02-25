@@ -16,6 +16,53 @@
 
 	<link href="assets/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<style>
+		.system {
+			border-radius: .5em;
+		}
+		.system.border-blue {
+			border-color: #17a2b8 !important;
+		}
+		.system .title {
+			background: #17a2b8;
+			color: #fff;
+			font-size: .75rem;
+			font-weight: bold;
+			line-height: 1.25rem;
+			overflow: hidden;
+			padding: 0 1em;
+			text-align: center;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.system .content {
+			border-top: 1px solid #17a2b8;
+			color: #333;
+			font-size: .75rem;
+			padding: .25rem;
+			overflow: hidden;
+			width: 100%;
+		}
+		.system .content img {
+			height: 2rem;
+			object-fit: contain;
+			text-indent: 100%;
+			width: 100%;
+		}
+		.system .content .bottom {
+			background: #a4e9f480;
+			display: inline-block;
+			text-align: center;
+			width: 50%;
+		}
+		.system .content .bottom:nth-child(1) {
+			border-right: 1px solid #17a2b8;
+		}
+		.system .content .bottom a {
+			color: #17a2b8;
+		}
+	</style>
 </head>
 
 <body>
@@ -39,6 +86,12 @@
 
 			<main class="content p-0">
 				<div class="container-fluid p-0">
+
+					<div id="system-bar" class="row bg-white">
+					</div>
+
+					<div id="system-row" class="row bg-white">
+					</div>
 
 					<div class="row bg-white">
 						<div class="col-12 col-md-12 col-xxl-12 position-relative overflow-hidden">
@@ -186,7 +239,7 @@
 	<script src="assets/module.catalog.js?v=14"></script>
 	<script src="assets/module.data.js?v=5"></script>
 	<script src="assets/module.monitoring.js?v=2"></script>
-	<script src="assets/module.system.js?v=9"></script>
+	<script src="assets/module.system.js?v=10"></script>
 </body>
 
 </html>

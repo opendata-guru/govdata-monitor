@@ -41,14 +41,24 @@
 			color: #333;
 			font-size: .75rem;
 			padding: .25rem;
+			position: relative;
 			overflow: hidden;
 			width: 100%;
 		}
 		.system .content img {
 			height: 2rem;
 			object-fit: contain;
+			pointer-events: none;
 			text-indent: 100%;
 			width: 100%;
+		}
+		.system .content .pobject {
+			bottom: 0;
+			color: #aaa;
+			position: absolute;
+			right: .5rem;
+			transform: rotate(90deg);
+			top: 0;
 		}
 		.system .content .bottom {
 			background: #a4e9f480;
@@ -85,7 +95,7 @@
 			</nav>
 
 			<main class="content p-0">
-				<div class="container-fluid p-0">
+				<div class="container-fluid p-3 pt-1 bg-white">
 
 					<div id="system-bar" class="row bg-white">
 					</div>
@@ -236,10 +246,10 @@
 	<script src="assets/page.systems.js?1v=4"></script>
 	<script src="assets/module.nav.js?v=2"></script>
 	<script src="assets/module.account.js?v=1"></script>
-	<script src="assets/module.catalog.js?v=14"></script>
+	<script src="assets/module.catalog.js?v=15"></script>
 	<script src="assets/module.data.js?v=5"></script>
 	<script src="assets/module.monitoring.js?v=2"></script>
-	<script src="assets/module.system.js?v=10"></script>
+	<script src="assets/module.system.js?v=11"></script>
 </body>
 
 </html>

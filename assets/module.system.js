@@ -41,7 +41,7 @@ var system = (function () {
             couldNotCountPObject: 'Datensätze konnten nicht gezählt werden',
             extensions: 'mit {number} Erweiterungen',
             linkAPI: 'API',
-            linkOpen: 'Öffnen',
+            linkOpen: 'Anzeigen',
             noLObjectsFound: 'Keine Datenliefernde gefunden',
             noSObjectFound: 'Kein semantischer Titel gefunden',
             missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
@@ -50,7 +50,7 @@ var system = (function () {
             couldNotCountPObject: 'Datasets could not be counted',
             extensions: 'with {number} extensions',
             linkAPI: 'API',
-            linkOpen: 'Open',
+            linkOpen: 'Show',
             noLObjectsFound: 'No suppliers found',
             noSObjectFound: 'No semantic title found',
             missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
@@ -420,7 +420,6 @@ var system = (function () {
 
         str += 'CKAN';
 
-        sys.cms = sys.cms === null ? '-' : sys.cms;
         if (sys.version) {
             var version = sys.version;
             if (assetsChangelogCKAN.history) {
@@ -428,7 +427,7 @@ var system = (function () {
                     if (item.version === sys.version) {
                         var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning text-dark' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
                         var title = item.color === 'green' ? '&check;' : item.color === 'yellow' ? '~' : item.color === 'red' ? '&cross;' : 'bg-secondary';
-                        version += ' <span class="badge ' + color + '" style="display:inline-block;height:.9rem;margin-left:.1rem;width:1.1rem;border-radius:.45rem" title="' + item.date + '">' + title + '</span>';
+                        version += ' <span class="badge ' + color + '" style="display:inline-block;height:.9rem;margin-left:.1rem;width:1.1rem;border-radius:.45rem;cursor:help" title="' + item.date + '">' + title + '</span>';
                     }
                 });
             }
@@ -444,7 +443,19 @@ var system = (function () {
         }
 
         if (sys.cms !== '') {
-            str += '<br><br>@ ' + sys.cms;
+            str += '<br>@ ' + sys.cms;
+        }
+
+        return str;
+    }
+
+    function getSystemDKANItem(sys) {
+        var str = '';
+
+        str += 'DKAN';
+
+        if (sys.cms !== '') {
+            str += '<br>@ ' + sys.cms;
         }
 
         return str;
@@ -452,10 +463,6 @@ var system = (function () {
 
     function getSystemOtherItem(sys) {
         var str = '';
-
-        sys.version = sys.version === null || sys.version === undefined ? '' : sys.version;
-        sys.system = sys.system === null || sys.system === undefined ? '' : sys.system;
-        sys.cms = sys.cms === null || sys.cms === undefined ? '' : sys.cms;
 
         str += sys.system;
         str += ' ' + sys.version;
@@ -467,8 +474,42 @@ var system = (function () {
         return str;
     }
 
+    function getSystemIssues(info) {
+        var str = '';
+
+        var infoCount = info.error.length + info.warning.length + info.info.length;
+        if (infoCount > 0) {
+            str += '<div class="content p-0">';
+
+            info.error.forEach((issue) => {
+                str += '<div class="p-1" style="background:#dc344540"><span class="bg-danger text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">&cross;</span>';
+                str += issue;
+                str += '</div>';
+            });
+            info.warning.forEach((issue) => {
+                str += '<div class="p-1" style="background:#fcb92b40"><span class="bg-warning text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">!</span>';
+                str += issue;
+                str += '</div>';
+            });
+            info.info.forEach((issue) => {
+//                str += '<div class="p-1" style="background:#3a7ddd40"><span class="bg-primary text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">i</span>';
+                str += '<div class="p-1" style="background:#fcb92b40"><span class="bg-warning text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">!</span>';
+                str += issue;
+                str += '</div>';
+            });
+
+            str += '</div>';
+        }
+
+        return str;
+    }
+
     function getSystemItem(sys) {
         var info = getIssueInfo(sys);
+
+        sys.version = sys.version === null || sys.version === undefined ? '' : sys.version;
+        sys.system = sys.system === null || sys.system === undefined ? '' : sys.system;
+        sys.cms = sys.cms === null || sys.cms === undefined ? '' : sys.cms.replace('(http://drupal.org)', '').replace('(https://www.drupal.org)', '').trim();
 
         var classTitle = '';
         var classBorder = ' border-blue';
@@ -479,8 +520,10 @@ var system = (function () {
             classTitle = ' bg-warning text-dark';
             classBorder = ' border-warning';
         } else if (info.info.length > 0) {
-            classTitle = ' bg-primary text-white';
-            classBorder = ' border-primary';
+//            classTitle = ' bg-primary text-white';
+//            classBorder = ' border-primary';
+            classTitle = ' bg-warning text-dark';
+            classBorder = ' border-warning';
         }
 
         var str = '';
@@ -495,19 +538,20 @@ var system = (function () {
         var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '">' : '';
 
         str += '<div class="title' + classTitle + '" title="' + title + '">' + title + '</div>';
+
         str += '<div class="content" style="height:calc(2.5rem + 1px)">';
-
+        str += '<div class="pobject">' + sys.pobject.pid + '</div>';
         str += image;
-
         str += '</div>';
+
         str += '<div class="content">';
 
         var system = sys.system;
         if ('CKAN' === system) {
             str += getSystemCKANItem(sys);
-/*        } else if ('DKAN' === system) {
-            str += getDKANSystemsRow(sys);
-        } else if ('Piveau' === system) {
+        } else if ('DKAN' === system) {
+            str += getSystemDKANItem(sys);
+/*        } else if ('Piveau' === system) {
             str += getPiveauSystemsRow(sys);
         } else if ('Opendatasoft' === system) {
             str += getODSSystemsRow(sys);
@@ -533,28 +577,7 @@ var system = (function () {
 
         str += '</div>';
 
-        var infoCount = info.error.length + info.warning.length + info.info.length;
-        if (infoCount > 0) {
-            str += '<div class="content p-0">';
-
-            info.error.forEach((issue) => {
-                str += '<div class="p-1" style="background:#dc344540"><span class="bg-danger text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">x</span>';
-                str += issue;
-                str += '</div>';
-            });
-            info.warning.forEach((issue) => {
-                str += '<div class="p-1" style="background:#fcb92b40"><span class="bg-warning text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">!</span>';
-                str += issue;
-                str += '</div>';
-            });
-            info.info.forEach((issue) => {
-                str += '<div class="p-1" style="background:#3a7ddd40"><span class="bg-primary text-white text-center me-2" style="display:inline-block;height:1.5em;width:1.5em;border-radius:1em">i</span>';
-                str += issue;
-                str += '</div>';
-            });
-
-            str += '</div>';
-        }
+        str += getSystemIssues(info);
 
         str += '</div>';
         str += '</div>';
@@ -823,6 +846,7 @@ var system = (function () {
             if ('CKAN' === system) {
 systemCanvas += getSystemItem(sys);
             } else if ('DKAN' === system) {
+systemCanvas += getSystemItem(sys);
                 dkanBody += getDKANSystemsRow(sys);
             } else if ('Piveau' === system) {
                 piveauBody += getPiveauSystemsRow(sys);

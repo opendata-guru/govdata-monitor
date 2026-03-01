@@ -449,10 +449,13 @@ var catalog = (function () {
 
                     var countDiv = document.getElementById(item.countid);
                     if (countDiv) {
-                        var count = '<span style="border-bottom: .1rem solid ' + item.color + ';background:' + item.color + '40;padding:.1rem .3rem">' + item.count[item.dateLast] + '</span>';
+                        var today = item.count[item.dateLast];
+                        var count = '<span style="border-bottom: .1rem solid ' + item.color + ';background:' + item.color + '40;padding:.1rem .3rem">' + today + '</span>';
                         var str = '';
 
-                        str += dict[nav.lang].portalCount.replace('{count}', count);
+                        if (today) {
+                            str += dict[nav.lang].portalCount.replace('{count}', count);
+                        }
 
                         str += '<span style="font-size:.8em;color:#777">';
                         str += ' Coming next: Show this datasets';

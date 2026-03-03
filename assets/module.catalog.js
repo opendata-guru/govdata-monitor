@@ -1519,8 +1519,13 @@ var catalog = (function () {
 
         if (sObjects.length > 0) {
             var sObject = sObjects[0];
+            var image = sObject.image.url;
 
-            text += '<img src="' + sObject.image.url + '?v=' + (new Date()).getTime() + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
+            if ('' !== image) {
+                image += '?v=' + (new Date()).getTime();
+            }
+
+            text += '<img src="' + image + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
             text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
             text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
             text += '<strong>type</strong>: ' + data.getTypeString(sObject.type) + '<br>';

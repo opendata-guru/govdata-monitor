@@ -63,14 +63,20 @@
 		.system .content .bottom {
 			background: #a4e9f480;
 			display: inline-block;
+			overflow-x: clip;
+			padding: .25rem 0;
 			text-align: center;
-			width: 50%;
+			width: 33.33%;
 		}
-		.system .content .bottom:nth-child(1) {
+		.system .content a:not(:last-child) .bottom {
 			border-right: 1px solid #17a2b8;
 		}
-		.system .content .bottom a {
+		.system .content a .bottom {
 			color: #17a2b8;
+		}
+		.system .content a:hover .bottom {
+			background: #a4e9f4;
+			color: #666;
 		}
 	</style>
 </head>
@@ -249,7 +255,7 @@
 	<script src="assets/module.catalog.js?v=15"></script>
 	<script src="assets/module.data.js?v=5"></script>
 	<script src="assets/module.monitoring.js?v=2"></script>
-	<script src="assets/module.system.js?v=11"></script>
+	<script src="assets/module.system.js?v=12"></script>
 </body>
 
 </html>

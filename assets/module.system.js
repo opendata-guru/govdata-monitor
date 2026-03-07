@@ -42,6 +42,7 @@ var system = (function () {
             extensions: 'mit {number} Erweiterungen',
             linkAPI: 'API',
             linkOpen: 'Anzeigen',
+            linkOrigin: 'Webseite',
             noLObjectsFound: 'Keine Datenliefernde gefunden',
             noSObjectFound: 'Kein semantischer Titel gefunden',
             missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
@@ -51,6 +52,7 @@ var system = (function () {
             extensions: 'with {number} extensions',
             linkAPI: 'API',
             linkOpen: 'Show',
+            linkOrigin: 'Website',
             noLObjectsFound: 'No suppliers found',
             noSObjectFound: 'No semantic title found',
             missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
@@ -347,6 +349,7 @@ var system = (function () {
                     'pSU6' /* https://data.gov.hr/ckan */,
                     'p6VB' /* https://data.gov.lv/dati/lv */,
                     'poLl' /* https://data.gov.ua */,
+                    'pOxT' /* https://data.gov.jm/ */,
                     'pJmr' /* https://dataset.gov.md */,
                     'ptfz' /* https://ckan.opendata.swiss */,
                     'pFzk' /* https://ckan.publishing.service.gov.uk */,
@@ -539,7 +542,7 @@ var system = (function () {
 
         str += '<div class="title' + classTitle + '" title="' + title + '">' + title + '</div>';
 
-        str += '<div class="content" style="height:calc(2.5rem + 1px)">';
+        str += '<div class="content" style="height:calc(2.5rem + 1px);border-top:none">';
         str += '<div class="pobject">' + sys.pobject.pid + '</div>';
         str += image;
         str += '</div>';
@@ -571,9 +574,11 @@ var system = (function () {
         str += '<div class="content p-0">';
 
         if (sys.sobject) {
-            str += '<div class="bottom p-1"><a href="catalogs.html?sid=' + sys.sobject.sid + '&lang=' + nav.lang + '">' + dict[nav.lang].linkOpen + '</a></div>';
+            str += '<a href="catalogs.html?sid=' + sys.sobject.sid + '&lang=' + nav.lang + '"><div class="bottom">' + dict[nav.lang].linkOpen + '</div></a>';
         }
-        str += '<div class="bottom p-1"><a href="' + sys.pobject.deepLink + '" target="_blank">' + dict[nav.lang].linkAPI + '</a></div>';
+        console.log(sys.pobject);
+        str += '<a href="' + sys.pobject.url + '" target="_blank"><div class="bottom">' + dict[nav.lang].linkOrigin + '</div></a>';
+        str += '<a href="' + sys.pobject.deepLink + '" target="_blank"><div class="bottom">' + dict[nav.lang].linkAPI + '</div></a>';
 
         str += '</div>';
 
@@ -583,34 +588,6 @@ var system = (function () {
         str += '</div>';
 
         return str;
-    }
-
-    function getDKANSystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>API</th>';
-        head += '<th>CMS</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getDKANSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        sys.cms = sys.cms === null ? '-' : sys.cms;
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-        cols += '<td class="align-middle">' + sys.cms + '</td>';
-
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getPiveauSystemsHead() {
@@ -827,7 +804,6 @@ var system = (function () {
         }
 
         var systemCanvas = '';
-        var dkanBody = '';
         var piveauBody = '';
         var odsBody = '';
         var entryScapeBody = '';
@@ -847,7 +823,6 @@ var system = (function () {
 systemCanvas += getSystemItem(sys);
             } else if ('DKAN' === system) {
 systemCanvas += getSystemItem(sys);
-                dkanBody += getDKANSystemsRow(sys);
             } else if ('Piveau' === system) {
                 piveauBody += getPiveauSystemsRow(sys);
             } else if ('Opendatasoft' === system) {
@@ -867,9 +842,6 @@ systemCanvas += getSystemItem(sys);
 //            systemCanvas += getSystemItem(sys);
         });
 
-        if (dkanBody.length === 0) {
-            dkanBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (piveauBody.length === 0) {
             piveauBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -897,9 +869,9 @@ systemCanvas += getSystemItem(sys);
         ckanTableHead.innerHTML = '';
         ckanTableBody.innerHTML = '';
         ckanTableFoot.innerHTML = '';
-        dkanTableHead.innerHTML = getDKANSystemsHead();
-        dkanTableBody.innerHTML = dkanBody;
-        dkanTableFoot.innerHTML = '<tr><td style="border:none">' + (dkanBody.split('<tr>').length - 1) + ' systems</td></tr>';
+        dkanTableHead.innerHTML = ''
+        dkanTableBody.innerHTML = '';
+        dkanTableFoot.innerHTML = '';
         piveauTableHead.innerHTML = getPiveauSystemsHead();
         piveauTableBody.innerHTML = piveauBody;
         piveauTableFoot.innerHTML = '<tr><td style="border:none">' + (piveauBody.split('<tr>').length - 1) + ' systems</td></tr>';

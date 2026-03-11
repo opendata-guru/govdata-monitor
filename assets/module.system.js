@@ -1,4 +1,7 @@
 var system = (function () {
+    var initvalSelection = '',
+        defaultSelection = '',
+        paramSelection = 'text';
     var baseURL = 'https://opendata.guru/govdata/assets/',
         uriToLoad = '',
         uriPSystems = 'https://opendata.guru/api/2/p/systems/today',
@@ -38,6 +41,9 @@ var system = (function () {
         idOtherSystemsFoot = 'other-systems-tfoot';
     var dict = {
         de: {
+            countSystemNone: 'Kein System gefunden',
+            countSystemOne: '1 System gefunden',
+            countSystems: '{number} Systeme gefunden',
             couldNotCountPObject: 'Datensätze konnten nicht gezählt werden',
             extensions: 'mit {number} Erweiterungen',
             linkAPI: 'API',
@@ -46,8 +52,16 @@ var system = (function () {
             noLObjectsFound: 'Keine Datenliefernde gefunden',
             noSObjectFound: 'Kein semantischer Titel gefunden',
             missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
+            placeholder: 'Durchsuche die Systeme…',
+            systemsLoading: 'Systeminformationen werden geladen',
+            tryCity: 'Du kannst nach einer Stadt suchen:',
+            trySoftware: 'Du kannst nach Software suchen:',
+            unknownSystem: 'Unbekanntes System',
         },
         en: {
+            countSystemNone: 'No system found',
+            countSystemOne: '1 system found',
+            countSystems: '{number} systems found',
             couldNotCountPObject: 'Datasets could not be counted',
             extensions: 'with {number} extensions',
             linkAPI: 'API',
@@ -56,6 +70,11 @@ var system = (function () {
             noLObjectsFound: 'No suppliers found',
             noSObjectFound: 'No semantic title found',
             missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
+            placeholder: 'Search the systems…',
+            systemsLoading: 'System information is loading',
+            tryCity: 'You can search for a city:',
+            trySoftware: 'You can search for software:',
+            unknownSystem: 'Unknown system',
         },
     };
     var assets = [];
@@ -63,6 +82,20 @@ var system = (function () {
     var assetsChangelogCKAN = [];
 
     function init() {
+        var systemBar = document.getElementById(idSystemBar);
+        if (systemBar) {
+            var params = new URLSearchParams(window.location.search);
+
+            if (params.has(paramSelection)) {
+                initvalSelection = params.get(paramSelection).split(',');
+            } else {
+                initvalSelection = defaultSelection;
+            }
+
+            systemBar.innerHTML = getSystemFilter();
+
+            setupSystemFilterEvents();
+        }
     }
 
     function funcAddEventListenerStartLoading(func) {
@@ -464,6 +497,27 @@ var system = (function () {
         return str;
     }
 
+    function getSystemPiveauItem(sys) {
+        var str = '';
+
+        str += 'Piveau';
+
+        if (sys.extensions && sys.extensions.search !== '') {
+            str += '<br>&raquo; Search ' + sys.extensions.search;
+        }
+        if (sys.extensions && sys.extensions.registry !== '') {
+            str += '<br>&raquo; Registry ' + sys.extensions.registry;
+        }
+        if (sys.extensions && sys.extensions.MQA !== '') {
+            str += '<br>&raquo; MQA ' + sys.extensions.MQA;
+        }
+        if (sys.extensions && sys.extensions['SHACL metadata validation'] !== '') {
+            str += '<br>&raquo; SHACL Validator ' + sys.extensions['SHACL metadata validation'];
+        }
+
+        return str;
+    }
+
     function getSystemOtherItem(sys) {
         var str = '';
 
@@ -507,6 +561,180 @@ var system = (function () {
         return str;
     }
 
+    function getSystemFilter() {
+        var str = '';
+
+        str += '<div class="col-12">';
+        str += '<div class="py-5 text-center overflow-hidden">';
+
+        str += '<span class="search-control">';
+        str += '<span class="search-icon"><svg style="height:1rem" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="path" fill="none" stroke="#17a2b8" stroke-width="2"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></span>';
+        str += '<input type="search" placeholder="' + dict[nav.lang].placeholder + '" value="' + initvalSelection + '" />';
+        str += '</span>';
+
+        str += '<br><span id="system-count">' + dict[nav.lang].systemsLoading + '</span>';
+        str += '</div>';
+        str += '</div>';
+
+        str += '<div class="col-12">';
+        str += '<div class="row" id="system-list">';
+        str += '</div>';
+        str += '</div>';
+
+        return str;
+    }
+
+    function setupSystemFilterEvents() {
+        var input = document.querySelector('.search-control input');
+        input.addEventListener('change', debounceEvent);
+        input.addEventListener('input', debounceEvent);
+        input.addEventListener('keyup', debounceEvent);
+        input.addEventListener('focus', updateFilterGetFocus);
+        input.addEventListener('blur', updateFilterLostFocus);
+
+        var debounceDelay = 100;
+        var debounceTimer = null;
+        var debounceValue = null;
+
+        function debounceEvent(e) {
+            clearTimeout(debounceTimer);
+            debounceValue = e.target.value;
+            debounceTimer = setTimeout(function() {
+                updateFilterValue(debounceValue);
+            }, debounceDelay);
+        }
+    }
+
+    function updateFilterGetFocus(e) {
+        e.target.parentElement.classList.add('focus');
+    }
+
+    function updateFilterLostFocus(e) {
+        e.target.parentElement.classList.remove('focus');
+    }
+
+    function funcSearch(value) {
+        var input = document.querySelector('.search-control input');
+        input.value = value;
+
+        updateFilterValue(input.value);
+    }
+
+    function updateSystemFilter(pSystems) {
+        var input = document.querySelector('.search-control input');
+        updateFilterValue(input.value);
+
+        var elem = document.getElementById('system-list');
+        var str = '';
+
+        pSystems.sort((a, b) => {
+            if (!a.system) {
+                return 1;
+            }
+            if (!b.system) {
+                return -1;
+            }
+            return a.system.localeCompare(b.system);
+        });
+
+        var systems = [];
+        var cities = [];
+        pSystems.forEach(sys => {
+            if (!systems.includes(sys.system)) {
+                systems.push(sys.system);
+            }
+            if (['p000', 'pQeY', 'paIS', 'pDjX', 'pBTP', 'ptXx'].includes(sys.pobject.pid)) {
+                var title = sys.sobject.title;
+
+                if (title[nav.lang]) {
+                    title = title[nav.lang];
+                } else {
+                    title = title.en;
+                }
+                cities.push(title);
+            }
+        });
+
+        var list;
+
+        list = [];
+        cities.forEach(title => {
+            title = title.replace(/['"]+/g, '');
+            list.push ('<a href="systems.html?text=' + encodeURIComponent(title) + '&lang=' + nav.lang + '" onclick="system.search(\'' + title + '\');event.preventDefault()">' + title + '</a>');
+        });
+        str += '<div class="col-12" style="font-size:.75rem">';
+        str += '<b>' + dict[nav.lang].tryCity + '</b> ' + list.join(' | ');
+        str += '</div>';
+
+        list = [];
+        systems.forEach(title => {
+            if (!title) {
+                title = dict[nav.lang].unknownSystem;
+            }
+            title = title.replace(/['"]+/g, '');
+            list.push ('<a href="systems.html?text=' + encodeURIComponent(title) + '&lang=' + nav.lang + '" onclick="system.search(\'' + title + '\');event.preventDefault()">' + title + '</a>');
+        });
+        str += '<div class="col-12" style="font-size:.75rem">';
+        str += '<b>' + dict[nav.lang].trySoftware + '</b> ' + list.join(' | ');
+        str += '</div>';
+
+        elem.innerHTML = str;
+    }
+
+    function updateFilterValue(value) {
+        var filter = value.trim();
+        var all = document.querySelectorAll('.systemItem');
+        var query = document.querySelectorAll('.systemItem:has(.title[title*="' + filter + '" i])');
+        var count = document.getElementById('system-count');
+        var visible = 0;
+
+        if (filter === '') {
+            query = all;
+        }
+
+        all.forEach(function(elem) {
+            elem.style.display = 'none';
+        });
+        query.forEach(function(elem) {
+            if (elem.style.display !== 'block') {
+                ++visible;
+            }
+            elem.style.display = 'block';
+        });
+
+        query = document.querySelectorAll('.systemItem:has(.pobject[data-pid="' + filter + '"])');
+        query.forEach(function(elem) {
+            if (elem.style.display !== 'block') {
+                ++visible;
+            }
+            elem.style.display = 'block';
+        });
+
+        query = document.querySelectorAll('.systemItem:has(.content[data-system*="' + filter + '" i])');
+        query.forEach(function(elem) {
+            if (elem.style.display !== 'block') {
+                ++visible;
+            }
+            elem.style.display = 'block';
+        });
+
+        if (visible === 0) {
+            count.innerHTML = dict[nav.lang].countSystemNone;
+        } else if (visible === 1) {
+            count.innerHTML = dict[nav.lang].countSystemOne;
+        } else {
+            count.innerHTML = dict[nav.lang].countSystems.replace('{number}', visible);
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        if (value === defaultSelection) {
+            params.delete(paramSelection);
+        } else {
+            params.set(paramSelection, value);
+        }
+        window.history.replaceState({}, '', `${location.pathname}?${params}`);
+    }
+
     function getSystemItem(sys) {
         var info = getIssueInfo(sys);
 
@@ -530,7 +758,7 @@ var system = (function () {
         }
 
         var str = '';
-        str += '<div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-3">';
+        str += '<div class="systemItem col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-3">';
         str += '<div class="border overflow-hidden system' + classBorder + '">';
 
         var title = getSystemTitle(sys.sobject);
@@ -543,20 +771,24 @@ var system = (function () {
         str += '<div class="title' + classTitle + '" title="' + title + '">' + title + '</div>';
 
         str += '<div class="content" style="height:calc(2.5rem + 1px);border-top:none">';
-        str += '<div class="pobject">' + sys.pobject.pid + '</div>';
+        str += '<div class="pobject" data-pid="' + sys.pobject.pid + '">' + sys.pobject.pid + '</div>';
         str += image;
         str += '</div>';
 
-        str += '<div class="content">';
-
         var system = sys.system;
+        if (system) {
+            str += '<div class="content" data-system="' + system + '">';
+        } else {
+            str += '<div class="content" data-system="' + dict[nav.lang].unknownSystem + '">';
+        }
+
         if ('CKAN' === system) {
             str += getSystemCKANItem(sys);
         } else if ('DKAN' === system) {
             str += getSystemDKANItem(sys);
-/*        } else if ('Piveau' === system) {
-            str += getPiveauSystemsRow(sys);
-        } else if ('Opendatasoft' === system) {
+        } else if ('Piveau' === system) {
+            str += getSystemPiveauItem(sys);
+/*        } else if ('Opendatasoft' === system) {
             str += getODSSystemsRow(sys);
         } else if ('entryscape' === system) {
             str += getEntryScapeSystemsRow(sys);
@@ -576,7 +808,6 @@ var system = (function () {
         if (sys.sobject) {
             str += '<a href="catalogs.html?sid=' + sys.sobject.sid + '&lang=' + nav.lang + '"><div class="bottom">' + dict[nav.lang].linkOpen + '</div></a>';
         }
-        console.log(sys.pobject);
         str += '<a href="' + sys.pobject.url + '" target="_blank"><div class="bottom">' + dict[nav.lang].linkOrigin + '</div></a>';
         str += '<a href="' + sys.pobject.deepLink + '" target="_blank"><div class="bottom">' + dict[nav.lang].linkAPI + '</div></a>';
 
@@ -768,7 +999,6 @@ var system = (function () {
     }
 
     function updateSystemTable() {
-        var systemBar = document.getElementById(idSystemBar);
         var systemRow = document.getElementById(idSystemRow);
 
         var ckanTableHead = document.getElementById(idCKANSystemsHead);
@@ -824,6 +1054,7 @@ systemCanvas += getSystemItem(sys);
             } else if ('DKAN' === system) {
 systemCanvas += getSystemItem(sys);
             } else if ('Piveau' === system) {
+systemCanvas += getSystemItem(sys);
                 piveauBody += getPiveauSystemsRow(sys);
             } else if ('Opendatasoft' === system) {
                 odsBody += getODSSystemsRow(sys);
@@ -865,6 +1096,8 @@ systemCanvas += getSystemItem(sys);
         }
 
         systemRow.innerHTML = systemCanvas;
+
+        updateSystemFilter(pSystems);
 
         ckanTableHead.innerHTML = '';
         ckanTableBody.innerHTML = '';
@@ -918,6 +1151,7 @@ systemCanvas += getSystemItem(sys);
         getTitle: getSystemTitle,
         loadData: funcLoadData,
         onExpandExtension: funcOnExpandExtension,
+        search: funcSearch,
         update: funcUpdate,
     };
 }());

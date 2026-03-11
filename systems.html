@@ -78,6 +78,46 @@
 			background: #a4e9f4;
 			color: #666;
 		}
+
+		.search-control {
+			border: .1rem solid #17a2b8;
+			border-radius: 2rem;
+			display: inline-block;
+			outline: 0 solid #a4e9f4;
+			outline-offset: -.1rem;
+			padding: .3rem .8rem;
+			transition: outline 300ms ease, outline-offset 300ms ease;
+			white-space: nowrap;
+		}
+		.search-control.focus {
+			outline: .3rem solid #a4e9f4;
+			outline-offset: -.4rem;
+		}
+		.search-control input {
+			border: none;
+			line-height: 1.333rem;
+			width: 14rem;
+		}
+		.search-control input:focus {
+			outline: none;
+		}
+		.search-control input::placeholder {
+			color: #17a2b8;
+		}
+		.search-icon {
+			display: inline-block;
+			padding: 0 .333rem 0 0;
+		}
+		.search-icon svg {
+			height: 1.1rem !important;
+		}
+		.search-icon svg .path {
+			stroke: #17a2b8;
+		}
+		#system-count {
+			font-style: italic;
+			font-size: .75rem;
+		}
 	</style>
 </head>
 
@@ -103,7 +143,7 @@
 			<main class="content p-0">
 				<div class="container-fluid p-3 pt-1 bg-white">
 
-					<div id="system-bar" class="row bg-white">
+					<div id="system-bar" class="row bg-white pb-3 border-bottom border-1 border-secondary">
 					</div>
 
 					<div id="system-row" class="row bg-white">
@@ -255,7 +295,7 @@
 	<script src="assets/module.catalog.js?v=15"></script>
 	<script src="assets/module.data.js?v=5"></script>
 	<script src="assets/module.monitoring.js?v=2"></script>
-	<script src="assets/module.system.js?v=12"></script>
+	<script src="assets/module.system.js?v=13"></script>
 </body>
 
 </html>

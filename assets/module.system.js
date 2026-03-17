@@ -6,7 +6,8 @@ var system = (function () {
         uriToLoad = '',
         uriPSystems = 'https://opendata.guru/api/2/p/systems/today',
         uriPSystemsAlt = 'https://opendata.guru/api/2/p/systems/yesterday',
-        uriChangelogCKAN = 'https://opendata.guru/api/2/system/changelog?system=CKAN',
+        uriChangelogCKAN = 'https://opendata.guru/api/2/live/systemchangelog?system=CKAN',
+        uriChangelogPiveau = 'https://opendata.guru/api/2/live/systemchangelog?system=Piveau',
         systemId = null;
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
@@ -53,10 +54,12 @@ var system = (function () {
             noSObjectFound: 'Kein semantischer Titel gefunden',
             missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
             placeholder: 'Durchsuche die Systeme…',
+            snapshot: 'Es wird eine unvollständige Version verwendet.',
             systemsLoading: 'Systeminformationen werden geladen',
             tryCity: 'Du kannst nach einer Stadt suchen:',
             trySoftware: 'Du kannst nach Software suchen:',
             unknownSystem: 'Unbekanntes System',
+            unknownVersion: 'Es wird eine unbekannte Version verwendet.',
         },
         en: {
             countSystemNone: 'No system found',
@@ -71,15 +74,18 @@ var system = (function () {
             noSObjectFound: 'No semantic title found',
             missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
             placeholder: 'Search the systems…',
+            snapshot: 'An incomplete version is being used.',
             systemsLoading: 'System information is loading',
             tryCity: 'You can search for a city:',
             trySoftware: 'You can search for software:',
             unknownSystem: 'Unknown system',
+            unknownVersion: 'An unknown version is being used.',
         },
     };
     var assets = [];
     var pSystems = [];
-    var assetsChangelogCKAN = [];
+    var assetsChangelogCKAN = [],
+        assetsChangelogPiveau = [];
 
     function init() {
         var systemBar = document.getElementById(idSystemBar);
@@ -130,11 +136,17 @@ var system = (function () {
     function storePSystems(payload) {
         pSystems = payload;
 
-        loadChangelog();
+        loadChangelogCKAN();
     }
 
-    function storeChangelog(payload) {
+    function storeChangelogCKAN(payload) {
         assetsChangelogCKAN = payload;
+
+        loadChangelogPiveau();
+    }
+
+    function storeChangelogPiveau(payload) {
+        assetsChangelogPiveau = payload;
 
         dispatchEventEndLoading();
     }
@@ -174,13 +186,28 @@ var system = (function () {
         xhr.send();
     }
 
-    function loadChangelog() {
+    function loadChangelogCKAN() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', uriChangelogCKAN, true);
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                storeChangelog(JSON.parse(this.responseText));
+                storeChangelogCKAN(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                loadChangelogPiveau();
+            }
+        }
+
+        xhr.send();
+    }
+
+    function loadChangelogPiveau() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uriChangelogPiveau, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeChangelogPiveau(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
                 dispatchEventEndLoading();
             }
@@ -383,6 +410,7 @@ var system = (function () {
                     'p6VB' /* https://data.gov.lv/dati/lv */,
                     'poLl' /* https://data.gov.ua */,
                     'pOxT' /* https://data.gov.jm/ */,
+                    'psd5' /* https://data.gov.cy/ */ ,
                     'pJmr' /* https://dataset.gov.md */,
                     'ptfz' /* https://ckan.opendata.swiss */,
                     'pFzk' /* https://ckan.publishing.service.gov.uk */,
@@ -393,6 +421,8 @@ var system = (function () {
                     'pNgX' /* https://data.zg.ch */,
                     'pGBx' /* https://catalog.opendata.li */,
                     'p1tT' /* https://admin.dataportal.se */,
+                    'pPaA' /* https://www.data.gv.at/ */,
+                    'pQd8' /* https://www.opendataportal.at/ */,
                 ];
                 if ((issue.message === 'missingSObjects') && silent.includes(sys.pobject.pid)) {
                     return;
@@ -451,23 +481,42 @@ var system = (function () {
         return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
+    function getChangeBadge(item) {
+        var color = 'bg-dark';
+        var title = '&bigstar;';
+
+        if (item.color === 'green') {
+            color = 'bg-success';
+            title = '&check;';
+        } else if (item.color === 'yellow') {
+            color = 'bg-warning text-dark';
+            title = '~';
+        } else if (item.color === 'red') {
+            color = 'bg-danger';
+            title = '&cross;';
+        }
+
+        return ' <span class="badge ' + color + '" style="display:inline-block;height:.9rem;margin-left:.1rem;width:1.15rem;border-radius:.45rem;cursor:help" title="' + item.date + '">' + title + '</span>';
+    }
+
     function getSystemCKANItem(sys) {
         var str = '';
 
         str += 'CKAN';
 
         if (sys.version) {
-            var version = sys.version;
-            if (assetsChangelogCKAN.history) {
-                assetsChangelogCKAN.history.forEach(item => {
+            var badge = '';
+            if (assetsChangelogCKAN.ckan) {
+                assetsChangelogCKAN.ckan.forEach(item => {
                     if (item.version === sys.version) {
-                        var color = item.color === 'green' ? 'bg-success' : item.color === 'yellow' ? 'bg-warning text-dark' : item.color === 'red' ? 'bg-danger' : 'bg-secondary';
-                        var title = item.color === 'green' ? '&check;' : item.color === 'yellow' ? '~' : item.color === 'red' ? '&cross;' : 'bg-secondary';
-                        version += ' <span class="badge ' + color + '" style="display:inline-block;height:.9rem;margin-left:.1rem;width:1.1rem;border-radius:.45rem;cursor:help" title="' + item.date + '">' + title + '</span>';
+                        badge += ' ' + getChangeBadge(item);
                     }
                 });
+                if (badge === '') {
+                    badge += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].unknownVersion});
+                }
             }
-            str += ' ' + version;
+            str += ' ' + sys.version + badge;
         }
 
         if (sys.extensions) {
@@ -502,17 +551,81 @@ var system = (function () {
 
         str += 'Piveau';
 
+        var badgeMetrics = '';
+        if (assetsChangelogPiveau.metrics) {
+            if ((sys.extensions.MQA + '').includes('SNAPSHOT')) {
+                badgeMetrics += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].snapshot});
+            }
+            assetsChangelogPiveau.metrics.forEach(item => {
+                if (item.version === sys.extensions.MQA) {
+                    badgeMetrics += ' ' + getChangeBadge(item);
+                }
+            });
+            if (badgeMetrics === '') {
+                badgeMetrics += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].unknownVersion});
+            }
+        }
+
+        var badgeRegistry = '';
+        if (assetsChangelogPiveau.registry) {
+            if ((sys.extensions.registry + '').includes('SNAPSHOT')) {
+                badgeRegistry += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].snapshot});
+            }
+            assetsChangelogPiveau.registry.forEach(item => {
+                if (item.version === sys.extensions.registry) {
+                    badgeRegistry += ' ' + getChangeBadge(item);
+                }
+            });
+            if (badgeRegistry === '') {
+                badgeRegistry += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].unknownVersion});
+            }
+        }
+
+        var badgeSearch = '';
+        if (assetsChangelogPiveau.search) {
+            if ((sys.extensions.search + '').includes('SNAPSHOT')) {
+                badgeSearch += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].snapshot});
+            }
+            assetsChangelogPiveau.search.forEach(item => {
+                if (item.version === sys.extensions.search) {
+                    badgeSearch += ' ' + getChangeBadge(item);
+                }
+            });
+            if (badgeSearch === '') {
+                badgeSearch += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].unknownVersion});
+            }
+        }
+
+        var badgeSHACL = '';
+        if (assetsChangelogPiveau.shacl) {
+            if ((sys.extensions['SHACL metadata validation'] + '').includes('SNAPSHOT')) {
+                badgeSHACL += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].snapshot});
+            }
+            assetsChangelogPiveau.shacl.forEach(item => {
+                if (item.version === sys.extensions['SHACL metadata validation']) {
+                    badgeSHACL += ' ' + getChangeBadge(item);
+                }
+            });
+            if (badgeSHACL === '') {
+                badgeSHACL += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].unknownVersion});
+            }
+        }
+
+        if (assetsChangelogPiveau.store) {
+            // todo
+        }
+
         if (sys.extensions && sys.extensions.search !== '') {
-            str += '<br>&raquo; Search ' + sys.extensions.search;
+            str += '<br>&raquo; Search ' + sys.extensions.search + badgeSearch;
         }
         if (sys.extensions && sys.extensions.registry !== '') {
-            str += '<br>&raquo; Registry ' + sys.extensions.registry;
+            str += '<br>&raquo; Registry ' + sys.extensions.registry + badgeRegistry;
         }
         if (sys.extensions && sys.extensions.MQA !== '') {
-            str += '<br>&raquo; MQA ' + sys.extensions.MQA;
+            str += '<br>&raquo; Metrics ' + sys.extensions.MQA + badgeMetrics;
         }
         if (sys.extensions && sys.extensions['SHACL metadata validation'] !== '') {
-            str += '<br>&raquo; SHACL Validator ' + sys.extensions['SHACL metadata validation'];
+            str += '<br>&raquo; SHACL Validator ' + sys.extensions['SHACL metadata validation'] + badgeSHACL;
         }
 
         return str;
@@ -821,39 +934,6 @@ var system = (function () {
         return str;
     }
 
-    function getPiveauSystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>Search Version</th>';
-        head += '<th>Registry Version</th>';
-        head += '<th>MQA Version</th>';
-        head += '<th>SHACL Validator Version</th>';
-        head += '<th>API</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getPiveauSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        cols += '<td class="align-middle">' + (sys.extensions.search || '-') + '</td>';
-        cols += '<td class="align-middle">' + (sys.extensions.registry || '-') + '</td>';
-        cols += '<td class="align-middle">' + (sys.extensions.MQA || '-') + '</td>';
-        cols += '<td class="align-middle">' + (sys.extensions['SHACL metadata validation'] || '-') + '</td>';
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
-    }
-
     function getODSSystemsHead() {
         var head = '';
 
@@ -1034,7 +1114,6 @@ var system = (function () {
         }
 
         var systemCanvas = '';
-        var piveauBody = '';
         var odsBody = '';
         var entryScapeBody = '';
         var arcGISHubBody = '';
@@ -1055,7 +1134,6 @@ systemCanvas += getSystemItem(sys);
 systemCanvas += getSystemItem(sys);
             } else if ('Piveau' === system) {
 systemCanvas += getSystemItem(sys);
-                piveauBody += getPiveauSystemsRow(sys);
             } else if ('Opendatasoft' === system) {
                 odsBody += getODSSystemsRow(sys);
             } else if ('entryscape' === system) {
@@ -1073,9 +1151,6 @@ systemCanvas += getSystemItem(sys);
 //            systemCanvas += getSystemItem(sys);
         });
 
-        if (piveauBody.length === 0) {
-            piveauBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (odsBody.length === 0) {
             odsBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -1105,9 +1180,9 @@ systemCanvas += getSystemItem(sys);
         dkanTableHead.innerHTML = ''
         dkanTableBody.innerHTML = '';
         dkanTableFoot.innerHTML = '';
-        piveauTableHead.innerHTML = getPiveauSystemsHead();
-        piveauTableBody.innerHTML = piveauBody;
-        piveauTableFoot.innerHTML = '<tr><td style="border:none">' + (piveauBody.split('<tr>').length - 1) + ' systems</td></tr>';
+        piveauTableHead.innerHTML = '';
+        piveauTableBody.innerHTML = '';
+        piveauTableFoot.innerHTML = '';
         odsTableHead.innerHTML = getODSSystemsHead();
         odsTableBody.innerHTML = odsBody;
         odsTableFoot.innerHTML = '<tr><td style="border:none">' + (odsBody.split('<tr>').length - 1) + ' systems</td></tr>';

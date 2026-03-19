@@ -7,6 +7,7 @@ var system = (function () {
         uriPSystems = 'https://opendata.guru/api/2/p/systems/today',
         uriPSystemsAlt = 'https://opendata.guru/api/2/p/systems/yesterday',
         uriChangelogCKAN = 'https://opendata.guru/api/2/live/systemchangelog?system=CKAN',
+        uriChangelogEntryScape = 'https://opendata.guru/api/2/live/systemchangelog?system=EntryStore',
         uriChangelogPiveau = 'https://opendata.guru/api/2/live/systemchangelog?system=Piveau',
         systemId = null;
     var eventListenerStartLoading = [],
@@ -54,6 +55,7 @@ var system = (function () {
             noSObjectFound: 'Kein semantischer Titel gefunden',
             missingSObjects: 'Fehlende semantische Objekte. %sObjects% von %lObjects% vorhanden',
             placeholder: 'Durchsuche die Systeme…',
+            profiles: 'mit {number} Profilen',
             snapshot: 'Es wird eine unvollständige Version verwendet.',
             systemsLoading: 'Systeminformationen werden geladen',
             tryCity: 'Du kannst nach einer Stadt suchen:',
@@ -74,6 +76,7 @@ var system = (function () {
             noSObjectFound: 'No semantic title found',
             missingSObjects: 'Missing semantic objects. %sObjects% of %lObjects% present',
             placeholder: 'Search the systems…',
+            profiles: 'with {number} profiles',
             snapshot: 'An incomplete version is being used.',
             systemsLoading: 'System information is loading',
             tryCity: 'You can search for a city:',
@@ -85,6 +88,7 @@ var system = (function () {
     var assets = [];
     var pSystems = [];
     var assetsChangelogCKAN = [],
+        assetsChangelogEntryScape = [],
         assetsChangelogPiveau = [];
 
     function init() {
@@ -142,6 +146,12 @@ var system = (function () {
     function storeChangelogCKAN(payload) {
         assetsChangelogCKAN = payload;
 
+        loadChangelogEntryScape();
+    }
+
+    function storeChangelogEntryScape(payload) {
+        assetsChangelogEntryScape = payload;
+
         loadChangelogPiveau();
     }
 
@@ -193,6 +203,21 @@ var system = (function () {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 storeChangelogCKAN(JSON.parse(this.responseText));
+            } else if (this.readyState == 4) {
+                loadChangelogEntryScape();
+            }
+        }
+
+        xhr.send();
+    }
+
+    function loadChangelogEntryScape() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', uriChangelogEntryScape, true);
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                storeChangelogEntryScape(JSON.parse(this.responseText));
             } else if (this.readyState == 4) {
                 loadChangelogPiveau();
             }
@@ -502,7 +527,7 @@ var system = (function () {
     function getSystemCKANItem(sys) {
         var str = '';
 
-        str += 'CKAN';
+        str += sys.system;
 
         if (sys.version) {
             var badge = '';
@@ -537,10 +562,72 @@ var system = (function () {
     function getSystemDKANItem(sys) {
         var str = '';
 
-        str += 'DKAN';
+        str += sys.system;
 
         if (sys.cms !== '') {
             str += '<br>@ ' + sys.cms;
+        }
+
+        return str;
+    }
+
+    function getSystemEKANItem(sys) {
+        var str = '';
+
+        str += sys.system;
+
+        if (sys.cms !== '') {
+            str += '<br>@ ' + sys.cms;
+        }
+
+        return str;
+    }
+
+    function getSystemEntryScapeItem(sys) {
+        var str = '';
+
+        str += 'EntryScape'; // sys.system;
+
+        if (sys.version) {
+            var hasPatch = sys.version.split('.').length === 3;
+            var badge = '';
+            if (assetsChangelogEntryScape.entrystore) {
+                assetsChangelogEntryScape.entrystore.forEach(item => {
+                    var version = item.version;
+                    if (!hasPatch) {
+                        var temp = item.version.split('.');
+                        temp.pop();;
+                        version = temp.join('.');
+                    }
+                    if ((badge === '') && (version === sys.version)) {
+                        badge += ' ' + getChangeBadge(item);
+                    }
+                });
+                if (badge === '') {
+                    badge += ' ' + getChangeBadge({color: 'dark', date: dict[nav.lang].unknownVersion});
+                }
+            }
+            str += ' ' + sys.version + badge;
+        }
+
+        if (sys.extensions) {
+            var ext = [];
+            sys.extensions.forEach(extension => {
+                var text = extension.split('/').slice(-1)[0];
+                var parts = text.split('.');
+
+                if ('json' === parts.slice(-1)[0]) {
+                    parts.pop();
+                }
+
+                ext.push(parts.join('.'));
+            });
+
+            var tooltip = ext.join(', ');
+            tooltip = tooltip.replace(/"/g, '&quot;');
+            var num = '<span title="' + tooltip + '" style="background:#ddd;padding:.1rem .3rem;cursor:help">';
+            num += ext.length + '</span>';
+            str += '<br>' + dict[nav.lang].profiles.replace('{number}', num);
         }
 
         return str;
@@ -899,12 +986,14 @@ var system = (function () {
             str += getSystemCKANItem(sys);
         } else if ('DKAN' === system) {
             str += getSystemDKANItem(sys);
+        } else if ('EKAN' === system) {
+            str += getSystemEKANItem(sys);
+        } else if ('entryscape' === system) {
+            str += getSystemEntryScapeItem(sys);
         } else if ('Piveau' === system) {
             str += getSystemPiveauItem(sys);
 /*        } else if ('Opendatasoft' === system) {
             str += getODSSystemsRow(sys);
-        } else if ('entryscape' === system) {
-            str += getEntryScapeSystemsRow(sys);
         } else if ('ArcGIS Hub' === system) {
             str += getArcGISHubSystemsRow(sys);
         } else if ('DUVA' === system) {
@@ -959,35 +1048,6 @@ var system = (function () {
         cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
 
         return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
-    }
-
-    function getEntryScapeSystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>EntryScape Version</th>';
-        head += '<th>API</th>';
-        head += '<th>Extensions</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getEntryScapeSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        cols += '<td class="align-middle">' + sys.version + '</td>';
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-        cols += '<td class="align-middle" style="line-height:1.5rem">' + formatExtensions(sys.extensions) + '</td>';
-
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
     }
 
     function getArcGISHubSystemsHead() {
@@ -1115,7 +1175,6 @@ var system = (function () {
 
         var systemCanvas = '';
         var odsBody = '';
-        var entryScapeBody = '';
         var arcGISHubBody = '';
         var duvaBody = '';
         var sparqlBody = '';
@@ -1128,16 +1187,10 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if ('CKAN' === system) {
-systemCanvas += getSystemItem(sys);
-            } else if ('DKAN' === system) {
-systemCanvas += getSystemItem(sys);
-            } else if ('Piveau' === system) {
+            if (['CKAN','DKAN','EKAN','entryscape','Piveau'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
             } else if ('Opendatasoft' === system) {
                 odsBody += getODSSystemsRow(sys);
-            } else if ('entryscape' === system) {
-                entryScapeBody += getEntryScapeSystemsRow(sys);
             } else if ('ArcGIS Hub' === system) {
                 arcGISHubBody += getArcGISHubSystemsRow(sys);
             } else if ('DUVA' === system) {
@@ -1153,9 +1206,6 @@ systemCanvas += getSystemItem(sys);
 
         if (odsBody.length === 0) {
             odsBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
-        if (entryScapeBody.length === 0) {
-            entryScapeBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
         if (arcGISHubBody.length === 0) {
             arcGISHubBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
@@ -1186,9 +1236,9 @@ systemCanvas += getSystemItem(sys);
         odsTableHead.innerHTML = getODSSystemsHead();
         odsTableBody.innerHTML = odsBody;
         odsTableFoot.innerHTML = '<tr><td style="border:none">' + (odsBody.split('<tr>').length - 1) + ' systems</td></tr>';
-        entryScapeTableHead.innerHTML = getEntryScapeSystemsHead();
-        entryScapeTableBody.innerHTML = entryScapeBody;
-        entryScapeTableFoot.innerHTML = '<tr><td style="border:none">' + (entryScapeBody.split('<tr>').length - 1) + ' systems</td></tr>';
+        entryScapeTableHead.innerHTML = '';
+        entryScapeTableBody.innerHTML = '';
+        entryScapeTableFoot.innerHTML = '';
         arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
         arcGISHubTableBody.innerHTML = arcGISHubBody;
         arcGISHubTableFoot.innerHTML = '<tr><td style="border:none">' + (arcGISHubBody.split('<tr>').length - 1) + ' systems</td></tr>';

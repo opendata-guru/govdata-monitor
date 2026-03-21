@@ -600,6 +600,17 @@ var catalog = (function () {
                 var lastseen = Math.floor(lastseenMilliseconds/(24*3600*1000));
                 var color = swatch[serial];
 
+                if ((parentTitle.length > 1) && ('{' === parentTitle[0]) && ('}' === parentTitle.slice(-1))) {
+                    var json = JSON.parse(parentTitle);
+                    if (json[nav.lang]) {
+                        parentTitle = json[nav.lang];
+                    } else if (json.en) {
+                        parentTitle = json.en;
+                    } else {
+                        parentTitle = Object.values(json)[0];
+                    }
+                }
+
                 portalTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + portalTitle + '</span>';
                 parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + parentTitle + '</span>';
                 portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';

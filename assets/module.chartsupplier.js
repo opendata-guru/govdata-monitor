@@ -165,6 +165,18 @@ var chartCatalogObjects = (function () {
             var lObject = options.lObjects[c];
             var parentTitle = lObject.title;
             var portalTitle = system.getTitle(lObject?.pobject?.sobject);
+
+            if ((parentTitle.length > 1) && ('{' === parentTitle[0]) && ('}' === parentTitle.slice(-1))) {
+                var json = JSON.parse(parentTitle);
+                if (json[nav.lang]) {
+                    parentTitle = json[nav.lang];
+                } else if (json.en) {
+                    parentTitle = json.en;
+                } else {
+                    parentTitle = Object.values(json)[0];
+                }
+            }
+
             var label = options.dict[nav.lang].portalLinedShort.replace('{portal}',portalTitle).replace('{id}',parentTitle);
             var lid = lObject.lid;
             var catalogItem = options.catalogList.filter((item) => item.lid === lid)[0];

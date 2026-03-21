@@ -14,21 +14,6 @@ var system = (function () {
         eventListenerEndLoading = [];
     var idSystemBar = 'system-bar',
         idSystemRow = 'system-row',
-        idCKANSystemsHead = 'ckan-systems-thead',
-        idCKANSystemsBody = 'ckan-systems-tbody',
-        idCKANSystemsFoot = 'ckan-systems-tfoot',
-        idDKANSystemsHead = 'dkan-systems-thead',
-        idDKANSystemsBody = 'dkan-systems-tbody',
-        idDKANSystemsFoot = 'dkan-systems-tfoot',
-        idPiveauSystemsHead = 'piveau-systems-thead',
-        idPiveauSystemsBody = 'piveau-systems-tbody',
-        idPiveauSystemsFoot = 'piveau-systems-tfoot',
-        idODSSystemsHead = 'ods-systems-thead',
-        idODSSystemsBody = 'ods-systems-tbody',
-        idODSSystemsFoot = 'ods-systems-tfoot',
-        idEntryScapeSystemsHead = 'entryscape-systems-thead',
-        idEntryScapeSystemsBody = 'entryscape-systems-tbody',
-        idEntryScapeSystemsFoot = 'entryscape-systems-tfoot',
         idArcGISHubSystemsHead = 'arcgishub-systems-thead',
         idArcGISHubSystemsBody = 'arcgishub-systems-tbody',
         idArcGISHubSystemsFoot = 'arcgishub-systems-tfoot',
@@ -442,12 +427,16 @@ var system = (function () {
                     'p000' /* https://data.europa.eu */,
                     'pQLS' /* https://data.bl.ch */,
                     'pKZE' /* https://data.bs.ch */,
+                    'pPI9' /* https://data.gr.ch */,
                     'p1Y3' /* https://data.tg.ch */,
                     'pNgX' /* https://data.zg.ch */,
                     'pGBx' /* https://catalog.opendata.li */,
                     'p1tT' /* https://admin.dataportal.se */,
                     'pPaA' /* https://www.data.gv.at/ */,
                     'pQd8' /* https://www.opendataportal.at/ */,
+                    'pihM' /* https://hub.huwise.com/ */,
+                    'pZEz' /* https://data.sbb.ch */,
+                    'p5lL' /* https://ressources.data.sncf.com */,
                 ];
                 if ((issue.message === 'missingSObjects') && silent.includes(sys.pobject.pid)) {
                     return;
@@ -527,8 +516,6 @@ var system = (function () {
     function getSystemCKANItem(sys) {
         var str = '';
 
-        str += sys.system;
-
         if (sys.version) {
             var badge = '';
             if (assetsChangelogCKAN.ckan) {
@@ -562,8 +549,6 @@ var system = (function () {
     function getSystemDKANItem(sys) {
         var str = '';
 
-        str += sys.system;
-
         if (sys.cms !== '') {
             str += '<br>@ ' + sys.cms;
         }
@@ -574,8 +559,6 @@ var system = (function () {
     function getSystemEKANItem(sys) {
         var str = '';
 
-        str += sys.system;
-
         if (sys.cms !== '') {
             str += '<br>@ ' + sys.cms;
         }
@@ -585,8 +568,6 @@ var system = (function () {
 
     function getSystemEntryScapeItem(sys) {
         var str = '';
-
-        str += 'EntryScape'; // sys.system;
 
         if (sys.version) {
             var hasPatch = sys.version.split('.').length === 3;
@@ -633,10 +614,18 @@ var system = (function () {
         return str;
     }
 
-    function getSystemPiveauItem(sys) {
+    function getSystemHuwiseItem(sys) {
         var str = '';
 
-        str += 'Piveau';
+        if (sys.version) {
+            str += ' ' + sys.version;
+        }
+
+        return str;
+    }
+
+    function getSystemPiveauItem(sys) {
+        var str = '';
 
         var badgeMetrics = '';
         if (assetsChangelogPiveau.metrics) {
@@ -840,8 +829,14 @@ var system = (function () {
         var systems = [];
         var cities = [];
         pSystems.forEach(sys => {
-            if (!systems.includes(sys.system)) {
-                systems.push(sys.system);
+            var s = sys.system;
+            if (s) {
+                s = s.replace('entryscape', 'EntryScape');
+                s = s.replace('Opendatasoft', 'Huwise');
+            }
+
+            if (!systems.includes(s)) {
+                systems.push(s);
             }
             if (['p000', 'pQeY', 'paIS', 'pDjX', 'pBTP', 'ptXx'].includes(sys.pobject.pid)) {
                 var title = sys.sobject.title;
@@ -977,10 +972,14 @@ var system = (function () {
 
         var system = sys.system;
         if (system) {
-            str += '<div class="content" data-system="' + system + '">';
+            system = system.replace('entryscape', 'EntryScape');
+            system = system.replace('Opendatasoft', 'Huwise');
         } else {
-            str += '<div class="content" data-system="' + dict[nav.lang].unknownSystem + '">';
+            system = dict[nav.lang].unknownSystem;
         }
+
+        str += '<div class="content" data-system="' + system + '">';
+        str += system;
 
         if ('CKAN' === system) {
             str += getSystemCKANItem(sys);
@@ -988,13 +987,13 @@ var system = (function () {
             str += getSystemDKANItem(sys);
         } else if ('EKAN' === system) {
             str += getSystemEKANItem(sys);
-        } else if ('entryscape' === system) {
+        } else if ('EntryScape' === system) {
             str += getSystemEntryScapeItem(sys);
         } else if ('Piveau' === system) {
             str += getSystemPiveauItem(sys);
-/*        } else if ('Opendatasoft' === system) {
-            str += getODSSystemsRow(sys);
-        } else if ('ArcGIS Hub' === system) {
+        } else if ('Huwise' === system) {
+            str += getSystemHuwiseItem(sys);
+/*        } else if ('ArcGIS Hub' === system) {
             str += getArcGISHubSystemsRow(sys);
         } else if ('DUVA' === system) {
             str += getDUVASystemsRow(sys);
@@ -1021,33 +1020,6 @@ var system = (function () {
         str += '</div>';
 
         return str;
-    }
-
-    function getODSSystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>ODS Version</th>';
-        head += '<th>API</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getODSSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        cols += '<td class="align-middle">' + sys.version + '</td>';
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
     }
 
     function getArcGISHubSystemsHead() {
@@ -1141,21 +1113,6 @@ var system = (function () {
     function updateSystemTable() {
         var systemRow = document.getElementById(idSystemRow);
 
-        var ckanTableHead = document.getElementById(idCKANSystemsHead);
-        var ckanTableBody = document.getElementById(idCKANSystemsBody);
-        var ckanTableFoot = document.getElementById(idCKANSystemsFoot);
-        var dkanTableHead = document.getElementById(idDKANSystemsHead);
-        var dkanTableBody = document.getElementById(idDKANSystemsBody);
-        var dkanTableFoot = document.getElementById(idDKANSystemsFoot);
-        var piveauTableHead = document.getElementById(idPiveauSystemsHead);
-        var piveauTableBody = document.getElementById(idPiveauSystemsBody);
-        var piveauTableFoot = document.getElementById(idPiveauSystemsFoot);
-        var odsTableHead = document.getElementById(idODSSystemsHead);
-        var odsTableBody = document.getElementById(idODSSystemsBody);
-        var odsTableFoot = document.getElementById(idODSSystemsFoot);
-        var entryScapeTableHead = document.getElementById(idEntryScapeSystemsHead);
-        var entryScapeTableBody = document.getElementById(idEntryScapeSystemsBody);
-        var entryScapeTableFoot = document.getElementById(idEntryScapeSystemsFoot);
         var arcGISHubTableHead = document.getElementById(idArcGISHubSystemsHead);
         var arcGISHubTableBody = document.getElementById(idArcGISHubSystemsBody);
         var arcGISHubTableFoot = document.getElementById(idArcGISHubSystemsFoot);
@@ -1174,7 +1131,6 @@ var system = (function () {
         }
 
         var systemCanvas = '';
-        var odsBody = '';
         var arcGISHubBody = '';
         var duvaBody = '';
         var sparqlBody = '';
@@ -1187,10 +1143,8 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['CKAN','DKAN','EKAN','entryscape','Piveau'].indexOf(system) !== -1) {
+            if (['CKAN','DKAN','EKAN','entryscape','Opendatasoft','Piveau'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
-            } else if ('Opendatasoft' === system) {
-                odsBody += getODSSystemsRow(sys);
             } else if ('ArcGIS Hub' === system) {
                 arcGISHubBody += getArcGISHubSystemsRow(sys);
             } else if ('DUVA' === system) {
@@ -1204,9 +1158,6 @@ systemCanvas += getSystemItem(sys);
 //            systemCanvas += getSystemItem(sys);
         });
 
-        if (odsBody.length === 0) {
-            odsBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (arcGISHubBody.length === 0) {
             arcGISHubBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -1224,21 +1175,6 @@ systemCanvas += getSystemItem(sys);
 
         updateSystemFilter(pSystems);
 
-        ckanTableHead.innerHTML = '';
-        ckanTableBody.innerHTML = '';
-        ckanTableFoot.innerHTML = '';
-        dkanTableHead.innerHTML = ''
-        dkanTableBody.innerHTML = '';
-        dkanTableFoot.innerHTML = '';
-        piveauTableHead.innerHTML = '';
-        piveauTableBody.innerHTML = '';
-        piveauTableFoot.innerHTML = '';
-        odsTableHead.innerHTML = getODSSystemsHead();
-        odsTableBody.innerHTML = odsBody;
-        odsTableFoot.innerHTML = '<tr><td style="border:none">' + (odsBody.split('<tr>').length - 1) + ' systems</td></tr>';
-        entryScapeTableHead.innerHTML = '';
-        entryScapeTableBody.innerHTML = '';
-        entryScapeTableFoot.innerHTML = '';
         arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
         arcGISHubTableBody.innerHTML = arcGISHubBody;
         arcGISHubTableFoot.innerHTML = '<tr><td style="border:none">' + (arcGISHubBody.split('<tr>').length - 1) + ' systems</td></tr>';

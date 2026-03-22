@@ -427,11 +427,7 @@ var system = (function () {
                     'ptfz' /* https://ckan.opendata.swiss */,
                     'pFzk' /* https://ckan.publishing.service.gov.uk */,
                     'p000' /* https://data.europa.eu */,
-                    'pQLS' /* https://data.bl.ch */,
-                    'pKZE' /* https://data.bs.ch */,
-                    'pPI9' /* https://data.gr.ch */,
-                    'p1Y3' /* https://data.tg.ch */,
-                    'pNgX' /* https://data.zg.ch */,
+                    'pQLS', 'pKZE', 'pPI9', 'p1Y3', 'pNgX', 'p9v3', 'pZ0u', 'pVFC', 'pwT0' /* ...ch */,
                     'pGBx' /* https://catalog.opendata.li */,
                     'p1tT' /* https://admin.dataportal.se */,
                     'pPaA' /* https://www.data.gv.at/ */,
@@ -533,7 +529,7 @@ var system = (function () {
             str += ' ' + sys.version + badge;
         }
 
-        if (sys.extensions) {
+        if (sys.extensions && Array.isArray(sys.extensions)) {
             var tooltip = sys.extensions.join(', ');
             tooltip = tooltip.replace(/"/g, '&quot;');
             var num = '<span title="' + tooltip + '" style="background:#ddd;padding:.1rem .3rem;cursor:help">';

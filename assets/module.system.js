@@ -42,6 +42,7 @@ var system = (function () {
             placeholder: 'Durchsuche die Systeme…',
             profiles: 'mit {number} Profilen',
             snapshot: 'Es wird eine unvollständige Version verwendet.',
+            systemException: 'Es ist ein Fehler aufgetreten',
             systemsLoading: 'Systeminformationen werden geladen',
             tryCity: 'Du kannst nach einer Stadt suchen:',
             trySoftware: 'Du kannst nach Software suchen:',
@@ -63,6 +64,7 @@ var system = (function () {
             placeholder: 'Search the systems…',
             profiles: 'with {number} profiles',
             snapshot: 'An incomplete version is being used.',
+            systemException: 'An error has occurred',
             systemsLoading: 'System information is loading',
             tryCity: 'You can search for a city:',
             trySoftware: 'You can search for software:',
@@ -981,26 +983,30 @@ var system = (function () {
         str += '<div class="content" data-system="' + system + '">';
         str += system;
 
-        if ('CKAN' === system) {
-            str += getSystemCKANItem(sys);
-        } else if ('DKAN' === system) {
-            str += getSystemDKANItem(sys);
-        } else if ('EKAN' === system) {
-            str += getSystemEKANItem(sys);
-        } else if ('EntryScape' === system) {
-            str += getSystemEntryScapeItem(sys);
-        } else if ('Piveau' === system) {
-            str += getSystemPiveauItem(sys);
-        } else if ('Huwise' === system) {
-            str += getSystemHuwiseItem(sys);
-/*        } else if ('ArcGIS Hub' === system) {
-            str += getArcGISHubSystemsRow(sys);
-        } else if ('DUVA' === system) {
-            str += getDUVASystemsRow(sys);
-        } else if ('SPARQL' === system) {
-            str += getSPARQLSystemsRow(sys);*/
-        } else {
-            str += getSystemOtherItem(sys);
+        try {
+            if ('CKAN' === system) {
+                str += getSystemCKANItem(sys);
+            } else if ('DKAN' === system) {
+                str += getSystemDKANItem(sys);
+            } else if ('EKAN' === system) {
+                str += getSystemEKANItem(sys);
+            } else if ('EntryScape' === system) {
+                str += getSystemEntryScapeItem(sys);
+            } else if ('Piveau' === system) {
+                str += getSystemPiveauItem(sys);
+            } else if ('Huwise' === system) {
+                str += getSystemHuwiseItem(sys);
+    /*        } else if ('ArcGIS Hub' === system) {
+                str += getArcGISHubSystemsRow(sys);
+            } else if ('DUVA' === system) {
+                str += getDUVASystemsRow(sys);
+            } else if ('SPARQL' === system) {
+                str += getSPARQLSystemsRow(sys);*/
+            } else {
+                str += getSystemOtherItem(sys);
+            }
+        } catch (x) {
+            str += '<br><span class="badge text-dark" style="display:table;height:.9rem;margin:0 auto;padding:.2rem .4rem;border-radius:.45rem;background:#dc344540;font-style:italic">' + dict[nav.lang].systemException + '</span>';
         }
 
         str += '</div>';
@@ -1009,8 +1015,8 @@ var system = (function () {
         if (sys.sobject) {
             str += '<a href="catalogs.html?sid=' + sys.sobject.sid + '&lang=' + nav.lang + '"><div class="bottom">' + dict[nav.lang].linkOpen + '</div></a>';
         }
-        str += '<a href="' + sys.pobject.url + '" target="_blank"><div class="bottom">' + dict[nav.lang].linkOrigin + '</div></a>';
-        str += '<a href="' + sys.pobject.deepLink + '" target="_blank"><div class="bottom">' + dict[nav.lang].linkAPI + '</div></a>';
+        str += '<a href="' + sys.pobject.url + '" target="_blank"><div class="bottom white">' + dict[nav.lang].linkOrigin + '</div></a>';
+        str += '<a href="' + sys.pobject.deepLink + '" target="_blank"><div class="bottom white">' + dict[nav.lang].linkAPI + '</div></a>';
 
         str += '</div>';
 

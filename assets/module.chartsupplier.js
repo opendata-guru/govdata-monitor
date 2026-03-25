@@ -72,7 +72,13 @@ var chartCatalogObjects = (function () {
         rowTitlesTranslated = [],
         chartData = [],
         fileName = '';
-    var sliderStartDate = null,
+    var sliderOptions = {
+            dateFirst: null,
+            dateLast: null,
+            selectionBegin: null,
+            selectionEnd: null,
+        },
+        sliderStartDate = null,
         sliderInputStart = null,
         sliderInputEnd = null,
         sliderThumbLeft = null,
@@ -240,6 +246,8 @@ var chartCatalogObjects = (function () {
             newCanvas.style.maxHeight = '16rem';
             elem.appendChild(newCanvas);
 
+            sliderUpdate(options);
+
             return;
         }
 
@@ -344,20 +352,21 @@ var chartCatalogObjects = (function () {
     }
 
     function sliderCreate(id, options) {
+        sliderOptions = options;
+
         // see https://codepen.io/sarmunbustillo/pen/XWEYERa?editors=0100
 
         var elem = document.getElementById(id);
         var str = '';
-        var days = options.days;
 
-        sliderStartDate = new Date(options.dateFirst);
-        var diffTime = Math.abs(sliderStartDate - (new Date(options.dateLast)));
-        var trackMin = Math.abs(sliderStartDate - (new Date(options.selectionBegin)))
-        var trackMax = Math.abs(sliderStartDate - (new Date(options.selectionEnd)))
+        sliderStartDate = new Date(sliderOptions.dateFirst);
+        var diffTime = Math.abs(sliderStartDate - (new Date(sliderOptions.dateLast)));
+        var trackMin = Math.abs(sliderStartDate - (new Date(sliderOptions.selectionBegin)));
+        var trackMax = Math.abs(sliderStartDate - (new Date(sliderOptions.selectionEnd)));
         sliderMin = 0;
-        sliderMax = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
-        trackMin = Math.floor(trackMin / (1000 * 60 * 60 * 24)); 
-        trackMax = Math.floor(trackMax / (1000 * 60 * 60 * 24)); 
+        sliderMax = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        trackMin = Math.floor(trackMin / (1000 * 60 * 60 * 24));
+        trackMax = Math.floor(trackMax / (1000 * 60 * 60 * 24));
 
         str += '<div class="slider-labels">';
         str += '<span class="slider-label slider-label-start">0</span>';
@@ -385,23 +394,53 @@ var chartCatalogObjects = (function () {
         sliderLabelMax = elem.querySelector('.slider-label-end');
 
         sliderSetStartValue();
-        sliderSetLabelMin(options);
+        sliderSetLabelMin();
 
         sliderSetEndValue();
-        sliderSetLabelMax(options);
+        sliderSetLabelMax();
 
-        sliderInitEvents(options);
+        sliderInitEvents();
     }
 
-    function sliderInitEvents(options) {
+    function sliderUpdate(options) {
+        var diff = Math.abs(sliderStartDate - (new Date(options.dateFirst)));
+
+        if (diff > 0) {
+            sliderOptions = options;
+
+            sliderStartDate = new Date(sliderOptions.dateFirst);
+            var diffTime = Math.abs(sliderStartDate - (new Date(sliderOptions.dateLast)));
+            var trackMin = Math.abs(sliderStartDate - (new Date(sliderOptions.selectionBegin)));
+            var trackMax = Math.abs(sliderStartDate - (new Date(sliderOptions.selectionEnd)));
+            sliderMin = 0;
+            sliderMax = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            trackMin = Math.floor(trackMin / (1000 * 60 * 60 * 24));
+            trackMax = Math.floor(trackMax / (1000 * 60 * 60 * 24));
+
+            sliderInputStart.min = sliderMin;
+            sliderInputStart.max = sliderMax - 1;
+            sliderInputStart.value = trackMin;
+            sliderInputEnd.min = sliderMin + 1;
+            sliderInputEnd.max = sliderMax;
+            sliderInputEnd.value = trackMax;
+
+            sliderSetStartValue();
+            sliderSetLabelMin();
+
+            sliderSetEndValue();
+            sliderSetLabelMax();
+        }
+    }
+
+    function sliderInitEvents() {
         sliderInputStart.addEventListener('input', () => {
             sliderSetStartValue();
-            sliderSetLabelMin(options);
+            sliderSetLabelMin();
         });
 
         sliderInputEnd.addEventListener('input', () => {
             sliderSetEndValue();
-            sliderSetLabelMax(options);
+            sliderSetLabelMax();
         });
 
         sliderInputStart.addEventListener('mouseover', function () {
@@ -447,11 +486,11 @@ var chartCatalogObjects = (function () {
     var throttlineMilliseconds = 100;
     var throttlingOptions = null;
     var throttlingTimestamp = null;
-    function throttlingRebuild(options) {
+    function throttlingRebuild() {
         if (throttlingOptions) {
-            throttlingOptions = options;
+            throttlingOptions = sliderOptions;
         } else {
-            throttlingOptions = options;
+            throttlingOptions = sliderOptions;
             requestAnimationFrame(throttlingFunction);
         }
     }
@@ -471,27 +510,27 @@ var chartCatalogObjects = (function () {
         }
     }
 
-    function sliderSetLabelMin(options) {
+    function sliderSetLabelMin() {
         var value = parseInt(sliderInputStart.value, 10);
 
         sliderLabelMin.innerHTML = sliderAddAsLocal(value);
 
         var selectionBegin = sliderAddAsISO(value);
-        if (selectionBegin !== options.selectionBegin) {
-            options.selectionBegin = sliderAddAsISO(value);
-            throttlingRebuild(options);
+        if (selectionBegin !== sliderOptions.selectionBegin) {
+            sliderOptions.selectionBegin = sliderAddAsISO(value);
+            throttlingRebuild();
         }
     }
 
-    function sliderSetLabelMax(options) {
+    function sliderSetLabelMax() {
         var value = parseInt(sliderInputEnd.value, 10);
 
         sliderLabelMax.innerHTML = sliderAddAsLocal(value);
 
         var selectionEnd = sliderAddAsISO(value);
-        if (selectionEnd !== options.selectionEnd) {
-            options.selectionEnd = sliderAddAsISO(value);
-            throttlingRebuild(options);
+        if (selectionEnd !== sliderOptions.selectionEnd) {
+            sliderOptions.selectionEnd = sliderAddAsISO(value);
+            throttlingRebuild();
         }
     }
 

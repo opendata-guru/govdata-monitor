@@ -511,6 +511,23 @@ var system = (function () {
         return ' <span class="badge ' + color + '" style="display:inline-block;height:.9rem;margin-left:.1rem;width:1.15rem;border-radius:.45rem;cursor:help" title="' + item.date + '">' + title + '</span>';
     }
 
+    function getSystemArcGISHubItem(sys) {
+        var str = '';
+
+        if (sys.version) {
+            var v = sys.version.split('-');
+            str += ' ' + v[0].split('+')[0];
+
+            var d = new Date(v[1]);
+			var date = d.toLocaleString('sv-SE', {timeZone: 'Europe/Berlin'}).split(' ')[0];
+            var dateString = date.toLocaleString('sv-SE').split(' ')[0];
+            var dateStringDE = date.toLocaleString('de-DE').split(',')[0];
+            str += '<br>(' + (nav.lang === 'de' ? dateStringDE : dateString) + ')';
+        }
+
+        return str;
+    }
+
     function getSystemCKANItem(sys) {
         var str = '';
 
@@ -980,7 +997,9 @@ var system = (function () {
         str += system;
 
         try {
-            if ('CKAN' === system) {
+            if ('ArcGIS Hub' === system) {
+                str += getSystemArcGISHubItem(sys);
+            } else if ('CKAN' === system) {
                 str += getSystemCKANItem(sys);
             } else if ('DKAN' === system) {
                 str += getSystemDKANItem(sys);
@@ -988,13 +1007,11 @@ var system = (function () {
                 str += getSystemEKANItem(sys);
             } else if ('EntryScape' === system) {
                 str += getSystemEntryScapeItem(sys);
-            } else if ('Piveau' === system) {
-                str += getSystemPiveauItem(sys);
             } else if ('Huwise' === system) {
                 str += getSystemHuwiseItem(sys);
-    /*        } else if ('ArcGIS Hub' === system) {
-                str += getArcGISHubSystemsRow(sys);
-            } else if ('DUVA' === system) {
+            } else if ('Piveau' === system) {
+                str += getSystemPiveauItem(sys);
+/*            } else if ('DUVA' === system) {
                 str += getDUVASystemsRow(sys);
             } else if ('SPARQL' === system) {
                 str += getSPARQLSystemsRow(sys);*/
@@ -1022,33 +1039,6 @@ var system = (function () {
         str += '</div>';
 
         return str;
-    }
-
-    function getArcGISHubSystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>ArcGIS Hub Version</th>';
-        head += '<th>API</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getArcGISHubSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        cols += '<td class="align-middle">' + sys.version + '</td>';
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 5);
     }
 
     function getDUVASystemsHead() {
@@ -1115,9 +1105,6 @@ var system = (function () {
     function updateSystemTable() {
         var systemRow = document.getElementById(idSystemRow);
 
-        var arcGISHubTableHead = document.getElementById(idArcGISHubSystemsHead);
-        var arcGISHubTableBody = document.getElementById(idArcGISHubSystemsBody);
-        var arcGISHubTableFoot = document.getElementById(idArcGISHubSystemsFoot);
         var duvaTableHead = document.getElementById(idDUVASystemsHead);
         var duvaTableBody = document.getElementById(idDUVASystemsBody);
         var duvaTableFoot = document.getElementById(idDUVASystemsFoot);
@@ -1133,7 +1120,6 @@ var system = (function () {
         }
 
         var systemCanvas = '';
-        var arcGISHubBody = '';
         var duvaBody = '';
         var sparqlBody = '';
         var otherBody = '';
@@ -1145,10 +1131,8 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['CKAN','DKAN','EKAN','entryscape','Opendatasoft','Piveau'].indexOf(system) !== -1) {
+            if (['ArcGIS Hub', 'CKAN','DKAN','EKAN','entryscape','Opendatasoft','Piveau'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
-            } else if ('ArcGIS Hub' === system) {
-                arcGISHubBody += getArcGISHubSystemsRow(sys);
             } else if ('DUVA' === system) {
                 duvaBody += getDUVASystemsRow(sys);
             } else if ('SPARQL' === system) {
@@ -1160,9 +1144,6 @@ systemCanvas += getSystemItem(sys);
 //            systemCanvas += getSystemItem(sys);
         });
 
-        if (arcGISHubBody.length === 0) {
-            arcGISHubBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (duvaBody.length === 0) {
             duvaBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -1177,9 +1158,6 @@ systemCanvas += getSystemItem(sys);
 
         updateSystemFilter(pSystems);
 
-        arcGISHubTableHead.innerHTML = getArcGISHubSystemsHead();
-        arcGISHubTableBody.innerHTML = arcGISHubBody;
-        arcGISHubTableFoot.innerHTML = '<tr><td style="border:none">' + (arcGISHubBody.split('<tr>').length - 1) + ' systems</td></tr>';
         duvaTableHead.innerHTML = getDUVASystemsHead();
         duvaTableBody.innerHTML = duvaBody;
         duvaTableFoot.innerHTML = '<tr><td style="border:none">' + (duvaBody.split('<tr>').length - 1) + ' systems</td></tr>';

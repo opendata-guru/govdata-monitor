@@ -868,8 +868,8 @@ var catalog = (function () {
             elem.innerHTML = str;
         }
 
-        var partOf = sObject.partOf?.wikidata;
-        var sameAs = sObject.sameAs?.wikidata;
+        var partOf = sObject?.partOf?.wikidata;
+        var sameAs = sObject?.sameAs?.wikidata;
         var wikidata = sameAs ? sameAs : partOf;
 
         if (wikidata) {

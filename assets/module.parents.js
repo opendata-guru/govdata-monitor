@@ -33,9 +33,12 @@ var parents = (function () {
             'createNode': function(node, data) {
                 var div = document.createElement('div');
                 div.setAttribute('class', 'content');
-                div.innerHTML = '<img style="height:2rem;width:100%;object-fit:contain;text-indent:100%" src="' + data.image + '">';
-                node.appendChild(div);
 
+                if (data.image !== '') {
+                    div.innerHTML = '<img style="height:2rem;width:100%;object-fit:contain;text-indent:100%;pointer-events:none" src="' + data.image + '">';
+                }
+
+                node.appendChild(div);
                 node.addEventListener('click', () => {
                     catalog.setSID(data.sid);
                 });

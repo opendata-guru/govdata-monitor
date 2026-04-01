@@ -561,6 +561,22 @@ var system = (function () {
         return str;
     }
 
+    function getSystemConterraItem(sys) {
+        var str = '';
+
+        str += ' ' + sys.version;
+
+        if (sys.extensions && Array.isArray(sys.extensions)) {
+            var tooltip = sys.extensions.join(', ');
+            tooltip = tooltip.replace(/"/g, '&quot;');
+            var num = '<span title="' + tooltip + '" style="background:#ddd;padding:.1rem .3rem;cursor:help">';
+            num += sys.extensions.length + '</span>';
+            str += '<br>' + dict[nav.lang].extensions.replace('{number}', num);
+        }
+
+        return str;
+    }
+
     function getSystemDKANItem(sys) {
         var str = '';
 
@@ -725,7 +741,6 @@ var system = (function () {
     function getSystemOtherItem(sys) {
         var str = '';
 
-        str += sys.system;
         str += ' ' + sys.version;
 
         if (sys.cms !== '') {
@@ -824,6 +839,17 @@ var system = (function () {
         updateFilterValue(input.value);
     }
 
+    function fixSystemTitle(title) {
+        if (title) {
+            title = title.replace('conterra', 'con terra');
+            title = title.replace('entryscape', 'EntryScape');
+            title = title.replace('ingrid', 'InGrid');
+            title = title.replace('Opendatasoft', 'Huwise');
+        }
+
+        return title;
+    }
+
     function updateSystemFilter(pSystems) {
         var input = document.querySelector('.search-control input');
         updateFilterValue(input.value);
@@ -845,10 +871,7 @@ var system = (function () {
         var cities = [];
         pSystems.forEach(sys => {
             var s = sys.system;
-            if (s) {
-                s = s.replace('entryscape', 'EntryScape');
-                s = s.replace('Opendatasoft', 'Huwise');
-            }
+            s = fixSystemTitle(s);
 
             if (!systems.includes(s)) {
                 systems.push(s);
@@ -987,8 +1010,7 @@ var system = (function () {
 
         var system = sys.system;
         if (system) {
-            system = system.replace('entryscape', 'EntryScape');
-            system = system.replace('Opendatasoft', 'Huwise');
+            system = fixSystemTitle(system);
         } else {
             system = dict[nav.lang].unknownSystem;
         }
@@ -1001,6 +1023,8 @@ var system = (function () {
                 str += getSystemArcGISHubItem(sys);
             } else if ('CKAN' === system) {
                 str += getSystemCKANItem(sys);
+            } else if ('con terra' === system) {
+                str += getSystemConterraItem(sys);
             } else if ('DKAN' === system) {
                 str += getSystemDKANItem(sys);
             } else if ('EKAN' === system) {
@@ -1131,7 +1155,7 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['ArcGIS Hub', 'CKAN','DKAN','EKAN','entryscape','Opendatasoft','Piveau'].indexOf(system) !== -1) {
+            if (['ArcGIS Hub', 'CKAN','conterra','DKAN','EKAN','entryscape','ingrid','Opendatasoft','Piveau'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
             } else if ('DUVA' === system) {
                 duvaBody += getDUVASystemsRow(sys);

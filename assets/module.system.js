@@ -14,12 +14,6 @@ var system = (function () {
         eventListenerEndLoading = [];
     var idSystemBar = 'system-bar',
         idSystemRow = 'system-row',
-        idArcGISHubSystemsHead = 'arcgishub-systems-thead',
-        idArcGISHubSystemsBody = 'arcgishub-systems-tbody',
-        idArcGISHubSystemsFoot = 'arcgishub-systems-tfoot',
-        idDUVASystemsHead = 'duva-systems-thead',
-        idDUVASystemsBody = 'duva-systems-tbody',
-        idDUVASystemsFoot = 'duva-systems-tfoot',
         idSPARQLSystemsHead = 'sparql-systems-thead',
         idSPARQLSystemsBody = 'sparql-systems-tbody',
         idSPARQLSystemsFoot = 'sparql-systems-tfoot',
@@ -587,6 +581,14 @@ var system = (function () {
         return str;
     }
 
+    function getSystemDuvaItem(sys) {
+        var str = '';
+
+        str += ' ' + sys.version;
+
+        return str;
+    }
+
     function getSystemEKANItem(sys) {
         var str = '';
 
@@ -1035,9 +1037,9 @@ var system = (function () {
                 str += getSystemHuwiseItem(sys);
             } else if ('Piveau' === system) {
                 str += getSystemPiveauItem(sys);
-/*            } else if ('DUVA' === system) {
-                str += getDUVASystemsRow(sys);
-            } else if ('SPARQL' === system) {
+            } else if ('DUVA' === system) {
+                str += getSystemDuvaItem(sys);
+/*            } else if ('SPARQL' === system) {
                 str += getSPARQLSystemsRow(sys);*/
             } else {
                 str += getSystemOtherItem(sys);
@@ -1063,31 +1065,6 @@ var system = (function () {
         str += '</div>';
 
         return str;
-    }
-
-    function getDUVASystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>API</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getDUVASystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 2);
     }
 
     function getSPARQLSystemsHead() {
@@ -1129,9 +1106,6 @@ var system = (function () {
     function updateSystemTable() {
         var systemRow = document.getElementById(idSystemRow);
 
-        var duvaTableHead = document.getElementById(idDUVASystemsHead);
-        var duvaTableBody = document.getElementById(idDUVASystemsBody);
-        var duvaTableFoot = document.getElementById(idDUVASystemsFoot);
         var sparqlTableHead = document.getElementById(idSPARQLSystemsHead);
         var sparqlTableBody = document.getElementById(idSPARQLSystemsBody);
         var sparqlTableFoot = document.getElementById(idSPARQLSystemsFoot);
@@ -1144,7 +1118,6 @@ var system = (function () {
         }
 
         var systemCanvas = '';
-        var duvaBody = '';
         var sparqlBody = '';
         var otherBody = '';
 
@@ -1155,10 +1128,8 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['ArcGIS Hub', 'CKAN','conterra','DKAN','EKAN','entryscape','ingrid','Opendatasoft','Piveau'].indexOf(system) !== -1) {
+            if (['ArcGIS Hub', 'CKAN','conterra','DKAN','DUVA','EKAN','entryscape','ingrid','Opendatasoft','Piveau'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
-            } else if ('DUVA' === system) {
-                duvaBody += getDUVASystemsRow(sys);
             } else if ('SPARQL' === system) {
                 sparqlBody += getSPARQLSystemsRow(sys);
             } else {
@@ -1168,9 +1139,6 @@ systemCanvas += getSystemItem(sys);
 //            systemCanvas += getSystemItem(sys);
         });
 
-        if (duvaBody.length === 0) {
-            duvaBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (sparqlBody.length === 0) {
             sparqlBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -1182,9 +1150,6 @@ systemCanvas += getSystemItem(sys);
 
         updateSystemFilter(pSystems);
 
-        duvaTableHead.innerHTML = getDUVASystemsHead();
-        duvaTableBody.innerHTML = duvaBody;
-        duvaTableFoot.innerHTML = '<tr><td style="border:none">' + (duvaBody.split('<tr>').length - 1) + ' systems</td></tr>';
         sparqlTableHead.innerHTML = getSPARQLSystemsHead();
         sparqlTableBody.innerHTML = sparqlBody;
         sparqlTableFoot.innerHTML = '<tr><td style="border:none">' + (sparqlBody.split('<tr>').length - 1) + ' systems</td></tr>';

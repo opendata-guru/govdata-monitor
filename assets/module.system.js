@@ -14,9 +14,6 @@ var system = (function () {
         eventListenerEndLoading = [];
     var idSystemBar = 'system-bar',
         idSystemRow = 'system-row',
-        idSPARQLSystemsHead = 'sparql-systems-thead',
-        idSPARQLSystemsBody = 'sparql-systems-tbody',
-        idSPARQLSystemsFoot = 'sparql-systems-tfoot',
         idOtherSystemsHead = 'other-systems-thead',
         idOtherSystemsBody = 'other-systems-tbody',
         idOtherSystemsFoot = 'other-systems-tfoot';
@@ -421,7 +418,8 @@ var system = (function () {
                     'ptfz' /* https://ckan.opendata.swiss */,
                     'pFzk' /* https://ckan.publishing.service.gov.uk */,
                     'p000' /* https://data.europa.eu */,
-                    'pQLS', 'pKZE', 'pPI9', 'p1Y3', 'pNgX', 'p9v3', 'pZ0u', 'pVFC', 'pwT0' /* ...ch */,
+                    'pQLS', 'pKZE', 'pPI9', 'p1Y3', 'pNgX', 'p9v3', 'pZ0u', 'pVFC', 'pwT0', /* ...ch */
+                    'pvyO', /* ...es */
                     'pGBx' /* https://catalog.opendata.li */,
                     'p1tT' /* https://admin.dataportal.se */,
                     'pPaA' /* https://www.data.gv.at/ */,
@@ -740,6 +738,18 @@ var system = (function () {
         return str;
     }
 
+    function getSystemSPARQLItem(sys) {
+        var str = '';
+
+        var badgeOpenLinkVirtuosoServer = '';
+
+        if (sys.version !== '') {
+            str += '<br>&raquo; ' + sys.name + ' ' + sys.version + badgeOpenLinkVirtuosoServer;
+        }
+
+        return str;
+    }
+
     function getSystemOtherItem(sys) {
         var str = '';
 
@@ -847,6 +857,7 @@ var system = (function () {
             title = title.replace('entryscape', 'EntryScape');
             title = title.replace('ingrid', 'InGrid');
             title = title.replace('Opendatasoft', 'Huwise');
+            title = title.replace('sparql', 'SPARQL');
         }
 
         return title;
@@ -1039,8 +1050,8 @@ var system = (function () {
                 str += getSystemPiveauItem(sys);
             } else if ('DUVA' === system) {
                 str += getSystemDuvaItem(sys);
-/*            } else if ('SPARQL' === system) {
-                str += getSPARQLSystemsRow(sys);*/
+            } else if ('SPARQL' === system) {
+                str += getSystemSPARQLItem(sys);
             } else {
                 str += getSystemOtherItem(sys);
             }
@@ -1067,48 +1078,9 @@ var system = (function () {
         return str;
     }
 
-    function getSPARQLSystemsHead() {
-        var head = '';
-
-        head += '<th>Title</th>';
-        head += '<th>System</th>';
-        head += '<th>Version</th>';
-        head += '<th>API</th>';
-        head += '<th>Build date</th>';
-        head += '<th>OS</th>';
-
-        return '<tr>' + head + '</tr>';
-    }
-
-    function getSPARQLSystemsRow(sys) {
-        var title = getSystemTitle(sys.sobject);
-        var image = (sys.sobject && sys.sobject.image && sys.sobject.image.url !== '') ? '<img src="' + sys.sobject.image.url + '" style="height:1em;margin-right:.5em">' : '';
-
-        if (title === '') {
-            title = sys.url || sys.pobject.deepLink;
-        }
-
-        var cols = '';
-        cols += '<td>' + image + '<a href="catalogs.html?sid=' + (sys.sobject ? sys.sobject.sid : '-') + '&lang=' + nav.lang + '">' + title + '</a></td>';
-
-        sys.version = sys.version === null ? '-' : sys.version;
-        sys.name = sys.name === null ? '-' : sys.name;
-        sys.build.os = sys.build.os === null ? '-' : sys.build.os;
-        sys.build.date = sys.build.date === null ? '-' : sys.build.date;
-        cols += '<td class="align-middle">' + sys.name + '</td>';
-        cols += '<td class="align-middle">' + sys.version + '</td>';
-        cols += '<td class="align-middle"><a href="' + sys.pobject.deepLink + '" target="_blank">API</a></td>';
-        cols += '<td class="align-middle">' + sys.build.date + '</td>';
-        cols += '<td class="align-middle">' + sys.build.os + '</td>';
-        return '<tr>' + cols + '</tr>' + getIssueRow(sys, 6);
-    }
-
     function updateSystemTable() {
         var systemRow = document.getElementById(idSystemRow);
 
-        var sparqlTableHead = document.getElementById(idSPARQLSystemsHead);
-        var sparqlTableBody = document.getElementById(idSPARQLSystemsBody);
-        var sparqlTableFoot = document.getElementById(idSPARQLSystemsFoot);
         var otherTableHead = document.getElementById(idOtherSystemsHead);
         var otherTableBody = document.getElementById(idOtherSystemsBody);
         var otherTableFoot = document.getElementById(idOtherSystemsFoot);
@@ -1118,7 +1090,6 @@ var system = (function () {
         }
 
         var systemCanvas = '';
-        var sparqlBody = '';
         var otherBody = '';
 
         pSystems.sort((a, b) => {
@@ -1128,10 +1099,8 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['ArcGIS Hub', 'CKAN','conterra','DKAN','DUVA','EKAN','entryscape','ingrid','Opendatasoft','Piveau'].indexOf(system) !== -1) {
+            if (['ArcGIS Hub', 'CKAN','conterra','DKAN','DUVA','EKAN','entryscape','ingrid','Opendatasoft','Piveau','sparql'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
-            } else if ('SPARQL' === system) {
-                sparqlBody += getSPARQLSystemsRow(sys);
             } else {
                 otherBody += getOtherSystemsRow(sys);
             }
@@ -1139,9 +1108,6 @@ systemCanvas += getSystemItem(sys);
 //            systemCanvas += getSystemItem(sys);
         });
 
-        if (sparqlBody.length === 0) {
-            sparqlBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
-        }
         if (otherBody.length === 0) {
             otherBody += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
         }
@@ -1150,9 +1116,6 @@ systemCanvas += getSystemItem(sys);
 
         updateSystemFilter(pSystems);
 
-        sparqlTableHead.innerHTML = getSPARQLSystemsHead();
-        sparqlTableBody.innerHTML = sparqlBody;
-        sparqlTableFoot.innerHTML = '<tr><td style="border:none">' + (sparqlBody.split('<tr>').length - 1) + ' systems</td></tr>';
         otherTableHead.innerHTML = getOtherSystemsHead();
         otherTableBody.innerHTML = otherBody;
         otherTableFoot.innerHTML = '<tr><td style="border:none">' + (otherBody.split('<tr>').length - 1) + ' systems</td></tr>';

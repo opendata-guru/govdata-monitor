@@ -243,6 +243,60 @@
 			opacity: .4;
 			width: 3.6em;
 		}
+
+		.portal-table[data-page] tr[data-onpage] { display: none; }
+		.portal-table[data-page="0"] tr[data-onpage="0"],
+		.portal-table[data-page="1"] tr[data-onpage="1"],
+		.portal-table[data-page="2"] tr[data-onpage="2"],
+		.portal-table[data-page="3"] tr[data-onpage="3"],
+		.portal-table[data-page="4"] tr[data-onpage="4"],
+		.portal-table[data-page="5"] tr[data-onpage="5"],
+		.portal-table[data-page="6"] tr[data-onpage="6"],
+		.portal-table[data-page="7"] tr[data-onpage="7"],
+		.portal-table[data-page="8"] tr[data-onpage="8"],
+		.portal-table[data-page="9"] tr[data-onpage="9"],
+		.portal-table[data-page="10"] tr[data-onpage="10"],
+		.portal-table[data-page="11"] tr[data-onpage="11"],
+		.portal-table[data-page="12"] tr[data-onpage="12"],
+		.portal-table[data-page="13"] tr[data-onpage="13"],
+		.portal-table[data-page="14"] tr[data-onpage="14"],
+		.portal-table[data-page="15"] tr[data-onpage="15"],
+		.portal-table[data-page="16"] tr[data-onpage="16"],
+		.portal-table[data-page="17"] tr[data-onpage="17"],
+		.portal-table[data-page="18"] tr[data-onpage="18"],
+		.portal-table[data-page="19"] tr[data-onpage="19"]
+		{ display: table-row; }
+		.portal-table[data-page] span[data-page] {
+			border-bottom: 1px solid #17a2b8;
+			border-radius: .5rem;
+			cursor: pointer;
+			margin: 0 .125rem;
+			padding: .25rem .5rem;
+		}
+		.portal-table[data-page="0"] span[data-page="0"],
+		.portal-table[data-page="1"] span[data-page="1"],
+		.portal-table[data-page="2"] span[data-page="2"],
+		.portal-table[data-page="3"] span[data-page="3"],
+		.portal-table[data-page="4"] span[data-page="4"],
+		.portal-table[data-page="5"] span[data-page="5"],
+		.portal-table[data-page="6"] span[data-page="6"],
+		.portal-table[data-page="7"] span[data-page="7"],
+		.portal-table[data-page="8"] span[data-page="8"],
+		.portal-table[data-page="9"] span[data-page="9"],
+		.portal-table[data-page="10"] span[data-page="10"],
+		.portal-table[data-page="11"] span[data-page="11"],
+		.portal-table[data-page="12"] span[data-page="12"],
+		.portal-table[data-page="13"] span[data-page="13"],
+		.portal-table[data-page="14"] span[data-page="14"],
+		.portal-table[data-page="15"] span[data-page="15"],
+		.portal-table[data-page="16"] span[data-page="16"],
+		.portal-table[data-page="17"] span[data-page="17"],
+		.portal-table[data-page="18"] span[data-page="18"],
+		.portal-table[data-page="19"] span[data-page="19"]
+		{ background: #a4e9f4; pointer-events: none; }
+		.portal-table[data-page] span[data-page]:hover {
+			background: #a4e9f4;
+		}
 	</style>
 </head>
 
@@ -358,14 +412,14 @@
 					</div>
 
 					<div class="row bg-white">
-						<div class="col-8">
+						<div class="col-12">
 
 							<div id="card-portals" class="row bg-white mb-0 p-0"></div>
 
 						</div>
-						<div class="col-4">
+						<div class="col-6">
 
-							<div class="card card-supplier-list flex-fill">
+							<div class="card card-supplier-list flex-fill d-none">
 								<table class="table table-hover my-0">
 									<thead id="supplier-table-header"></thead>
 									<tbody id="supplier-table"></tbody>
@@ -409,7 +463,7 @@
 	<script src="assets/module.map.js?v=3"></script>
 	<script src="assets/module.parents.js?v=2"></script>
 	<script src="assets/module.system.js?v=20"></script>
-	<script src="assets/module.table.js?v=6"></script>
+	<script src="assets/module.table.js?v=7"></script>
 	<script src="assets/monitor.js?v=8"></script>
 </body>
 

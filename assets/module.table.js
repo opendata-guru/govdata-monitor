@@ -2,7 +2,7 @@ var table = (function () {
     var initvalFlatten = false,
         defaultFlatten = false,
         initvalClipboard = false,
-        defaultClipboard = false;
+        defaultClipboard = false,
         initvalLayers = [],
         defaultLayers = [];
     var idSupplierTableBody = 'supplier-table',
@@ -607,6 +607,8 @@ var table = (function () {
 }());
 
 var tableLObjects = (function () {
+    var paginationSize = 150;
+
     function init() {
     }
 
@@ -785,6 +787,7 @@ var tableLObjects = (function () {
         var current = new Date(Date.now());
         var dateString = current.toLocaleString('sv-SE').split(' ')[0];
         var str = '';
+        var page = 0;
 
         options.pObject.lObjects.forEach((lObject) => {
             var lastSeen = '';
@@ -808,6 +811,7 @@ var tableLObjects = (function () {
                     return;
                 }
             }
+            page = Math.trunc(options.pObject.lObjectsFiltered / paginationSize);
             ++options.pObject.lObjectsFiltered;
 
             if (diff === 0) {
@@ -823,7 +827,7 @@ var tableLObjects = (function () {
                 countCSS = 'font-style:italic';
             }
 
-            str += '<tr style="border-bottom:1px solid #ddd">';
+            str += '<tr style="border-bottom:1px solid #ddd" data-onpage="' + page + '">';
 
             var url = '';
             var onClick = '';
@@ -899,6 +903,47 @@ var tableLObjects = (function () {
         return str;
     }
 
+    function buildPagination(options) {
+        var str = '';
+        var count = options.pObject.lObjectsFiltered;
+        var pages = Math.trunc((count - 1) / paginationSize) + 1;
+
+        if (count > paginationSize) {
+            str += '<div class="text-dark text-center my-2" style="font-size:.7rem">';
+            str += '<span data-page="prev" onClick="tableLObjects.onPage(this)">&#10094;</span>';
+            for (var p = 0; p < pages; ++p) {
+                str += '<span data-page="' + p + '" onClick="tableLObjects.onPage(this)">';
+                str += (p + 1);
+                str += '</span>';
+            }
+            str += '<span data-page="next" onClick="tableLObjects.onPage(this)">&#10095;</span>';
+            str += '</div>';
+        }
+
+        return str;
+    }
+
+    function funcOnPage(that) {
+        var page = that.dataset.page;
+        var elemPagination = that.parentElement;
+
+        if (page === 'prev') {
+            page = parseInt(elemPagination.parentElement.dataset.page, 10) - 1;
+        } else if (page === 'next') {
+            page = parseInt(elemPagination.parentElement.dataset.page, 10) + 1;
+        } else {
+            page = parseInt(page, 10);
+        }
+
+        if (page < 0) {
+            page = 0;
+        } else if (page > (elemPagination.children.length - 3)) {
+            page = elemPagination.children.length - 3;
+        }
+
+        elemPagination.parentElement.dataset.page = page;
+    }
+
     function buildFooter(options) {
         var str = '';
 
@@ -934,6 +979,7 @@ var tableLObjects = (function () {
 
         str += buildHeader(options);
         str += buildTable(options);
+        str += buildPagination(options);
         str += buildFooter(options);
 
         return str;
@@ -953,6 +999,8 @@ var tableLObjects = (function () {
         var elem = document.getElementById('portal-' + options.pObject.pid);
         if (elem) {
             elem.innerHTML = str;
+            elem.dataset.page = 0;
+            elem.classList.add('portal-table');
         }
     }
 
@@ -966,6 +1014,7 @@ var tableLObjects = (function () {
     return {
         build: funcBuild,
         getLObjectTitle: getLObjectTitle,
+        onPage: funcOnPage,
         selectLID: funcSelectLID,
     };
 }());

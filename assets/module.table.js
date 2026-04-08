@@ -607,7 +607,8 @@ var table = (function () {
 }());
 
 var tableLObjects = (function () {
-    var paginationSize = 150;
+    var paginationSize = 35;
+    var tableOptions = [];
 
     function init() {
     }
@@ -666,7 +667,7 @@ var tableLObjects = (function () {
         return '';
     }
 
-    function sortAlphabetical(options) {
+/*    function sortAlphabetical(options) {
         return function(a, b) {
             var a_ = 'x';
             var b_ = 'x';
@@ -696,7 +697,7 @@ var tableLObjects = (function () {
             }
             return a_.localeCompare(b_);
         }
-    }
+    }*/
 
     function sortCount(options) {
         options.dates = [...new Set(options.dates)];
@@ -783,11 +784,11 @@ var tableLObjects = (function () {
         return str;
     }
 
-    function buildTableBody(options) {
+    function buildTableBody(options, page) {
         var current = new Date(Date.now());
         var dateString = current.toLocaleString('sv-SE').split(' ')[0];
         var str = '';
-        var page = 0;
+        var paging = 0;
 
         options.pObject.lObjects.forEach((lObject) => {
             var lastSeen = '';
@@ -811,8 +812,12 @@ var tableLObjects = (function () {
                     return;
                 }
             }
-            page = Math.trunc(options.pObject.lObjectsFiltered / paginationSize);
+            paging = Math.trunc(options.pObject.lObjectsFiltered / paginationSize);
             ++options.pObject.lObjectsFiltered;
+
+            if (paging !== page) {
+                return;
+            }
 
             if (diff === 0) {
 //                lastSeen = options.dict[nav.lang].lastSeenZeroDays;
@@ -827,7 +832,7 @@ var tableLObjects = (function () {
                 countCSS = 'font-style:italic';
             }
 
-            str += '<tr style="border-bottom:1px solid #ddd" data-onpage="' + page + '">';
+            str += '<tr style="border-bottom:1px solid #ddd">';
 
             var url = '';
             var onClick = '';
@@ -880,7 +885,7 @@ var tableLObjects = (function () {
         return str;
     }
 
-    function buildTable(options) {
+    function buildTable(options, page) {
         var str = '';
 
         str += '<table class="bg-white" style="min-height:2rem;width:100%;font-size:.7rem">';
@@ -892,7 +897,7 @@ var tableLObjects = (function () {
             str += buildTableHead(options);
             str += '</thead>';
             str += '<tbody>';
-            str += buildTableBody(options);
+            str += buildTableBody(options, page);
             str += '</tbody>';
         } else {
             str += '<tr><td style="background: repeating-conic-gradient(#a4e9f4 0% 25%, transparent 0% 50%) 50% / 20px 20px;"></td></tr>';
@@ -903,20 +908,32 @@ var tableLObjects = (function () {
         return str;
     }
 
-    function buildPagination(options) {
+    function buildPagination(options, page) {
         var str = '';
         var count = options.pObject.lObjectsFiltered;
-        var pages = Math.trunc((count - 1) / paginationSize) + 1;
+        var pageCount = Math.trunc((count - 1) / paginationSize) + 1;
 
         if (count > paginationSize) {
-            str += '<div class="text-dark text-center my-2" style="font-size:.7rem">';
-            str += '<span data-page="prev" onClick="tableLObjects.onPage(this)">&#10094;</span>';
-            for (var p = 0; p < pages; ++p) {
-                str += '<span data-page="' + p + '" onClick="tableLObjects.onPage(this)">';
+            str += '<div class="text-dark text-center my-2 pagination">';
+
+            if (page > 0) {
+                str += '<span data-page="' + (page - 1) + '" onClick="tableLObjects.onPage(this)">&#10094;</span>';
+            }
+
+            var start = Math.max(page - 5, 0);
+            var end = Math.min(start + 11, pageCount);
+            start = Math.max(end - 11, 0);
+
+            for (var p = start; p < end; ++p) {
+                var classAttr = p === page ? 'class="current"' : '';
+                str += '<span data-page="' + p + '" onClick="tableLObjects.onPage(this)" ' + classAttr + '>';
                 str += (p + 1);
                 str += '</span>';
             }
-            str += '<span data-page="next" onClick="tableLObjects.onPage(this)">&#10095;</span>';
+            if (page < (pageCount - 1)) {
+                str += '<span data-page="' + (page + 1) + '" onClick="tableLObjects.onPage(this)">&#10095;</span>';
+            }
+
             str += '</div>';
         }
 
@@ -924,24 +941,19 @@ var tableLObjects = (function () {
     }
 
     function funcOnPage(that) {
-        var page = that.dataset.page;
+        var page = parseInt(that.dataset.page, 10);
         var elemPagination = that.parentElement;
-
-        if (page === 'prev') {
-            page = parseInt(elemPagination.parentElement.dataset.page, 10) - 1;
-        } else if (page === 'next') {
-            page = parseInt(elemPagination.parentElement.dataset.page, 10) + 1;
-        } else {
-            page = parseInt(page, 10);
-        }
+        var portalTable = elemPagination.parentElement;
 
         if (page < 0) {
             page = 0;
-        } else if (page > (elemPagination.children.length - 3)) {
-            page = elemPagination.children.length - 3;
+//        } else if (page > pageCount) {
+//            page = pageCount;
         }
 
-        elemPagination.parentElement.dataset.page = page;
+        portalTable.dataset.page = page;
+
+        reBuild(portalTable.id);
     }
 
     function buildFooter(options) {
@@ -972,14 +984,14 @@ var tableLObjects = (function () {
         return str;
     }
 
-    function buildFrame(options) {
+    function buildFrame(options, page) {
         var str = '';
 
         sort(options);
 
         str += buildHeader(options);
-        str += buildTable(options);
-        str += buildPagination(options);
+        str += buildTable(options, page);
+        str += buildPagination(options, page);
         str += buildFooter(options);
 
         return str;
@@ -994,13 +1006,29 @@ var tableLObjects = (function () {
         options.dates = [...new Set(options.dates)];
         options.dates.sort();
 
-        var str = buildFrame(options);
-
-        var elem = document.getElementById('portal-' + options.pObject.pid);
+        var id = 'portal-' + options.pObject.pid;
+        var elem = document.getElementById(id);
         if (elem) {
+            tableOptions[id] = options;
+
+            var page = 0;
+            var str = buildFrame(options, page);
+
             elem.innerHTML = str;
-            elem.dataset.page = 0;
+            elem.dataset.page = page;
             elem.classList.add('portal-table');
+        }
+    }
+
+    function reBuild(id) {
+        var options = tableOptions[id];
+
+        var elem = document.getElementById(id);
+        if (elem) {
+            var page = parseInt(elem.dataset.page, 10);
+            var str = buildFrame(options, page);
+
+            elem.innerHTML = str;
         }
     }
 

@@ -657,11 +657,12 @@ var tableLObjects = (function () {
         return '';
     }
 
-    function getLObjectImage(lObject) {
+    function getLObjectImage(options, lObject) {
         var sObject = lObject.sobject;
+        var altTitle = options.dict[nav.lang].imageOf.replace('{title}', getLObjectTitle(lObject));
 
         if (sObject && sObject.image && (sObject.image.url !== '')) {
-            return  '<img src="' + sObject.image.url + '" style="height:1.5em;margin:-.1rem .5em 0 0">';
+            return  '<img src="' + sObject.image.url + '" alt="' + altTitle + '" style="height:1.5em;margin:-.1rem .5em 0 0">';
         }
 
         return '';
@@ -850,9 +851,9 @@ var tableLObjects = (function () {
                 str += '<span class="d-loggedin ' + (account.isLoggedIn() ? '' : 'd-none') + ' badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
             if (lObject.ispartof && (lObject.ispartof.length > 0)) {
-                str +=  getLObjectImage(lObject) + getLObjectTitle(lObject) + ' (' + lObject.identifier + ')';
+                str +=  getLObjectImage(options, lObject) + getLObjectTitle(lObject) + ' (' + lObject.identifier + ')';
             } else {
-                str += '<a href="catalogs.html?' + url + '" onclick="' + onClick + '";event.preventDefault()>' + getLObjectImage(lObject) + getLObjectTitle(lObject) + '</a>';
+                str += '<a href="catalogs.html?' + url + '" onclick="' + onClick + '";event.preventDefault()>' + getLObjectImage(options, lObject) + getLObjectTitle(lObject) + '</a>';
             }
             str += ' ' + lastSeen;
             str += '</td>';

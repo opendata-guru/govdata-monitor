@@ -54,6 +54,7 @@ var catalog = (function () {
             de: {
                 catalogHistory: 'Historie der Daten in jedem Portal',
                 dataFlow: 'Datenfluss',
+                imageOf: 'Bild von {title}',
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
                 lastSeenOneDay: 'Gestern zuletzt gesehen',
                 lastSeenZeroDays: 'Heute zuletzt gesehen',
@@ -89,6 +90,7 @@ var catalog = (function () {
             en: {
                 catalogHistory: 'History of the data in each portal',
                 dataFlow: 'Data flow',
+                imageOf: 'Image of {title}',
                 lastSeenMoreDays: 'Last seen {days} days ago',
                 lastSeenOneDay: 'Last seen yesterday',
                 lastSeenZeroDays: 'Last seen today',
@@ -611,9 +613,10 @@ var catalog = (function () {
                     }
                 }
 
+                var altTitle = dict[nav.lang].imageOf.replace('{title}', portalTitle);
                 portalTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + portalTitle + '</span>';
                 parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + parentTitle + '</span>';
-                portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
+                portalImage = '<img src="' + portalImage + '" alt="' + altTitle + '" style="height:1.25rem">';
 
                 str += '<div class="' + colClass + '">';
                 str += '<div style="border-bottom: .2rem solid ' + color + ';height:1.4rem;margin-bottom:1.25rem">';
@@ -701,8 +704,9 @@ var catalog = (function () {
         portalURL = portalURL.replace(/^(http:\/\/)/,"");
         portalURL = portalURL.replace(/^(www\.)/,"");
 
+        var altTitle = dict[nav.lang].imageOf.replace('{title}', portalTitle);
         portalURL = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + portalURL + '</span>';
-        portalImage = '<img src="' + portalImage + '" style="height:1.25rem">';
+        portalImage = '<img src="' + portalImage + '" alt="' + altTitle + '" style="height:1.25rem">';
 
         str += '<div>';
         str += dict[nav.lang].portalPortal.replace('{url}',portalURL).replace('{image}',portalImage) + ' ';
@@ -1083,9 +1087,11 @@ var catalog = (function () {
         images.push(values?.banner?.value);
         images.push(values?.map?.value);
 
+        var altTitle = dict[nav.lang].imageOf.replace('{title}', 'Wikipedia');
         images.forEach((image) => {
             if (image) {
-                slideshow += '<div class="imgSlides animate"><img src="' + image + '"></div>';
+                image = image.replace('http://', 'https://');
+                slideshow += '<div class="imgSlides animate"><img src="' + image + '" alt="' + altTitle + '"></div>';
             }
         });
         slideshow += '<a class="prev" onclick="catalog.navigateSlides(-1)">&#10094;</a>';
@@ -1531,12 +1537,13 @@ var catalog = (function () {
         if (sObjects.length > 0) {
             var sObject = sObjects[0];
             var image = sObject.image.url;
+            var altTitle = options.dict[nav.lang].imageOf.replace('{title}', system.getTitle(sObject));
 
             if ('' !== image) {
                 image += '?v=' + (new Date()).getTime();
             }
 
-            text += '<img src="' + image + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
+            text += '<img src="' + image + '" alt="' + altTitle + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
             text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
             text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
             text += '<strong>type</strong>: ' + data.getTypeString(sObject.type) + '<br>';

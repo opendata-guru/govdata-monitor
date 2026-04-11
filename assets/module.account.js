@@ -12,15 +12,23 @@ var account = (function () {
         valToken = '';
     var storageKeyName = 'username',
         storageKeyToken = 'usertoken';
+    var dict = {
+            de: {
+                showUserMenu: 'Benutzermenü anzeigen',
+            },
+            en: {
+                showUserMenu: 'Show user menu',
+            },
+        };
 
     function install() {
         var html = '';
 
         html += '<li class="nav-item dropdown">';
-        html += '  <a id="' + idUserUnknown + '" class="nav-icon dropdown-toggle d-inline-block" href="#" data-bs-toggle="dropdown">';
+        html += '  <a id="' + idUserUnknown + '" class="nav-icon dropdown-toggle d-inline-block" href="#" aria-label="' + dict[nav.lang].showUserMenu + '" data-bs-toggle="dropdown">';
         html += '    <i class="align-middle" data-feather="user"></i>';
         html += '  </a>';
-        html += '  <a id="' + idUserKnown + '" class="nav-icon dropdown-toggle d-inline-block d-none" href="#" data-bs-toggle="dropdown">';
+        html += '  <a id="' + idUserKnown + '" class="nav-icon dropdown-toggle d-inline-block d-none" href="#" aria-label="' + dict[nav.lang].showUserMenu + '" data-bs-toggle="dropdown">';
         html += '    <i class="align-middle" data-feather="user-check"></i>';
         html += '  </a>';
 

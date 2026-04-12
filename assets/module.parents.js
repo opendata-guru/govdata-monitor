@@ -56,17 +56,28 @@ var parents = (function () {
 //        var selectedChart = chartContainer.querySelector('.orgchart');
 //        selectedChart.innerHTML = '';
 
-        var chartData = {
-            className: 'sid-' + sObject.sid + ' root',
-            name: system.getTitle(sObject),
-            image: sObject.image.url,
-            sid: sObject.sid,
-            type: data.getTypeString(sObject.type),
-        };
+        var chartData;
+        if (sObject) {
+            chartData = {
+                className: 'sid-' + sObject.sid + ' root',
+                name: basics.sObject.getTitle(sObject),
+                image: sObject.image.url,
+                sid: sObject.sid,
+                type: basics.layer.getTypeString(sObject.type),
+            };
+        } else {
+            chartData = {
+                className: 'sid-' + 's----' + ' root',
+                name: basics.sObject.getTitle('s----'),
+                image: '',
+                sid: 's----',
+                type: '',
+            };
+        }
 
         initOrgChart({});
         orgchart.buildHierarchy(orgchart.chart, chartData, 0, function() {
-            fillSID(sObject.sid);
+            fillSID(sObject ? sObject.sid : 's----');
         });
     }
 
@@ -126,10 +137,10 @@ var parents = (function () {
                 if ((parentSID !== sObject.sid) && (!children.find((child) => child.sid === sObject.sid))) {
                     childSIDList[sObject.sid] = {
                         className: 'sid-' + sObject.sid,
-                        name: system.getTitle(sObject),
+                        name: basics.sObject.getTitle(sObject),
                         image: sObject.image.url,
                         sid: sObject.sid,
-                        type: data.getTypeString(sObject.type),
+                        type: basics.layer.getTypeString(sObject.type),
                         childrenSIDs: []
                     };
 

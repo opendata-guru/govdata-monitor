@@ -63,13 +63,13 @@ var table = (function () {
         html += '  <div style="padding-left:1.4rem">';
         html += '    <span class="badge me-1 ' + layerAll + ' ' + layerClass + '" style="' + style + '"><span></span>' + dict[nav.lang].subMenuTableLayerAll + '</span>';
         html += '    <span class="badge me-1 ' + layerUndefined + ' ' + layerClass + '" style="' + style + '"><span></span>' + dict[nav.lang].subMenuTableLayerUndefined + '</span>';
-        Object.keys(data.layers).forEach(key => {
+        Object.keys(basics.layer.layers).forEach(key => {
             var isLeft = -1 !== ['supranational','country','federal','state','regionalNetwork','district','municipality'].indexOf(key);
             var isMiddle = -1 !== ['stateAgency'].indexOf(key);
             var isRight = -1 !== ['supranationalAgency','countryAgency','federalAgency','state+municipality','districtAgency','municipalityAgency'].indexOf(key);
 
             html += isLeft ? '<br>' : '';
-            html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isMiddle ? styleMiddle : isRight ? styleRight : style) + '"><span></span>' + data.layers[key] + '</span>';
+            html += '<span class="badge me-1 ' + layerClass + ' ' + key + '" style="' + (isLeft ? styleLeft : isMiddle ? styleMiddle : isRight ? styleRight : style) + '"><span></span>' + basics.layer.layers[key] + '</span>';
         });
         html += '  </div>';
         html += '  <div class="text-muted text-center mt-2" style="font-size:.75rem">' + dict[nav.lang].subMenuTableMultipleLayers + '</div>';
@@ -268,26 +268,7 @@ var table = (function () {
         data.emitFilterChanged();
     }
 
-    function isParent(packageId, dateString, sameAs) {
-        var found = false;
-        if (sameAs.length > 0) {
-            sameAs.forEach((id) => found |= packageId === id);
-        } else if (packageId === catalog.id) {
-            found = true;
-        }
-        if (found) {
-            return true;
-        }
-
-        if (initvalFlatten) {
-            data.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
-                if (row.packagesInId) {
-                    found |= isParent(row.packagesInId, dateString, sameAs);
-                }
-            });
-            return found;
-        }
-
+    function isParent(packageId, dateString) {
         return false;
     }
 
@@ -304,7 +285,7 @@ var table = (function () {
         return '';
     }
 
-    function getRow(parent, row) {
+    function getRow(row) {
         var cols = '';
         var icon = '';
         var title = row.title;
@@ -534,7 +515,6 @@ var table = (function () {
         var supplierHeader = '';
         var supplierRows = '';
         var supplierFooter = '';
-        var sameAs = catalog.getSameAs(catalog.id);
 
 //        catalogHeader += '<th></th>';
         supplierHeader += '<th>Data Suppliers</th>';
@@ -552,7 +532,7 @@ var table = (function () {
     
             if (arrayData[arrayData.length - 1]) {
                 arrayData[arrayData.length - 1].forEach((row) => {
-                    if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d], sameAs)) {
+                    if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d])) {
                         if (arrayIds.indexOf(row.id) < 0) {
                             arrayIds.push(row.id);
                         }
@@ -562,8 +542,7 @@ var table = (function () {
         }
 
         if (data.view.length > 0) {
-            var parent = catalog.get(catalog.id);
-            data.view.forEach((row) => supplierRows += getRow(parent, row));
+            data.view.forEach((row) => supplierRows += getRow(row));
             supplierFooter += '<th>' + data.view.length + ' data suppliers</th>';
         } else {
             supplierRows += '<tr><td class="fst-italic" style="color:#888">No data available</td></tr>';
@@ -651,7 +630,7 @@ var tableLObjects = (function () {
         var sObject = lObject.sobject;
 
         if (sObject) {
-            return  data.getTypeString(sObject.type);
+            return basics.layer.getTypeString(sObject.type);
         }
 
         return '';

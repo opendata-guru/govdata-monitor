@@ -148,7 +148,7 @@ function updateSelection() {
     text += '<img src="' + sObject.image.url + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
     text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
     text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
-    text += '<strong>type</strong>: ' + data.getTypeString(sObject.type) + '<br>';
+    text += '<strong>type</strong>: ' + basics.layer.getTypeString(sObject.type) + '<br>';
     text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
     text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
     text += '<strong>geocoding</strong>: ' + sObject.geocoding.germanRegionalKey + '<br>';
@@ -565,8 +565,8 @@ function installAddSupplier(elem) {
   str += '  <div>';
   str += '    <label for="' + idInteractiveAddSupplierType + '">Choose a type:</label>';
   str += '    <select name="' + idInteractiveAddSupplierType + '" id="' + idInteractiveAddSupplierType + '">';
-  Object.keys(data.layers).forEach((key) => {
-    str += '      <option value="' + key + '">' + data.layers[key] + '</option>';
+  Object.keys(basics.layer.layers).forEach((key) => {
+    str += '      <option value="' + key + '">' + basics.layer.layers[key] + '</option>';
   });
   str += '    </select>';
   str += '  </div>';
@@ -679,14 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
   system.addEventListenerStartLoading(showProgress);
-  system.addEventListenerEndLoading(() => {
-      hideProgress();
-
-      data.loadData(1);
-  });
-
-  data.addEventListenerStartLoading(showProgress);
-  data.addEventListenerEndLoading(hideProgress);
+  system.addEventListenerEndLoading(hideProgress);
 
   installInteractiveArea();
 

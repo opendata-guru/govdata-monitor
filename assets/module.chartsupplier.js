@@ -170,7 +170,7 @@ var chartCatalogObjects = (function () {
         for (var c = 0; c < options.lObjects.length; ++c) {
             var lObject = options.lObjects[c];
             var parentTitle = lObject.title;
-            var portalTitle = system.getTitle(lObject?.pobject?.sobject);
+            var portalTitle = basics.lObject.getTitle(lObject);
 
             if ((parentTitle.length > 1) && ('{' === parentTitle[0]) && ('}' === parentTitle.slice(-1))) {
                 var json = JSON.parse(parentTitle);
@@ -327,7 +327,7 @@ var chartCatalogObjects = (function () {
         var startDate = current.toLocaleString('sv-SE').split(' ')[0];
 
         var sObject = options.sObject;
-        var title = system.getTitle(sObject);
+        var title = basics.sObject.getTitle(sObject);
 
         fileName = startDate + '_' + endDate + '_' + title;
 
@@ -726,7 +726,7 @@ var chartLObjects = (function () {
 
         var pid = options.pObject.pid;
         var sObject = catalog.getSObject();
-        var title = system.getTitle(sObject);
+        var title = basics.sObject.getTitle(sObject);
         var fileName = startDate + '_' + endDate + '_' + title + '_' + pid;
 
         fileNames[pid] = fileName;

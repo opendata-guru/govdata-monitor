@@ -8,8 +8,7 @@ var system = (function () {
         uriPSystemsAlt = 'https://opendata.guru/api/2/p/systems/yesterday',
         uriChangelogCKAN = 'https://opendata.guru/api/2/live/systemchangelog?system=CKAN',
         uriChangelogEntryScape = 'https://opendata.guru/api/2/live/systemchangelog?system=EntryStore',
-        uriChangelogPiveau = 'https://opendata.guru/api/2/live/systemchangelog?system=Piveau',
-        systemId = null;
+        uriChangelogPiveau = 'https://opendata.guru/api/2/live/systemchangelog?system=Piveau';
     var eventListenerStartLoading = [],
         eventListenerEndLoading = [];
     var idSystemBar = 'system-bar',
@@ -99,6 +98,8 @@ var system = (function () {
     }
 
     function dispatchEventEndLoading() {
+        funcUpdate();
+
         eventListenerEndLoading.forEach((func) => func());
     }
 
@@ -227,37 +228,6 @@ var system = (function () {
         loadSystemFile();
     }
 
-    function funcGet(catalogId) {
-        var catalogObj = catalog.get(catalogId);
-        var ret = null;
-        // contributor, link, title, type, wikidata
-
-        if (catalogObj) {
-            assets.forEach(asset => {
-                if (asset.link === catalogObj.link) {
-                    ret = asset;
-                }
-            });
-        }
-
-        return ret;
-    }
-
-    function getId(system) {
-        var dataObj = data.get();
-        var ret = null;
-
-        if (dataObj && system) {
-            dataObj.forEach((row) => {
-                if (row.link === system.link) {
-                    ret = row.id;
-                }
-            });
-        }
-
-        return ret;
-    }
-
     function getSystemTitle(sobject) {
         if (sobject && sobject.title) {
             if (sobject.title[nav.lang]) {
@@ -332,13 +302,6 @@ var system = (function () {
         }
 
         return ret;
-    }
-
-    function updateSingleSystem() {
-        if (systemId === catalog.id) {
-            return;
-        }
-        systemId = catalog.id;
     }
 
     function getIssueRow(sys, cols) {
@@ -1122,7 +1085,6 @@ systemCanvas += getSystemItem(sys);
     }
 
     function funcUpdate() {
-        updateSingleSystem();
         updateSystemTable();
     }
 
@@ -1140,7 +1102,6 @@ systemCanvas += getSystemItem(sys);
     return {
         addEventListenerStartLoading: funcAddEventListenerStartLoading,
         addEventListenerEndLoading: funcAddEventListenerEndLoading,
-        get: funcGet,
         getTitle: getSystemTitle,
         loadData: funcLoadData,
         onExpandExtension: funcOnExpandExtension,

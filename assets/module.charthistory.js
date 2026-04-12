@@ -82,33 +82,12 @@ var charthistory = (function () {
         chartData.push([]);
         columnTitles.push(title);
 
-        var sameAs = catalog.getSameAs(catalog.id);
-        if (sameAs.length > 0) {
-            sameAs.forEach((id) => {
-                title = 'Datasets';
-                dataObj.filter(item => item.id === id).forEach((row) => {
-                    title += ' of ' + row.title + ' in ' + row.packagesInPortal;
-                });
-
-                chartData.push([]);
-                columnTitles.push(title);
-            });
-        }
-
         var today = new Date(Date(data.getDisplayDate()));
         var endDate = today.toISOString().split('T')[0];
         var startDate = endDate;
         for (d = 0; d < data.loadedDays; ++d) {
             rowTitles.unshift(today.toISOString().split('T')[0]);
             chartData[0].unshift(monitorGetDatasetCountByDate(catalog.id, today.toISOString().split('T')[0], true));
-
-            if (sameAs.length > 0) {
-                var s = 1;
-                sameAs.forEach((same) => {
-                    chartData[s].unshift(monitorGetDatasetCountByDate(same, today.toISOString().split('T')[0], false));
-                    ++s;
-                });
-            }
 
             startDate = today.toISOString().split('T')[0];
             today.setDate(today.getDate() - 1);

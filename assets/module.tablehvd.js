@@ -318,11 +318,9 @@ select ?license (count(?license) as ?count) ?mapped where {
         data.emitFilterChanged();
     }
 
-    function isParent(packageId, dateString, sameAs) {
+    function isParent(packageId, dateString) {
         var found = false;
-        if (sameAs.length > 0) {
-            sameAs.forEach((id) => found |= packageId === id);
-        } else if (packageId === catalog.id) {
+        if (packageId === catalog.id) {
             found = true;
         }
         if (found) {
@@ -332,7 +330,7 @@ select ?license (count(?license) as ?count) ?mapped where {
         if (initvalFlatten) {
             data.getDate(dateString).filter(item => item.id === packageId).forEach((row) => {
                 if (row.packagesInId) {
-                    found |= isParent(row.packagesInId, dateString, sameAs);
+                    found |= isParent(row.packagesInId, dateString);
                 }
             });
             return found;
@@ -431,7 +429,6 @@ select ?license (count(?license) as ?count) ?mapped where {
         var licenseHeader = '';
         var licenseRows = '';
         var licenseFooter = '';
-        var sameAs = catalog.getSameAs(catalog.id);
 
         datasetHeader += '<th>' + dict[nav.lang].tableDatasets + '</th>';
         distributionHeader += '<th>' + dict[nav.lang].tableDistributions + '</th>';
@@ -450,7 +447,7 @@ select ?license (count(?license) as ?count) ?mapped where {
     
             if (arrayData[arrayData.length - 1]) {
                 arrayData[arrayData.length - 1].forEach((row) => {
-                    if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d], sameAs)) {
+                    if (isParent(row.packagesInId ? row.packagesInId : '', date.selection[d])) {
                         if (arrayIds.indexOf(row.id) < 0) {
                             arrayIds.push(row.id);
                         }

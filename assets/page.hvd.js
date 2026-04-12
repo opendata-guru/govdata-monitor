@@ -83,7 +83,6 @@ var hvdSettings = {
 var diff = null;
 var catalog = {
     id: 'http://data.europa.eu/88u/catalogue/govdata',
-    getSameAs: function() { return []; },
     set: catalogSet,
     setSID: catalogSet,
     update: catalogUpdate,

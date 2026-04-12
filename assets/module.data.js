@@ -8,82 +8,9 @@ var data = (function () {
         view = [],
         viewHeader = [],
         loadDays = 0,
-        displayDate = '',
-        layers = [];
-    var dict = {
-        de: {
-            international: 'International',
-            supranational: 'Europa',
-            supranationalAgency: 'Europäische Behörde',
-            country: 'Staat',
-            countryAgency: 'Staatliche Behörde',
-            federal: 'Bund',
-            federalAgency: 'Bundesbehörde',
-            state: 'Land',
-            stateAgency: 'Landesamt',
-            state_municipality: 'Land und Stadt',
-            governmentRegion: 'Regierungsbezirk',
-            regionalNetwork: 'Region',
-            district: 'Kreis',
-            districtAgency: 'Kreisverwaltung',
-            collectiveMunicipality: 'Gemeindeverband',
-            municipality: 'Stadt',
-            municipalityAgency: 'Stadtverwaltung',
-            business: 'Unternehmen',
-            civilSociety: 'Zivilgesellschaft',
-            research: 'Forschung',
-            religiousCommunity: 'Religionsgemeinschaft',
-        },
-        en: {
-            international: 'International',
-            supranational: 'Europe',
-            supranationalAgency: 'European authority',
-            country: 'Country',
-            countryAgency: 'Country authority',
-            federal: 'Federal',
-            federalAgency: 'Federal agency',
-            state: 'State',
-            stateAgency: 'State authority',
-            state_municipality: 'State and municipality',
-            governmentRegion: 'Government region',
-            regionalNetwork: 'Regional network',
-            district: 'District',
-            districtAgency: 'District authority',
-            collectiveMunicipality: 'Collective municipality',
-            municipality: 'Municipality',
-            municipalityAgency: 'Municipal authority',
-            business: 'Business',
-            civilSociety: 'Civil society',
-            research: 'Research',
-            religiousCommunity: 'Religious Community',
-        },
-    };
+        displayDate = '';
 
     function init() {
-//        var lang = nav ? nav.lang : 'de';
-        var lang = 'de';
-
-        layers['international'] = dict[lang].international;
-        layers['supranational'] = dict[lang].supranational;
-        layers['supranationalAgency'] = dict[lang].supranationalAgency;
-        layers['country'] = dict[lang].country;
-        layers['countryAgency'] = dict[lang].countryAgency;
-        layers['federal'] = dict[lang].federal;
-        layers['federalAgency'] = dict[lang].federalAgency;
-        layers['state'] = dict[lang].state;
-        layers['stateAgency'] = dict[lang].stateAgency;
-        layers['state+municipality'] = dict[lang].state_municipality;
-        layers['governmentRegion'] = dict[lang].governmentRegion;
-        layers['regionalNetwork'] = dict[lang].regionalNetwork;
-        layers['district'] = dict[lang].district;
-        layers['districtAgency'] = dict[lang].districtAgency;
-        layers['collectiveMunicipality'] = dict[lang].collectiveMunicipality;
-        layers['municipality'] = dict[lang].municipality;
-        layers['municipalityAgency'] = dict[lang].municipalityAgency;
-        layers['business'] = dict[lang].business;
-        layers['civilSociety'] = dict[lang].civilSociety;
-        layers['research'] = dict[lang].research;
-        layers['religiousCommunity'] = dict[lang].religiousCommunity;
     }
 
     function funcAddEventListenerStartLoading(func) {
@@ -102,11 +29,9 @@ var data = (function () {
         eventListenerEndLoading.forEach(func => func());
     }
 
-    function isParent(packageId, dateString, sameAs) {
+    function isParent(packageId, dateString) {
         var found = false;
-        if (sameAs.length > 0) {
-            sameAs.forEach((id) => found |= packageId === id);
-        } else if (packageId === catalog.id) {
+        if (packageId === catalog.id) {
             found = true;
         }
         if (found) {
@@ -114,14 +39,14 @@ var data = (function () {
         }
 
         if (table && table.flatten) {
-            var sameAsPackageId = catalog.getSameAs(packageId);
+/*            var sameAsPackageId = catalog.getSameAs(packageId);
 
             data.getDate(dateString).filter(item => -1 !== sameAsPackageId.indexOf(item.id)).forEach((row) => {
                 if (row.packagesInId) {
-                    found |= isParent(row.packagesInId, dateString, sameAs);
+                    found |= isParent(row.packagesInId, dateString);
                 }
             });
-            return found;
+            return found;*/
         }
 
         return false;
@@ -145,26 +70,6 @@ var data = (function () {
         var itemParent = dataObj.filter(dataItem => dataItem.id === item.packagesInId);
         if (itemParent.length > 0) {
             return itemParent[0].link;
-        }
-
-        return '';
-    }
-
-    function funcGetTypeString(type) {
-        var ret = '';
-        Object.keys(layers).forEach(key => {
-            if (type === key) {
-                ret = dict[nav.lang][key];
-            }
-        });
-        if (ret !== '') {
-            return ret;
-        }
-
-        if ((type === 'state+municipality') || (type === 'municipality+state')) {
-            return dict[nav.lang].state_municipality;
-        } else if (type !== '') {
-            return '?';
         }
 
         return '';
@@ -199,7 +104,7 @@ var data = (function () {
                 type = obj.type ? obj.type : type;
                 sid = obj.sid ? obj.sid : sid;
 
-                typeStr = funcGetTypeString(type);
+                typeStr = basics.layer.getTypeString(type);
                 contributor = getContributor(processData, obj);
 
                 parts = obj.parts;
@@ -272,7 +177,6 @@ var data = (function () {
     function createView() {
         var arrayData = [],
             rows = [];
-        var sameAs = catalog.getSameAs(catalog.id);
         var selection = [];
 
         if (date) {
@@ -291,7 +195,7 @@ var data = (function () {
 
             if (arrayData[d]) {
                 arrayData[d].forEach((row) => {
-                    if (isParent(row.packagesInId ? row.packagesInId : '', selectedDate, sameAs)) {
+                    if (isParent(row.packagesInId ? row.packagesInId : '', selectedDate)) {
                         if (rows.indexOf(row.id) < 0) {
                             rows.push(row.id);
                         }
@@ -325,10 +229,7 @@ var data = (function () {
             charthistory.update();
         }
 
-        if (map) {
-            map.update();
-        }
-        system.update();
+//        system.update();
     }
 
     function funcGet() {
@@ -481,11 +382,9 @@ var data = (function () {
         getDate: funcGetDate,
         getDisplayDate: funcGetDisplayDate,
         getPortalTitle: funcGetPortalTitle,
-        getTypeString: funcGetTypeString,
         has: funcHas,
         initalDays: 0,
         isHVD: false,
-        layers: layers,
         loadData: funcLoadData,
         loadedDays: 0,
         loadMoreData: funcLoadMoreData,

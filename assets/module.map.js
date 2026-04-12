@@ -2,9 +2,6 @@ var map = (function () {
     var defaultCenter = [10, 51],
         defaultZoom = 4,
         map = null,
-        mapCatalog = null,
-        isMapLoaded = false,
-        isDataLoaded = false,
         layerCountryName = 'layer-country',
         layerStateName = 'layer-state',
         layerGovernmentRegionName = 'layer-government-region',
@@ -52,29 +49,6 @@ var map = (function () {
             map: newMap,
             pid: pObject.pid,
         });
-    }
-
-    function getRSList() {
-        var catalogObj = catalog.get(catalog.id);
-        var ret = [];
-
-        if (catalogObj && catalogObj.rs) {
-            ret.push(catalogObj.rs);
-        }
-
-        if (data.view) {
-            data.view.forEach((view) => {
-                var viewCatalog = catalog.get(view.linkId);
-                if (viewCatalog && viewCatalog.rs) {
-                    ret.push(viewCatalog.rs);
-                }
-                if (viewCatalog && viewCatalog.associated_rs) {
-                    ret.push(viewCatalog.associated_rs);
-                }
-            });
-        }
-
-        return [ ...new Set(ret) ];
     }
 
     function getARSList(pObject) {
@@ -234,15 +208,6 @@ var map = (function () {
         item.classList.remove('loading-bar');
     }
 
-    function setupLayerWithGeoJSON(geoJSON) {
-        setLayer(geoJSON);
-
-        map.jumpTo({
-            center: defaultCenter,
-            zoom: defaultZoom
-        });
-    }
-
     function setupPLayerWithGeoJSON(mapItem, geoJSON) {
         setPLayer(mapItem, geoJSON);
 
@@ -306,21 +271,6 @@ var map = (function () {
         xhr.send();
     }
 
-    function setupLayer() {
-        if (isMapLoaded && isDataLoaded) {
-//            isMapLoaded = false; // hack
-        } else {
-            return;
-        }
-
-        var rs = getRSList().join(',');
-        if (rs === '') {
-            setupLayerWithGeoJSON({'type':'FeatureCollection','features':[]});
-        } else {
-            funcLoadGeoJSON('https://opendata.guru/api/2/convert/ars?ars=' + rs);
-        }
-    }
-
     function setupPLayer(mapItem) {
         var ars = mapItem.ars.join(',');
         if (ars === '') {
@@ -331,10 +281,6 @@ var map = (function () {
     }
 
     function onMapLoaded() {
-        isDataLoaded = true;
-
-        setupLayer();
-
         dispatchEventStartLoading();
     }
 
@@ -368,19 +314,6 @@ var map = (function () {
                 });
             }
         }
-    }
-
-    function funcSetCatalog(catalogId) {
-        if (mapCatalog !== catalogId) {
-            mapCatalog = catalogId;
-            isMapLoaded = true;
-        }
-
-        setupLayer();
-    }
-
-    function funcUpdate() {
-        funcSetCatalog(catalog.id);
     }
 
     function funcPopup(html, lngLat) {
@@ -430,9 +363,7 @@ var map = (function () {
         layerMunicipality: layerMunicipalityName,
         loadGeoJSON: funcLoadGeoJSON,
         popup: funcPopup,
-        setCatalog: funcSetCatalog,
         setLayoutProperty: funcSetLayoutProperty,
         setZoom: funcSetZoom,
-        update: funcUpdate
     };
 }());

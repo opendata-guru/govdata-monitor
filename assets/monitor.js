@@ -204,17 +204,11 @@ function hideProgress() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    system.addEventListenerStartLoading(showProgress);
-    system.addEventListenerEndLoading(() => {
-        hideProgress();
-
-        data.loadData(monitor.maxDays);
-    });
     data.addEventListenerStartLoading(showProgress);
     data.addEventListenerEndLoading(hideProgress);
 
     catalog.start();
-    system.loadData();
+    data.loadData(monitor.maxDays);
 });
 
 // ----------------------------------------------------------------------------

@@ -18,8 +18,7 @@ var catalog = (function () {
         idSObjectSlideshow = 'sobject-slideshow';
         idCatalogList = 'catalog-list',
         idCatalogChart = 'catalog-chart';
-    var paramId = 'sid',
-        oldParamId = 'catalog'; // depricated
+    var paramId = 'sid';
     var idInteractiveAddSupplier = 'interactive-add-sobject',
         idInteractiveAddSupplierType = 'add-supplier-type',
         idInteractiveAddSupplierRelation = 'add-supplier-relation',
@@ -134,12 +133,6 @@ var catalog = (function () {
             sID = defaultSID;
         }
 
-        if (params.has(oldParamId)) { // depricated
-            oldInitvalId = params.get(oldParamId); // depricated
-        } else { // depricated
-            oldInitvalId = oldDefaultId; // depricated
-        } // depricated
-
         startSlideshow();
     }
 
@@ -149,14 +142,6 @@ var catalog = (function () {
         if (catalog) { // depricated
             catalog.id = oldInitvalId; // depricated
         } // depricated
-
-        var params = new URLSearchParams(window.location.search); // depricated
-        if (id === oldDefaultId) { // depricated
-            params.delete(oldParamId); // depricated
-        } else { // depricated
-            params.set(oldParamId, id); // depricated
-        } // depricated
-        window.history.pushState({}, '', `${location.pathname}?${params}`); // depricated
     }
 
     function setSID_(id) {
@@ -173,60 +158,6 @@ var catalog = (function () {
             params.set(paramId, id);
         }
         window.history.pushState({}, '', `${location.pathname}?${params}`);
-    }
-
-    function funcGet(id) {
-        var dataObj = data.get();
-        var obj = undefined; 
-
-        if (dataObj && id) {
-            dataObj.forEach((row) => {
-                if (row.id === id) {
-                    obj = row;
-                }
-            });
-        }
-
-        return obj;
-    }
-
-    function funcGetBySID(sid) {
-        var dataObj = data.get();
-        var obj = undefined; 
-
-        if (dataObj && sid) {
-            dataObj.forEach((row) => {
-                if (row.sid === sid) {
-                    obj = row;
-                }
-            });
-        }
-
-        return obj;
-    }
-
-    function funcGetSameAs(id) {
-        var catalogObject = funcGet(id);
-        var dataObj = data.get();
-        var ret = [];
-
-        if (catalogObject && dataObj && id) {
-            dataObj.forEach((row) => {
-                if (catalogObject.wikidata && (catalogObject.wikidata !== '') && (row.wikidata === catalogObject.wikidata)) {
-                    ret.push(row.id);
-                } else if (catalogObject.contributor && (catalogObject.contributor !== '') && (row.contributor === catalogObject.contributor)) {
-                    ret.push(row.id);
-                } else if (catalogObject.linkTimestamp && (catalogObject.linkTimestamp !== '') && (row.linkTimestamp === catalogObject.linkTimestamp)) {
-                    ret.push(row.id);
-                }
-            });
-        }
-
-        if (catalogObject && (ret.length === 0)) {
-            ret.push(catalogObject.id);
-        }
-
-        return ret;
     }
 
     function getDownloadMenu(chartObjectName) {
@@ -269,26 +200,11 @@ var catalog = (function () {
     }
 
     function funcSet(catalogId) {
-        if ((catalogId === oldDefaultId) && (sID !== defaultSID)) { // depricated
-            // fix old id
-            var catalogObj = funcGetBySID(sID);
-            if (catalogObj) {
-                catalogId = catalogObj.id;
-            }
-        }
-
         setId(catalogId); // depricated
 //        setSID_(catalogId);
 //        updateSID();
 
         window.scrollTo(0, 0);
-
-        var catalogObject = funcGet(catalogId);
-
-        if (catalogObject) {
-            setSID_(catalogObject.sid);
-            updateSID();
-        }
 
         catalog.update();
         if (date) {
@@ -313,13 +229,6 @@ var catalog = (function () {
     }
 
     function funcSetSID(sID) {
-        // fix old id
-        var catalogObj = funcGetBySID(sID); // depricated
-        if (catalogObj) { // depricated
-            var catalogId = catalogObj.id; // depricated
-            setId(catalogId); // depricated
-        } // depricated
-
         setSID_(sID);
         updateSID();
 
@@ -590,7 +499,7 @@ var catalog = (function () {
             lObjects.forEach((lObject) => {
                 var parentTitle = lObject.title;
                 var parentSID = lObject.sid;
-                var portalTitle = system.getTitle(lObject?.pobject?.sobject);
+                var portalTitle = basics.lObject.getTitle(lObject);
                 var portalURL = lObject?.pobject?.url;
                 var portalSID = lObject?.pobject?.sid;
                 var portalImage = lObject?.pobject?.sobject?.image?.url;
@@ -695,7 +604,7 @@ var catalog = (function () {
     function fillCatalogListPObject(id, countid, pObject, color) {
         var str = '';
 
-        var portalTitle = system.getTitle(pObject.sobject);
+        var portalTitle = basics.pObject.getTitle(pObject);
         var portalURL = pObject.url;
         var portalImage = pObject.sobject?.image?.url;
         var portalLink = '<a href="' + portalURL + '" target="_blank">' + portalTitle + '</a>';
@@ -859,7 +768,7 @@ var catalog = (function () {
 
     function updateElementsSObject(sObject) {
         var title = sObject ? sObject.title[nav.lang] : dict[nav.lang].unknownSupplier;
-        var type = sObject ? data.getTypeString(sObject.type) : '';
+        var type = sObject ? basics.layer.getTypeString(sObject.type) : '';
 
         var str = '';
         str += '<div class="pb-2" style="height:3.5rem">';
@@ -1447,8 +1356,8 @@ var catalog = (function () {
 							}
 						}
 						if (lObject.sobject) {
-                            var title = system.getTitle(lObject.sobject);
-							str += '<b>' + system.getTitle(lObject.sobject) + '</b><br><br>';
+                            var title = basics.lObject.getTitle(lObject);
+							str += '<b>' + title + '</b><br><br>';
                         }
                         str += '<b>Title:</b> ' + lObject.title;
 						str += '<span class="badge mt-1 bg-info" style="margin:0 0 0 .5rem;cursor:pointer;" onclick="catalog.setSearchSupplier(\'' + titleStart + '\')">→</span>';
@@ -1497,11 +1406,7 @@ var catalog = (function () {
             pObjects.forEach((pObject) => {
                 pObject.lObjects.forEach((lObject) => {
                     if (lObject.lid === selectedModifyPortalLID) {
-                        if (lObject.sobject) {
-                            lText = system.getTitle(lObject.sobject);
-                        } else {
-                            lText = lObject.title;
-                        }
+                        lText = basics.lObject.getTitle(lObject);
                     }
                 });
             });
@@ -1511,7 +1416,7 @@ var catalog = (function () {
         if (selectedModifySystemSID) {
             loadedSObjects.forEach(sObject => {
                 if (sObject.sid === selectedModifySystemSID) {
-                    sText = system.getTitle(sObject); 
+                    sText = basics.sObject.getTitle(sObject); 
                 }
             });
         }
@@ -1537,16 +1442,16 @@ var catalog = (function () {
         if (sObjects.length > 0) {
             var sObject = sObjects[0];
             var image = sObject.image.url;
-            var altTitle = options.dict[nav.lang].imageOf.replace('{title}', system.getTitle(sObject));
+            var altTitle = dict[nav.lang].imageOf.replace('{title}', basics.sObject.getTitle(sObject));
 
             if ('' !== image) {
                 image += '?v=' + (new Date()).getTime();
+                text += '<img src="' + image + '" alt="' + altTitle + '" style="height: 4em;position: absolute; right: 0; top: 0;background: #fff;border-left:2px solid #17a2b8;border-bottom:2px solid #17a2b8;padding:.5rem">';
             }
 
-            text += '<img src="' + image + '" alt="' + altTitle + '" style="height: 3em;position: absolute; right: 1em;background: #fff;border:2px solid #fff;">';
             text += '<strong>sid</strong>: ' + sObject.sid + '<br>';
-            text += '<strong>title</strong>: ' + system.getTitle(sObject) + '<br>';
-            text += '<strong>type</strong>: ' + data.getTypeString(sObject.type) + '<br>';
+            text += '<strong>title</strong>: ' + basics.sObject.getTitle(sObject) + '<br>';
+            text += '<strong>type</strong>: ' + basics.layer.getTypeString(sObject.type) + '<br>';
             text += '<strong>sameAs</strong>: ' + (sObject.sameAs.wikidata ? ('<a href="' + sObject.sameAs.wikidata + '" target="_blank">' + sObject.sameAs.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
             text += '<strong>partOf</strong>: ' + (sObject.partOf.wikidata ? ('<a href="' + sObject.partOf.wikidata + '" target="_blank">' + sObject.partOf.wikidata.split('/').slice(-1)[0] + '</a>') : '') + '<br>';
             text += '<strong>geocoding</strong>: ' + sObject.geocoding.germanRegionalKey + '<br>';
@@ -1567,7 +1472,7 @@ var catalog = (function () {
 
         list += '<fieldset>';
         loadedSObjects.forEach(sObject => {
-            var title = system.getTitle(sObject);
+            var title = basics.sObject.getTitle(sObject);
 
             if ((lowerFilter !== '') && (-1 === title.toLocaleLowerCase().indexOf(lowerFilter))) {
                 return;
@@ -1618,7 +1523,7 @@ var catalog = (function () {
         loadSObjects((result) => {
             loadedSObjects = result;
             loadedSObjects.sort(function(a, b) {
-                return system.getTitle(a).localeCompare(system.getTitle(b));
+                return basics.sObject.getTitle(a).localeCompare(basics.sObject.getTitle(b));
             });
             fillModifySObjectTable();
             selectModifyPortalSID(selectSID);
@@ -1654,8 +1559,8 @@ var catalog = (function () {
         str += '  <div>';
         str += '    <label for="' + idInteractiveAddSupplierType + '">Choose a type:</label>';
         str += '    <select name="' + idInteractiveAddSupplierType + '" id="' + idInteractiveAddSupplierType + '">';
-        Object.keys(data.layers).forEach((key) => {
-            str += '      <option value="' + key + '">' + data.layers[key] + '</option>';
+        Object.keys(basics.layer.layers).forEach((key) => {
+            str += '      <option value="' + key + '">' + basics.layer.layers[key] + '</option>';
         });
         str += '    </select>';
         str += '  </div>';
@@ -1784,9 +1689,6 @@ var catalog = (function () {
     return {
         id: oldInitvalId, // depricated
         sID: sID,
-        get: funcGet,
-        getBySID: funcGetBySID,
-        getSameAs: funcGetSameAs,
         getSObject: funcGetSObject,
         getDownloadMenu: getDownloadMenu,
         navigateSlides: funcNavigateSlides,

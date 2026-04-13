@@ -637,7 +637,7 @@ var chartLObjects = (function () {
 
         var topLIDs = [];
 
-        for (var c = 0; c < options.pObject.lObjects.length; ++c) {
+        for (var c = 0; c < dates.length; ++c) {
             datasets.sort(sortChartData(c));
 
             for (var t = 0; t < Math.min(options.topCount, datasets.length); ++t) {

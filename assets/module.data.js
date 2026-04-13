@@ -1,32 +1,10 @@
 var data = (function () {
-    var baseURL = 'https://opendata.guru/govdata/assets/',
-        dateToLoad = '',
-        uriToLoad = '';
-    var eventListenerStartLoading = [],
-        eventListenerEndLoading = [];
     var assets = [],
         view = [],
         viewHeader = [],
-        loadDays = 0,
         displayDate = '';
 
     function init() {
-    }
-
-    function funcAddEventListenerStartLoading(func) {
-        eventListenerStartLoading.push(func);
-    }
-
-    function funcAddEventListenerEndLoading(func) {
-        eventListenerEndLoading.push(func);
-    }
-
-    function dispatchEventStartLoading() {
-        eventListenerStartLoading.forEach(func => func());
-    }
-
-    function dispatchEventEndLoading() {
-        eventListenerEndLoading.forEach(func => func());
     }
 
     function isParent(packageId, dateString) {
@@ -248,126 +226,6 @@ var data = (function () {
         return assets[dateString] !== undefined;
     }
 
-    function setDate(theDate) {
-        displayDate = theDate;
-
-        if (date) {
-            date.update();
-        }
-
-        data.emitFilterChanged();
-    }
-
-    function setLoadingDate(loadingDate) {
-//        var dateString = loadingDate.toISOString().split('T')[0];
-        var dateString = loadingDate.toLocaleString('sv-SE').split(' ')[0];
-        var uri = baseURL + 'data-' + dateString.split('-')[0] + '/' + dateString + '-organizations.json';
-
-        dateToLoad = dateString;
-        uriToLoad = uri;
-    }
-
-    function store(payload) {
-        assets[dateToLoad] = payload;
-        data.loadedDays = Object.keys(assets).length;
-
-        if (data.loadedDays === 1) {
-            setDate(dateToLoad);
-            catalog.setSID(catalog.sID); // <-  this is a hack
-        } else {
-            catalog.update();
-        }
-
-        var current = new Date(dateToLoad);
-        current.setDate(current.getDate() - 1);
-
-        setLoadingDate(current); 
-
-        dispatchEventStartLoading(dateToLoad);
-
-        if (charthistory) {
-            charthistory.update();
-        }
-
-        load();
-    }
-
-    function load() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', uriToLoad, true);
-
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                store(JSON.parse(this.responseText));
-            } else if (this.readyState == 4) {
-                dispatchEventEndLoading();
-
-                date.update();
-                charthistory.update();
-            }
-        }
-
-        var start = new Date(Date.now());
-        var current = new Date(dateToLoad);
-        var diffs = start.getTime() - current.getTime();
-        var days = Math.ceil(diffs / (1000 * 3600 * 24));
-
-        if (days <= loadDays) {
-            xhr.send();
-        } else {
-            dispatchEventEndLoading();
-
-            if (date) {
-                date.update();
-            }
-            if (charthistory) {
-                charthistory.update();
-            }
-        }
-    }
-
-    function funcLoadData(maxDays) {
-        data.loadedDays = 0;
-        data.initalDays = maxDays;
-        loadDays = maxDays;
-
-        setLoadingDate(new Date(Date.now()));
-        dispatchEventStartLoading(dateToLoad);
-
-        load();
-    }
-
-    function funcLoadMoreData(days) {
-        data.loadedDays = 0;
-
-        var current = new Date(Date.now());
-        current.setDate(current.getDate() - loadDays);
-
-        loadDays += days;
-
-        setLoadingDate(current);
-        dispatchEventStartLoading(dateToLoad);
-
-        load();
-    }
-
-    function funcRemoveLoadedData() {
-        while (Object.keys(assets).length > data.initalDays) {
-            var current = new Date(dateToLoad);
-            current.setDate(current.getDate() + 1);
-            setLoadingDate(current);
-
-            delete assets[dateToLoad];
-        }
-
-        data.loadedDays = Object.keys(assets).length;
-        loadDays = Object.keys(assets).length;
-
-        catalog.update();
-        date.update();
-        charthistory.update();
-    }
-
     function funcGetPortalTitle(id) {
         return id;
     }
@@ -375,8 +233,6 @@ var data = (function () {
     init();
 
     return {
-        addEventListenerStartLoading: funcAddEventListenerStartLoading,
-        addEventListenerEndLoading: funcAddEventListenerEndLoading,
         emitFilterChanged: funcEmitFilterChanged,
         get: funcGet,
         getDate: funcGetDate,
@@ -385,10 +241,7 @@ var data = (function () {
         has: funcHas,
         initalDays: 0,
         isHVD: false,
-        loadData: funcLoadData,
         loadedDays: 0,
-        loadMoreData: funcLoadMoreData,
-        removeLoadedData: funcRemoveLoadedData,
         view: view,
         viewHeader: viewHeader,
     };

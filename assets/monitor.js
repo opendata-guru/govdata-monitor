@@ -42,14 +42,6 @@ function monitorGetDatasetCount3ByDate(catalogId, dateString, countDatasets) {
     return undefined;
 }
 
-function monitorLoadMoreDays(days) {
-    data.loadMoreData(days);
-}
-
-function monitorRemoveLoadedDays() {
-    data.removeLoadedData();
-}
-
 function monitorGetAsCSV(chartObject, chartObjectID) {
     var ret = [];
     var len = chartObject.getRowTitles(chartObjectID).length;
@@ -204,11 +196,7 @@ function hideProgress() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    data.addEventListenerStartLoading(showProgress);
-    data.addEventListenerEndLoading(hideProgress);
-
     catalog.start();
-    data.loadData(monitor.maxDays);
 });
 
 // ----------------------------------------------------------------------------

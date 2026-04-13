@@ -176,14 +176,6 @@ function monitorGetDatasetCount3ByDate(catalogId, dateString, countDatasets) {
     return count;
 }
 
-function monitorLoadMoreDays(days) {
-    data.loadMoreData(days);
-}
-
-function monitorRemoveLoadedDays() {
-    data.removeLoadedData();
-}
-
 function monitorGetAsCSV(chartObject) {
     var ret = [];
     var len = chartObject.getRowTitles().length;

@@ -641,7 +641,7 @@ var tableLObjects = (function () {
         var altTitle = options.dict[nav.lang].imageOf.replace('{title}', getLObjectTitle(lObject));
 
         if (sObject && sObject.image && (sObject.image.url !== '')) {
-            return  '<img src="' + sObject.image.url + '" alt="' + altTitle + '" style="height:1.5em;margin:-.1rem .5em 0 0">';
+            return  '<img src="' + sObject.image.url + '" alt="' + altTitle + '" height="17" style="height:1.5em;margin:-.1rem .5em 0 0">';
         }
 
         return '';

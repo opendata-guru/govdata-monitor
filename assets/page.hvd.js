@@ -243,10 +243,10 @@ function monitorZoomOut() {
 
 function catalogGetDownloadMenu(chartObjectName) {
     var html = '';
-    html += '<a title="' + hvdSettings.dict[nav.lang].optionsMenu + '" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
+    html += '<a title="' + hvdSettings.dict[nav.lang].optionsMenu + '" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown' + chartObjectName + '" data-bs-toggle="dropdown">';
     html += '<span>...</span>';
     html += '</a>';
-    html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
+    html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown' + chartObjectName + '" id="table-menu">';
     html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[nav.lang].optionsDownloadCSV + '</a>';
 //        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">' + hvdSettings.dict[nav.lang].optionsDownloadPNG + '</a>';
     html += '<div class="dropdown-divider"></div>';

@@ -45,9 +45,13 @@
 		#sobject-intro {
 			background: #a4e9f480;
 			border-right: 1px solid #17a2b8;
+			color: #000;
 			height: calc(100% + 2px);
 			margin: -1px -1px 0 0;
 			overflow-y: scroll;
+		}
+		#sobject-intro a {
+			color: #17a2b8;
 		}
 		.card-parents-and-catalog-title {
 			background: #a4e9f480;
@@ -63,7 +67,7 @@
 			flex-flow: row wrap;
 		}
 		#parent-title {
-			color: #17a2b8;
+			color: #000;
 			left: .5rem;
 			position: absolute;
 			top: .25rem;
@@ -323,7 +327,7 @@
 								<div class="card-parents-and-catalog-title blue-scrollbar pt-3">
 									<div class="mb-0" id="parent-title">Data flow</div>
 									<div class="card-body">
-										<ul id="parent-data"></ul>
+										<div id="parent-data"></div>
 									</div>
 								</div>
 							</div>
@@ -411,13 +415,13 @@
 	<script src="assets/module.nav.js?v=2"></script>
 	<script src="assets/module.account.js?v=2"></script>
 	<script src="assets/module.basics.js?v=1"></script>
-	<script src="assets/module.catalog.js?v=19"></script>
-	<script src="assets/module.chartsupplier.js?v=8"></script>
+	<script src="assets/module.catalog.js?v=20"></script>
+	<script src="assets/module.chartsupplier.js?v=9"></script>
 	<script src="assets/module.data.js?v=7"></script>
 	<script src="assets/module.date.js"></script>
 	<script src="assets/module.diff.js"></script>
 	<script src="assets/module.map.js?v=4"></script>
-	<script src="assets/module.parents.js?v=3"></script>
+	<script src="assets/module.parents.js?v=4"></script>
 	<script src="assets/module.table.js?v=10"></script>
 	<script src="assets/monitor.js?v=10"></script>
 </body>

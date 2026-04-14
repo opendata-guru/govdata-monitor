@@ -13,8 +13,8 @@ var parents = (function () {
         css += '.orgchart .node {border-radius: 8px; margin: -5px 0}';
         css += '.orgchart .node.root {pointer-events:none}';
         css += '.orgchart .node:hover {background: #a4e9f4; cursor: pointer;}';
-        css += '.orgchart .node .title {background: #a4e9f4; border: 1px solid #17a2b8;border-bottom: none; color: #17a2b8}';
-        css += '.orgchart .node.root .title {background: #17a2b8; color: #fff}';
+        css += '.orgchart .node .title {background: #a4e9f4; border: 1px solid #17a2b8;border-bottom: none; color: #0e6674}';
+        css += '.orgchart .node.root .title {background: #17a2b8; color: #ffffffe0}';
         css += '.orgchart .node .content {border-color: #17a2b8; height: calc(2.5rem + 2px); margin-bottom: -6px; padding: .25rem}';
         css += '.orgchart tr.lines .downLine {background: #17a2b8; height: 1rem}';
         css += '.orgchart tr.lines td.rightLine, .orgchart tr.lines td.leftLine {border-color: #17a2b8}';
@@ -35,7 +35,7 @@ var parents = (function () {
                 div.setAttribute('class', 'content');
 
                 if (data.image !== '') {
-                    div.innerHTML = '<img style="height:2rem;width:100%;object-fit:contain;text-indent:100%;pointer-events:none" src="' + data.image + '">';
+                    div.innerHTML = '<img style="height:2rem;width:100%;object-fit:contain;text-indent:100%;pointer-events:none" src="' + data.image + '" alt="' + data.name + '">';
                 }
 
                 node.appendChild(div);

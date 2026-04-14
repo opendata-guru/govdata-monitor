@@ -73,6 +73,8 @@ var catalog = (function () {
                 portalPortalMoreDetails: 'Weitere Einblicke in das Portal {url}',
                 portalPortalShort: 'Im Portal {url}',
                 portalVoid: 'Es wurde kein Portal gefunden, auf dem Daten veröffentlicht werden.',
+                rangeMin: 'Startdatum',
+                rangeMax: 'Enddatum',
                 saveAsCSV: 'Als CSV herunterladen',
                 suppliers: 'Datenliefernde',
                 suppliersCountMore: '{count} Datenliefernde',
@@ -109,6 +111,8 @@ var catalog = (function () {
                 portalPortalMoreDetails: 'Further insights into the portal {url}',
                 portalPortalShort: 'In portal {url}',
                 portalVoid: 'No portal was found where data is published.',
+                rangeMin: 'Start date',
+                rangeMax: 'End date',
                 saveAsCSV: 'Download as CSV',
                 suppliers: 'Data Suppliers',
                 suppliersCountMore: '{count} data suppliers',
@@ -162,10 +166,10 @@ var catalog = (function () {
 
     function getDownloadMenu(chartObjectName) {
         var html = '';
-        html += '<a title="Options" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown" data-bs-toggle="dropdown">';
+        html += '<a title="Options" class="ms-3" style="text-decoration:none;float:right;color:#939ba2;border:1px solid #939ba2;border-radius:2rem;height:2rem;width:2rem;line-height:1.6rem;text-align:center" href="#" id="downloadDropdown' + chartObjectName + '" data-bs-toggle="dropdown">';
         html += '<span>...</span>';
         html += '</a>';
-        html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown" id="table-menu">';
+        html += '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-start py-2" aria-labelledby="downloadDropdown' + chartObjectName + '" id="table-menu">';
         html += '<a onclick="monitorDownloadAsCSV(\'' + chartObjectName + '\')" class="d-block px-3 py-1 text-dark fw-normal">Download as CSV table</a>';
 //        html += '<a onclick="monitorDownloadAsPNG()" class="d-block px-3 py-1 text-dark fw-normal">Download as PNG image</a>';
         html += '<div class="dropdown-divider"></div>';
@@ -368,7 +372,7 @@ var catalog = (function () {
                             str += dict[nav.lang].portalCount.replace('{count}', count);
                         }
 
-                        str += '<span style="font-size:.8em;color:#777">';
+                        str += '<span style="font-size:.8em">';
                         str += ' Coming next: Show this datasets';
                         str += '</span>';
 
@@ -525,7 +529,7 @@ var catalog = (function () {
                 var altTitle = dict[nav.lang].imageOf.replace('{title}', portalTitle);
                 portalTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem">' + portalTitle + '</span>';
                 parentTitle = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + parentTitle + '</span>';
-                portalImage = '<img src="' + portalImage + '" alt="' + altTitle + '" style="height:1.25rem">';
+                portalImage = portalImage ? '<img src="' + portalImage + '" alt="' + altTitle + '" style="height:1.25rem">' : '';
 
                 str += '<div class="' + colClass + '">';
                 str += '<div style="border-bottom: .2rem solid ' + color + ';height:1.4rem;margin-bottom:1.25rem">';
@@ -539,7 +543,7 @@ var catalog = (function () {
                     }
                     str += '</div>';
                     str += '<div class="mt-3" id="count-' + lObject.lid + '"><div class="loading-bar mb-2 pb-2" style="height:1rem"></div></div>';
-                    str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+                    str += '<div class="mt-3 pb-4" style="font-size:.8em">';
                     str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
                 } else {
                     str += dict[nav.lang].portalLined.replace('{portal}',portalTitle).replace('{image}',portalImage).replace('{id}',parentTitle) + ' ';
@@ -550,7 +554,7 @@ var catalog = (function () {
                     if (lastseen <= 1) {
                         str += '<div class="mt-3" id="count-' + lObject.lid + '"><div class="loading-bar mb-2 pb-2" style="height:1rem"></div></div>';
                     }
-                    str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+                    str += '<div class="mt-3 pb-4" style="font-size:.8em">';
                     str += dict[nav.lang].portalMore.replace('{link}', internalLink).replace('{externallink}', portalLink);
                 }
                 str += '</div>';
@@ -615,13 +619,13 @@ var catalog = (function () {
 
         var altTitle = dict[nav.lang].imageOf.replace('{title}', portalTitle);
         portalURL = '<span style="border-bottom: .1rem solid ' + color + ';background:' + color + '40;padding:.1rem .3rem;word-break:break-word">' + portalURL + '</span>';
-        portalImage = '<img src="' + portalImage + '" alt="' + altTitle + '" style="height:1.25rem">';
+        portalImage = portalImage ? '<img src="' + portalImage + '" alt="' + altTitle + '" style="height:1.25rem">' : '';
 
         str += '<div>';
         str += dict[nav.lang].portalPortal.replace('{url}',portalURL).replace('{image}',portalImage) + ' ';
         str += '</div>';
         str += '<div class="mt-3" id="' + countid + '"><div class="loading-bar mb-2 pb-2" style="height:1rem"></div></div>';
-        str += '<div class="mt-3 pb-4" style="font-size:.8em;color:#777">';
+        str += '<div class="mt-3 pb-4" style="font-size:.8em">';
         str += dict[nav.lang].portalMoreExternal.replace('{externallink}', portalLink);
         str += '</div>';
 
@@ -1003,8 +1007,8 @@ var catalog = (function () {
                 slideshow += '<div class="imgSlides animate"><img src="' + image + '" alt="' + altTitle + '"></div>';
             }
         });
-        slideshow += '<a class="prev" onclick="catalog.navigateSlides(-1)">&#10094;</a>';
-        slideshow += '<a class="next" onclick="catalog.navigateSlides(1)">&#10095;</a>';
+        slideshow += '<button class="prev" onclick="catalog.navigateSlides(-1)">&#10094;</button>';
+        slideshow += '<button class="next" onclick="catalog.navigateSlides(1)">&#10095;</button>';
 
         elem = document.getElementById(idSObjectSlideshow);
         if (elem) {
@@ -1092,9 +1096,9 @@ var catalog = (function () {
                 str += '...';
             }
 
-            str += '<div class="mt-3" style="font-size:.8em;color:#777">' + footer + '</div>';
+            str += '<div class="mt-3" style="font-size:.8em">' + footer + '</div>';
         } else {
-            str += '<div style="font-size:.8em;color:#777">' + footer + '</div>';
+            str += '<div style="font-size:.8em">' + footer + '</div>';
         }
 
         var elem = document.getElementById(idSObjectIntro);

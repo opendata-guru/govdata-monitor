@@ -254,7 +254,7 @@ var chartCatalogObjects = (function () {
         if (options.pObjects && options.lObjects && ((options.pObjects.length + options.lObjects.length) > 0)) {
             str += '<div>';
             str += options.dict[nav.lang].catalogHistory;
-            str += '<a onclick="monitorDownloadAsCSV(\'chartCatalogObjects\')" class="link" style="float:right;border:1px solid #17a2b8;border-bottom:none;margin-right:1rem;padding:.25rem 1rem;border-radius:1rem 1rem 0 0">' + options.dict[nav.lang].saveAsCSV + '</a>';
+            str += '<button onclick="monitorDownloadAsCSV(\'chartCatalogObjects\')" class="link" style="float:right;color:#17a2b8;border:1px solid #17a2b8;border-bottom:none;margin-right:1rem;padding:.25rem 1rem;border-radius:1rem 1rem 0 0;background:#fff">' + options.dict[nav.lang].saveAsCSV + '</button>';
             str += '</div>';
 
             str += '<div id="catalogTimeRange"></div>';
@@ -372,8 +372,8 @@ var chartCatalogObjects = (function () {
         str += '<span class="slider-label slider-label-start">0</span>';
         str += '<span class="slider-label slider-label-end">100</span>';
         str += '</div>';
-        str += '<input type="range" min="' + sliderMin + '" max="' + (sliderMax - 1) + '" value="' + trackMin + '">';
-        str += '<input type="range" min="' + (sliderMin + 1) + '" max="' + sliderMax + '" value="' + trackMax + '">';
+        str += '<input type="range" min="' + sliderMin + '" max="' + (sliderMax - 1) + '" value="' + trackMin + '" aria-label="' + options.dict[nav.lang].rangeMin + '">';
+        str += '<input type="range" min="' + (sliderMin + 1) + '" max="' + sliderMax + '" value="' + trackMax + '" aria-label="' + options.dict[nav.lang].rangeMax + '">';
 
         str += '<div class="track-wrapper">';
         str += '<div class="track"></div>';

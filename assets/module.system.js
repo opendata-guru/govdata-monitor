@@ -817,6 +817,9 @@ var system = (function () {
     function fixSystemTitle(title) {
         if (title) {
             title = title.replace('conterra', 'con terra');
+            title = title.replace('ckan', 'CKAN');
+            title = title.replace('dkan', 'DKAN');
+            title = title.replace('ekan', 'EKAN');
             title = title.replace('entryscape', 'EntryScape');
             title = title.replace('ingrid', 'InGrid');
             title = title.replace('Opendatasoft', 'Huwise');
@@ -1062,7 +1065,7 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['ArcGIS Hub', 'CKAN','conterra','DKAN','DUVA','EKAN','entryscape','ingrid','Opendatasoft','Piveau','sparql'].indexOf(system) !== -1) {
+            if (['ArcGIS Hub', 'ckan','conterra','dkan','DUVA','ekan','entryscape','ingrid','Opendatasoft','Piveau','sparql'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
             } else {
                 otherBody += getOtherSystemsRow(sys);

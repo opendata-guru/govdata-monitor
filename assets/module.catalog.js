@@ -9,8 +9,7 @@ var catalog = (function () {
         pObjects = [];
         pObjectsLoadedLObjects = 0;
         defaultSID = 'smZ1A'; //GovData
-    var idParentTitle = 'parent-title',
-        idSupplierHistoryTitle = 'supplier-history-title',
+    var idSupplierHistoryTitle = 'supplier-history-title',
         idCardPObjects = 'card-portals',
         idChartPObjects = 'chart-portals',
         idSObjectBox = 'sobject-box';
@@ -52,7 +51,6 @@ var catalog = (function () {
     var dict = {
             de: {
                 catalogHistory: 'Historie der Daten in jedem Portal',
-                dataFlow: 'Datenfluss',
                 imageOf: 'Bild von {title}',
                 lastSeenMoreDays: 'Zuletzt gesehen vor {days} Tagen',
                 lastSeenOneDay: 'Gestern zuletzt gesehen',
@@ -90,7 +88,6 @@ var catalog = (function () {
             },
             en: {
                 catalogHistory: 'History of the data in each portal',
-                dataFlow: 'Data flow',
                 imageOf: 'Image of {title}',
                 lastSeenMoreDays: 'Last seen {days} days ago',
                 lastSeenOneDay: 'Last seen yesterday',
@@ -188,11 +185,6 @@ var catalog = (function () {
         var elemHistory = document.getElementById(idSupplierHistoryTitle);
         if (elemHistory) {
             elemHistory.innerHTML = data.loadedDays + ' days supplier history ' + getDownloadMenu('chartsupplier');
-        }
-
-        elemHistory = document.getElementById(idParentTitle);
-        if (elemHistory) {
-            elemHistory.innerHTML = dict[nav.lang].dataFlow;
         }
 
         if (data.loadedDays > data.initalDays) {

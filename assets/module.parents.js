@@ -1,8 +1,19 @@
 var parents = (function () {
     var baseURL = 'https://opendata.guru/api/2';
-    var idParentData = 'parent-data';
+    var idParentData = 'parent-data',
+        idParentMaximize = 'parent-maximize',
+        idParentMinimize = 'parent-minimize',
+        idParentTitle = 'parent-title';
     var childSIDList = [];
     var orgchart = null;
+    var dict = {
+            de: {
+                dataFlow: 'Datenfluss',
+            },
+            en: {
+                dataFlow: 'Data flow',
+            },
+        };
 
     function init() {
         var css = '';
@@ -27,6 +38,13 @@ var parents = (function () {
     }
 
     function initOrgChart(chartData) {
+        var elemTitle = document.getElementById(idParentTitle);
+        if (elemTitle) {
+            elemTitle.innerHTML = dict[nav.lang].dataFlow;
+        }
+
+        funcMinimizeOrgChart();
+
         orgchart = new OrgChart({
             'chartContainer': '#' + idParentData,
             'data' : chartData,
@@ -44,6 +62,49 @@ var parents = (function () {
                 });
             },
         });
+    }
+
+    function funcMinimizeOrgChart() {
+        var elemMax = document.getElementById(idParentMaximize);
+        var elemMin = document.getElementById(idParentMinimize);
+
+        if (elemMax) {
+            var parent = elemMax.parentNode.parentNode.parentNode;
+            var children = parent.childNodes;
+            var className = 'col-12 col-sm-12 col-md-4 col-xl-4 px-0';
+
+            elemMax.style.display = 'initial';
+            elemMin.style.display = 'none';
+
+            NodeList.prototype.forEach = Array.prototype.forEach
+            children.forEach(function(item){
+                if ((item.tagName + '').toLowerCase() === 'div') {
+                    item.className = className;
+
+                    className = 'col-12 col-sm-6 col-md-4 col-xl-4 px-0';
+                }
+            });
+        }
+    }
+
+    function funcMaximizeOrgChart() {
+        var elemMax = document.getElementById(idParentMaximize);
+        var elemMin = document.getElementById(idParentMinimize);
+
+        if (elemMax) {
+            var parent = elemMax.parentNode.parentNode.parentNode;
+            var children = parent.childNodes;
+
+            elemMax.style.display = 'none';
+            elemMin.style.display = 'initial';
+
+            NodeList.prototype.forEach = Array.prototype.forEach
+            children.forEach(function(item){
+                if ((item.tagName + '').toLowerCase() === 'div') {
+                    item.className = 'col-12 px-0';
+                }
+            });
+        }
     }
 
     function funcUpdateSID() {
@@ -187,6 +248,8 @@ console.log(child);*/
     init();
 
     return {
+        maximizeOrgChart: funcMaximizeOrgChart,
+        minimizeOrgChart: funcMinimizeOrgChart,
         updateSID: funcUpdateSID,
     };
 }());

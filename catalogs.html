@@ -53,14 +53,19 @@
 		#sobject-intro a {
 			color: #17a2b8;
 		}
-		.card-parents-and-catalog-title {
+		.card-parents {
 			background: #a4e9f480;
 			border-top: 1px solid #17a2b8;
-			margin: -2px -1px 0 -1px;
-			min-height: calc(12rem + 2px);
 			height: calc(100% + 2px);
-			overflow: scroll;
+			margin: -2px -1px 0 -1px;
+			min-height: 12rem;
 			position: relative;
+		}
+		.card-parents-and-catalog-title {
+			min-height: calc(12rem + 2px);
+			height: 100%;
+			overflow: scroll;
+			width: 100%;
 		}
 		.aligned-row {
 			display: flex;
@@ -77,6 +82,7 @@
 			position: absolute;
 			right: 0;
 			top: 0;
+			z-index: 1;
 		}
 		#parent-maximize::after, #parent-minimize::after {
 			background: #a4e9f4;
@@ -91,16 +97,16 @@
 			width: 2rem;
 		}
 		#parent-maximize::after {
-			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.1429 20H4M4 20V14.8571M4 20L10 14' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 4H20M20 4V9M20 4L14 10' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+			content: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.1429 20H4M4 20V14.8571M4 20L10 14' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 4H20M20 4V9M20 4L14 10' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 		}
 		#parent-maximize:hover::after {
-			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.1429 20H4M4 20V14.8571M4 20L10 14' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 4H20M20 4V9M20 4L14 10' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+			content: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.1429 20H4M4 20V14.8571M4 20L10 14' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 4H20M20 4V9M20 4L14 10' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 		}
 		#parent-minimize::after {
-			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.1429 10H14M14 10V4.85714M14 10L20 4' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.99996 14H9.99996M9.99996 14V19M9.99996 14L4 20' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+			content: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.1429 10H14M14 10V4.85714M14 10L20 4' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.99996 14H9.99996M9.99996 14V19M9.99996 14L4 20' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 		}
 		#parent-minimize:hover::after {
-			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.1429 10H14M14 10V4.85714M14 10L20 4' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.99996 14H9.99996M9.99996 14V19M9.99996 14L4 20' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+			content: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.1429 10H14M14 10V4.85714M14 10L20 4' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.99996 14H9.99996M9.99996 14V19M9.99996 14L4 20' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 		}
 		#parent-maximize:hover::after, #parent-minimize:hover::after {
 			stroke: white;
@@ -299,6 +305,46 @@
 		.pagination span[data-page]:hover {
 			background: #a4e9f4;
 		}
+
+		.search-control {
+			border: .1rem solid #fff;
+			border-radius: 2rem;
+			display: inline-block;
+			float: right;
+			margin: -.5rem 0 0 1rem;
+			outline: 0 solid #ffffff80;
+			outline-offset: -.1rem;
+			padding: .3rem .8rem;
+			transition: outline 300ms ease, outline-offset 300ms ease;
+			white-space: nowrap;
+		}
+		.search-control.focus {
+			outline: .3rem solid #ffffff80;
+			outline-offset: -.4rem;
+		}
+		.search-control input {
+			background: #17a2b8;
+			border: none;
+			color: #fff;
+			line-height: 1.333rem;
+			width: 7rem;
+		}
+		.search-control input:focus {
+			outline: none;
+		}
+		.search-control input::placeholder {
+			color: #a4e9f4;
+		}
+		.search-icon {
+			display: inline-block;
+			padding: 0 .333rem 0 0;
+		}
+		.search-icon svg {
+			height: 1.1rem !important;
+		}
+		.search-icon svg .path {
+			stroke: #a4e9f4;
+		}
 	</style>
 </head>
 
@@ -358,12 +404,14 @@
 								<div id="sobject-intro" class="blue-scrollbar mb-0 p-3"></div>
 							</div>
 							<div class="col-12 col-sm-6 col-md-4 col-xl-4 px-0">
-								<div class="card-parents-and-catalog-title blue-scrollbar pt-3">
-									<div id="parent-title"></div>
-									<div id="parent-maximize" onclick="parents.maximizeOrgChart()"></div>
-									<div id="parent-minimize" onclick="parents.minimizeOrgChart()"></div>
-									<div class="card-body">
-										<div id="parent-data"></div>
+								<div class="card-parents">
+									<div class="card-parents-and-catalog-title blue-scrollbar pt-3">
+										<div id="parent-title"></div>
+										<div id="parent-maximize" onclick="parents.maximizeOrgChart()"></div>
+										<div id="parent-minimize" onclick="parents.minimizeOrgChart()"></div>
+										<div class="card-body">
+											<div id="parent-data"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -451,14 +499,14 @@
 	<script src="assets/module.nav.js?v=2"></script>
 	<script src="assets/module.account.js?v=2"></script>
 	<script src="assets/module.basics.js?v=1"></script>
-	<script src="assets/module.catalog.js?v=21"></script>
+	<script src="assets/module.catalog.js?v=22"></script>
 	<script src="assets/module.chartsupplier.js?v=9"></script>
 	<script src="assets/module.data.js?v=7"></script>
 	<script src="assets/module.date.js"></script>
 	<script src="assets/module.diff.js"></script>
 	<script src="assets/module.map.js?v=4"></script>
-	<script src="assets/module.parents.js?v=5"></script>
-	<script src="assets/module.table.js?v=10"></script>
+	<script src="assets/module.parents.js?v=6"></script>
+	<script src="assets/module.table.js?v=11"></script>
 	<script src="assets/monitor.js?v=10"></script>
 </body>
 

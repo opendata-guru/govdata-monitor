@@ -69,7 +69,7 @@ var parents = (function () {
         var elemMin = document.getElementById(idParentMinimize);
 
         if (elemMax) {
-            var parent = elemMax.parentNode.parentNode.parentNode;
+            var parent = document.getElementById('sobject-frame');
             var children = parent.childNodes;
             var className = 'col-12 col-sm-12 col-md-4 col-xl-4 px-0';
 
@@ -92,7 +92,7 @@ var parents = (function () {
         var elemMin = document.getElementById(idParentMinimize);
 
         if (elemMax) {
-            var parent = elemMax.parentNode.parentNode.parentNode;
+            var parent = document.getElementById('sobject-frame');
             var children = parent.childNodes;
 
             elemMax.style.display = 'none';

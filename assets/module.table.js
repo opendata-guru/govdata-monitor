@@ -747,8 +747,7 @@ var tableLObjects = (function () {
         var str = '';
 
         str += '<tr>';
-        str += '<th style="padding:.25rem .5rem">' + options.dict[nav.lang].suppliers + '</th>';
-        str += '<th>&nbsp;</th>';
+        str += '<th colspan="2" style="padding:.25rem .5rem">' + options.dict[nav.lang].suppliers + '</th>';
 
         options.dates.forEach((date) => {
             var formated = date;
@@ -776,6 +775,7 @@ var tableLObjects = (function () {
             var countCSS = '';
             var diffMilliseconds = new Date((new Date(dateString)).getTime() - (new Date(lObject.lastseen)).getTime());
             var diff = Math.floor(diffMilliseconds/(24*3600*1000));
+            var title = getLObjectTitle(lObject);
             var type = getLObjectType(lObject);
             var strType = getLObjectTypeString(lObject);
 
@@ -792,6 +792,13 @@ var tableLObjects = (function () {
                     return;
                 }
             }
+
+            if (options.filter !== '') {
+                if (title.toLowerCase().indexOf(options.filter.toLowerCase()) === -1) {
+                    return;
+                }
+            }
+
             paging = Math.trunc(options.pObject.lObjectsFiltered / paginationSize);
             ++options.pObject.lObjectsFiltered;
 
@@ -830,9 +837,9 @@ var tableLObjects = (function () {
                 str += '<span class="d-loggedin ' + (account.isLoggedIn() ? '' : 'd-none') + ' badge bg-danger me-1" style="width:2.4rem;cursor:copy" onclick="tableLObjects.selectLID(this)">' + lObject.lid + '</span>';
             }
             if (lObject.ispartof && (lObject.ispartof.length > 0)) {
-                str +=  getLObjectImage(options, lObject) + getLObjectTitle(lObject) + ' (' + lObject.identifier + ')';
+                str +=  getLObjectImage(options, lObject) + title + ' (' + lObject.identifier + ')';
             } else {
-                str += '<a href="catalogs.html?' + url + '" onclick="' + onClick + '";event.preventDefault()>' + getLObjectImage(options, lObject) + getLObjectTitle(lObject) + '</a>';
+                str += '<a href="catalogs.html?' + url + '" onclick="' + onClick + '";event.preventDefault()>' + getLObjectImage(options, lObject) + title + '</a>';
             }
             str += ' ' + lastSeen;
             str += '</td>';
@@ -858,8 +865,15 @@ var tableLObjects = (function () {
     function buildHeader(options) {
         var str = '';
 
-        str += '<div class="text-white" style="background:#17a2b8;padding:.62rem .5rem;font-size:.7rem">';
+        str += '<div class="text-white" style="background:#17a2b8;padding:1rem .5rem;font-size:.7rem">';
         str += options.dict[nav.lang].unknownPortal + ' <span class="ms-4" style="color:#a4e9f4">' + options.pObject.url + '</span>';
+
+        var initvalSelection = options.filter;
+        str += '<span class="search-control" id="search-control-' + options.pObject.pid + '">';
+        str += '<span class="search-icon"><svg style="height:1rem" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="path" fill="none" stroke="#17a2b8" stroke-width="2"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></span>';
+        str += '<input type="search" placeholder="' + options.dict[nav.lang].suppliersPlaceholder + '" value="' + initvalSelection + '" />';
+        str += '</span>';
+
         str += '</div>';
 
         return str;
@@ -969,7 +983,6 @@ var tableLObjects = (function () {
 
         sort(options);
 
-        str += buildHeader(options);
         str += buildTable(options, page);
         str += buildPagination(options, page);
         str += buildFooter(options);
@@ -986,8 +999,18 @@ var tableLObjects = (function () {
         options.dates = [...new Set(options.dates)];
         options.dates.sort();
 
-        var id = 'portal-' + options.pObject.pid;
+        var id = 'portal-' + options.pObject.pid + '-header';
         var elem = document.getElementById(id);
+        if (elem) {
+            tableOptions[id] = options;
+
+            var str = buildHeader(options);
+
+            elem.innerHTML = str;
+        }
+
+        id = 'portal-' + options.pObject.pid;
+        elem = document.getElementById(id);
         if (elem) {
             tableOptions[id] = options;
 
@@ -997,7 +1020,47 @@ var tableLObjects = (function () {
             elem.innerHTML = str;
             elem.dataset.page = page;
             elem.classList.add('portal-table');
+
+            setupSystemFilterEvents(options.pObject.pid);
         }
+    }
+
+    function setupSystemFilterEvents(pid) {
+        var input = document.querySelector('#search-control-' + pid + ' input');
+        input.addEventListener('change', debounceEvent);
+        input.addEventListener('input', debounceEvent);
+        input.addEventListener('keyup', debounceEvent);
+        input.addEventListener('focus', updateFilterGetFocus);
+        input.addEventListener('blur', updateFilterLostFocus);
+
+        var debounceDelay = 100;
+        var debounceTimer = null;
+        var debounceValue = null;
+
+        function debounceEvent(e) {
+            clearTimeout(debounceTimer);
+            debounceValue = e.target.value;
+            debounceTimer = setTimeout(function() {
+                updateFilterValue(debounceValue, pid);
+            }, debounceDelay);
+        }
+    }
+
+    function updateFilterGetFocus(e) {
+        e.target.parentElement.classList.add('focus');
+    }
+
+    function updateFilterLostFocus(e) {
+        e.target.parentElement.classList.remove('focus');
+    }
+
+    function updateFilterValue(value, pid) {
+        var filter = value.trim();
+        var id = 'portal-' + pid;
+
+        tableOptions[id].filter = filter;
+
+        reBuild(id);
     }
 
     function reBuild(id) {

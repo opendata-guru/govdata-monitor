@@ -83,6 +83,7 @@ var catalog = (function () {
                 suppliersCountZeroFilter: 'Keine Datenliefernde (gefiltert aus {max} Datenliefernden)',
                 suppliersError: 'Beim Ermitteln, wer die Daten bereitgestellt hat, ist ein Fehler aufgetreten',
                 suppliersHistory: '{days} Tage Datenliefernde Historie',
+                suppliersPlaceholder: 'Durchsuchen',
                 unknownPortal: 'Portal',
                 unknownSupplier: 'Unbekannte Datenquelle',
             },
@@ -120,6 +121,7 @@ var catalog = (function () {
                 suppliersCountZeroFilter: 'No data suppliers (filtered from {max} data suppliers)',
                 suppliersError: 'An error occurred while determining who suppliered the data',
                 suppliersHistory: '{days} days supplier history',
+                suppliersPlaceholder: 'Search',
                 unknownPortal: 'Portal',
                 unknownSupplier: 'Unknown data supplier',
             },
@@ -291,9 +293,17 @@ var catalog = (function () {
     }
 
     function buildPortalTable(pObject, dates) {
+        var input = document.querySelector('#search-control-' + pObject.pid + ' input');
+        var filter = '';
+
+        if (input) {
+            filter = input.value.trim();
+        }
+
         tableLObjects.build({
             dates: dates,
             dict: dict,
+            filter: filter,
             lObjectsCount: lObjectsCount,
             pObject: pObject,
         });
@@ -670,6 +680,8 @@ var catalog = (function () {
             strChart += strFrameEnd;
 
             strCard += '<div class="col">';
+            strCard += '  <div id="portal-' + pObject.pid + '-header">';
+            strCard += '  </div>';
             strCard += '  <div id="portal-' + pObject.pid + '">';
             strCard += '    <div class="loading-bar mb-2 pb-2" style="height:6.5rem"></div>';
             strCard += '  </div>';

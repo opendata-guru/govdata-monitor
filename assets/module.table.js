@@ -996,6 +996,13 @@ var tableLObjects = (function () {
             return;
         }
 
+        var searchInput = document.querySelector('#search-control-' + options.pObject.pid + ' input');
+        var filter = '';
+        if (searchInput) {
+            filter = searchInput.value.trim();
+        }
+
+        options.filter = filter;
         options.dates = [...new Set(options.dates)];
         options.dates.sort();
 

@@ -293,17 +293,9 @@ var catalog = (function () {
     }
 
     function buildPortalTable(pObject, dates) {
-        var input = document.querySelector('#search-control-' + pObject.pid + ' input');
-        var filter = '';
-
-        if (input) {
-            filter = input.value.trim();
-        }
-
         tableLObjects.build({
             dates: dates,
             dict: dict,
-            filter: filter,
             lObjectsCount: lObjectsCount,
             pObject: pObject,
         });

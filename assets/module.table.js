@@ -586,6 +586,8 @@ var table = (function () {
 }());
 
 var tableLObjects = (function () {
+    var defaultSelection = '',
+        paramSelectionPrefix = 'text-';
     var paginationSize = 35;
     var tableOptions = [];
 
@@ -996,10 +998,12 @@ var tableLObjects = (function () {
             return;
         }
 
-        var searchInput = document.querySelector('#search-control-' + options.pObject.pid + ' input');
-        var filter = '';
-        if (searchInput) {
-            filter = searchInput.value.trim();
+        var params = new URLSearchParams(window.location.search);
+        var paramSelection = paramSelectionPrefix + options.pObject.pid;
+        if (params.has(paramSelection)) {
+            filter = params.get(paramSelection);
+        } else {
+            filter = defaultSelection;
         }
 
         options.filter = filter;
@@ -1066,6 +1070,15 @@ var tableLObjects = (function () {
         var id = 'portal-' + pid;
 
         tableOptions[id].filter = filter;
+
+        var params = new URLSearchParams(window.location.search);
+        var paramSelection = paramSelectionPrefix + pid;
+        if (filter === defaultSelection) {
+            params.delete(paramSelection);
+        } else {
+            params.set(paramSelection, filter);
+        }
+        window.history.replaceState({}, '', `${location.pathname}?${params}`);
 
         reBuild(id);
     }

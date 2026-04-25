@@ -1355,6 +1355,7 @@ var catalog = (function () {
 								titleStart = titleSplit[0];
 							}
 						}
+                        titleStart = titleStart.replace(/['"]+/g, '');
 						if (lObject.sobject) {
                             var title = basics.lObject.getTitle(lObject);
 							str += '<b>' + title + '</b><br><br>';

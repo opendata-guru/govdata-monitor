@@ -587,7 +587,9 @@ var table = (function () {
 
 var tableLObjects = (function () {
     var defaultSelection = '',
-        paramSelectionPrefix = 'text-';
+        paramSelectionPrefix = 'text-',
+        defaultPage = 0,
+        paramPagePrefix = 'page-';
     var paginationSize = 35;
     var tableOptions = [];
 
@@ -936,18 +938,38 @@ var tableLObjects = (function () {
         return str;
     }
 
+    function fixPage(page, pid) {
+        var id = 'portal-' + pid;
+        var options = tableOptions[id];
+        var pageCount = Math.trunc(options.pObject.lObjectsFiltered / paginationSize);
+
+        if (page < 0) {
+            page = 0;
+        } else if (!isNaN(pageCount) && (page > pageCount)) {
+            page = pageCount;
+        }
+
+        return page;
+    }
+
     function funcOnPage(that) {
         var page = parseInt(that.dataset.page, 10);
         var elemPagination = that.parentElement;
         var portalTable = elemPagination.parentElement;
+        var pid = portalTable.id.split('-')[1];
 
-        if (page < 0) {
-            page = 0;
-//        } else if (page > pageCount) {
-//            page = pageCount;
-        }
+        page = fixPage(page, pid);
 
         portalTable.dataset.page = page;
+
+        var params = new URLSearchParams(window.location.search);
+        var paramPage = paramPagePrefix + pid;
+        if (page === defaultPage) {
+            params.delete(paramPage);
+        } else {
+            params.set(paramPage, page);
+        }
+        window.history.replaceState({}, '', `${location.pathname}?${params}`);
 
         reBuild(portalTable.id);
     }
@@ -1000,10 +1022,16 @@ var tableLObjects = (function () {
 
         var params = new URLSearchParams(window.location.search);
         var paramSelection = paramSelectionPrefix + options.pObject.pid;
+        var paramPage = paramPagePrefix + options.pObject.pid;
         if (params.has(paramSelection)) {
             filter = params.get(paramSelection);
         } else {
             filter = defaultSelection;
+        }
+        if (params.has(paramPage)) {
+            page = parseInt(params.get(paramPage), 10);
+        } else {
+            page = defaultPage;
         }
 
         options.filter = filter;
@@ -1025,7 +1053,7 @@ var tableLObjects = (function () {
         if (elem) {
             tableOptions[id] = options;
 
-            var page = 0;
+            page = fixPage(page, options.pObject.pid);
             var str = buildFrame(options, page);
 
             elem.innerHTML = str;
@@ -1090,6 +1118,23 @@ var tableLObjects = (function () {
         if (elem) {
             var page = parseInt(elem.dataset.page, 10);
             var str = buildFrame(options, page);
+
+            var pageCount = Math.trunc(options.pObject.lObjectsFiltered / paginationSize);
+            if (page > pageCount) {
+                page = pageCount;
+                elem.dataset.page = page;
+
+                var params = new URLSearchParams(window.location.search);
+                var paramPage = paramPagePrefix + options.pObject.pid;
+                if (page === defaultPage) {
+                    params.delete(paramPage);
+                } else {
+                    params.set(paramPage, page);
+                }
+                window.history.replaceState({}, '', `${location.pathname}?${params}`);
+
+                str = buildFrame(options, page);
+            }
 
             elem.innerHTML = str;
         }

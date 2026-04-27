@@ -822,6 +822,7 @@ var system = (function () {
             title = title.replace('ekan', 'EKAN');
             title = title.replace('entryscape', 'EntryScape');
             title = title.replace('ingrid', 'InGrid');
+            title = title.replace('mobilithek', 'Mobilithek');
             title = title.replace('Opendatasoft', 'Huwise');
             title = title.replace('sparql', 'SPARQL');
         }
@@ -1065,7 +1066,7 @@ var system = (function () {
         pSystems.forEach(sys => {
             var system = sys.system;
 
-            if (['ArcGIS Hub', 'ckan','conterra','dkan','DUVA','ekan','entryscape','ingrid','Opendatasoft','Piveau','sparql'].indexOf(system) !== -1) {
+            if (['ArcGIS Hub', 'ckan','conterra','dkan','DUVA','ekan','entryscape','geoportal.de','ingrid','mobilithek','Opendatasoft','Piveau','sparql'].indexOf(system) !== -1) {
 systemCanvas += getSystemItem(sys);
             } else {
                 otherBody += getOtherSystemsRow(sys);

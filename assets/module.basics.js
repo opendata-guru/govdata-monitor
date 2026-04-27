@@ -10,7 +10,7 @@ var basics = (function () {
             federal: 'Bund',
             federalAgency: 'Bundesbehörde',
             state: 'Land',
-            stateAgency: 'Landesamt',
+            stateAgency: 'Landesbehörde',
             state_municipality: 'Land und Stadt',
             governmentRegion: 'Regierungsbezirk',
             regionalNetwork: 'Region',

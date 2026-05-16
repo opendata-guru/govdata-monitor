@@ -127,7 +127,7 @@ var nav = (function () {
         submenuItem.classList.add('nav-item', 'dropdown');
 
         navigation.forEach(nav => {
-            var url = (window.location.protocol === 'file:' ? '' : NAV_BASE_URL) + nav.url;
+            var url = (window.location.protocol === 'file:' ? '' : (window.location.protocol === 'https:' ? '' : NAV_BASE_URL)) + nav.url;
             var page = url.split('/').splice(-1)[0];
             if (langParam !== '') {
                 url += '?' + langParam;

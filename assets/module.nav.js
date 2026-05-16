@@ -64,7 +64,7 @@ var nav = (function () {
         },
         {
             icon: 'activity',
-            position: NAV_MENU,
+            position: NAV_TEST,
             title: {
                 de: 'Metrik',
                 en: 'Meter',
@@ -109,7 +109,7 @@ var nav = (function () {
         },
         {
             icon: 'shopping-cart',
-            position: NAV_TEST,
+            position: NAV_MENU,
             title: {
                 de: 'Fanartikel',
                 en: 'Merchandise',
